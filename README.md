@@ -15,5 +15,5 @@ pnpm setup
 ```
 
 ```sh
-pnpm build
+pnpm start
 ```
