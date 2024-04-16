@@ -12,5 +12,6 @@ debug = true
 description = 'alt:V Sample Server'
 modules = [ 'js-module' ]
 resources = [
-  'core'
+    # All resources and mods should always be loaded before core
+    'core'
 ]
