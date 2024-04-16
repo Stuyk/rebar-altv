@@ -4,9 +4,8 @@
     "start": "pnpm build && altv-server",
     "setup": "altv-pkg i",
     "clean": "shx rm -rf resources/core",
-    "build": "pnpm clean && pnpm build:core && pnpm build:plugins && shx cp ./src/resource.toml ./resources/core/resource.toml",
-    "build:core": "sucrase ./src -d ./resources/core --transforms typescript",
-    "build:plugins": "sucrase ./plugins -d ./resources/core --transforms typescript"
+    "build": "pnpm clean && pnpm transpile && shx cp ./src/resource.toml ./resources/core/resource.toml",
+    "transpile": "sucrase ./src -d ./resources/core --transforms typescript"
   },
   "devDependencies": {
     "@altv/types-client": "^16.2.2",

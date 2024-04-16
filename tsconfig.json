@@ -2,10 +2,10 @@
   "compilerOptions": {
     "baseUrl": "src",
     "paths": {
-      "@/Server/*": ["core/server/*"],
-      "@/Client/*": ["core/client/*"],
-      "@/Shared/*": ["core/shared/*"],
-      "@/Plugins/*": ["core/plugins/*"]
+      "@Server/*": ["main/server/*"],
+      "@Client/*": ["main/client/*"],
+      "@Shared/*": ["main/shared/*"],
+      "@Plugins/*": ["plugins/*"]
     },
     "typeRoots": ["./node_modules/@types", "./node_modules/@altv"],
     "removeComments": true,

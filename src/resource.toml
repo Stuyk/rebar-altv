@@ -1,9 +1,9 @@
 type = "js"
-main = "server/index.js"
-client-main = "client/index.js"
+main = "main/server/index.js"
+client-main = "main/client/index.js"
 client-files = [
-    "client/*",
-    "shared/*",
+    "main/client/*",
+    "main/shared/*",
     "**/client/*",
     "**/shared/*"
 ]
