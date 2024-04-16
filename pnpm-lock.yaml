@@ -20,6 +20,9 @@ devDependencies:
   '@altv/types-webview':
     specifier: ^16.2.1
     version: 16.2.1
+  '@types/node':
+    specifier: ^20.12.7
+    version: 20.12.7
   altv-pkg:
     specifier: ^2.7.5
     version: 2.7.5
@@ -122,6 +125,12 @@ packages:
     requiresBuild: true
     dev: true
     optional: true
+
+  /@types/node@20.12.7:
+    resolution: {integrity: sha512-wq0cICSkRLVaf3UGLMGItu/PtdY7oaXaI/RVU+xliKVOtRna3PRY57ZDfztpDL0n11vfymMUnXv8QwYCO7L1wg==}
+    dependencies:
+      undici-types: 5.26.5
+    dev: true
 
   /altv-pkg@2.7.5:
     resolution: {integrity: sha512-sEdUAnS8DgaFuyFYtLWfGPci5qIVq0D09iDSwsyBMZo4l9iyz8nwW8cQjxtdIQ3BFX220Ob5mdZcCoWGe7/4oA==}
@@ -569,6 +578,10 @@ packages:
 
   /ts-interface-checker@0.1.13:
     resolution: {integrity: sha512-Y/arvbn+rrz3JCKl9C4kVNfTfSm2/mEp5FSz5EsZSANGPSlQrpRI5M4PKF+mJnE52jOO90PnPSc3Ur3bTQw0gA==}
+    dev: true
+
+  /undici-types@5.26.5:
+    resolution: {integrity: sha512-JlCMO+ehdEIKqlFxk6IfVoAUVmgz7cU7zD/h9XZ0qzeosSHmUJVOzSQvvYSYWXkFXC+IfLKSIffhv0sVZup6pA==}
     dev: true
 
   /webidl-conversions@3.0.1:
