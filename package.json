@@ -1,11 +1,16 @@
 {
+  "author": "stuyk",
   "type": "module",
   "scripts": {
-    "start": "pnpm build && altv-server",
+    "start": "pnpm kill && pnpm build && altv-server",
+    "dev": "nodemon -e ts -w ./src -x pnpm start",
     "setup": "altv-pkg i",
     "clean": "shx rm -rf resources/core",
-    "build": "pnpm clean && pnpm transpile && shx cp ./src/resource.toml ./resources/core/resource.toml",
-    "transpile": "sucrase ./src -d ./resources/core --transforms typescript"
+    "kill": "pnpm tsx ./scripts/pkill.ts",
+    "build": "pnpm clean && pnpm transpile && shx cp ./src/resource.toml ./resources/core/resource.toml && pnpm build:plugin:imports",
+    "build:plugin:imports": "pnpm tsx ./scripts/buildPluginImports.ts",
+    "transpile": "sucrase ./src -d ./resources/core --transforms typescript -q",
+    "transpile:verbose": "sucrase ./src -d ./resources/core --transforms typescript"
   },
   "devDependencies": {
     "@altv/types-client": "^16.2.2",
@@ -15,7 +20,11 @@
     "@altv/types-webview": "^16.2.1",
     "@types/node": "^20.12.7",
     "altv-pkg": "^2.7.5",
+    "fast-glob": "^3.3.2",
+    "fkill": "^9.0.0",
+    "nodemon": "^3.1.0",
     "shx": "^0.3.4",
-    "sucrase": "^3.35.0"
+    "sucrase": "^3.35.0",
+    "tsx": "^4.7.2"
   }
 }
