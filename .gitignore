@@ -1,0 +1,10 @@
+.server-crashes-cache/
+cache/
+data/
+modules/
+node_modules/
+resources/core/
+altv-crash-handler.exe
+altv-server.exe
+libnode.dll
+server.log

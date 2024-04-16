@@ -1,0 +1,20 @@
+{
+  "type": "module",
+  "scripts": {
+    "start": "",
+    "clean": "shx rm -rf resources/core",
+    "build": "pnpm clean && pnpm build:core && pnpm build:plugins && shx cp ./src/resource.toml ./resources/core/resource.toml",
+    "build:core": "sucrase ./src -d ./resources/core --transforms typescript",
+    "build:plugins": "sucrase ./plugins -d ./resources/core --transforms typescript"
+  },
+  "devDependencies": {
+    "@altv/types-client": "^16.2.2",
+    "@altv/types-natives": "^16.2.0",
+    "@altv/types-server": "^16.2.1",
+    "@altv/types-shared": "^16.2.1",
+    "@altv/types-webview": "^16.2.1",
+    "altv-pkg": "^2.7.5",
+    "shx": "^0.3.4",
+    "sucrase": "^3.35.0"
+  }
+}
