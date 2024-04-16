@@ -1,4 +1,11 @@
 import * as alt from "alt-client";
-import "./plugins.js";
+import "../translate/index.js";
 
-alt.log("Client Started!");
+async function start() {
+  // Load Plugins
+  alt.log(":: Loading Client Plugins");
+  import("./plugins.js");
+  alt.log(":: Loaded Client Plugins");
+}
+
+start();

@@ -3,6 +3,7 @@ cache/
 data/
 modules/
 node_modules/
+resources/main/
 resources/core/
 altv-crash-handler.exe
 altv-server.exe

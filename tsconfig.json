@@ -4,8 +4,7 @@
     "paths": {
       "@Server/*": ["main/server/*"],
       "@Client/*": ["main/client/*"],
-      "@Shared/*": ["main/shared/*"],
-      "@Plugins/*": ["plugins/*"]
+      "@Shared/*": ["main/shared/*"]
     },
     "typeRoots": ["./node_modules/@types", "./node_modules/@altv"],
     "removeComments": true,
@@ -37,9 +36,9 @@
     "src/**/*.d.ts",
     "src/**/*.tsx",
     "src/**/*.vue",
-    "src/core/plugins/**/webview/**.ts",
-    "src/core/plugins/**/webview/**.vue",
-    "src/core/plugins/**/components/**.vue"
+    "src/main/plugins/**/webview/**.ts",
+    "src/main/plugins/**/webview/**.vue",
+    "src/main/plugins/**/components/**.vue"
   ],
   "exclude": [
     "resources",

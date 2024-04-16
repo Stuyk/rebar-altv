@@ -2,13 +2,14 @@
   "author": "stuyk",
   "type": "module",
   "scripts": {
-    "start": "pnpm kill && pnpm build && altv-server",
+    "start": "pnpm script:kill && pnpm build && pnpm script:paths && altv-server",
     "dev": "nodemon -e ts -w ./src -x pnpm start",
     "setup": "altv-pkg i",
     "clean": "shx rm -rf resources/core",
-    "kill": "pnpm tsx ./scripts/pkill.ts",
-    "build": "pnpm clean && pnpm transpile && shx cp ./src/resource.toml ./resources/core/resource.toml && pnpm build:plugin:imports",
-    "build:plugin:imports": "pnpm tsx ./scripts/buildPluginImports.ts",
+    "script:kill": "pnpm tsx ./scripts/pkill.ts",
+    "script:imports": "pnpm tsx ./scripts/buildPluginImports.ts",
+    "script:paths": "pnpm tsx ./scripts/pathResolver.ts",
+    "build": "pnpm clean && pnpm transpile && shx cp ./src/resource.toml ./resources/core/resource.toml && pnpm script:imports",
     "transpile": "sucrase ./src -d ./resources/core --transforms typescript -q",
     "transpile:verbose": "sucrase ./src -d ./resources/core --transforms typescript"
   },

@@ -1,6 +1,9 @@
 import * as alt from "alt-server";
 import * as Utility from "./utility/index.js";
+import "../translate/index.js";
+import { useTranslate } from "@Shared/translate.js";
 
+const { t } = useTranslate();
 const { reconnect } = Utility.useDevReconnect();
 
 async function handleStart() {
@@ -15,6 +18,8 @@ async function handleStart() {
   if (alt.debug) {
     reconnect();
   }
+
+  alt.log(t("system.server.started"));
 }
 
 alt.on("serverStarted", handleStart);
