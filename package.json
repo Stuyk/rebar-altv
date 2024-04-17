@@ -15,8 +15,8 @@
     "transpile": "sucrase ./src -d ./resources/core --transforms typescript -q",
     "transpile:verbose": "sucrase ./src -d ./resources/core --transforms typescript",
     "[-] Webview": "",
-    "webview:build": "pnpm vite build ./webview",
-    "webview:dev": "pnpm vite dev ./webview"
+    "webview:build": "pnpm -C webview run build",
+    "webview:dev": "pnpm -C webview run dev"
   },
   "devDependencies": {
     "@altv/types-client": "^16.2.2",
