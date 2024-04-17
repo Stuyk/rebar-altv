@@ -1,5 +1,5 @@
-import { Events } from "@Shared/events/index.js";
 import * as alt from "alt-client";
+import { Events } from "@Shared/events/index.js";
 
 type AnyCallback =
   | ((...args: any[]) => void)
@@ -16,7 +16,12 @@ function handleServerEvent(event: string, ...args: any[]) {
 }
 
 function handleClientEvent(event: string, ...args: any[]) {
-  //
+  if (!ClientEvents[event]) {
+    console.warn(`[Client] Event '${event}' does not have a callback`);
+    return;
+  }
+
+  ClientEvents[event](...args);
 }
 
 export function useWebview(path: "http://assets/webview/index.html") {
@@ -24,14 +29,27 @@ export function useWebview(path: "http://assets/webview/index.html") {
 
   if (!webview) {
     webview = new alt.WebView(path);
-
     isInitialized = false;
   }
 
+  /**
+   * Emit data to the Webview
+   *
+   * @param {string} event
+   * @param {...any[]} args
+   */
   function emit(event: string, ...args: any[]) {
     webview.emit(Events.view.onEmit, event, ...args);
   }
 
+  /**
+   * Handle a client event from the Webview
+   *
+   * @template EventNames
+   * @param {EventNames} eventName
+   * @param {AnyCallback} cb
+   * @return
+   */
   function on<EventNames = string>(eventName: EventNames, cb: AnyCallback) {
     if (ClientEvents[String(eventName)]) {
       console.warn(`[Client] Duplicate Event Name ${eventName}`);
@@ -41,6 +59,11 @@ export function useWebview(path: "http://assets/webview/index.html") {
     ClientEvents[String(eventName)] = cb;
   }
 
+  /**
+   * Show a cursor for the Webview
+   *
+   * @param {boolean} state
+   */
   function showCursor(state: boolean) {
     if (state) {
       cursorCount += 1;
@@ -59,14 +82,14 @@ export function useWebview(path: "http://assets/webview/index.html") {
   }
 
   if (!isInitialized) {
-    alt.onServer("webview:emit", emit);
+    alt.onServer(Events.view.onServer, emit);
     webview.on(Events.view.emitClient, handleClientEvent);
     webview.on(Events.view.emitServer, handleServerEvent);
-    // webview.on(Events.view.emitReady, InternalFunctions.handleReadyEvent);
   }
 
   return {
     emit,
     on,
+    showCursor,
   };
 }
