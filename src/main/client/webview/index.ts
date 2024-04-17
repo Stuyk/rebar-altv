@@ -60,6 +60,21 @@ export function useWebview(path: "http://assets/webview/index.html") {
   }
 
   /**
+   * Remove a client event from the Webview
+   *
+   * @template EventNames
+   * @param {EventNames} eventName
+   * @return
+   */
+  function off<EventNames = string>(eventName: EventNames) {
+    if (!ClientEvents[String(eventName)]) {
+      return;
+    }
+
+    delete ClientEvents[String(eventName)];
+  }
+
+  /**
    * Show a cursor for the Webview
    *
    * @param {boolean} state
@@ -89,6 +104,7 @@ export function useWebview(path: "http://assets/webview/index.html") {
 
   return {
     emit,
+    off,
     on,
     showCursor,
   };

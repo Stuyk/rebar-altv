@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { ref } from "vue";
 import { usePages } from "../composables/usePages";
 
 const { pagesPersistent, pagesDynamic } = usePages();
