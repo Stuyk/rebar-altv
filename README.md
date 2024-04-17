@@ -45,4 +45,6 @@ A folder structure that is simple to read, and simple to write.
         │   └───index.ts
         ├───translate
         │   └───index.ts
+        └───webview
+            └───MyCustomPage.vue
 ```
