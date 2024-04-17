@@ -1,17 +1,19 @@
 <script setup lang="ts">
 import { ref } from "vue";
+import { usePages } from "../composables/usePages";
 
-const pages = ref<string[]>();
-const persistent = ref<string[]>();
+const { pagesPersistent, pagesDynamic } = usePages();
 </script>
 
 <template>
-  <div>
-    <component
-      v-for="(pageName, index) in persistent"
-      :is="pageName"
-      :key="index"
-    />
-    <component v-for="(pageName, index) in pages" :is="pageName" :key="index" />
+  <div class="flex relative top-0 left-0">
+    <!-- Persistent Pages -->
+    <template v-for="(pageInfo, index) in pagesPersistent">
+      <component v-if="pageInfo.visible" :is="pageInfo.name" :key="index" />
+    </template>
+    <!-- Dynamic Pages -->
+    <template v-for="(pageInfo, index) in pagesDynamic">
+      <component v-if="pageInfo.visible" :is="pageInfo.name" :key="index" />
+    </template>
   </div>
 </template>
