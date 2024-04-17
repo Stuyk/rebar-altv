@@ -6,7 +6,7 @@
     "dev": "nodemon -e ts -e vue -w ./src -w ./webview -x pnpm start",
     "build": "pnpm clean && pnpm transpile && shx cp ./src/resource.toml ./resources/core/resource.toml && pnpm webview:build && pnpm script:imports",
     "start": "pnpm script:kill && pnpm build && pnpm script:paths && altv-server",
-    "setup": "altv-pkg i",
+    "binaries": "pnpm altv-pkg",
     "[-] Scripts": "",
     "script:kill": "pnpm tsx ./scripts/pkill.ts",
     "script:imports": "pnpm tsx ./scripts/buildPluginImports.ts",

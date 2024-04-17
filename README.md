@@ -20,7 +20,7 @@ pnpm i
 ```
 
 ```sh
-pnpm setup
+pnpm binaries
 ```
 
 ```sh
