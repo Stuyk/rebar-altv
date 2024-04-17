@@ -2,16 +2,21 @@
   "author": "stuyk",
   "type": "module",
   "scripts": {
-    "start": "pnpm script:kill && pnpm build && pnpm script:paths && altv-server",
-    "dev": "nodemon -e ts -w ./src -x pnpm start",
-    "setup": "altv-pkg i",
     "clean": "shx rm -rf resources/core",
+    "dev": "nodemon -e ts -e vue -w ./src -w ./webview -x pnpm start",
+    "build": "pnpm clean && pnpm transpile && shx cp ./src/resource.toml ./resources/core/resource.toml && pnpm webview:build && pnpm script:imports",
+    "start": "pnpm script:kill && pnpm build && pnpm script:paths && altv-server",
+    "setup": "altv-pkg i",
+    "[-] Scripts": "",
     "script:kill": "pnpm tsx ./scripts/pkill.ts",
     "script:imports": "pnpm tsx ./scripts/buildPluginImports.ts",
     "script:paths": "pnpm tsx ./scripts/pathResolver.ts",
-    "build": "pnpm clean && pnpm transpile && shx cp ./src/resource.toml ./resources/core/resource.toml && pnpm script:imports",
+    "[-] Transpile": "",
     "transpile": "sucrase ./src -d ./resources/core --transforms typescript -q",
-    "transpile:verbose": "sucrase ./src -d ./resources/core --transforms typescript"
+    "transpile:verbose": "sucrase ./src -d ./resources/core --transforms typescript",
+    "[-] Webview": "",
+    "webview:build": "pnpm -C webview run build",
+    "webview:dev": "pnpm -C webview run dev"
   },
   "devDependencies": {
     "@altv/types-client": "^16.2.2",
@@ -21,11 +26,21 @@
     "@altv/types-webview": "^16.2.1",
     "@types/node": "^20.12.7",
     "altv-pkg": "^2.7.5",
+    "autoprefixer": "^10.4.19",
     "fast-glob": "^3.3.2",
     "fkill": "^9.0.0",
     "nodemon": "^3.1.0",
+    "postcss": "^8.4.38",
     "shx": "^0.3.4",
     "sucrase": "^3.35.0",
+    "tailwindcss": "^3.4.3",
     "tsx": "^4.7.2"
+  },
+  "dependencies": {
+    "@vitejs/plugin-vue": "^5.0.4",
+    "typescript": "^5.4.5",
+    "vite": "^5.2.9",
+    "vue": "^3.4.23",
+    "vue-tsc": "^2.0.13"
   }
 }
