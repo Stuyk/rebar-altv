@@ -1,5 +1,6 @@
 import * as alt from 'alt-client';
 import { Events } from '@Shared/events/index.js';
+import { PageNames, PageType } from '@Shared/webview/index.js';
 
 type AnyCallback = ((...args: any[]) => void) | ((...args: any[]) => Promise<void>) | Function;
 
@@ -93,6 +94,22 @@ export function useWebview(path: 'http://assets/webview/index.html') {
         }
     }
 
+    function show(vueName: PageNames, type: PageType) {
+        webview.emit(Events.view.show, vueName, type);
+    }
+
+    function hide(vueName: PageNames) {
+        webview.emit(Events.view.hide, vueName);
+    }
+
+    function hideAll(vueNames: PageNames[]) {
+        webview.emit(Events.view.hideAll, vueNames);
+    }
+
+    function hideAllByType(type: PageType) {
+        webview.emit(Events.view.hideAllByType, type);
+    }
+
     if (!isInitialized) {
         alt.onServer(Events.view.onServer, emit);
         webview.on(Events.view.emitClient, handleClientEvent);
@@ -104,5 +121,9 @@ export function useWebview(path: 'http://assets/webview/index.html') {
         off,
         on,
         showCursor,
+        show,
+        hide,
+        hideAll,
+        hideAllByType,
     };
 }

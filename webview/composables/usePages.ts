@@ -1,19 +1,35 @@
 import { ref } from 'vue';
+import { PageType } from '../../src/main/shared/webview/index';
 
 type PageInfo = { name: string; visible: boolean };
-type PageTypes = 'persistent' | 'dynamic';
 
 const pagesPersistent = ref<PageInfo[]>([]);
-const pagesDynamic = ref<PageInfo[]>([]);
+const pagesOverlay = ref<PageInfo[]>([]);
+const page = ref<string | undefined>();
 
 export function usePages() {
     /**
+     * Initialize the composables
+     *
+     */
+    function init() {
+        pagesPersistent.value = [];
+        pagesOverlay.value = [];
+        console.log(`Webview Page Composable Started`);
+    }
+
+    /**
      * Hide all pages for a given type
      *
-     * @param {PageTypes} type
+     * @param {PageType} type
      */
-    function hideAll(type: PageTypes) {
-        const target = type === 'persistent' ? pagesPersistent : pagesDynamic;
+    function hideAllByType(type: PageType) {
+        if (type === 'page') {
+            page.value = undefined;
+            return;
+        }
+
+        const target = type === 'persistent' ? pagesPersistent : pagesOverlay;
         for (let page of target.value) {
             page.visible = false;
         }
@@ -22,48 +38,51 @@ export function usePages() {
     /**
      * Hide a specific page for a given type
      *
-     * @param {PageTypes} type
+     * @param {PageType} type
      * @param {string} pageName
      * @return
      */
-    function hide(type: PageTypes, pageName: string) {
-        const target = type === 'persistent' ? pagesPersistent : pagesDynamic;
-        const index = target.value.findIndex((x) => x.name === pageName);
-        if (index <= -1) {
+    function hide(pageName: string) {
+        if (page.value === pageName) {
+            page.value = undefined;
             return;
         }
 
-        target.value[index].visible = false;
-    }
+        for (let pageRef of pagesPersistent.value) {
+            if (pageRef.name != pageName) {
+                continue;
+            }
 
-    /**
-     * Register a component to be useable for loading in-game
-     *
-     * @param {PageTypes} type
-     * @param {string} name
-     * @return
-     */
-    function register(type: 'persistent' | 'dynamic', name: string) {
-        const target = type === 'persistent' ? pagesPersistent : pagesDynamic;
-        const index = target.value.findIndex((x) => x.name === name);
-        if (index >= 0) {
-            console.warn(`[Webview] ${name} is already registered`);
-            return;
+            pageRef.visible = false;
+            break;
         }
 
-        target.value.push({ name, visible: false });
+        for (let pageRef of pagesOverlay.value) {
+            if (pageRef.name != pageName) {
+                continue;
+            }
+
+            pageRef.visible = false;
+            break;
+        }
     }
 
     /**
      * Show a specific page for a given type
      *
-     * @param {PageTypes} pageType
+     * @param {PageType} pageType
      * @param {string} pageName
      */
-    function show(type: PageTypes, pageName: string) {
-        const target = type === 'persistent' ? pagesPersistent : pagesDynamic;
+    function show(pageName: string, type: PageType) {
+        if (type === 'page') {
+            page.value = pageName;
+            return;
+        }
+
+        const target = type === 'persistent' ? pagesPersistent : pagesOverlay;
         const index = target.value.findIndex((x) => x.name === pageName);
         if (index <= -1) {
+            target.value.push({ name: pageName, visible: true });
             return;
         }
 
@@ -71,11 +90,12 @@ export function usePages() {
     }
 
     return {
+        init,
         hide,
-        hideAll,
+        hideAllByType,
+        page,
         pagesPersistent,
-        pagesDynamic,
-        register,
+        pagesOverlay,
         show,
     };
 }

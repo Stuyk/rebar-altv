@@ -5,7 +5,9 @@ export const Events = {
         emitServer: 'webview:emit:server',
         emitClient: 'webview:emit:client',
         emitReady: 'webview:emit:page:ready',
-        setPages: 'webview:set:pages',
-        rmvPages: 'webview:remove:page',
+        show: 'webview:emit:page:show',
+        hide: 'webview:emit:page:hide',
+        hideAll: 'webview:emit:page:hide:all',
+        hideAllByType: 'webview:emit:page:hide:all:type',
     },
 };
