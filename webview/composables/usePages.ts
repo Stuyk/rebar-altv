@@ -7,6 +7,17 @@ const pagesPersistent = ref<PageInfo[]>([]);
 const pagesOverlay = ref<PageInfo[]>([]);
 const page = ref<string | undefined>();
 
+function toggleByType(type: PageType, value: boolean) {
+    if (type === 'page') {
+        return;
+    }
+
+    const target = type === 'persistent' ? pagesPersistent : pagesOverlay;
+    for (let pageRef of target.value) {
+        pageRef.visible = value;
+    }
+}
+
 export function usePages() {
     /**
      * Initialize the composables
@@ -29,10 +40,7 @@ export function usePages() {
             return;
         }
 
-        const target = type === 'persistent' ? pagesPersistent : pagesOverlay;
-        for (let page of target.value) {
-            page.visible = false;
-        }
+        toggleByType(type, false);
     }
 
     /**
@@ -45,6 +53,7 @@ export function usePages() {
     function hide(pageName: string) {
         if (page.value === pageName) {
             page.value = undefined;
+            toggleByType('overlay', true);
             return;
         }
 
@@ -76,6 +85,7 @@ export function usePages() {
     function show(pageName: string, type: PageType) {
         if (type === 'page') {
             page.value = pageName;
+            toggleByType('overlay', false);
             return;
         }
 

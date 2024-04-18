@@ -94,18 +94,39 @@ export function useWebview(path: 'http://assets/webview/index.html') {
         }
     }
 
+    /**
+     * Show a page based on page name, and assign a type
+     *
+     * @param {PageNames} vueName
+     * @param {PageType} type
+     */
     function show(vueName: PageNames, type: PageType) {
         webview.emit(Events.view.show, vueName, type);
     }
 
+    /**
+     * Hide a page based on page name.
+     *
+     * @param {PageNames} vueName
+     */
     function hide(vueName: PageNames) {
         webview.emit(Events.view.hide, vueName);
     }
 
+    /**
+     * Hide all pages specified in this function
+     *
+     * @param {PageNames[]} vueNames
+     */
     function hideAll(vueNames: PageNames[]) {
         webview.emit(Events.view.hideAll, vueNames);
     }
 
+    /**
+     * Hide all pages by type
+     *
+     * @param {PageType} type
+     */
     function hideAllByType(type: PageType) {
         webview.emit(Events.view.hideAllByType, type);
     }
@@ -118,12 +139,12 @@ export function useWebview(path: 'http://assets/webview/index.html') {
 
     return {
         emit,
+        hide,
+        hideAll,
+        hideAllByType,
         off,
         on,
         showCursor,
         show,
-        hide,
-        hideAll,
-        hideAllByType,
     };
 }
