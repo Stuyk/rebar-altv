@@ -1,7 +1,8 @@
 # Table of Contents
 
--   [What is Rebar?](index.md)
--   [Install](install.md)
+-   [What is Rebar?](./index.md)
+-   [Install](./install.md)
+-   [Developing](./development.md)
 
 *   Plugins
 

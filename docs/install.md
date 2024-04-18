@@ -49,11 +49,3 @@ pnpm binaries
 ```
 pnpm start
 ```
-
-## Development Mode
-
-If you want to work on your code and automatically reconnect ensure you enable `debug` for your `alt:V Client` and then run the following in a `terminal`.
-
-```
-pnpm dev
-```
