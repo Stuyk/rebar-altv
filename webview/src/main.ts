@@ -2,8 +2,8 @@ import { createApp } from 'vue';
 import './style.css';
 import './index.css';
 import { PLUGIN_IMPORTS } from '../pages/plugins';
-import App from './App.vue';
 import { usePages } from '../composables/usePages';
+import App from './App.vue';
 
 const { init } = usePages();
 

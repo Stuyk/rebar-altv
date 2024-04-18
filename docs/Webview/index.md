@@ -4,7 +4,7 @@ A Webview for this framework may also be known as a page.
 
 Pages are HTML content that can be used to render user interfaces in-game.
 
-In Rebar we have the concept of 3 different types of Pages.
+Rebar has the concept of 3 different types of Pages.
 
 1. Overlay
 2. Persistent

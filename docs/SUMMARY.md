@@ -5,9 +5,9 @@
 
 *   Plugins
 
-    -   [What is a Plugin?](plugins/index.md)
-    -   [Create](plugins/create.md)
+    -   [What is a Plugin?](./plugins/index.md)
+    -   [Create](./plugins/create.md)
 
 *   Webview
 
-    -   [What is a Webview?](webview/index.md)
+    -   [What is a Webview?](./webview/index.md)
