@@ -1,4 +1,4 @@
-import * as alt from "alt-client";
+import * as alt from 'alt-client';
 
-alt.log("");
+alt.log('');
 // Leave file empty, must exist for plugin population
