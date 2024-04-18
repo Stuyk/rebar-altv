@@ -1,4 +1,6 @@
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+console.log(`Hello from webview`);
+</script>
 
 <template>
     <div>
