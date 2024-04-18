@@ -10,6 +10,7 @@ altv-crash-handler.exe
 altv-server.exe
 libnode.dll
 server.log
+webview/pages/plugins.ts
 
 # Logs
 logs
