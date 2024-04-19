@@ -11,6 +11,7 @@ altv-server.exe
 libnode.dll
 server.log
 webview/pages/plugins.ts
+.env
 
 # Logs
 logs

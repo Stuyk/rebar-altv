@@ -2,12 +2,17 @@ import * as alt from 'alt-server';
 import * as Utility from './utility/index.js';
 import '../translate/index.js';
 import { useTranslate } from '../shared/translate.js';
+import { useConfig } from './config/index.js';
+import { useDatabase } from './database/index.js';
 
+const config = useConfig();
+const database = useDatabase();
 const { t } = useTranslate();
 const { reconnect } = Utility.useDevReconnect();
 
 async function handleStart() {
     // Handle server setup
+    await database.init(config.get().mongodb);
 
     // Handle plugin loading
     alt.log(':: Loading Plugins');
