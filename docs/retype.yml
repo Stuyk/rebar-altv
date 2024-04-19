@@ -1,0 +1,9 @@
+input: .
+output: .retype
+url: # Add your website address here
+branding:
+    title: Rebar for alt:V
+    logo: static/logo_dark.svg
+    logoDark: static/logo_light.svg
+footer:
+    copyright: '&copy; Copyright {{ year }}. All rights reserved.'

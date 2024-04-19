@@ -16,9 +16,11 @@ This is not optional, install these programs.
 
 ## Setup
 
-{% hint style="warning" %}
-NEVER RUN `altv-server` DIRECTLY, YOU MUST FOLLOW THESE INSTRUCTIONS
-{% endhint %}
+!!!
+Never run the `altv-server` binary directly, you must use `pnpm` commands
+!!!
+
+---
 
 Open a `terminal` and `clone` the repository somewhere.
 

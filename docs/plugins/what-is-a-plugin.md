@@ -1,3 +1,7 @@
+---
+order: 100
+---
+
 # What is a Plugin?
 
 A plugin can be seen as code that is meant to work with the Rebar Framework.
