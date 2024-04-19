@@ -12,6 +12,9 @@ Plugins for Rebar allow developers to drag & drop repositories into their server
 -   Path Aliasing
 -   Transpiling
 -   Reload
+-   Webview Overlays, Persistent Pages, and Single Pages
+-   Vue 3
+-   Tailwind
 
 ## Usage
 
