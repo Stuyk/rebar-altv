@@ -14,9 +14,27 @@ Plugins for Rebar allow developers to drag & drop repositories into their server
 -   Reload
 -   Webview Overlays, Persistent Pages, and Single Pages
 -   Vue 3
--   Tailwind
+-   TailwindCSS
+
+## Requirements
+
+This is not optional, install these programs.
+
+-   [Node.js](https://nodejs.org/en/download)
+-   [pnpm](https://pnpm.io/installation)
+-   [MongoDB Server](https://www.mongodb.com/try/download/community)
+    -   Ensure that if you are running it locally, do not set a database password.
+    -   When you move your server to production use something like [MongoDB Atlas](https://www.mongodb.com/atlas/database)
 
 ## Usage
+
+```sh
+git clone https://github.com/Stuyk/rebar-altv
+```
+
+```sh
+cd rebar-altv
+```
 
 ```sh
 pnpm i

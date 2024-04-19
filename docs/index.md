@@ -24,6 +24,7 @@ No. Rebar will have a slightly different API that is similar to Vue Composables.
 
 ## Tech Stack
 
--   MongoDB
+-   Node.js
 -   TypeScript
+-   MongoDB
 -   Vue
