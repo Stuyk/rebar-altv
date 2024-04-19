@@ -49,13 +49,16 @@ Translations can be used on `client-side`, `server-side`, or `webview` as long a
 
 ```ts
 // translate/index.ts
-import { useTranslate } from '@Shared/translate.js';
+
+// It is recommended to use relative paths for translation imports
+import { useTranslate } from '../../../main/shared/translate.js';
 const { setBulk } = useTranslate();
 
 setBulk({
     en: {
         'example.hello-from-server': 'Hello from server-side!',
         'example.hello-from-client': 'Hello from client-side!',
+        'example.hello-from-webview': 'Hello from webview!',
     },
 });
 ```
@@ -64,15 +67,20 @@ setBulk({
 
 Webview pages should always have unique names that differentiate from other plugins. Ensure you give your `vue` file a unique name.
 
-```tsx
+```jsx
 // MyPluginExample.vue
 <script lang="ts" setup>
+import '../translate/index';
+import { useTranslate } from '../../../main/shared/translate';
+
+const { t } = useTranslate('en');
+
 console.log(`Hello from webview`);
 </script>
 
 <template>
     <div>
-        <div class="text-red-500 text-lg">Hello, from Example Webview</div>
+        <div class="text-red-500 text-lg">{{ t('example.hello-from-webview') }}</div>
     </div>
 </template>
 ```
