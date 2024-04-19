@@ -8,6 +8,9 @@ dependencies:
   '@vitejs/plugin-vue':
     specifier: ^5.0.4
     version: 5.0.4(vite@5.2.9)(vue@3.4.23)
+  sjcl:
+    specifier: ^1.0.8
+    version: 1.0.8
   typescript:
     specifier: ^5.4.5
     version: 5.4.5
@@ -1954,6 +1957,10 @@ packages:
     dependencies:
       semver: 7.6.0
     dev: true
+
+  /sjcl@1.0.8:
+    resolution: {integrity: sha512-LzIjEQ0S0DpIgnxMEayM1rq9aGwGRG4OnZhCdjx7glTaJtf4zRfpg87ImfjSJjoW9vKpagd82McDOwbRT5kQKQ==}
+    dev: false
 
   /source-map-js@1.2.0:
     resolution: {integrity: sha512-itJW8lvSA0TXEphiRoawsCksnlf8SyvmFzIhltqAHluXd88pkCd+cXJVHTDwdCr0IzwptSm035IHQktUu1QUMg==}

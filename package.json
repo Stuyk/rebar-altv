@@ -42,6 +42,7 @@
     },
     "dependencies": {
         "@vitejs/plugin-vue": "^5.0.4",
+        "sjcl": "^1.0.8",
         "typescript": "^5.4.5",
         "vite": "^5.2.9",
         "vue": "^3.4.23",
