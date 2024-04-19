@@ -7,7 +7,7 @@ export type Account = {
      * @type {*}
      *
      */
-    _id: any;
+    _id: string;
 
     /**
      * A incremented ID for individual accounts.

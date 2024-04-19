@@ -1,27 +1,27 @@
 import * as alt from 'alt-server';
-import { Account } from '../../shared/types/account.js';
+import { Character } from '../../shared/types/character.js';
 import { KnownKeys } from '../../shared/utilityTypes/index.js';
 import { useDatabase } from '@Server/database/index.js';
 import { CollectionNames, KeyChangeCallback } from './shared.js';
-import { Character } from 'main/shared/types/character.js';
+import { Vehicle } from 'main/shared/types/vehicle.js';
 
-const sessionKey = 'document:account';
+const sessionKey = 'document:character';
 const callbacks: { [key: string]: Array<KeyChangeCallback> } = {};
 const db = useDatabase();
 
-export function useAccount(player: alt.Player) {
+export function useCharacter(player: alt.Player) {
     /**
-     * Return current player data and their associated account object.
+     * Return current player data and their associated character object.
      *
      * @template T
-     * @return {(T & Account) | undefined}
+     * @return {(T & Character) | undefined}
      */
-    function get<T = {}>(): (T & Account) | undefined {
+    function get<T = {}>(): (T & Character) | undefined {
         if (!player.hasMeta(sessionKey)) {
             return undefined;
         }
 
-        return <T & Account>player.getMeta(sessionKey);
+        return <T & Character>player.getMeta(sessionKey);
     }
 
     /**
@@ -29,10 +29,10 @@ export function useAccount(player: alt.Player) {
      * Can be extended to obtain any value easily.
      *
      * @template T
-     * @param {(keyof KnownKeys<Account & T>)} fieldName
+     * @param {(keyof KnownKeys<Character & T>)} fieldName
      * @return {ReturnType | undefined}
      */
-    function getField<T = {}, ReturnType = any>(fieldName: keyof KnownKeys<Account & T>): ReturnType | undefined {
+    function getField<T = {}, ReturnType = any>(fieldName: keyof KnownKeys<Character & T>): ReturnType | undefined {
         if (!player.hasMeta(sessionKey)) {
             return undefined;
         }
@@ -41,7 +41,7 @@ export function useAccount(player: alt.Player) {
     }
 
     /**
-     * Sets a player document value, and saves it automatically to the selected account database.
+     * Sets a player document value, and saves it automatically to the selected Character database.
      * Automatically calls all callbacks associated with the field name.
      *
      * @template T
@@ -49,13 +49,13 @@ export function useAccount(player: alt.Player) {
      * @param {*} value
      * @return {void}
      */
-    async function set<T = {}, Keys = keyof KnownKeys<Account & T>>(fieldName: Keys, value: any) {
+    async function set<T = {}, Keys = keyof KnownKeys<Character & T>>(fieldName: Keys, value: any) {
         if (!player.hasMeta(sessionKey)) {
             return undefined;
         }
 
         const typeSafeFieldName = String(fieldName);
-        let data = player.getMeta(sessionKey) as T & Account;
+        let data = player.getMeta(sessionKey) as T & Character;
         let oldValue = undefined;
 
         if (data[typeSafeFieldName]) {
@@ -66,7 +66,7 @@ export function useAccount(player: alt.Player) {
 
         data = Object.assign(data, newData);
         player.setMeta(sessionKey, data);
-        await db.update({ _id: data._id, [typeSafeFieldName]: value }, CollectionNames.Accounts);
+        await db.update({ _id: data._id, [typeSafeFieldName]: value }, CollectionNames.Characters);
 
         if (typeof callbacks[typeSafeFieldName] === 'undefined') {
             return;
@@ -78,19 +78,19 @@ export function useAccount(player: alt.Player) {
     }
 
     /**
-     * Sets player document values, and saves it automatically to the selected Account's database.
+     * Sets player document values, and saves it automatically to the selected Character's database.
      * Automatically calls all callbacks associated with the field name.
      *
      * @template T
-     * @param {(Partial<Account & T>)} fields
+     * @param {(Partial<Character & T>)} fields
      * @returns {void}
      */
-    async function setBulk<T = {}, Keys = Partial<Account & T>>(fields: Keys) {
+    async function setBulk<T = {}, Keys = Partial<Character & T>>(fields: Keys) {
         if (!player.hasMeta(sessionKey)) {
             return undefined;
         }
 
-        let data = player.getMeta(sessionKey) as Account & T;
+        let data = player.getMeta(sessionKey) as Character & T;
 
         const oldValues = {};
 
@@ -105,7 +105,7 @@ export function useAccount(player: alt.Player) {
 
         data = Object.assign(data, fields);
         player.setMeta(sessionKey, data);
-        await db.update({ _id: data._id, ...fields }, CollectionNames.Accounts);
+        await db.update({ _id: data._id, ...fields }, CollectionNames.Characters);
 
         Object.keys(fields).forEach((key) => {
             if (typeof callbacks[key] === 'undefined') {
@@ -119,29 +119,29 @@ export function useAccount(player: alt.Player) {
     }
 
     /**
-     * Return all characters that belong to this account
+     * Return all vehicles that belong to this account
      *
      * @template T
-     * @return {(Promise<(Character & T)[]>)}
+     * @return {(Promise<(Vehicle & T)[]>)}
      */
-    async function getCharacters<T = {}>(): Promise<(Character & T)[]> {
-        const data = player.getMeta(sessionKey) as Account & T;
-        const results = await db.getMany({ account_id: data._id }, CollectionNames.Characters);
-        return results as (Character & T)[];
+    async function getVehicles<T = {}>(): Promise<(Vehicle & T)[]> {
+        const data = player.getMeta(sessionKey) as Vehicle & T;
+        const results = await db.getMany({ owner: data._id }, CollectionNames.Vehicles);
+        return results as (Vehicle & T)[];
     }
 
-    return { get, getCharacters, getField, set, setBulk };
+    return { get, getField, getVehicles, set, setBulk };
 }
 
-export function useAccountBinder(player: alt.Player) {
+export function useCharacterBinder(player: alt.Player) {
     /**
-     * Binds a player identifier to a Account document.
+     * Binds a player identifier to a Character document.
      * This document is cleared on disconnected automatically.
      * This should be the first thing you do after having a user authenticate.
      *
-     * @param {Account & T} document
+     * @param {Character & T} document
      */
-    function bind<T = {}>(document: Account & T) {
+    function bind<T = {}>(document: Character & T) {
         if (!player.valid) {
             return;
         }
@@ -166,7 +166,7 @@ export function useAccountBinder(player: alt.Player) {
     };
 }
 
-export function useAccountEvents() {
+export function useCharacterEvents() {
     /**
      * Listen for individual player document changes.
      *
@@ -174,7 +174,7 @@ export function useAccountEvents() {
      * @param {KeyChangeCallback} callback
      * @return {void}
      */
-    function on<T = {}>(fieldName: keyof KnownKeys<Account & T>, callback: KeyChangeCallback) {
+    function on<T = {}>(fieldName: keyof KnownKeys<Character & T>, callback: KeyChangeCallback) {
         const actualFieldName = String(fieldName);
 
         if (typeof callbacks[actualFieldName] === 'undefined') {

@@ -1,6 +1,8 @@
-# Account Document
+# Document - Account
 
 An account document is a set of data that is bound to the player until they disconnect.
+
+It automatically saves data to the MongoDB database when any `set` function is used.
 
 ## Binding Data
 
@@ -9,7 +11,7 @@ You should bind account data when they authenticate to your server.
 ```ts
 import { useAccount, useAccountBinder } from '@Server/document/account.js';
 
-// ... some function here
+// ... some function
 // Use database functions to fetch or create an account
 const someAccountData = someDatabaseFetchOrCreateFunction();
 
@@ -25,7 +27,7 @@ Data can be retrieved for the bound account like this.
 ```ts
 import { useAccount, useAccountBinder } from '@Server/document/account.js';
 
-//... some function here
+//... some function
 const account = useAccount(player);
 const data = account.get();
 console.log(data.email);
@@ -38,17 +40,35 @@ Data can easily be appended or set in two different ways.
 ```ts
 import { useAccount, useAccountBinder } from '@Server/document/account.js';
 
-const account = useAccount(player);
+const document = useAccount(player);
 
 type CustomAccount = { whatever: string };
 
 //...some function
 // Single field
-account.set('banned', true);
+document.set('banned', true);
 
 // Multi-field
-account.setBulk({ banned: true, reason: 'big nerd' });
+document.setBulk({ banned: true, reason: 'big nerd' });
 
 // Custom-field
-account.setBulk<CustomAccount>({ banned: true, reason: 'big nerd', whatever: 'hi' });
+document.setBulk<CustomAccount>({ banned: true, reason: 'big nerd', whatever: 'hi' });
+```
+
+## Getting Characters
+
+When you need to obtain a character file for an account, you can use this function to get all existing characters.
+
+```ts
+import { useAccount } from '@Server/document/account.js';
+
+const document = useAccount(player);
+
+//...some function
+const characters = await document.getCharacters();
+if (characters.length >= 1) {
+    console.log('They have a character');
+} else {
+    console.log('They do not have a character');
+}
 ```
