@@ -9,33 +9,33 @@
     <meta name="generator" content="Retype 3.5.0">
 
     <!-- Primary Meta Tags -->
-    <title>Create a Plugin</title>
-    <meta name="title" content="Create a Plugin">
-    <meta name="description" content="If you wish to create plugins then you need to understand the basic structure of a plugin.">
+    <title>Utility</title>
+    <meta name="title" content="Utility">
+    <meta name="description" content="Utility provides a lot of shared functionality between client, server, and webview.">
 
     <!-- Canonical -->
-    <link rel="canonical" href="/plugins/create/">
+    <link rel="canonical" href="/api/shared/utility/">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="/plugins/create/">
-    <meta property="og:title" content="Create a Plugin">
-    <meta property="og:description" content="If you wish to create plugins then you need to understand the basic structure of a plugin.">
+    <meta property="og:url" content="/api/shared/utility/">
+    <meta property="og:title" content="Utility">
+    <meta property="og:description" content="Utility provides a lot of shared functionality between client, server, and webview.">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="/plugins/create/">
-    <meta property="twitter:title" content="Create a Plugin">
-    <meta property="twitter:description" content="If you wish to create plugins then you need to understand the basic structure of a plugin.">
+    <meta property="twitter:url" content="/api/shared/utility/">
+    <meta property="twitter:title" content="Utility">
+    <meta property="twitter:description" content="Utility provides a lot of shared functionality between client, server, and webview.">
 
     <script data-cfasync="false">(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
-    <link href="../../resources/css/retype.css?v=3.5.0.766869500774" rel="stylesheet">
+    <link href="../../../resources/css/retype.css?v=3.5.0.766869500774" rel="stylesheet">
 
-    <script data-cfasync="false" src="../../resources/js/config.js?v=3.5.0.766869500774" data-turbo-eval="false" defer></script>
-    <script data-cfasync="false" src="../../resources/js/retype.js?v=3.5.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" data-cfasync="false" src="../../resources/js/lunr.js?v=3.5.0.766869500774" data-turbo-eval="false" defer></script>
-    <script id="prism-js" data-cfasync="false" src="../../resources/js/prism.js?v=3.5.0.766869500774" defer></script>
+    <script data-cfasync="false" src="../../../resources/js/config.js?v=3.5.0.766869500774" data-turbo-eval="false" defer></script>
+    <script data-cfasync="false" src="../../../resources/js/retype.js?v=3.5.0" data-turbo-eval="false" defer></script>
+    <script id="lunr-js" data-cfasync="false" src="../../../resources/js/lunr.js?v=3.5.0.766869500774" data-turbo-eval="false" defer></script>
+    <script id="prism-js" data-cfasync="false" src="../../../resources/js/prism.js?v=3.5.0.766869500774" defer></script>
 </head>
 <body>
     <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -50,10 +50,10 @@
                 <!-- Logo -->
                 <div class="flex items-center justify-between h-full py-2 md:w-75">
                     <div class="flex items-center px-2 md:px-6">
-                        <a id="docs-site-logo" href="../../" class="flex items-center leading-snug text-xl">
+                        <a id="docs-site-logo" href="../../../" class="flex items-center leading-snug text-xl">
                             <span class="w-10 mr-2 grow-0 shrink-0 overflow-hidden">
-                                <img class="max-h-10 dark:hidden md:inline-block" src="../../static/logo_dark.svg">
-                                <img class="max-h-10 hidden dark:inline-block" src="../../static/logo_light.svg">
+                                <img class="max-h-10 dark:hidden md:inline-block" src="../../../static/logo_dark.svg">
+                                <img class="max-h-10 hidden dark:inline-block" src="../../../static/logo_light.svg">
                             </span>
                             <span class="dark:text-white font-semibold line-clamp-1 md:line-clamp-2">Rebar for alt:V</span>
                         </a>
@@ -154,105 +154,124 @@
                                 <!-- Rendered if sidebar right is enabled -->
                                 <div id="docs-sidebar-right-toggle"></div>
                                 <!-- Page content  -->
-<doc-anchor-target id="create-a-plugin" class="break-words">
+<doc-anchor-target id="utility" class="break-words">
     <h1>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#create-a-plugin">#</doc-anchor-trigger>
-        <span>Create a Plugin</span>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#utility">#</doc-anchor-trigger>
+        <span>Utility</span>
     </h1>
 </doc-anchor-target>
-<p>If you wish to create plugins then you need to understand the basic structure of a plugin.</p>
-<ol>
-<li>Create a folder inside <code v-pre>src/plugins</code> and name it something unique</li>
-<li>Create these additional folders under the new folder you created
-<ol>
-<li><code v-pre>client</code></li>
-<li><code v-pre>server</code></li>
-<li><code v-pre>translate</code></li>
-<li><code v-pre>webview</code></li>
-</ol>
-</li>
-</ol>
-<doc-anchor-target id="client">
+<p>Utility provides a lot of shared functionality between client, server, and webview.</p>
+<div class="flex mb-6">
+    <div class="shrink-0 w-1 rounded-tl rounded-bl bg-blue-500 dark:bg-blue-400"></div>
+    <div class="flex w-full py-4 border border-l-0 border-gray-300 rounded-tr rounded-br doc-alert bg-white dark:bg-dark-700 dark:border-dark-700" role="alert">
+        <div class="flex items-center ml-4 h-7">
+            <svg xmlns="http://www.w3.org/2000/svg" class="mb-px text-blue-500 dark:text-blue-400" width="22" height="22" viewBox="0 0 24 24" role="presentation">
+                <g fill="currentColor"><g>
+                    <path d="M12 1C5.93 1 1 5.93 1 12s4.93 11 11 11 11-4.93 11-11S18.07 1 12 1zm0 20c-4.96 0-9-4.04-9-9s4.04-9 9-9 9 4.04 9 9-4.04 9-9 9z"></path>
+                    <path d="M12 11c-.55 0-1 .45-1 1v4c0 .55.45 1 1 1s1-.45 1-1v-4c0-.55-.45-1-1-1zM12.01 7c-.56 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1z"></path>
+                    <path fill="none" d="M0 0h24v24H0z"></path>
+                </g></g>
+            </svg>
+        </div>
+        <div class="pr-5 ml-3 w-full">
+<p>Your import path may vary depending on where you&#x27;re importing from.</p>
+        </div>
+    </div>
+</div>
+<doc-anchor-target id="import">
     <h2>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#client">#</doc-anchor-trigger>
-        <span>client</span>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#import">#</doc-anchor-trigger>
+        <span>Import</span>
     </h2>
 </doc-anchor-target>
-<p>This is where the client-side code belongs. You <strong>cannot use NPM packages</strong> in these files.</p>
-<p>Ensure that you create an <code v-pre>index.ts</code> file as an entry point for your client code.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">// client/index.ts
-import * as alt from 'alt-client';
-import '../translate/index.js';
-import { useTranslate } from '../../../main/shared/translate.js';
-
-const { t } = useTranslate('en');
-
-alt.log(t('example.hello-from-client'));</code></pre>
+<pre class="language-typescript"><code v-pre class="language-typescript">import * as Utility from '../../../main/shared/utility/index.js';</code></pre>
 </doc-codeblock></div>
-<doc-anchor-target id="server">
+<doc-anchor-target id="usage">
     <h2>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#server">#</doc-anchor-trigger>
-        <span>server</span>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#usage">#</doc-anchor-trigger>
+        <span>Usage</span>
     </h2>
 </doc-anchor-target>
-<p>This is where server-side code belongs.</p>
-<p>Ensure that you create an <code v-pre>index.ts</code> file as an entry point for your server code.</p>
+<doc-anchor-target id="clone-data">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#clone-data">#</doc-anchor-trigger>
+        <span>Clone Data</span>
+    </h3>
+</doc-anchor-target>
+<p>When you need to break function bindings for objects, or clone an array. This is a way to do it.</p>
+<p>This works exactly the same as a deep clone.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">// server/index.ts
-import * as alt from 'alt-server';
-import '../translate/index.js';
-import { useTranslate } from '../../../main/shared/translate.js';
-
-const { t } = useTranslate('en');
-
-alt.log(t('example.hello-from-server'));</code></pre>
+<pre class="language-typescript"><code v-pre class="language-typescript">const arrayResult = Utility.clone.arrayData([]);
+const objectResult = Utility.clone.objectData({});</code></pre>
 </doc-codeblock></div>
-<doc-anchor-target id="translate">
-    <h2>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#translate">#</doc-anchor-trigger>
-        <span>translate</span>
-    </h2>
+<doc-anchor-target id="rgba-to-hex">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#rgba-to-hex">#</doc-anchor-trigger>
+        <span>RGBA to Hex</span>
+    </h3>
 </doc-anchor-target>
-<p>Translations can be used on <code v-pre>client-side</code>, <code v-pre>server-side</code>, or <code v-pre>webview</code> as long as you import the translation file.</p>
+<p>Some values from the natives return as <code v-pre>rgba</code>, this converts them to <code v-pre>hex</code>.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">// translate/index.ts
-
-// It is recommended to use relative paths for translation imports
-import { useTranslate } from '../../../main/shared/translate.js';
-const { setBulk } = useTranslate();
-
-setBulk({
-    en: {
-        'example.hello-from-server': 'Hello from server-side!',
-        'example.hello-from-client': 'Hello from client-side!',
-        'example.hello-from-webview': 'Hello from webview!',
-    },
-});</code></pre>
+<pre class="language-typescript"><code v-pre class="language-typescript">const hexColor = Utility.color.rgbaToHexAlpha(new alt.RGBA(0, 0, 0, 255));</code></pre>
 </doc-codeblock></div>
-<doc-anchor-target id="webview">
-    <h2>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#webview">#</doc-anchor-trigger>
-        <span>webview</span>
-    </h2>
+<doc-anchor-target id="missing-number">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#missing-number">#</doc-anchor-trigger>
+        <span>Missing Number</span>
+    </h3>
 </doc-anchor-target>
-<p>Webview pages should always have unique names that differentiate from other plugins. Ensure you give your <code v-pre>vue</code> file a unique name.</p>
+<p>Return a missing number given a group of numbers.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-jsx"><code v-pre class="language-jsx">// MyPluginExample.vue
-&lt;script lang=&quot;ts&quot; setup&gt;
-import '../translate/index';
-import { useTranslate } from '../../../main/shared/translate';
+<pre class="language-typescript"><code v-pre class="language-typescript">// Result should be 2
+const numberResult = Utility.math.getMissingNumber([0, 1, 3], 0);</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="randomization">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#randomization">#</doc-anchor-trigger>
+        <span>Randomization</span>
+    </h3>
+</doc-anchor-target>
+<p>Various randomization functions for creating data.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">// Will pull a random result from the array
+const elementResult = Utility.random.element&lt;number&gt;([0, 1, 2, 3, 4, 5]);
 
-const { t } = useTranslate('en');
+// Will pull a random number between two numbers
+const rngNumberResult = Utility.random.numberBetween(0, 5);
 
-console.log(`Hello from webview`);
-&lt;/script&gt;
+// Will create a random color
+const rngRgbResult = Utility.random.rgb();
 
-&lt;template&gt;
-    &lt;div&gt;
-        &lt;div class=&quot;text-red-500 text-lg&quot;&gt;{{ ERROR }}&lt;/div&gt;
-    &lt;/div&gt;
-&lt;/template&gt;</code></pre>
+// Will shuffle the numbers into a random order
+const shuffledArray = Utility.random.shuffle&lt;number&gt;([0, 1, 2, 3, 4]);</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="uid">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#uid">#</doc-anchor-trigger>
+        <span>UID</span>
+    </h3>
+</doc-anchor-target>
+<p>Randomly generates a short string. Collision can happen.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">const uid = Utility.uid.generate();</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="vector">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#vector">#</doc-anchor-trigger>
+        <span>Vector</span>
+    </h3>
+</doc-anchor-target>
+<p>Vectors are used to perform various distance checks.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">// Only gets the distance between X &amp; Y
+const distShort = Utility.vector.distance2d(new alt.Vector3(0, 0, 0), new alt.Vector3(1, 1, 1));
+
+// Only gets the distance between X, Y, &amp; Z
+const distLong = Utility.vector.distance(new alt.Vector3(0, 0, 0), new alt.Vector3(1, 1, 1));
+
+// Returns a position in front of a given player, vehicle, etc.
+const posInFrontOf = Utility.vector.getVectorInFrontOfPlayer(somePlayerOrVehicle, 5);</code></pre>
 </doc-codeblock></div>
 
                                 
@@ -263,20 +282,20 @@ console.log(`Hello from webview`);
                             
                                 <nav class="flex mt-14">
                                     <div class="w-1/2">
-                                        <a class="px-5 py-4 h-full flex items-center break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-l-lg transition-colors duration-150 relative hover:z-5" href="../../plugins/what-is-a-plugin/">
+                                        <a class="px-5 py-4 h-full flex items-center break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-l-lg transition-colors duration-150 relative hover:z-5" href="../../../webview/create/">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="mr-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19 11H7.41l5.29-5.29a.996.996 0 10-1.41-1.41l-7 7a1 1 0 000 1.42l7 7a1.024 1.024 0 001.42-.01.996.996 0 000-1.41L7.41 13H19c.55 0 1-.45 1-1s-.45-1-1-1z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
                                             <span>
                                                 <span class="block text-xs font-normal text-gray-400 dark:text-dark-400">Previous</span>
-                                                <span class="block mt-1">What is a Plugin?</span>
+                                                <span class="block mt-1">Create a Webview</span>
                                             </span>
                                         </a>
                                     </div>
                             
                                     <div class="w-1/2">
-                                        <a class="px-5 py-4 -mx-px h-full flex items-center justify-end break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-r-lg transition-colors duration-150 relative hover:z-5" href="../../webview/what-is-a-webview/">
+                                        <a class="px-5 py-4 -mx-px h-full flex items-center justify-end break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-r-lg transition-colors duration-150 relative hover:z-5" href="../../../api/server/database/">
                                             <span>
                                                 <span class="block text-xs font-normal text-right text-gray-400 dark:text-dark-400">Next</span>
-                                                <span class="block mt-1">What is a Webview?</span>
+                                                <span class="block mt-1">Database</span>
                                             </span>
                                             <svg xmlns="http://www.w3.org/2000/svg" class="ml-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19.92 12.38a1 1 0 00-.22-1.09l-7-7a.996.996 0 10-1.41 1.41l5.3 5.3H5c-.55 0-1 .45-1 1s.45 1 1 1h11.59l-5.29 5.29a.996.996 0 000 1.41c.19.2.44.3.7.3s.51-.1.71-.29l7-7c.09-.09.16-.21.21-.33z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
                                         </a>
@@ -320,6 +339,6 @@ console.log(`Hello from webview`);
 
     <div id="docs-overlay-target"></div>
 
-    <script data-cfasync="false">window.__DOCS__ = { "title": "Create a Plugin", level: 2, icon: "file", hasPrism: true, hasMermaid: false, hasMath: false, tocDepth: 23 }</script>
+    <script data-cfasync="false">window.__DOCS__ = { "title": "Utility", level: 3, icon: "file", hasPrism: true, hasMermaid: false, hasMath: false, tocDepth: 23 }</script>
 </body>
 </html>
