@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.5.0.766853390795">
+    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.5.0.766854100665">
 
     <!-- See retype.com -->
     <meta name="generator" content="Retype 3.5.0">
@@ -30,12 +30,12 @@
 
     <script data-cfasync="false">(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
-    <link href="../../resources/css/retype.css?v=3.5.0.766853390795" rel="stylesheet">
+    <link href="../../resources/css/retype.css?v=3.5.0.766854100665" rel="stylesheet">
 
-    <script data-cfasync="false" src="../../resources/js/config.js?v=3.5.0.766853390795" data-turbo-eval="false" defer></script>
+    <script data-cfasync="false" src="../../resources/js/config.js?v=3.5.0.766854100665" data-turbo-eval="false" defer></script>
     <script data-cfasync="false" src="../../resources/js/retype.js?v=3.5.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" data-cfasync="false" src="../../resources/js/lunr.js?v=3.5.0.766853390795" data-turbo-eval="false" defer></script>
-    <script id="prism-js" data-cfasync="false" src="../../resources/js/prism.js?v=3.5.0.766853390795" defer></script>
+    <script id="lunr-js" data-cfasync="false" src="../../resources/js/lunr.js?v=3.5.0.766854100665" data-turbo-eval="false" defer></script>
+    <script id="prism-js" data-cfasync="false" src="../../resources/js/prism.js?v=3.5.0.766854100665" defer></script>
 </head>
 <body>
     <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -217,13 +217,16 @@ alt.log(t('example.hello-from-server'));</code></pre>
 <p>Translations can be used on <code v-pre>client-side</code>, <code v-pre>server-side</code>, or <code v-pre>webview</code> as long as you import the translation file.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-typescript"><code v-pre class="language-typescript">// translate/index.ts
-import { useTranslate } from '@Shared/translate.js';
+
+// It is recommended to use relative paths for translation imports
+import { useTranslate } from '../../../main/shared/translate.js';
 const { setBulk } = useTranslate();
 
 setBulk({
     en: {
         'example.hello-from-server': 'Hello from server-side!',
         'example.hello-from-client': 'Hello from client-side!',
+        'example.hello-from-webview': 'Hello from webview!',
     },
 });</code></pre>
 </doc-codeblock></div>
@@ -235,14 +238,19 @@ setBulk({
 </doc-anchor-target>
 <p>Webview pages should always have unique names that differentiate from other plugins. Ensure you give your <code v-pre>vue</code> file a unique name.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-tsx"><code v-pre class="language-tsx">// MyPluginExample.vue
+<pre class="language-jsx"><code v-pre class="language-jsx">// MyPluginExample.vue
 &lt;script lang=&quot;ts&quot; setup&gt;
+import '../translate/index';
+import { useTranslate } from '../../../main/shared/translate';
+
+const { t } = useTranslate('en');
+
 console.log(`Hello from webview`);
 &lt;/script&gt;
 
 &lt;template&gt;
     &lt;div&gt;
-        &lt;div class=&quot;text-red-500 text-lg&quot;&gt;Hello, from Example Webview&lt;/div&gt;
+        &lt;div class=&quot;text-red-500 text-lg&quot;&gt;{{ ERROR }}&lt;/div&gt;
     &lt;/div&gt;
 &lt;/template&gt;</code></pre>
 </doc-codeblock></div>
