@@ -1,4 +1,4 @@
-import { useTranslate } from '@Shared/translate.js';
+import { useTranslate } from '../shared/translate.js';
 
 const { setBulk } = useTranslate();
 

@@ -7,7 +7,6 @@ function updatePaths(path: string) {
     const relativePath = `../`.repeat(pathDepth);
 
     let file = fs.readFileSync(path, 'utf-8');
-    file = file.replace(/\@Shared/gm, `${relativePath}main/shared`);
     file = file.replace(/\@Server/gm, `${relativePath}main/server`);
     file = file.replace(/\@Client/gm, `${relativePath}main/client`);
     fs.writeFileSync(path, file);

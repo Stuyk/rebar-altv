@@ -1,56 +1,55 @@
 {
-  "compilerOptions": {
-    "baseUrl": "src",
-    "paths": {
-      "@Server/*": ["main/server/*"],
-      "@Client/*": ["main/client/*"],
-      "@Shared/*": ["main/shared/*"]
+    "compilerOptions": {
+        "baseUrl": "src",
+        "paths": {
+            "@Server/*": ["main/server/*"],
+            "@Client/*": ["main/client/*"]
+        },
+        "typeRoots": ["./node_modules/@types", "./node_modules/@altv"],
+        "removeComments": true,
+        "noUnusedLocals": false,
+        "noUnusedParameters": false,
+        "noImplicitReturns": true,
+        "allowJs": true,
+        "resolveJsonModule": true,
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "moduleResolution": "NodeNext",
+        "allowSyntheticDefaultImports": true,
+        "composite": false,
+        "forceConsistentCasingInFileNames": true,
+        "strict": false,
+        "module": "NodeNext",
+        "target": "ES2022",
+        "outDir": "athena-cache",
+        "skipLibCheck": true,
+        "esModuleInterop": true,
+        "declaration": true,
+        "emitDeclarationOnly": false
     },
-    "typeRoots": ["./node_modules/@types", "./node_modules/@altv"],
-    "removeComments": true,
-    "noUnusedLocals": false,
-    "noUnusedParameters": false,
-    "noImplicitReturns": true,
-    "allowJs": true,
-    "resolveJsonModule": true,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "moduleResolution": "NodeNext",
-    "allowSyntheticDefaultImports": true,
-    "composite": false,
-    "forceConsistentCasingInFileNames": true,
-    "strict": false,
-    "module": "NodeNext",
-    "target": "ES2022",
-    "outDir": "athena-cache",
-    "skipLibCheck": true,
-    "esModuleInterop": true,
-    "declaration": true,
-    "emitDeclarationOnly": false
-  },
-  "include": [
-    "src/**/*.ts",
-    "src-webviews/**/*.ts",
-    "src-webviews/**/*.d.ts",
-    "src/**/*.ts",
-    "src/**/*.d.ts",
-    "src/**/*.tsx",
-    "src/**/*.vue",
-    "src/main/plugins/**/webview/**.ts",
-    "src/main/plugins/**/webview/**.vue",
-    "src/main/plugins/**/components/**.vue"
-  ],
-  "exclude": [
-    "resources",
-    "scripts",
-    "altv-athena-cache",
-    "athena-cache",
-    "node_modules",
-    "cache",
-    "crashdumps",
-    "data",
-    "doc",
-    "modules",
-    "screenshots"
-  ]
+    "include": [
+        "src/**/*.ts",
+        "src-webviews/**/*.ts",
+        "src-webviews/**/*.d.ts",
+        "src/**/*.ts",
+        "src/**/*.d.ts",
+        "src/**/*.tsx",
+        "src/**/*.vue",
+        "src/main/plugins/**/webview/**.ts",
+        "src/main/plugins/**/webview/**.vue",
+        "src/main/plugins/**/components/**.vue"
+    ],
+    "exclude": [
+        "resources",
+        "scripts",
+        "altv-athena-cache",
+        "athena-cache",
+        "node_modules",
+        "cache",
+        "crashdumps",
+        "data",
+        "doc",
+        "modules",
+        "screenshots"
+    ]
 }

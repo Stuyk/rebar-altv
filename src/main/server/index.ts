@@ -1,7 +1,7 @@
 import * as alt from 'alt-server';
 import * as Utility from './utility/index.js';
 import '../translate/index.js';
-import { useTranslate } from '@Shared/translate.js';
+import { useTranslate } from '../shared/translate.js';
 
 const { t } = useTranslate();
 const { reconnect } = Utility.useDevReconnect();

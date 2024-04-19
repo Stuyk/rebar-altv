@@ -1,6 +1,6 @@
 import * as alt from 'alt-client';
-import { Events } from '@Shared/events/index.js';
-import { PageNames, PageType } from '@Shared/webview/index.js';
+import { Events } from '../../shared/events/index.js';
+import { PageNames, PageType } from '../../shared/webview/index.js';
 
 type AnyCallback = ((...args: any[]) => void) | ((...args: any[]) => Promise<void>) | Function;
 

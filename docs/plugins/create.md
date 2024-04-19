@@ -19,7 +19,7 @@ Ensure that you create an `index.ts` file as an entry point for your client code
 // client/index.ts
 import * as alt from 'alt-client';
 import '../translate/index.js';
-import { useTranslate } from '@Shared/translate.js';
+import { useTranslate } from '../../../main/shared/translate.js';
 
 const { t } = useTranslate('en');
 
@@ -36,7 +36,7 @@ Ensure that you create an `index.ts` file as an entry point for your server code
 // server/index.ts
 import * as alt from 'alt-server';
 import '../translate/index.js';
-import { useTranslate } from '@Shared/translate.js';
+import { useTranslate } from '../../../main/shared/translate.js';
 
 const { t } = useTranslate('en');
 
