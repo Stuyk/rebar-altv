@@ -58,6 +58,9 @@ devDependencies:
   postcss:
     specifier: ^8.4.38
     version: 8.4.38
+  retypeapp:
+    specifier: ^3.5.0
+    version: 3.5.0
   shx:
     specifier: ^0.3.4
     version: 0.3.4
@@ -1854,6 +1857,11 @@ packages:
       is-core-module: 2.13.1
       path-parse: 1.0.7
       supports-preserve-symlinks-flag: 1.0.0
+    dev: true
+
+  /retypeapp@3.5.0:
+    resolution: {integrity: sha512-YhHilXfKLXU2BCZ0lfj4tUVMrk8nUjkSCAoV52xIPfRfSKQQah9D5vn2Eiu+FUmeGGEB9gykr8UVi7CvjmiqbQ==}
+    hasBin: true
     dev: true
 
   /reusify@1.0.4:

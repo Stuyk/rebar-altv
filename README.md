@@ -6,12 +6,12 @@ Plugins for Rebar allow developers to drag & drop repositories into their server
 
 ## Features
 
-- TypeScript
-- Plugins
-- Locale / Translation Support
-- Path Aliasing
-- Transpiling
-- Reload
+-   TypeScript
+-   Plugins
+-   Locale / Translation Support
+-   Path Aliasing
+-   Transpiling
+-   Reload
 
 ## Usage
 
@@ -47,4 +47,18 @@ A folder structure that is simple to read, and simple to write.
         │   └───index.ts
         └───webview
             └───MyCustomPage.vue
+```
+
+## Documentation
+
+[https://stuyk.github.io/rebar-altv](https://stuyk.github.io/rebar-altv)
+
+If you wish to run documentation locally, you can do the following:
+
+```sh
+pnpm install retypeapp --global
+```
+
+```
+retype start ./docs
 ```
