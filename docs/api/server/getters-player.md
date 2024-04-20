@@ -3,6 +3,8 @@
 A player getter helps you find a player based on various information.
 
 ```ts
+import { usePlayerGetter } from '@Server/getters/player.js';
+
 const getter = usePlayerGetter();
 
 // Returns a account by account _id
