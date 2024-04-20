@@ -9,24 +9,24 @@
     <meta name="generator" content="Retype 3.5.0">
 
     <!-- Primary Meta Tags -->
-    <title>Utility</title>
-    <meta name="title" content="Utility">
-    <meta name="description" content="Utility provides a lot of shared functionality between client, server, and webview.">
+    <title>Getters - Vehicle</title>
+    <meta name="title" content="Getters - Vehicle">
+    <meta name="description" content="The vehicle getter gives single vehicle information.">
 
     <!-- Canonical -->
-    <link rel="canonical" href="/api/shared/utility/">
+    <link rel="canonical" href="/api/server/getters-vehicle/">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="/api/shared/utility/">
-    <meta property="og:title" content="Utility">
-    <meta property="og:description" content="Utility provides a lot of shared functionality between client, server, and webview.">
+    <meta property="og:url" content="/api/server/getters-vehicle/">
+    <meta property="og:title" content="Getters - Vehicle">
+    <meta property="og:description" content="The vehicle getter gives single vehicle information.">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="/api/shared/utility/">
-    <meta property="twitter:title" content="Utility">
-    <meta property="twitter:description" content="Utility provides a lot of shared functionality between client, server, and webview.">
+    <meta property="twitter:url" content="/api/server/getters-vehicle/">
+    <meta property="twitter:title" content="Getters - Vehicle">
+    <meta property="twitter:description" content="The vehicle getter gives single vehicle information.">
 
     <script data-cfasync="false">(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
@@ -154,124 +154,41 @@
                                 <!-- Rendered if sidebar right is enabled -->
                                 <div id="docs-sidebar-right-toggle"></div>
                                 <!-- Page content  -->
-<doc-anchor-target id="utility" class="break-words">
+<doc-anchor-target id="getters---vehicle" class="break-words">
     <h1>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#utility">#</doc-anchor-trigger>
-        <span>Utility</span>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#getters---vehicle">#</doc-anchor-trigger>
+        <span>Getters - Vehicle</span>
     </h1>
 </doc-anchor-target>
-<p>Utility provides a lot of shared functionality between client, server, and webview.</p>
-<div class="flex mb-6">
-    <div class="shrink-0 w-1 rounded-tl rounded-bl bg-blue-500 dark:bg-blue-400"></div>
-    <div class="flex w-full py-4 border border-l-0 border-gray-300 rounded-tr rounded-br doc-alert bg-white dark:bg-dark-700 dark:border-dark-700" role="alert">
-        <div class="flex items-center ml-4 h-7">
-            <svg xmlns="http://www.w3.org/2000/svg" class="mb-px text-blue-500 dark:text-blue-400" width="22" height="22" viewBox="0 0 24 24" role="presentation">
-                <g fill="currentColor"><g>
-                    <path d="M12 1C5.93 1 1 5.93 1 12s4.93 11 11 11 11-4.93 11-11S18.07 1 12 1zm0 20c-4.96 0-9-4.04-9-9s4.04-9 9-9 9 4.04 9 9-4.04 9-9 9z"></path>
-                    <path d="M12 11c-.55 0-1 .45-1 1v4c0 .55.45 1 1 1s1-.45 1-1v-4c0-.55-.45-1-1-1zM12.01 7c-.56 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1z"></path>
-                    <path fill="none" d="M0 0h24v24H0z"></path>
-                </g></g>
-            </svg>
-        </div>
-        <div class="pr-5 ml-3 w-full">
-<p>Your import path may vary depending on where you&#x27;re importing from.</p>
-        </div>
-    </div>
-</div>
-<doc-anchor-target id="import">
-    <h2>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#import">#</doc-anchor-trigger>
-        <span>Import</span>
-    </h2>
-</doc-anchor-target>
+<p>The vehicle getter gives single vehicle information.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">import * as Utility from '../../../main/shared/utility/index.js';</code></pre>
-</doc-codeblock></div>
-<doc-anchor-target id="usage">
-    <h2>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#usage">#</doc-anchor-trigger>
-        <span>Usage</span>
-    </h2>
-</doc-anchor-target>
-<doc-anchor-target id="clone-data">
-    <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#clone-data">#</doc-anchor-trigger>
-        <span>Clone Data</span>
-    </h3>
-</doc-anchor-target>
-<p>When you need to break function bindings for objects, or clone an array. This is a way to do it.</p>
-<p>This works exactly the same as a deep clone.</p>
-<div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">const arrayResult = Utility.clone.arrayData([]);
-const objectResult = Utility.clone.objectData({});</code></pre>
-</doc-codeblock></div>
-<doc-anchor-target id="rgba-to-hex">
-    <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#rgba-to-hex">#</doc-anchor-trigger>
-        <span>RGBA to Hex</span>
-    </h3>
-</doc-anchor-target>
-<p>Some values from the natives return as <code v-pre>rgba</code>, this converts them to <code v-pre>hex</code>.</p>
-<div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">const hexColor = Utility.color.rgbaToHexAlpha(new alt.RGBA(0, 0, 0, 255));</code></pre>
-</doc-codeblock></div>
-<doc-anchor-target id="missing-number">
-    <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#missing-number">#</doc-anchor-trigger>
-        <span>Missing Number</span>
-    </h3>
-</doc-anchor-target>
-<p>Return a missing number given a group of numbers.</p>
-<div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">// Result should be 2
-const numberResult = Utility.math.getMissingNumber([0, 1, 3], 0);</code></pre>
-</doc-codeblock></div>
-<doc-anchor-target id="randomization">
-    <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#randomization">#</doc-anchor-trigger>
-        <span>Randomization</span>
-    </h3>
-</doc-anchor-target>
-<p>Various randomization functions for creating data.</p>
-<div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">// Will pull a random result from the array
-const elementResult = Utility.random.element&lt;number&gt;([0, 1, 2, 3, 4, 5]);
+<pre class="language-typescript"><code v-pre class="language-typescript">import { useVehicleGetter } from '@Server/getters/vehicle.js';
 
-// Will pull a random number between two numbers
-const rngNumberResult = Utility.random.numberBetween(0, 5);
+const getter = useVehicleGetter();
 
-// Will create a random color
-const rngRgbResult = Utility.random.rgb();
+// Get a vehicle by database id
+const someVehicle = getter.byDatabaseID('_id');
 
-// Will shuffle the numbers into a random order
-const shuffledArray = Utility.random.shuffle&lt;number&gt;([0, 1, 2, 3, 4]);</code></pre>
-</doc-codeblock></div>
-<doc-anchor-target id="uid">
-    <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#uid">#</doc-anchor-trigger>
-        <span>UID</span>
-    </h3>
-</doc-anchor-target>
-<p>Randomly generates a short string. Collision can happen.</p>
-<div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">const uid = Utility.uid.generate();</code></pre>
-</doc-codeblock></div>
-<doc-anchor-target id="vector">
-    <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#vector">#</doc-anchor-trigger>
-        <span>Vector</span>
-    </h3>
-</doc-anchor-target>
-<p>Vectors are used to perform various distance checks.</p>
-<div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">// Only gets the distance between X &amp; Y
-const distShort = Utility.vector.distance2d(new alt.Vector3(0, 0, 0), new alt.Vector3(1, 1, 1));
+// Get a vehicle by alt:V identifier
+const someVehicle2 = getter.byID(5);
 
-// Only gets the distance between X, Y, &amp; Z
-const distLong = Utility.vector.distance(new alt.Vector3(0, 0, 0), new alt.Vector3(1, 1, 1));
+// Get closest vehicle to a player, that isn't the vehicle the player is driving
+const someVehicle3 = getter.closestVehicle(somePlayer);
 
-// Returns a position in front of a given player, vehicle, etc.
-const posInFrontOf = Utility.vector.getVectorInFrontOfPlayer(somePlayerOrVehicle, 5);</code></pre>
+// Get the driver of a vehicle
+const someDriver = getter.driver(someVehicle);
+
+// Get vehicle in front of a vehicle
+const someVehicle4 = getter.inFrontOf(someVehicle);
+
+// Check if a vehicle is near a position
+const isNearPosition = getter.isNearPosition(someVehicle, new alt.Vector3(0, 0, 0), 5);
+
+// Check if a vehicle model is valid
+const isValidModel = getter.isValidModel(alt.hash('infernus'));
+
+// Get the passengers of a vehicle
+const passengers = getter.passengers(someVehicle);</code></pre>
 </doc-codeblock></div>
 
                                 
@@ -282,16 +199,23 @@ const posInFrontOf = Utility.vector.getVectorInFrontOfPlayer(somePlayerOrVehicle
                             
                                 <nav class="flex mt-14">
                                     <div class="w-1/2">
-                                        <a class="px-5 py-4 h-full flex items-center break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-r rounded-l-lg transition-colors duration-150 relative hover:z-5" href="../../../api/server/getters-world/">
+                                        <a class="px-5 py-4 h-full flex items-center break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-l-lg transition-colors duration-150 relative hover:z-5" href="../../../api/server/getters-players/">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="mr-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19 11H7.41l5.29-5.29a.996.996 0 10-1.41-1.41l-7 7a1 1 0 000 1.42l7 7a1.024 1.024 0 001.42-.01.996.996 0 000-1.41L7.41 13H19c.55 0 1-.45 1-1s-.45-1-1-1z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
                                             <span>
                                                 <span class="block text-xs font-normal text-gray-400 dark:text-dark-400">Previous</span>
-                                                <span class="block mt-1">Getters - World</span>
+                                                <span class="block mt-1">Getters - Players</span>
                                             </span>
                                         </a>
                                     </div>
                             
                                     <div class="w-1/2">
+                                        <a class="px-5 py-4 -mx-px h-full flex items-center justify-end break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-r-lg transition-colors duration-150 relative hover:z-5" href="../../../api/server/getters-vehicles/">
+                                            <span>
+                                                <span class="block text-xs font-normal text-right text-gray-400 dark:text-dark-400">Next</span>
+                                                <span class="block mt-1">Getters - Vehicles</span>
+                                            </span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="ml-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19.92 12.38a1 1 0 00-.22-1.09l-7-7a.996.996 0 10-1.41 1.41l5.3 5.3H5c-.55 0-1 .45-1 1s.45 1 1 1h11.59l-5.29 5.29a.996.996 0 000 1.41c.19.2.44.3.7.3s.51-.1.71-.29l7-7c.09-.09.16-.21.21-.33z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
+                                        </a>
                                     </div>
                                 </nav>
                             </footer>
@@ -332,6 +256,6 @@ const posInFrontOf = Utility.vector.getVectorInFrontOfPlayer(somePlayerOrVehicle
 
     <div id="docs-overlay-target"></div>
 
-    <script data-cfasync="false">window.__DOCS__ = { "title": "Utility", level: 3, icon: "file", hasPrism: true, hasMermaid: false, hasMath: false, tocDepth: 23 }</script>
+    <script data-cfasync="false">window.__DOCS__ = { "title": "Getters - Vehicle", level: 3, icon: "file", hasPrism: true, hasMermaid: false, hasMath: false, tocDepth: 23 }</script>
 </body>
 </html>
