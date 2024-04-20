@@ -134,6 +134,15 @@ export type Character = {
      * @type {Array<ClothingComponent>}
      *
      */
+    clothing?: Array<ClothingComponent>;
+
+    /**
+     * Clothes that will be applied to the player last.
+     * Uniforms should be used in tandem with typical inventory clothing.
+     *
+     * @type {Array<ClothingComponent>}
+     *
+     */
     uniform?: Array<ClothingComponent>;
 
     /**

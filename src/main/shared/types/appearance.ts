@@ -190,6 +190,13 @@ export type Appearance = {
      *
      */
     colorOverlays: ColorInfo[];
+
+    /**
+     * Apply tattoos
+     * @type {{ overlay: string; collection: string }[]}
+     *
+     */
+    tattoos: { overlay: string; collection: string }[];
 };
 
 /**
