@@ -9,24 +9,24 @@
     <meta name="generator" content="Retype 3.5.0">
 
     <!-- Primary Meta Tags -->
-    <title>Document - Account</title>
-    <meta name="title" content="Document - Account">
-    <meta name="description" content="An account document is a set of data that is bound to the player until they disconnect.">
+    <title>Getters - Players</title>
+    <meta name="title" content="Getters - Players">
+    <meta name="description" content="A player getter helps you find many players based on set information.">
 
     <!-- Canonical -->
-    <link rel="canonical" href="/api/server/document-account/">
+    <link rel="canonical" href="/api/server/getters-players/">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="/api/server/document-account/">
-    <meta property="og:title" content="Document - Account">
-    <meta property="og:description" content="An account document is a set of data that is bound to the player until they disconnect.">
+    <meta property="og:url" content="/api/server/getters-players/">
+    <meta property="og:title" content="Getters - Players">
+    <meta property="og:description" content="A player getter helps you find many players based on set information.">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="/api/server/document-account/">
-    <meta property="twitter:title" content="Document - Account">
-    <meta property="twitter:description" content="An account document is a set of data that is bound to the player until they disconnect.">
+    <meta property="twitter:url" content="/api/server/getters-players/">
+    <meta property="twitter:title" content="Getters - Players">
+    <meta property="twitter:description" content="A player getter helps you find many players based on set information.">
 
     <script data-cfasync="false">(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
@@ -154,107 +154,41 @@
                                 <!-- Rendered if sidebar right is enabled -->
                                 <div id="docs-sidebar-right-toggle"></div>
                                 <!-- Page content  -->
-<doc-anchor-target id="document---account" class="break-words">
+<doc-anchor-target id="getters---players" class="break-words">
     <h1>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#document---account">#</doc-anchor-trigger>
-        <span>Document - Account</span>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#getters---players">#</doc-anchor-trigger>
+        <span>Getters - Players</span>
     </h1>
 </doc-anchor-target>
-<p>An account document is a set of data that is bound to the player until they disconnect.</p>
-<p>It automatically saves data to the MongoDB database when any <code v-pre>set</code> function is used.</p>
-<doc-anchor-target id="binding-data">
-    <h2>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#binding-data">#</doc-anchor-trigger>
-        <span>Binding Data</span>
-    </h2>
-</doc-anchor-target>
-<p>You should bind account data when they authenticate to your server.</p>
+<p>A player getter helps you find many players based on set information.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">import { useAccount, useAccountBinder } from '@Server/document/account.js';
+<pre class="language-typescript"><code v-pre class="language-typescript">import { usePlayersGetter } from '@Server/getters/players.js';
 
-// ... some function
-// Use database functions to fetch or create an account
-const someAccountData = someDatabaseFetchOrCreateFunction();
+const getter = usePlayersGetter();
 
-// Bind account data to the player after fetching
-const accBinder = useAccountBinder(player);
-accBinder.bind(someAccountData);</code></pre>
-</doc-codeblock></div>
-<doc-anchor-target id="getting-data">
-    <h2>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#getting-data">#</doc-anchor-trigger>
-        <span>Getting Data</span>
-    </h2>
-</doc-anchor-target>
-<p>Data can be retrieved for the bound account like this.</p>
-<div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">import { useAccount, useAccountBinder } from '@Server/document/account.js';
+// Returns an array of players who are driving
+const playersDriving = getter.driving();
 
-//... some function
-const account = useAccount(player);
-const data = account.get();
-console.log(data.email);</code></pre>
-</doc-codeblock></div>
-<doc-anchor-target id="setting-data">
-    <h2>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#setting-data">#</doc-anchor-trigger>
-        <span>Setting Data</span>
-    </h2>
-</doc-anchor-target>
-<p>Data can easily be appended or set in two different ways.</p>
-<div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">import { useAccount, useAccountBinder } from '@Server/document/account.js';
+// Returns an array of players in range of a position
+const playersInRange = getter.inRange(new alt.Vector3(0, 0, 0), 5);
 
-type CustomAccount = { whatever: string };
+// Returns an array with players who are close, and the distance they are from the position
+const playersInRangeWithDist = getter.inRangeWithDistance(new alt.Vector3(0, 0, 0), 5);
 
-//...some function
-const document = useAccount(player);
+// Returns all players in a vehicle
+const playersInVehicle = getter.inVehicle(someVehicle);
 
-// Single field
-document.set('banned', true);
+// Returns all players who are currently using a character, and playing
+const playersOnline = getter.online();
 
-// Multi-field
-document.setBulk({ banned: true, reason: 'big nerd' });
+// Returns all players who are currently using a character, playing, and have a weapon out
+const playersOnlineWithWeapon = getter.onlineWithWeapons();
 
-// Custom-field
-document.setBulk&lt;CustomAccount&gt;({ banned: true, reason: 'big nerd', whatever: 'hi' });</code></pre>
-</doc-codeblock></div>
-<doc-anchor-target id="getting-characters">
-    <h2>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#getting-characters">#</doc-anchor-trigger>
-        <span>Getting Characters</span>
-    </h2>
-</doc-anchor-target>
-<p>When you need to obtain a character file for an account, you can use this function to get all existing characters.</p>
-<div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">import { useAccount } from '@Server/document/account.js';
+// Returns all players who are currently walking around
+const playersWalking = getter.walking();
 
-//...some function
-const document = useAccount(player);
-const characters = await document.getCharacters();
-if (characters.length &gt;= 1) {
-    console.log('They have a character');
-} else {
-    console.log('They do not have a character');
-}</code></pre>
-</doc-codeblock></div>
-<doc-anchor-target id="permissions">
-    <h2>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#permissions">#</doc-anchor-trigger>
-        <span>Permissions</span>
-    </h2>
-</doc-anchor-target>
-<p>Permissions for accounts allow permissions to persist across an entire account.</p>
-<p>Here&#x27;s the simplest way to add, remove, and check permissions.</p>
-<div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">import { useAccount } from '@Server/document/account.js';
-
-//...some function
-const document = useAccount(player);
-
-await document.permission.addPermission('admin');
-await document.permission.removePermission('admin');
-const result = document.permission.hasPermission('admin');</code></pre>
+// Returns all players who have a certain name
+const playersWithName = getter.withName('john_doe');</code></pre>
 </doc-codeblock></div>
 
                                 
@@ -265,20 +199,20 @@ const result = document.permission.hasPermission('admin');</code></pre>
                             
                                 <nav class="flex mt-14">
                                     <div class="w-1/2">
-                                        <a class="px-5 py-4 h-full flex items-center break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-l-lg transition-colors duration-150 relative hover:z-5" href="../../../api/server/database/">
+                                        <a class="px-5 py-4 h-full flex items-center break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-l-lg transition-colors duration-150 relative hover:z-5" href="../../../api/server/getters-player/">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="mr-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19 11H7.41l5.29-5.29a.996.996 0 10-1.41-1.41l-7 7a1 1 0 000 1.42l7 7a1.024 1.024 0 001.42-.01.996.996 0 000-1.41L7.41 13H19c.55 0 1-.45 1-1s-.45-1-1-1z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
                                             <span>
                                                 <span class="block text-xs font-normal text-gray-400 dark:text-dark-400">Previous</span>
-                                                <span class="block mt-1">Database</span>
+                                                <span class="block mt-1">Getters - Player</span>
                                             </span>
                                         </a>
                                     </div>
                             
                                     <div class="w-1/2">
-                                        <a class="px-5 py-4 -mx-px h-full flex items-center justify-end break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-r-lg transition-colors duration-150 relative hover:z-5" href="../../../api/server/document-character/">
+                                        <a class="px-5 py-4 -mx-px h-full flex items-center justify-end break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-r-lg transition-colors duration-150 relative hover:z-5" href="../../../api/shared/utility/">
                                             <span>
                                                 <span class="block text-xs font-normal text-right text-gray-400 dark:text-dark-400">Next</span>
-                                                <span class="block mt-1">Document - Character</span>
+                                                <span class="block mt-1">Utility</span>
                                             </span>
                                             <svg xmlns="http://www.w3.org/2000/svg" class="ml-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19.92 12.38a1 1 0 00-.22-1.09l-7-7a.996.996 0 10-1.41 1.41l5.3 5.3H5c-.55 0-1 .45-1 1s.45 1 1 1h11.59l-5.29 5.29a.996.996 0 000 1.41c.19.2.44.3.7.3s.51-.1.71-.29l7-7c.09-.09.16-.21.21-.33z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
                                         </a>
@@ -322,6 +256,6 @@ const result = document.permission.hasPermission('admin');</code></pre>
 
     <div id="docs-overlay-target"></div>
 
-    <script data-cfasync="false">window.__DOCS__ = { "title": "Document - Account", level: 3, icon: "file", hasPrism: true, hasMermaid: false, hasMath: false, tocDepth: 23 }</script>
+    <script data-cfasync="false">window.__DOCS__ = { "title": "Getters - Players", level: 3, icon: "file", hasPrism: true, hasMermaid: false, hasMath: false, tocDepth: 23 }</script>
 </body>
 </html>
