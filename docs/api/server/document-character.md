@@ -60,7 +60,7 @@ document.setBulk<CustomCharacter>({ whatever: 'hi' });
 When you need to obtain a vehicle file for an character, you can use this function to get all existing vehicles owned by the player.
 
 ```ts
-import { useCharacter } from '@Server/document/account.js';
+import { useCharacter } from '@Server/document/character.js';
 
 const document = useCharacter(player);
 
@@ -71,4 +71,41 @@ if (vehicles.length >= 1) {
 } else {
     console.log('They do not have a vehicle');
 }
+```
+
+## Permissions
+
+Permissions for characters only allows the permission to exist on the one character it is assigned to.
+
+Here's the simplest way to add, remove, and check permissions.
+
+```ts
+import { useCharacter } from '@Server/document/character.js';
+
+// ...some function
+const document = useCharacter(player);
+
+await document.permission.addPermission('mechanic');
+await document.permission.removePermission('mechanic');
+const result = document.permission.hasPermission('mechanic');
+```
+
+## Permission Groups
+
+Permission groups allow you to assign permissions under a specific group name for a character.
+
+```ts
+import { useCharacter } from '@Server/document/character.js';
+
+//...some function
+const document = useCharacter(player);
+
+await document.permission.addGroupPerm('police', 'cadet');
+await document.permission.removeGroupPerm('police', 'cadet');
+
+// Check if they have a matching group permission
+const result = document.permission.hasGroupPerm('police', 'cadet');
+
+// Check if they have any matching group permission from the array
+const result = document.permission.hasAnyGroupPermission('police', ['cadet', 'patrol']);
 ```

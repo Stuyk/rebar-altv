@@ -203,27 +203,25 @@ export function useCharacter(player: alt.Player) {
     }
 
     /**
-     * Check if a player has any matching permissions against another document.
+     * Check if a player has any matching permission
      *
      * @export
      * @param {PermissionGroup} document
      * @param {string} groupName
      * @param {string} permission
      */
-    function hasCommonGroupPermission(groupName: string, permission: string) {
+    function hasAnyGroupPermission(groupName: string, permissions: string[]) {
         const data = get();
         if (typeof data === 'undefined') {
             return false;
         }
 
         const perm = usePermissionGroup(data);
-        return perm.hasAtLeastOneGroupPerm(groupName, [permission]);
+        return perm.hasAtLeastOneGroupPerm(groupName, permissions);
     }
 
     /**
      * Add a group permission to a character.
-     *
-     * If a player group permission, and a vehicle group permission intercept, then vehicle control is granted.
      *
      * @export
      * @param {string} groupName
@@ -242,13 +240,34 @@ export function useCharacter(player: alt.Player) {
         return true;
     }
 
+    /**
+     * Remove a group permission from a character.
+     *
+     * @export
+     * @param {string} groupName
+     * @param {string} permission
+     * @return {Promise<boolean>}
+     */
+    async function removeGroupPerm(groupName: string, permission: string): Promise<boolean> {
+        const data = get();
+        if (typeof data === 'undefined') {
+            return false;
+        }
+
+        const perm = usePermissionGroup(data);
+        const newDocument = perm.removeGroupPerm(groupName, permission);
+        await set('groups', newDocument.groups);
+        return true;
+    }
+
     const permission = {
         addPermission,
         addGroupPerm,
         removePermission,
+        removeGroupPerm,
+        hasAnyGroupPermission,
         hasPermission,
         hasGroupPermission,
-        hasCommonGroupPermission,
     };
 
     return { get, getField, getVehicles, permission, set, setBulk };

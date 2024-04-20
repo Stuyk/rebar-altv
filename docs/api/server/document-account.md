@@ -40,11 +40,11 @@ Data can easily be appended or set in two different ways.
 ```ts
 import { useAccount, useAccountBinder } from '@Server/document/account.js';
 
-const document = useAccount(player);
-
 type CustomAccount = { whatever: string };
 
 //...some function
+const document = useAccount(player);
+
 // Single field
 document.set('banned', true);
 
@@ -62,13 +62,29 @@ When you need to obtain a character file for an account, you can use this functi
 ```ts
 import { useAccount } from '@Server/document/account.js';
 
-const document = useAccount(player);
-
 //...some function
+const document = useAccount(player);
 const characters = await document.getCharacters();
 if (characters.length >= 1) {
     console.log('They have a character');
 } else {
     console.log('They do not have a character');
 }
+```
+
+## Permissions
+
+Permissions for accounts allow permissions to persist across an entire account.
+
+Here's the simplest way to add, remove, and check permissions.
+
+```ts
+import { useAccount } from '@Server/document/account.js';
+
+//...some function
+const document = useAccount(player);
+
+await document.permission.addPermission('admin');
+await document.permission.removePermission('admin');
+const result = document.permission.hasPermission('admin');
 ```
