@@ -4,6 +4,8 @@ import { KnownKeys } from '../../shared/utilityTypes/index.js';
 import { useDatabase } from '@Server/database/index.js';
 import { CollectionNames, KeyChangeCallback } from './shared.js';
 import { Vehicle } from 'main/shared/types/vehicle.js';
+import { usePermission } from '@Server/systems/permission.js';
+import { usePermissionGroup } from '@Server/systems/permissionGroup.js';
 
 const sessionKey = 'document:character';
 const callbacks: { [key: string]: Array<KeyChangeCallback> } = {};
@@ -130,7 +132,126 @@ export function useCharacter(player: alt.Player) {
         return results as (Vehicle & T)[];
     }
 
-    return { get, getField, getVehicles, set, setBulk };
+    /**
+     * Adds a permission to this character
+     *
+     * @async
+     * @name addPermission
+     * @param {string} permission
+     * @returns {Promise<boolean>}
+     * @exports
+     */
+    async function addPermission(permission: string) {
+        if (!player.valid) {
+            return false;
+        }
+
+        const perm = usePermission(player);
+        return await perm.add('character', permission);
+    }
+
+    /**
+     * Removes a permission from the given player character.
+     *
+     * @async
+     * @name removePermission
+     * @param {string} permission
+     * @returns {Promise<boolean>}
+     * @exports
+     */
+    async function removePermission(permission: string) {
+        if (!player.valid) {
+            return false;
+        }
+
+        const perm = usePermission(player);
+        return await perm.remove('character', permission);
+    }
+
+    /**
+     * Check if the current player character has a permission.
+     *
+     * @export
+     * @param {string} permission
+     * @return {boolean}
+     */
+    function hasPermission(permission: string) {
+        if (!player.valid) {
+            return false;
+        }
+
+        const perm = usePermission(player);
+        return perm.has('character', permission);
+    }
+
+    /**
+     * Check if a player character has a group permission.
+     *
+     * @export
+     * @param {string} groupName
+     * @param {string} permission
+     * @returns {boolean}
+     */
+    function hasGroupPermission(groupName: string, permission: string) {
+        const data = get();
+        if (typeof data === 'undefined') {
+            return false;
+        }
+
+        const perm = usePermissionGroup(player);
+        return perm.hasGroupPerm(groupName, permission);
+    }
+
+    /**
+     * Check if a player has any matching permissions against another document.
+     *
+     * @export
+     * @param {PermissionGroup} document
+     * @param {string} groupName
+     * @param {string} permission
+     */
+    function hasCommonGroupPermission(groupName: string, permission: string) {
+        const data = get();
+        if (typeof data === 'undefined') {
+            return false;
+        }
+
+        const perm = usePermissionGroup(data);
+        return perm.hasAtLeastOneGroupPerm(groupName, [permission]);
+    }
+
+    /**
+     * Add a group permission to a character.
+     *
+     * If a player group permission, and a vehicle group permission intercept, then vehicle control is granted.
+     *
+     * @export
+     * @param {string} groupName
+     * @param {string} permission
+     * @return {Promise<boolean>}
+     */
+    async function addGroupPerm(groupName: string, permission: string): Promise<boolean> {
+        const data = get();
+        if (typeof data === 'undefined') {
+            return false;
+        }
+
+        const perm = usePermissionGroup(data);
+        const newDocument = perm.addGroupPerm(groupName, permission);
+        await set('groups', newDocument.groups);
+        return true;
+    }
+
+    const permission = {
+        addPermission,
+        addGroupPerm,
+        removePermission,
+        hasPermission,
+        hasGroupPermission,
+        hasCommonGroupPermission,
+    };
+
+    return { get, getField, getVehicles, permission, set, setBulk };
 }
 
 export function useCharacterBinder(player: alt.Player) {

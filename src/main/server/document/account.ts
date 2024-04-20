@@ -4,6 +4,7 @@ import { KnownKeys } from '../../shared/utilityTypes/index.js';
 import { useDatabase } from '@Server/database/index.js';
 import { CollectionNames, KeyChangeCallback } from './shared.js';
 import { Character } from 'main/shared/types/character.js';
+import { usePermission } from '@Server/systems/permission.js';
 
 const sessionKey = 'document:account';
 const callbacks: { [key: string]: Array<KeyChangeCallback> } = {};
@@ -130,7 +131,58 @@ export function useAccount(player: alt.Player) {
         return results as (Character & T)[];
     }
 
-    return { get, getCharacters, getField, set, setBulk };
+    /**
+     * Add a permission to the given player's account.
+     *
+     * @export
+     * @param {alt.Player} player
+     * @param {string} permission
+     * @return {*}
+     */
+    async function addPermission(player: alt.Player, permission: string) {
+        if (!player.valid) {
+            return false;
+        }
+
+        const perm = usePermission(player);
+        return await perm.add('account', permission);
+    }
+
+    /**
+     * Remove a permission to the given player's account.
+     *
+     * @export
+     * @param {string} permission
+     * @return {*}
+     */
+    async function removePermission(permission: string) {
+        if (!player.valid) {
+            return false;
+        }
+
+        const perm = usePermission(player);
+        return await perm.remove('account', permission);
+    }
+
+    /**
+     * Check if the player has an account permission.
+     *
+     * @export
+     * @param {string} permission
+     * @return {boolean}
+     */
+    function hasPermission(permission: string) {
+        const perm = usePermission(player);
+        return perm.has('account', permission);
+    }
+
+    const permission = {
+        addPermission,
+        removePermission,
+        hasPermission,
+    };
+
+    return { addPermission, get, getCharacters, getField, permission, set, setBulk };
 }
 
 export function useAccountBinder(player: alt.Player) {
