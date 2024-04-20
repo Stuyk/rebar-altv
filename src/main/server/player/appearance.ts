@@ -1,5 +1,6 @@
 import * as alt from 'alt-server';
 import { useCharacter } from '@Server/document/character.js';
+import { getHairOverlay } from '../../shared/data/hairOverlay.js';
 
 export type Decorator = { overlay: string; collection: string };
 export type HairStyle = { hair: number; dlc?: string | number; color1: number; color2: number; decorator: Decorator };
@@ -17,8 +18,12 @@ export function usePlayerAppearance(player: alt.Player) {
     async function setHairStyle(style: HairStyle) {
         const document = useCharacter(player);
         const data = document.get();
-        if (!data || !data.appearance) {
+        if (!data) {
             return;
+        }
+
+        if (!data.appearance) {
+            data.appearance = {};
         }
 
         data.appearance.hair = style.hair;
@@ -51,8 +56,12 @@ export function usePlayerAppearance(player: alt.Player) {
     async function setFacialHair(choice: BaseStyle) {
         const document = useCharacter(player);
         const data = document.get();
-        if (!data || !data.appearance) {
+        if (!data) {
             return;
+        }
+
+        if (!data.appearance) {
+            data.appearance = {};
         }
 
         data.appearance.facialHair = choice.style;
@@ -74,8 +83,12 @@ export function usePlayerAppearance(player: alt.Player) {
     async function setEyebrows(choice: BaseStyle) {
         const document = useCharacter(player);
         const data = document.get();
-        if (!data || !data.appearance) {
+        if (!data) {
             return;
+        }
+
+        if (!data.appearance) {
+            data.appearance = {};
         }
 
         data.appearance.eyebrows = choice.style;
@@ -97,8 +110,12 @@ export function usePlayerAppearance(player: alt.Player) {
     async function setModel(isFeminine: boolean) {
         const document = useCharacter(player);
         const data = document.get();
-        if (!data || !data.appearance) {
+        if (!data) {
             return;
+        }
+
+        if (!data.appearance) {
+            data.appearance = {};
         }
 
         data.appearance.sex = isFeminine ? 0 : 1;
@@ -116,8 +133,12 @@ export function usePlayerAppearance(player: alt.Player) {
     async function setEyeColor(color: number) {
         const document = useCharacter(player);
         const data = document.get();
-        if (!data || !data.appearance) {
+        if (!data) {
             return;
+        }
+
+        if (!data.appearance) {
+            data.appearance = {};
         }
 
         data.appearance.eyes = color;
@@ -148,10 +169,13 @@ export function usePlayerAppearance(player: alt.Player) {
     }) {
         const document = useCharacter(player);
         const data = document.get();
-        if (!data || !data.appearance) {
+        if (!data) {
             return;
         }
 
+        if (!data.appearance) {
+            data.appearance = {};
+        }
         data.appearance = { ...data.appearance, ...faceData };
         await document.set('appearance', data.appearance);
     }
@@ -186,30 +210,31 @@ export function usePlayerAppearance(player: alt.Player) {
         }
 
         const data = dataDocument.appearance;
-        if (data.sex === 0) {
-            player.model = 'mp_f_freemode_01';
-        } else {
-            player.model = 'mp_m_freemode_01';
+
+        if (typeof data.sex !== undefined) {
+            player.model = data.sex === 0 ? 'mp_f_freemode_01' : 'mp_m_freemode_01';
         }
 
         // Set Face
         player.clearBloodDamage();
         player.setHeadBlendData(
-            data.faceMother,
-            data.faceFather,
+            data.faceMother ?? 0,
+            data.faceFather ?? 0,
             0,
-            data.skinMother,
-            data.skinFather,
+            data.skinMother ?? 0,
+            data.skinFather ?? 0,
             0,
-            parseFloat(data.faceMix.toString()),
-            parseFloat(data.skinMix.toString()),
+            parseFloat(data.faceMix.toString()) ?? 0.5,
+            parseFloat(data.skinMix.toString()) ?? 0.5,
             0
         );
 
         // Facial Features
-        for (let i = 0; i < data.structure.length; i++) {
-            const value = data.structure[i];
-            player.setFaceFeature(i, value);
+        if (Array.isArray(data.structure)) {
+            for (let i = 0; i < data.structure.length; i++) {
+                const value = data.structure[i];
+                player.setFaceFeature(i, value);
+            }
         }
 
         // Hair - Tattoo
@@ -217,17 +242,19 @@ export function usePlayerAppearance(player: alt.Player) {
 
         // Hair - Supports DLC
         if (typeof data.hairDlc === 'undefined' || data.hairDlc === 0) {
-            player.setClothes(2, data.hair, 0, 0);
+            player.setClothes(2, data.hair ?? 0, 0, 0);
         } else {
-            player.setDlcClothes(data.hairDlc, 2, data.hair, 0, 0);
+            player.setDlcClothes(data.hairDlc, 2, data.hair ?? 0, 0, 0);
         }
 
-        player.setHairColor(data.hairColor1);
-        player.setHairHighlightColor(data.hairColor2);
+        player.setHairColor(data.hairColor1 ?? 0);
+        player.setHairHighlightColor(data.hairColor2 ?? 0);
 
         // Facial Hair
-        player.setHeadOverlay(1, data.facialHair, data.facialHairOpacity);
-        player.setHeadOverlayColor(1, 1, data.facialHairColor1, data.facialHairColor1);
+        if (typeof data.facialHair !== 'undefined') {
+            player.setHeadOverlay(1, data.facialHair, data.facialHairOpacity);
+            player.setHeadOverlayColor(1, 1, data.facialHairColor1, data.facialHairColor1);
+        }
 
         // Chest Hair
         if (data.chestHair !== null && data.chestHair !== undefined) {
@@ -236,20 +263,24 @@ export function usePlayerAppearance(player: alt.Player) {
         }
 
         // Eyebrows
-        player.setHeadOverlay(2, data.eyebrows, data.eyebrowsOpacity);
-        player.setHeadOverlayColor(2, 1, data.eyebrowsColor1, data.eyebrowsColor1);
+        if (typeof data.eyebrows !== 'undefined') {
+            player.setHeadOverlay(2, data.eyebrows, data.eyebrowsOpacity);
+            player.setHeadOverlayColor(2, 1, data.eyebrowsColor1, data.eyebrowsColor1);
+        }
 
         // Decor
-        for (let i = 0; i < data.colorOverlays.length; i++) {
-            const overlay = data.colorOverlays[i];
-            const color2 = overlay.color2 ? overlay.color2 : overlay.color1;
+        if (Array.isArray(data.colorOverlays)) {
+            for (let i = 0; i < data.colorOverlays.length; i++) {
+                const overlay = data.colorOverlays[i];
+                const color2 = overlay.color2 ? overlay.color2 : overlay.color1;
 
-            player.setHeadOverlay(overlay.id, overlay.value, parseFloat(overlay.opacity.toString()));
-            player.setHeadOverlayColor(overlay.id, 1, overlay.color1, color2);
+                player.setHeadOverlay(overlay.id, overlay.value, parseFloat(overlay.opacity.toString()));
+                player.setHeadOverlayColor(overlay.id, 1, overlay.color1, color2);
+            }
         }
 
         // Eyes
-        player.setEyeColor(data.eyes);
+        player.setEyeColor(data.eyes ?? 0);
     }
 
     /**
@@ -282,6 +313,7 @@ export function usePlayerAppearance(player: alt.Player) {
     }
 
     return {
+        getHairOverlay,
         setEyeColor,
         setEyebrows,
         setFacialHair,
