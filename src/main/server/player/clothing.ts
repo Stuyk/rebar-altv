@@ -33,7 +33,7 @@ let maleClothes = {
 
 export function useClothing(player: alt.Player) {
     /**
-     * This TypeScript function sets a uniform for a player in a game.
+     * This function sets a uniform for a player in game.
      *
      * @param player - The player parameter is an instance of the alt.Player class, which represents a
      * player in the game. It is used to identify the player for whom the uniform is being set.
@@ -51,6 +51,7 @@ export function useClothing(player: alt.Player) {
         }
 
         await document.set('uniform', components);
+        update();
         return true;
     }
 
@@ -67,6 +68,44 @@ export function useClothing(player: alt.Player) {
         }
 
         await document.set('uniform', undefined);
+        update();
+    }
+
+    /**
+     * This function sets clothing for a player in game.
+     *
+     * @param player - The player parameter is an instance of the alt.Player class, which represents a
+     * player in the game. It is used to identify the player for whom the clothing is being set.
+     *
+     * @param components - An array of ClothingComponent objects that represent the clothing items to be
+     * set as the player's clothing.
+     *
+     * @returns a Promise that resolves to a boolean value.
+     */
+    async function setClothing(components: Array<ClothingComponent>): Promise<boolean> {
+        const document = useCharacter(player);
+        const data = document.get();
+        if (typeof data === 'undefined') {
+            return false;
+        }
+
+        await document.set('clothing', components);
+        update();
+        return true;
+    }
+
+    /**
+     * This function clears a player's clothing entirely and triggers an event.
+     */
+    async function clearClothing(): Promise<void> {
+        const document = useCharacter(player);
+        const data = document.get();
+        if (typeof data === 'undefined') {
+            return;
+        }
+
+        await document.set('clothing', []);
+        update();
     }
 
     /**
@@ -83,6 +122,7 @@ export function useClothing(player: alt.Player) {
         }
 
         await document.set('skin', typeof model === 'string' ? alt.hash(model) : model);
+        update();
         return true;
     }
 
@@ -97,6 +137,7 @@ export function useClothing(player: alt.Player) {
         }
 
         await document.set('skin', undefined);
+        update();
         return true;
     }
 
@@ -186,5 +227,5 @@ export function useClothing(player: alt.Player) {
         }
     }
 
-    return { setUniform, clearUniform, setSkin, clearSkin, update };
+    return { setClothing, clearClothing, setUniform, clearUniform, setSkin, clearSkin, update };
 }
