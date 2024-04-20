@@ -1,6 +1,6 @@
 # Getters - Vehicles
 
-A vehicles getter gives information about all vehicles.
+The vehicles getter gives information about all vehicles.
 
 ```ts
 import { useVehiclesGetter } from '@Server/getters/vehicles.js';

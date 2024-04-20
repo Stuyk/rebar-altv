@@ -1,6 +1,6 @@
 # Getters - Players
 
-A player getter helps you find many players based on set information.
+The players getter gives information about all players.
 
 ```ts
 import { usePlayersGetter } from '@Server/getters/players.js';
