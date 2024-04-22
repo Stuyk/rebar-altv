@@ -1,4 +1,4 @@
-# Document - Account
+# Account
 
 An account document is a set of data that is bound to the player until they disconnect.
 

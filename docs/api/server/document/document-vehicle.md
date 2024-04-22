@@ -1,4 +1,4 @@
-# Document - Vehicle
+# Vehicle
 
 An character document is a set of data that is bound to the player until they disconnect.
 

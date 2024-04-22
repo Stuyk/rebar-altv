@@ -1,4 +1,4 @@
-# Player - Clothing
+# Clothing
 
 All of these functions can be used to adjust character clothing, skins, and uniforms.
 

@@ -1,4 +1,4 @@
-# Getters - World
+# World
 
 A world getter gives information about the in-game world.
 

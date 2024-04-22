@@ -1,4 +1,4 @@
-# Getters - Player
+# Player
 
 The player getter gives information about a single player.
 

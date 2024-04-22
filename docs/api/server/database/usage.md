@@ -1,4 +1,4 @@
-# Database
+# Usage
 
 When using the database in Rebar it can be accessed from any plugin.
 

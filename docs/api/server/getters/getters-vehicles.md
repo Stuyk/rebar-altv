@@ -1,4 +1,4 @@
-# Getters - Vehicles
+# Vehicles
 
 The vehicles getter gives information about all vehicles.
 

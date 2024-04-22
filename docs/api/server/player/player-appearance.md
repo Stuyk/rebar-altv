@@ -1,4 +1,4 @@
-# Player - Appearance
+# Appearance
 
 Used to set various freeroam character appearance data and store in the database.
 

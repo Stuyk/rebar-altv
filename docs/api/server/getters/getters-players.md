@@ -1,4 +1,4 @@
-# Getters - Players
+# Players
 
 The players getter gives information about all players.
 
