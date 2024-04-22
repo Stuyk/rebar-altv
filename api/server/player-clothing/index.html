@@ -9,24 +9,24 @@
     <meta name="generator" content="Retype 3.5.0">
 
     <!-- Primary Meta Tags -->
-    <title>Getters - Vehicles</title>
-    <meta name="title" content="Getters - Vehicles">
-    <meta name="description" content="The vehicles getter gives information about all vehicles.">
+    <title>Player - Clothing</title>
+    <meta name="title" content="Player - Clothing">
+    <meta name="description" content="All of these functions can be used to adjust character clothing, skins, and uniforms.">
 
     <!-- Canonical -->
-    <link rel="canonical" href="/api/server/getters-vehicles/">
+    <link rel="canonical" href="/api/server/player-clothing/">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="/api/server/getters-vehicles/">
-    <meta property="og:title" content="Getters - Vehicles">
-    <meta property="og:description" content="The vehicles getter gives information about all vehicles.">
+    <meta property="og:url" content="/api/server/player-clothing/">
+    <meta property="og:title" content="Player - Clothing">
+    <meta property="og:description" content="All of these functions can be used to adjust character clothing, skins, and uniforms.">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="/api/server/getters-vehicles/">
-    <meta property="twitter:title" content="Getters - Vehicles">
-    <meta property="twitter:description" content="The vehicles getter gives information about all vehicles.">
+    <meta property="twitter:url" content="/api/server/player-clothing/">
+    <meta property="twitter:title" content="Player - Clothing">
+    <meta property="twitter:description" content="All of these functions can be used to adjust character clothing, skins, and uniforms.">
 
     <script data-cfasync="false">(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
@@ -154,20 +154,83 @@
                                 <!-- Rendered if sidebar right is enabled -->
                                 <div id="docs-sidebar-right-toggle"></div>
                                 <!-- Page content  -->
-<doc-anchor-target id="getters---vehicles" class="break-words">
+<doc-anchor-target id="player---clothing" class="break-words">
     <h1>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#getters---vehicles">#</doc-anchor-trigger>
-        <span>Getters - Vehicles</span>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#player---clothing">#</doc-anchor-trigger>
+        <span>Player - Clothing</span>
     </h1>
 </doc-anchor-target>
-<p>The vehicles getter gives information about all vehicles.</p>
+<p>All of these functions can be used to adjust character clothing, skins, and uniforms.</p>
+<p>Keep in mind that the render order is as follows.</p>
+<ol>
+<li>If a skin is present we set the skin, and do nothing else.</li>
+<li>If a skin is not present, we apply the clothes to the freeroam model</li>
+<li>If a uniform is present, we apply the uniform to the freeroam model</li>
+</ol>
+<p>Uniform will always be rendered last and will override clothing pieces.</p>
+<div class="flex mb-6">
+    <div class="shrink-0 w-1 rounded-tl rounded-bl bg-blue-500 dark:bg-blue-400"></div>
+    <div class="flex w-full py-4 border border-l-0 border-gray-300 rounded-tr rounded-br doc-alert bg-white dark:bg-dark-700 dark:border-dark-700" role="alert">
+        <div class="flex items-center ml-4 h-7">
+            <svg xmlns="http://www.w3.org/2000/svg" class="mb-px text-blue-500 dark:text-blue-400" width="22" height="22" viewBox="0 0 24 24" role="presentation">
+                <g fill="currentColor"><g>
+                    <path d="M12 1C5.93 1 1 5.93 1 12s4.93 11 11 11 11-4.93 11-11S18.07 1 12 1zm0 20c-4.96 0-9-4.04-9-9s4.04-9 9-9 9 4.04 9 9-4.04 9-9 9z"></path>
+                    <path d="M12 11c-.55 0-1 .45-1 1v4c0 .55.45 1 1 1s1-.45 1-1v-4c0-.55-.45-1-1-1zM12.01 7c-.56 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1z"></path>
+                    <path fill="none" d="M0 0h24v24H0z"></path>
+                </g></g>
+            </svg>
+        </div>
+        <div class="pr-5 ml-3 w-full">
+<p>All functions will automatically save to the database, except for <code v-pre>update</code></p>
+        </div>
+    </div>
+</div>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">import { useVehiclesGetter } from '@Server/getters/vehicles.js';
+<pre class="language-typescript"><code v-pre class="language-typescript">const clothing = useClothing(somePlayer);
 
-const getter = useVehiclesGetter();
+// Set skin to something other than a freemode ped
+clothing.setSkin('u_f_y_bikerchic');
 
-// Get all vehicles in range of a position
-const vehiclesInRange = getter.inRange(new alt.Vector3(0, 0, 0), 5);</code></pre>
+// Clear skin, and reset to default freemode ped
+clothing.clearSkin();
+
+// Set uniform applies clothing to a character after their clothing is set, essentially overriding what they are wearing
+clothing.setUniform([
+    { dlc: alt.hash('some_dlc'), drawable: 0, id: 5, texture: 0 },
+    { dlc: alt.hash('some_dlc'), drawable: 1, id: 6, texture: 0 },
+    { dlc: alt.hash('some_dlc'), drawable: 7, id: 2, texture: 0 },
+]);
+
+// Clear uniform, this should be obvious
+clothing.clearUniform();
+
+// Set clothing and prop components and override everything
+clothing.setClothing([
+    { dlc: alt.hash('some_dlc'), drawable: 0, id: 5, texture: 0 },
+    { dlc: alt.hash('some_dlc'), drawable: 1, id: 6, texture: 0 },
+    { dlc: alt.hash('some_dlc'), drawable: 7, id: 2, texture: 0 },
+]);
+
+// Clear clothing removes all clothing and resets to default clothing values
+clothing.clearClothing();
+
+// This will set the absolute value of a clothing component, meaning it can be any number.
+// However, it is not guarenteed to work. Instead look into using setClothingComponent with a dlc hash.
+clothing.setClothingComponentAbsolute('shoes', 5, 0, 0);
+clothing.setClothingComponentAbsolute('mask', 5, 0, 0);
+
+clothing.setPropComponentAbsolute('glasses', 5, 0);
+
+// This will remove a specific clothing component
+clothing.removeClothingComponent('shoes');
+clothing.removeClothingComponent('mask');
+
+// This will use a dlc hash for the clothing component
+clothing.setClothingComponent('mask', alt.hash('some_dlc'), 5, 0, 0);
+clothing.setPropComponent('glasses', alt.hash('some_dlc'), 5, 0);
+
+// Forces character clothing to update, and rerenders everything
+clothing.update();</code></pre>
 </doc-codeblock></div>
 
                                 
@@ -178,20 +241,20 @@ const vehiclesInRange = getter.inRange(new alt.Vector3(0, 0, 0), 5);</code></pre
                             
                                 <nav class="flex mt-14">
                                     <div class="w-1/2">
-                                        <a class="px-5 py-4 h-full flex items-center break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-l-lg transition-colors duration-150 relative hover:z-5" href="../../../api/server/getters-vehicle/">
+                                        <a class="px-5 py-4 h-full flex items-center break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-l-lg transition-colors duration-150 relative hover:z-5" href="../../../api/server/player-appearance/">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="mr-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19 11H7.41l5.29-5.29a.996.996 0 10-1.41-1.41l-7 7a1 1 0 000 1.42l7 7a1.024 1.024 0 001.42-.01.996.996 0 000-1.41L7.41 13H19c.55 0 1-.45 1-1s-.45-1-1-1z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
                                             <span>
                                                 <span class="block text-xs font-normal text-gray-400 dark:text-dark-400">Previous</span>
-                                                <span class="block mt-1">Getters - Vehicle</span>
+                                                <span class="block mt-1">Player - Appearance</span>
                                             </span>
                                         </a>
                                     </div>
                             
                                     <div class="w-1/2">
-                                        <a class="px-5 py-4 -mx-px h-full flex items-center justify-end break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-r-lg transition-colors duration-150 relative hover:z-5" href="../../../api/server/getters-world/">
+                                        <a class="px-5 py-4 -mx-px h-full flex items-center justify-end break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-r-lg transition-colors duration-150 relative hover:z-5" href="../../../api/shared/utility/">
                                             <span>
                                                 <span class="block text-xs font-normal text-right text-gray-400 dark:text-dark-400">Next</span>
-                                                <span class="block mt-1">Getters - World</span>
+                                                <span class="block mt-1">Utility</span>
                                             </span>
                                             <svg xmlns="http://www.w3.org/2000/svg" class="ml-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19.92 12.38a1 1 0 00-.22-1.09l-7-7a.996.996 0 10-1.41 1.41l5.3 5.3H5c-.55 0-1 .45-1 1s.45 1 1 1h11.59l-5.29 5.29a.996.996 0 000 1.41c.19.2.44.3.7.3s.51-.1.71-.29l7-7c.09-.09.16-.21.21-.33z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
                                         </a>
@@ -235,6 +298,6 @@ const vehiclesInRange = getter.inRange(new alt.Vector3(0, 0, 0), 5);</code></pre
 
     <div id="docs-overlay-target"></div>
 
-    <script data-cfasync="false">window.__DOCS__ = { "title": "Getters - Vehicles", level: 3, icon: "file", hasPrism: true, hasMermaid: false, hasMath: false, tocDepth: 23 }</script>
+    <script data-cfasync="false">window.__DOCS__ = { "title": "Player - Clothing", level: 3, icon: "file", hasPrism: true, hasMermaid: false, hasMath: false, tocDepth: 23 }</script>
 </body>
 </html>
