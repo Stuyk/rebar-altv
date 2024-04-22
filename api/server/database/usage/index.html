@@ -3,39 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.5.0.767123786551">
+    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.5.0.767124335325">
 
     <!-- See retype.com -->
     <meta name="generator" content="Retype 3.5.0">
 
     <!-- Primary Meta Tags -->
-    <title>Document - Account</title>
-    <meta name="title" content="Document - Account">
-    <meta name="description" content="An account document is a set of data that is bound to the player until they disconnect.">
+    <title>Usage</title>
+    <meta name="title" content="Usage">
+    <meta name="description" content="When using the database in Rebar it can be accessed from any plugin.">
 
     <!-- Canonical -->
-    <link rel="canonical" href="/api/server/document-account/">
+    <link rel="canonical" href="/api/server/database/usage/">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="/api/server/document-account/">
-    <meta property="og:title" content="Document - Account">
-    <meta property="og:description" content="An account document is a set of data that is bound to the player until they disconnect.">
+    <meta property="og:url" content="/api/server/database/usage/">
+    <meta property="og:title" content="Usage">
+    <meta property="og:description" content="When using the database in Rebar it can be accessed from any plugin.">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="/api/server/document-account/">
-    <meta property="twitter:title" content="Document - Account">
-    <meta property="twitter:description" content="An account document is a set of data that is bound to the player until they disconnect.">
+    <meta property="twitter:url" content="/api/server/database/usage/">
+    <meta property="twitter:title" content="Usage">
+    <meta property="twitter:description" content="When using the database in Rebar it can be accessed from any plugin.">
 
     <script data-cfasync="false">(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
-    <link href="../../../resources/css/retype.css?v=3.5.0.767123786551" rel="stylesheet">
+    <link href="../../../../resources/css/retype.css?v=3.5.0.767124335325" rel="stylesheet">
 
-    <script data-cfasync="false" src="../../../resources/js/config.js?v=3.5.0.767123786551" data-turbo-eval="false" defer></script>
-    <script data-cfasync="false" src="../../../resources/js/retype.js?v=3.5.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" data-cfasync="false" src="../../../resources/js/lunr.js?v=3.5.0.767123786551" data-turbo-eval="false" defer></script>
-    <script id="prism-js" data-cfasync="false" src="../../../resources/js/prism.js?v=3.5.0.767123786551" defer></script>
+    <script data-cfasync="false" src="../../../../resources/js/config.js?v=3.5.0.767124335325" data-turbo-eval="false" defer></script>
+    <script data-cfasync="false" src="../../../../resources/js/retype.js?v=3.5.0" data-turbo-eval="false" defer></script>
+    <script id="lunr-js" data-cfasync="false" src="../../../../resources/js/lunr.js?v=3.5.0.767124335325" data-turbo-eval="false" defer></script>
+    <script id="prism-js" data-cfasync="false" src="../../../../resources/js/prism.js?v=3.5.0.767124335325" defer></script>
 </head>
 <body>
     <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -50,10 +50,10 @@
                 <!-- Logo -->
                 <div class="flex items-center justify-between h-full py-2 md:w-75">
                     <div class="flex items-center px-2 md:px-6">
-                        <a id="docs-site-logo" href="../../../" class="flex items-center leading-snug text-xl">
+                        <a id="docs-site-logo" href="../../../../" class="flex items-center leading-snug text-xl">
                             <span class="w-10 mr-2 grow-0 shrink-0 overflow-hidden">
-                                <img class="max-h-10 dark:hidden md:inline-block" src="../../../static/logo_dark.svg">
-                                <img class="max-h-10 hidden dark:inline-block" src="../../../static/logo_light.svg">
+                                <img class="max-h-10 dark:hidden md:inline-block" src="../../../../static/logo_dark.svg">
+                                <img class="max-h-10 hidden dark:inline-block" src="../../../../static/logo_light.svg">
                             </span>
                             <span class="dark:text-white font-semibold line-clamp-1 md:line-clamp-2">Rebar for alt:V</span>
                         </a>
@@ -154,107 +154,121 @@
                                 <!-- Rendered if sidebar right is enabled -->
                                 <div id="docs-sidebar-right-toggle"></div>
                                 <!-- Page content  -->
-<doc-anchor-target id="document---account" class="break-words">
+<doc-anchor-target id="usage" class="break-words">
     <h1>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#document---account">#</doc-anchor-trigger>
-        <span>Document - Account</span>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#usage">#</doc-anchor-trigger>
+        <span>Usage</span>
     </h1>
 </doc-anchor-target>
-<p>An account document is a set of data that is bound to the player until they disconnect.</p>
-<p>It automatically saves data to the MongoDB database when any <code v-pre>set</code> function is used.</p>
-<doc-anchor-target id="binding-data">
+<p>When using the database in Rebar it can be accessed from any plugin.</p>
+<p>However, the database may only be accessed on <strong>server-side</strong>.</p>
+<div class="flex mb-6">
+    <div class="shrink-0 w-1 rounded-tl rounded-bl bg-blue-500 dark:bg-blue-400"></div>
+    <div class="flex w-full py-4 border border-l-0 border-gray-300 rounded-tr rounded-br doc-alert bg-white dark:bg-dark-700 dark:border-dark-700" role="alert">
+        <div class="flex items-center ml-4 h-7">
+            <svg xmlns="http://www.w3.org/2000/svg" class="mb-px text-blue-500 dark:text-blue-400" width="22" height="22" viewBox="0 0 24 24" role="presentation">
+                <g fill="currentColor"><g>
+                    <path d="M12 1C5.93 1 1 5.93 1 12s4.93 11 11 11 11-4.93 11-11S18.07 1 12 1zm0 20c-4.96 0-9-4.04-9-9s4.04-9 9-9 9 4.04 9 9-4.04 9-9 9z"></path>
+                    <path d="M12 11c-.55 0-1 .45-1 1v4c0 .55.45 1 1 1s1-.45 1-1v-4c0-.55-.45-1-1-1zM12.01 7c-.56 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1z"></path>
+                    <path fill="none" d="M0 0h24v24H0z"></path>
+                </g></g>
+            </svg>
+        </div>
+        <div class="pr-5 ml-3 w-full">
+<p>Use the Document system if you are updating characters, accounts, or vehicles.</p>
+        </div>
+    </div>
+</div>
+<doc-anchor-target id="usage-1">
     <h2>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#binding-data">#</doc-anchor-trigger>
-        <span>Binding Data</span>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#usage-1">#</doc-anchor-trigger>
+        <span>Usage</span>
     </h2>
 </doc-anchor-target>
-<p>You should bind account data when they authenticate to your server.</p>
+<p>Import the database into your plugin file, and begin using it.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">import { useAccount, useAccountBinder } from '@Server/document/account.js';
+<pre class="language-typescript"><code v-pre class="language-typescript">import { useDatabase } from '@Server/database/index.js';
 
-// ... some function
-// Use database functions to fetch or create an account
-const someAccountData = someDatabaseFetchOrCreateFunction();
-
-// Bind account data to the player after fetching
-const accBinder = useAccountBinder(player);
-accBinder.bind(someAccountData);</code></pre>
+const { get, create, getAll, getMany, update, deleteDocument } = useDatabase();</code></pre>
 </doc-codeblock></div>
-<doc-anchor-target id="getting-data">
-    <h2>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#getting-data">#</doc-anchor-trigger>
-        <span>Getting Data</span>
-    </h2>
+<doc-anchor-target id="create-data">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#create-data">#</doc-anchor-trigger>
+        <span>Create Data</span>
+    </h3>
 </doc-anchor-target>
-<p>Data can be retrieved for the bound account like this.</p>
+<p>Creating data uses the <code v-pre>create</code> function and returns an <code v-pre>_id</code> to obtain the data.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">import { useAccount, useAccountBinder } from '@Server/document/account.js';
-
-//... some function
-const account = useAccount(player);
-const data = account.get();
-console.log(data.email);</code></pre>
-</doc-codeblock></div>
-<doc-anchor-target id="setting-data">
-    <h2>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#setting-data">#</doc-anchor-trigger>
-        <span>Setting Data</span>
-    </h2>
-</doc-anchor-target>
-<p>Data can easily be appended or set in two different ways.</p>
-<div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">import { useAccount, useAccountBinder } from '@Server/document/account.js';
-
-type CustomAccount = { whatever: string };
-
-//...some function
-const document = useAccount(player);
-
-// Single field
-document.set('banned', true);
-
-// Multi-field
-document.setBulk({ banned: true, reason: 'big nerd' });
-
-// Custom-field
-document.setBulk&lt;CustomAccount&gt;({ banned: true, reason: 'big nerd', whatever: 'hi' });</code></pre>
-</doc-codeblock></div>
-<doc-anchor-target id="getting-characters">
-    <h2>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#getting-characters">#</doc-anchor-trigger>
-        <span>Getting Characters</span>
-    </h2>
-</doc-anchor-target>
-<p>When you need to obtain a character file for an account, you can use this function to get all existing characters.</p>
-<div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">import { useAccount } from '@Server/document/account.js';
-
-//...some function
-const document = useAccount(player);
-const characters = await document.getCharacters();
-if (characters.length &gt;= 1) {
-    console.log('They have a character');
-} else {
-    console.log('They do not have a character');
+<pre class="language-typescript"><code v-pre class="language-typescript">async function test() {
+    const _id = await create({ name: 'Stuyk', age: 30 }, 'person');
 }</code></pre>
 </doc-codeblock></div>
-<doc-anchor-target id="permissions">
-    <h2>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#permissions">#</doc-anchor-trigger>
-        <span>Permissions</span>
-    </h2>
+<doc-anchor-target id="get-data">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#get-data">#</doc-anchor-trigger>
+        <span>Get Data</span>
+    </h3>
 </doc-anchor-target>
-<p>Permissions for accounts allow permissions to persist across an entire account.</p>
-<p>Here&#x27;s the simplest way to add, remove, and check permissions.</p>
+<p>If you want to get a document by an <code v-pre>_id</code>, you can use this:</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">import { useAccount } from '@Server/document/account.js';
+<pre class="language-typescript"><code v-pre class="language-typescript">async function test() {
+    const _id = await create({ name: 'Stuyk', age: 30 }, 'person');
+    const user = await get&lt;{ name: string }&gt;(_id);
+    if (!user) {
+        console.warn('Could not find the data!');
+        return;
+    }
 
-//...some function
-const document = useAccount(player);
+    console.warn(`Found ${user.name}`);
+}</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="find-data">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#find-data">#</doc-anchor-trigger>
+        <span>Find Data</span>
+    </h3>
+</doc-anchor-target>
+<p>After creating data, if you don&#x27;t have an <code v-pre>_id</code> and you want to find it. You can use <code v-pre>getMany</code>.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">async function test() {
+    const results = await getMany&lt;{ name: string }&gt;({ name: 'Stuyk' }, 'person');
+    if (results.length &lt;= 0) {
+        console.warn('Could not find the data!');
+        return;
+    }
 
-await document.permission.addPermission('admin');
-await document.permission.removePermission('admin');
-const result = document.permission.hasPermission('admin');</code></pre>
+    const user = results[0];
+    console.warn(`Found ${user.name}`);
+}</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="get-all-data">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#get-all-data">#</doc-anchor-trigger>
+        <span>Get All Data</span>
+    </h3>
+</doc-anchor-target>
+<p>It is not recommended to fetch a whole collection unless it&#x27;s a smaller collection.</p>
+<p>In any case, you can use this to fetch a whole collection of data.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">async function test() {
+    const results = await getAll&lt;{ name: string }&gt;('person');
+}</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="update">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#update">#</doc-anchor-trigger>
+        <span>Update</span>
+    </h3>
+</doc-anchor-target>
+<p>If you want to update a document, or simply append new data to the document.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">async function test() {
+    const _id = await create({ name: 'Stuyk', age: 30 }, 'person');
+    const didUpdate = await update({ _id, name: 'NotStuyk' }, 'person');
+    if (!didUpdate) {
+        return;
+    }
+}</code></pre>
 </doc-codeblock></div>
 
                                 
@@ -265,20 +279,20 @@ const result = document.permission.hasPermission('admin');</code></pre>
                             
                                 <nav class="flex mt-14">
                                     <div class="w-1/2">
-                                        <a class="px-5 py-4 h-full flex items-center break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-l-lg transition-colors duration-150 relative hover:z-5" href="../../../api/server/database/">
+                                        <a class="px-5 py-4 h-full flex items-center break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-l-lg transition-colors duration-150 relative hover:z-5" href="../../../../webview/create/">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="mr-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19 11H7.41l5.29-5.29a.996.996 0 10-1.41-1.41l-7 7a1 1 0 000 1.42l7 7a1.024 1.024 0 001.42-.01.996.996 0 000-1.41L7.41 13H19c.55 0 1-.45 1-1s-.45-1-1-1z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
                                             <span>
                                                 <span class="block text-xs font-normal text-gray-400 dark:text-dark-400">Previous</span>
-                                                <span class="block mt-1">Database</span>
+                                                <span class="block mt-1">Create a Webview</span>
                                             </span>
                                         </a>
                                     </div>
                             
                                     <div class="w-1/2">
-                                        <a class="px-5 py-4 -mx-px h-full flex items-center justify-end break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-r-lg transition-colors duration-150 relative hover:z-5" href="../../../api/server/document-character/">
+                                        <a class="px-5 py-4 -mx-px h-full flex items-center justify-end break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-r-lg transition-colors duration-150 relative hover:z-5" href="../../../../api/server/document/document-account/">
                                             <span>
                                                 <span class="block text-xs font-normal text-right text-gray-400 dark:text-dark-400">Next</span>
-                                                <span class="block mt-1">Document - Character</span>
+                                                <span class="block mt-1">Account</span>
                                             </span>
                                             <svg xmlns="http://www.w3.org/2000/svg" class="ml-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19.92 12.38a1 1 0 00-.22-1.09l-7-7a.996.996 0 10-1.41 1.41l5.3 5.3H5c-.55 0-1 .45-1 1s.45 1 1 1h11.59l-5.29 5.29a.996.996 0 000 1.41c.19.2.44.3.7.3s.51-.1.71-.29l7-7c.09-.09.16-.21.21-.33z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
                                         </a>
@@ -322,6 +336,6 @@ const result = document.permission.hasPermission('admin');</code></pre>
 
     <div id="docs-overlay-target"></div>
 
-    <script data-cfasync="false">window.__DOCS__ = { "title": "Document - Account", level: 3, icon: "file", hasPrism: true, hasMermaid: false, hasMath: false, tocDepth: 23 }</script>
+    <script data-cfasync="false">window.__DOCS__ = { "title": "Usage", level: 4, icon: "file", hasPrism: true, hasMermaid: false, hasMath: false, tocDepth: 23 }</script>
 </body>
 </html>

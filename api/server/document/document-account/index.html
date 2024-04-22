@@ -3,39 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.5.0.767123786551">
+    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.5.0.767124335325">
 
     <!-- See retype.com -->
     <meta name="generator" content="Retype 3.5.0">
 
     <!-- Primary Meta Tags -->
-    <title>Document - Character</title>
-    <meta name="title" content="Document - Character">
-    <meta name="description" content="An character document is a set of data that is bound to the player until they disconnect.">
+    <title>Account</title>
+    <meta name="title" content="Account">
+    <meta name="description" content="An account document is a set of data that is bound to the player until they disconnect.">
 
     <!-- Canonical -->
-    <link rel="canonical" href="/api/server/document-character/">
+    <link rel="canonical" href="/api/server/document/document-account/">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="/api/server/document-character/">
-    <meta property="og:title" content="Document - Character">
-    <meta property="og:description" content="An character document is a set of data that is bound to the player until they disconnect.">
+    <meta property="og:url" content="/api/server/document/document-account/">
+    <meta property="og:title" content="Account">
+    <meta property="og:description" content="An account document is a set of data that is bound to the player until they disconnect.">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="/api/server/document-character/">
-    <meta property="twitter:title" content="Document - Character">
-    <meta property="twitter:description" content="An character document is a set of data that is bound to the player until they disconnect.">
+    <meta property="twitter:url" content="/api/server/document/document-account/">
+    <meta property="twitter:title" content="Account">
+    <meta property="twitter:description" content="An account document is a set of data that is bound to the player until they disconnect.">
 
     <script data-cfasync="false">(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
-    <link href="../../../resources/css/retype.css?v=3.5.0.767123786551" rel="stylesheet">
+    <link href="../../../../resources/css/retype.css?v=3.5.0.767124335325" rel="stylesheet">
 
-    <script data-cfasync="false" src="../../../resources/js/config.js?v=3.5.0.767123786551" data-turbo-eval="false" defer></script>
-    <script data-cfasync="false" src="../../../resources/js/retype.js?v=3.5.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" data-cfasync="false" src="../../../resources/js/lunr.js?v=3.5.0.767123786551" data-turbo-eval="false" defer></script>
-    <script id="prism-js" data-cfasync="false" src="../../../resources/js/prism.js?v=3.5.0.767123786551" defer></script>
+    <script data-cfasync="false" src="../../../../resources/js/config.js?v=3.5.0.767124335325" data-turbo-eval="false" defer></script>
+    <script data-cfasync="false" src="../../../../resources/js/retype.js?v=3.5.0" data-turbo-eval="false" defer></script>
+    <script id="lunr-js" data-cfasync="false" src="../../../../resources/js/lunr.js?v=3.5.0.767124335325" data-turbo-eval="false" defer></script>
+    <script id="prism-js" data-cfasync="false" src="../../../../resources/js/prism.js?v=3.5.0.767124335325" defer></script>
 </head>
 <body>
     <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -50,10 +50,10 @@
                 <!-- Logo -->
                 <div class="flex items-center justify-between h-full py-2 md:w-75">
                     <div class="flex items-center px-2 md:px-6">
-                        <a id="docs-site-logo" href="../../../" class="flex items-center leading-snug text-xl">
+                        <a id="docs-site-logo" href="../../../../" class="flex items-center leading-snug text-xl">
                             <span class="w-10 mr-2 grow-0 shrink-0 overflow-hidden">
-                                <img class="max-h-10 dark:hidden md:inline-block" src="../../../static/logo_dark.svg">
-                                <img class="max-h-10 hidden dark:inline-block" src="../../../static/logo_light.svg">
+                                <img class="max-h-10 dark:hidden md:inline-block" src="../../../../static/logo_dark.svg">
+                                <img class="max-h-10 hidden dark:inline-block" src="../../../../static/logo_light.svg">
                             </span>
                             <span class="dark:text-white font-semibold line-clamp-1 md:line-clamp-2">Rebar for alt:V</span>
                         </a>
@@ -154,13 +154,13 @@
                                 <!-- Rendered if sidebar right is enabled -->
                                 <div id="docs-sidebar-right-toggle"></div>
                                 <!-- Page content  -->
-<doc-anchor-target id="document---character" class="break-words">
+<doc-anchor-target id="account" class="break-words">
     <h1>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#document---character">#</doc-anchor-trigger>
-        <span>Document - Character</span>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#account">#</doc-anchor-trigger>
+        <span>Account</span>
     </h1>
 </doc-anchor-target>
-<p>An character document is a set of data that is bound to the player until they disconnect.</p>
+<p>An account document is a set of data that is bound to the player until they disconnect.</p>
 <p>It automatically saves data to the MongoDB database when any <code v-pre>set</code> function is used.</p>
 <doc-anchor-target id="binding-data">
     <h2>
@@ -168,17 +168,17 @@
         <span>Binding Data</span>
     </h2>
 </doc-anchor-target>
-<p>You should bind character data after fetching call characters owned by an account.</p>
+<p>You should bind account data when they authenticate to your server.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">import { useCharacter, useCharacterBinder } from '@Server/document/character.js';
+<pre class="language-typescript"><code v-pre class="language-typescript">import { useAccount, useAccountBinder } from '@Server/document/account.js';
 
 // ... some function
-// Use database functions to fetch or create a character
-const someCharacterData = someDatabaseFetchOrCreateFunction();
+// Use database functions to fetch or create an account
+const someAccountData = someDatabaseFetchOrCreateFunction();
 
-// Bind character data to the player after fetching
-const charBinder = useCharacterBinder(player);
-charBinder.bind(someCharacterData);</code></pre>
+// Bind account data to the player after fetching
+const accBinder = useAccountBinder(player);
+accBinder.bind(someAccountData);</code></pre>
 </doc-codeblock></div>
 <doc-anchor-target id="getting-data">
     <h2>
@@ -186,14 +186,14 @@ charBinder.bind(someCharacterData);</code></pre>
         <span>Getting Data</span>
     </h2>
 </doc-anchor-target>
-<p>Data can be retrieved for the bound character like this.</p>
+<p>Data can be retrieved for the bound account like this.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">import { useCharacter, useCharacterBinder } from '@Server/document/character.js';
+<pre class="language-typescript"><code v-pre class="language-typescript">import { useAccount, useAccountBinder } from '@Server/document/account.js';
 
 //... some function
-const character = useCharacter(player);
-const document = character.get();
-console.log(document.email);</code></pre>
+const account = useAccount(player);
+const data = account.get();
+console.log(data.email);</code></pre>
 </doc-codeblock></div>
 <doc-anchor-target id="setting-data">
     <h2>
@@ -203,40 +203,39 @@ console.log(document.email);</code></pre>
 </doc-anchor-target>
 <p>Data can easily be appended or set in two different ways.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">import { useCharacter, useCharacterBinder } from '@Server/document/character.js';
+<pre class="language-typescript"><code v-pre class="language-typescript">import { useAccount, useAccountBinder } from '@Server/document/account.js';
 
-const document = useCharacter(player);
-
-type CustomCharacter = { whatever: string };
+type CustomAccount = { whatever: string };
 
 //...some function
+const document = useAccount(player);
+
 // Single field
 document.set('banned', true);
 
 // Multi-field
-document.setBulk({ name: 'John_Doe' });
+document.setBulk({ banned: true, reason: 'big nerd' });
 
 // Custom-field
-document.setBulk&lt;CustomCharacter&gt;({ whatever: 'hi' });</code></pre>
+document.setBulk&lt;CustomAccount&gt;({ banned: true, reason: 'big nerd', whatever: 'hi' });</code></pre>
 </doc-codeblock></div>
-<doc-anchor-target id="getting-vehicles">
+<doc-anchor-target id="getting-characters">
     <h2>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#getting-vehicles">#</doc-anchor-trigger>
-        <span>Getting Vehicles</span>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#getting-characters">#</doc-anchor-trigger>
+        <span>Getting Characters</span>
     </h2>
 </doc-anchor-target>
-<p>When you need to obtain a vehicle file for an character, you can use this function to get all existing vehicles owned by the player.</p>
+<p>When you need to obtain a character file for an account, you can use this function to get all existing characters.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">import { useCharacter } from '@Server/document/character.js';
-
-const document = useCharacter(player);
+<pre class="language-typescript"><code v-pre class="language-typescript">import { useAccount } from '@Server/document/account.js';
 
 //...some function
-const vehicles = await document.getVehicles();
-if (vehicles.length &gt;= 1) {
-    console.log('They have some vehicles');
+const document = useAccount(player);
+const characters = await document.getCharacters();
+if (characters.length &gt;= 1) {
+    console.log('They have a character');
 } else {
-    console.log('They do not have a vehicle');
+    console.log('They do not have a character');
 }</code></pre>
 </doc-codeblock></div>
 <doc-anchor-target id="permissions">
@@ -245,39 +244,17 @@ if (vehicles.length &gt;= 1) {
         <span>Permissions</span>
     </h2>
 </doc-anchor-target>
-<p>Permissions for characters only allows the permission to exist on the one character it is assigned to.</p>
+<p>Permissions for accounts allow permissions to persist across an entire account.</p>
 <p>Here&#x27;s the simplest way to add, remove, and check permissions.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">import { useCharacter } from '@Server/document/character.js';
-
-// ...some function
-const document = useCharacter(player);
-
-await document.permission.addPermission('mechanic');
-await document.permission.removePermission('mechanic');
-const result = document.permission.hasPermission('mechanic');</code></pre>
-</doc-codeblock></div>
-<doc-anchor-target id="permission-groups">
-    <h2>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#permission-groups">#</doc-anchor-trigger>
-        <span>Permission Groups</span>
-    </h2>
-</doc-anchor-target>
-<p>Permission groups allow you to assign permissions under a specific group name for a character.</p>
-<div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">import { useCharacter } from '@Server/document/character.js';
+<pre class="language-typescript"><code v-pre class="language-typescript">import { useAccount } from '@Server/document/account.js';
 
 //...some function
-const document = useCharacter(player);
+const document = useAccount(player);
 
-await document.permission.addGroupPerm('police', 'cadet');
-await document.permission.removeGroupPerm('police', 'cadet');
-
-// Check if they have a matching group permission
-const result = document.permission.hasGroupPerm('police', 'cadet');
-
-// Check if they have any matching group permission from the array
-const result = document.permission.hasAnyGroupPermission('police', ['cadet', 'patrol']);</code></pre>
+await document.permission.addPermission('admin');
+await document.permission.removePermission('admin');
+const result = document.permission.hasPermission('admin');</code></pre>
 </doc-codeblock></div>
 
                                 
@@ -288,20 +265,20 @@ const result = document.permission.hasAnyGroupPermission('police', ['cadet', 'pa
                             
                                 <nav class="flex mt-14">
                                     <div class="w-1/2">
-                                        <a class="px-5 py-4 h-full flex items-center break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-l-lg transition-colors duration-150 relative hover:z-5" href="../../../api/server/document-account/">
+                                        <a class="px-5 py-4 h-full flex items-center break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-l-lg transition-colors duration-150 relative hover:z-5" href="../../../../api/server/database/usage/">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="mr-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19 11H7.41l5.29-5.29a.996.996 0 10-1.41-1.41l-7 7a1 1 0 000 1.42l7 7a1.024 1.024 0 001.42-.01.996.996 0 000-1.41L7.41 13H19c.55 0 1-.45 1-1s-.45-1-1-1z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
                                             <span>
                                                 <span class="block text-xs font-normal text-gray-400 dark:text-dark-400">Previous</span>
-                                                <span class="block mt-1">Document - Account</span>
+                                                <span class="block mt-1">Usage</span>
                                             </span>
                                         </a>
                                     </div>
                             
                                     <div class="w-1/2">
-                                        <a class="px-5 py-4 -mx-px h-full flex items-center justify-end break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-r-lg transition-colors duration-150 relative hover:z-5" href="../../../api/server/document-vehicle/">
+                                        <a class="px-5 py-4 -mx-px h-full flex items-center justify-end break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-r-lg transition-colors duration-150 relative hover:z-5" href="../../../../api/server/document/document-character/">
                                             <span>
                                                 <span class="block text-xs font-normal text-right text-gray-400 dark:text-dark-400">Next</span>
-                                                <span class="block mt-1">Document - Vehicle</span>
+                                                <span class="block mt-1">Character</span>
                                             </span>
                                             <svg xmlns="http://www.w3.org/2000/svg" class="ml-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19.92 12.38a1 1 0 00-.22-1.09l-7-7a.996.996 0 10-1.41 1.41l5.3 5.3H5c-.55 0-1 .45-1 1s.45 1 1 1h11.59l-5.29 5.29a.996.996 0 000 1.41c.19.2.44.3.7.3s.51-.1.71-.29l7-7c.09-.09.16-.21.21-.33z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
                                         </a>
@@ -345,6 +322,6 @@ const result = document.permission.hasAnyGroupPermission('police', ['cadet', 'pa
 
     <div id="docs-overlay-target"></div>
 
-    <script data-cfasync="false">window.__DOCS__ = { "title": "Document - Character", level: 3, icon: "file", hasPrism: true, hasMermaid: false, hasMath: false, tocDepth: 23 }</script>
+    <script data-cfasync="false">window.__DOCS__ = { "title": "Account", level: 4, icon: "file", hasPrism: true, hasMermaid: false, hasMath: false, tocDepth: 23 }</script>
 </body>
 </html>
