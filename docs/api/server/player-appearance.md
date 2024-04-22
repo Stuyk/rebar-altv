@@ -2,6 +2,10 @@
 
 Used to set various freeroam character appearance data and store in the database.
 
+!!!
+All functions will automatically save to the database, except for `update`
+!!!
+
 ```ts
 import { usePlayerAppearance } from '@Server/player/appearance.js';
 
