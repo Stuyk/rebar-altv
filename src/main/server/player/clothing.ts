@@ -6,6 +6,28 @@ import { ClothingComponent } from '../../shared/types/clothingComponent.js';
 const fModel = alt.hash('mp_f_freemode_01');
 const mModel = alt.hash(`mp_m_freemode_01`);
 
+const ClothingKey = {
+    head: 0,
+    mask: 1,
+    torso: 3,
+    legs: 4,
+    bag: 5,
+    shoes: 6,
+    accessories: 7,
+    undershirts: 8,
+    bodyarmor: 9,
+    decals: 10,
+    tops: 11,
+};
+
+const PropKey = {
+    hat: 0,
+    glasses: 1,
+    ears: 2,
+    watch: 6,
+    bracelet: 7,
+};
+
 let femaleClothes = {
     0: 1, // mask
     3: 15, // torso
@@ -30,6 +52,31 @@ let maleClothes = {
     9: 0, // body armour
     11: 91, // top
 };
+
+async function updateClothing(document: ReturnType<typeof useCharacter>, componentData: ClothingComponent) {
+    const data = document.get();
+    if (typeof data === 'undefined') {
+        return false;
+    }
+
+    if (!data.clothing) {
+        const newClothing: ClothingComponent[] = [componentData];
+        await document.set('clothing', newClothing);
+        return true;
+    }
+
+    const modifiedClothes = [...data.clothing];
+    const index = modifiedClothes.findIndex((x) => x.id == componentData.id && x.isProp === componentData.isProp);
+    if (index <= -1) {
+        modifiedClothes.push(componentData);
+        await document.set('clothing', modifiedClothes);
+        return true;
+    }
+
+    modifiedClothes[index] = componentData;
+    await document.set('clothing', modifiedClothes);
+    return true;
+}
 
 export function useClothing(player: alt.Player) {
     /**
@@ -74,9 +121,6 @@ export function useClothing(player: alt.Player) {
     /**
      * This function sets clothing for a player in game.
      *
-     * @param player - The player parameter is an instance of the alt.Player class, which represents a
-     * player in the game. It is used to identify the player for whom the clothing is being set.
-     *
      * @param components - An array of ClothingComponent objects that represent the clothing items to be
      * set as the player's clothing.
      *
@@ -92,6 +136,173 @@ export function useClothing(player: alt.Player) {
         await document.set('clothing', components);
         update();
         return true;
+    }
+
+    /**
+     * Based on Absolute ids, it should transform a Absolute clothing set to a dlc clothing set.
+     * Saves clothing to database after modifying.
+     *
+     * However, this is not guarenteed to work. I have not checked.
+     *
+     * @param {keyof typeof ClothingKey} component
+     * @param {number} drawable
+     * @param {number} texture
+     * @param {number} [palette=0]
+     * @return
+     */
+    async function setClothingComponentAbsolute(
+        component: keyof typeof ClothingKey,
+        drawable: number,
+        texture: number,
+        palette = 0
+    ) {
+        const id = ClothingKey[component];
+
+        try {
+            player.setClothes(id, drawable, texture, palette);
+        } catch (err) {
+            return false;
+        }
+
+        const dlcData = player.getDlcClothes(id);
+        const document = useCharacter(player);
+        const componentData = { id, dlc: dlcData.dlc, drawable, texture, palette };
+        return await updateClothing(document, componentData);
+    }
+
+    /**
+     * Based on Absolute ids, it should transform a Absolute prop to a dlc prop.
+     * Saves clothing to database after modifying.
+     *
+     * However, this is not guarenteed to work. I have not checked.
+     *
+     * @param {keyof typeof PropKey} component
+     * @param {number} drawable
+     * @param {number} texture
+     * @return
+     */
+    async function setPropComponentAbsolute(component: keyof typeof PropKey, drawable: number, texture: number) {
+        const id = PropKey[component];
+
+        try {
+            player.setProp(id, drawable, texture);
+        } catch (err) {
+            return false;
+        }
+
+        const dlcData = player.getDlcProp(id);
+        const document = useCharacter(player);
+        const componentData = { id, dlc: dlcData.dlc, drawable, texture, isProp: true };
+        return await updateClothing(document, componentData);
+    }
+
+    /**
+     * Set a clothing component on the character to a specific clothing component.
+     *
+     * Overrides any existing component.
+     *
+     * @param {keyof typeof ClothingKey} component
+     * @param {number} dlc
+     * @param {number} drawable
+     * @param {number} texture
+     * @param {number} [palette=0]
+     * @return
+     */
+    async function setClothingComponent(
+        component: keyof typeof ClothingKey,
+        dlc: number,
+        drawable: number,
+        texture: number,
+        palette = 0
+    ) {
+        const id = ClothingKey[component];
+
+        try {
+            player.setDlcClothes(dlc, id, drawable, texture, palette);
+        } catch (err) {
+            return false;
+        }
+
+        const document = useCharacter(player);
+        const componentData = { id, dlc, drawable, texture, palette };
+        return await updateClothing(document, componentData);
+    }
+
+    /**
+     * Set a prop component on the character to a specific prop component.
+     *
+     * Overrides any existing component.
+     *
+     * @param {keyof typeof PropKey} component
+     * @param {number} dlc
+     * @param {number} drawable
+     * @param {number} texture
+     * @return
+     */
+    async function setPropComponent(component: keyof typeof PropKey, dlc: number, drawable: number, texture: number) {
+        const id = PropKey[component];
+
+        try {
+            player.setDlcProp(dlc, id, drawable, texture);
+        } catch (err) {
+            return false;
+        }
+
+        const document = useCharacter(player);
+        const componentData = { id, dlc, drawable, texture, isProp: true };
+        return await updateClothing(document, componentData);
+    }
+
+    /**
+     * Remove a clothing component if it is available
+     *
+     * @param {keyof typeof ClothingKey} component
+     * @return
+     */
+    async function removeClothingComponent(component: keyof typeof ClothingKey) {
+        const id = ClothingKey[component];
+        const document = useCharacter(player);
+        const data = document.get();
+
+        if (!data.clothing) {
+            return false;
+        }
+
+        const modifiedClothes = [...data.clothing];
+        for (let i = modifiedClothes.length - 1; i >= 0; i--) {
+            if (modifiedClothes[i].id == id && !modifiedClothes[i].isProp) {
+                modifiedClothes.splice(i, 1);
+                break;
+            }
+        }
+
+        return await document.set('clothing', modifiedClothes);
+    }
+
+    /**
+     * Remove a prop component if it is available
+     *
+     * @param {keyof typeof PropKey} component
+     * @return
+     */
+    async function removePropComponent(component: keyof typeof PropKey) {
+        const id = PropKey[component];
+        const document = useCharacter(player);
+        const data = document.get();
+
+        if (!data.clothing) {
+            return false;
+        }
+
+        const modifiedClothes = [...data.clothing];
+        for (let i = modifiedClothes.length - 1; i >= 0; i--) {
+            if (modifiedClothes[i].id == id && !modifiedClothes[i].isProp) {
+                modifiedClothes.splice(i, 1);
+                break;
+            }
+        }
+
+        return await document.set('clothing', modifiedClothes);
     }
 
     /**
@@ -227,5 +438,67 @@ export function useClothing(player: alt.Player) {
         }
     }
 
-    return { setClothing, clearClothing, setUniform, clearUniform, setSkin, clearSkin, update };
+    return {
+        clearClothing,
+        clearSkin,
+        clearUniform,
+        removeClothingComponent,
+        removePropComponent,
+        setSkin,
+        setClothing,
+        setClothingComponentAbsolute,
+        setPropComponentAbsolute,
+        setClothingComponent,
+        setPropComponent,
+        setUniform,
+        update,
+    };
 }
+
+const clothing = useClothing(somePlayer);
+
+// All functions automatically save to the database
+
+// Set skin to something other than a freemode ped
+clothing.setSkin('u_f_y_bikerchic');
+
+// Clear skin, and reset to default freemode ped
+clothing.clearSkin();
+
+// Set uniform applies clothing to a character after their clothing is set, essentially overriding what they are wearing
+clothing.setUniform([
+    { dlc: alt.hash('some_dlc'), drawable: 0, id: 5, texture: 0 },
+    { dlc: alt.hash('some_dlc'), drawable: 1, id: 6, texture: 0 },
+    { dlc: alt.hash('some_dlc'), drawable: 7, id: 2, texture: 0 },
+]);
+
+// Clear uniform, this should be obvious
+clothing.clearUniform();
+
+// Set clothing and prop components and override everything
+clothing.setClothing([
+    { dlc: alt.hash('some_dlc'), drawable: 0, id: 5, texture: 0 },
+    { dlc: alt.hash('some_dlc'), drawable: 1, id: 6, texture: 0 },
+    { dlc: alt.hash('some_dlc'), drawable: 7, id: 2, texture: 0 },
+]);
+
+// Clear clothing removes all clothing and resets to default clothing values
+clothing.clearClothing();
+
+// This will set the absolute value of a clothing component, meaning it can be any number.
+// However, it is not guarenteed to work. Instead look into using setClothingComponent with a dlc hash.
+clothing.setClothingComponentAbsolute('shoes', 5, 0, 0);
+clothing.setClothingComponentAbsolute('mask', 5, 0, 0);
+
+clothing.setPropComponentAbsolute('glasses', 5, 0);
+
+// This will remove a specific clothing component
+clothing.removeClothingComponent('shoes');
+clothing.removeClothingComponent('mask');
+
+// This will use a dlc hash for the clothing component
+clothing.setClothingComponent('mask', alt.hash('some_dlc'), 5, 0, 0);
+clothing.setPropComponent('glasses', alt.hash('some_dlc'), 5, 0);
+
+// Forces character clothing to update, and rerenders everything
+clothing.update();
