@@ -3,7 +3,7 @@ import { Events } from '../../shared/events/index.js';
 import { useTranslate } from '../../shared/translate.js';
 import * as Utility from '../../shared/utility/index.js';
 
-export type InteractionCallback = (entity: alt.Player, colshape: alt.Colshape) => void;
+export type InteractionCallback = (entity: alt.Player, colshape: alt.Colshape, uid: string) => void;
 
 type InteractionInternal = {
     uid: string;
@@ -112,7 +112,7 @@ export function useInteraction(colshape: alt.Colshape, type: 'vehicle' | 'player
         }
 
         for (let cb of callbacks) {
-            cb(player, colshape);
+            cb(player, colshape, uid);
         }
 
         player.emit(Events.controllers.interaction.clear);
