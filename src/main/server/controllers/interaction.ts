@@ -99,11 +99,11 @@ export function useInteraction(colshape: alt.Colshape, type: 'vehicle' | 'player
     let msgLeave = undefined;
 
     function handleEnter(player: alt.Player) {
-        player.emit(Events.controllers.interaction.onServer, uid, msgEnter);
+        player.emit(Events.controllers.interaction.set, uid, msgEnter);
     }
 
     function handleLeave(player: alt.Player) {
-        player.emit(Events.controllers.interaction.onServer, uid, msgLeave);
+        player.emit(Events.controllers.interaction.set, uid, msgLeave);
     }
 
     function handleInteract(player: alt.Player) {
@@ -155,4 +155,4 @@ export function useInteraction(colshape: alt.Colshape, type: 'vehicle' | 'player
 
 alt.on('entityEnterColshape', onEnter);
 alt.on('entityLeaveColshape', onLeave);
-alt.onClient(Events.controllers.interaction.onClient, onInteract);
+alt.onClient(Events.controllers.interaction.trigger, onInteract);

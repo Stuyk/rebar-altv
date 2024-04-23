@@ -1,8 +1,8 @@
 export const Events = {
     controllers: {
         interaction: {
-            onServer: 'interaction:on:server',
-            onClient: 'interaction:on:client',
+            set: 'interaction:set:interact',
+            trigger: 'interaction:trigger',
             clear: 'interaction:on:clear',
         },
     },
