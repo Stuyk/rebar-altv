@@ -1,10 +1,15 @@
 import * as alt from 'alt-client';
 import { Events } from '../../shared/events/index.js';
 
+type InteractionCallback = (uid: string, pos: alt.Vector3) => void;
+
 const DEFAULT_KEY = 69; // E
+const onEnterCallbacks: InteractionCallback[] = [];
+const onLeaveCallbacks: InteractionCallback[] = [];
 
 let message: string | undefined;
 let uid: string | undefined;
+let pos: alt.Vector3;
 
 function handleKeyPress(key: alt.KeyCode) {
     if (!uid) {
@@ -19,17 +24,42 @@ function handleKeyPress(key: alt.KeyCode) {
 }
 
 function handleClear() {
+    for (let cb of onLeaveCallbacks) {
+        cb(uid, pos);
+    }
+
     uid = undefined;
     message = undefined;
+    pos = undefined;
 
     alt.off('keyup', handleKeyPress);
 }
 
-function handleSet(_uid: string, _message: string | undefined) {
+function handleSet(_uid: string, _message: string | undefined, _pos: alt.Vector3) {
+    for (let cb of onEnterCallbacks) {
+        cb(uid, pos);
+    }
+
     uid = _uid;
     message = _message;
+    pos = _pos;
 
     alt.on('keyup', handleKeyPress);
+}
+
+export function useClientInteraction() {
+    function onEnter(cb: InteractionCallback) {
+        onEnterCallbacks.push(cb);
+    }
+
+    function onLeave(cb: InteractionCallback) {
+        onLeaveCallbacks.push(cb);
+    }
+
+    return {
+        onEnter,
+        onLeave,
+    };
 }
 
 alt.on('keyup', handleKeyPress);

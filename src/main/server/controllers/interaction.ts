@@ -99,11 +99,11 @@ export function useInteraction(colshape: alt.Colshape, type: 'vehicle' | 'player
     let msgLeave = undefined;
 
     function handleEnter(player: alt.Player) {
-        player.emit(Events.controllers.interaction.set, uid, msgEnter);
+        player.emit(Events.controllers.interaction.set, uid, msgEnter, colshape.pos);
     }
 
     function handleLeave(player: alt.Player) {
-        player.emit(Events.controllers.interaction.set, uid, msgLeave);
+        player.emit(Events.controllers.interaction.set, uid, msgLeave, colshape.pos);
     }
 
     function handleInteract(player: alt.Player) {
