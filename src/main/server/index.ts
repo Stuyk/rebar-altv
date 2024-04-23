@@ -7,7 +7,7 @@ import { useDatabase } from './database/index.js';
 
 const config = useConfig();
 const database = useDatabase();
-const { t } = useTranslate();
+const { t } = useTranslate('en');
 const { reconnect } = Utility.useDevReconnect();
 
 async function handleStart() {

@@ -1,4 +1,11 @@
 export const Events = {
+    controllers: {
+        interaction: {
+            onServer: 'interaction:on:server',
+            onClient: 'interaction:on:client',
+            clear: 'interaction:on:clear',
+        },
+    },
     view: {
         onServer: 'webview:on:server',
         onEmit: 'webview:emit:on',
