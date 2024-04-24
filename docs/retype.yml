@@ -1,6 +1,10 @@
 input: .
 output: .retype
-url: # Add your website address here
+links:
+    - text: Discord
+      link: https://discord.gg/63rrbadsR7
+    - text: alt:V
+      link: https://altv.mp
 branding:
     title: Rebar for alt:V
     logo: static/logo_dark.svg
