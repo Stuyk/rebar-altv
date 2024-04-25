@@ -21,9 +21,13 @@ export function useMarkerGlobal(marker: Marker) {
         marker.uid = Utility.uid.generate();
     }
 
+    if (!marker.dimension) {
+        marker.dimension = 0;
+    }
+
     let entity = new alt.VirtualEntity(markerGroup, new alt.Vector3(marker.pos), MAX_STREAM_DISTANCE, {
         type: GroupType,
-        ...marker,
+        marker,
     });
 
     function destroy() {
@@ -38,7 +42,7 @@ export function useMarkerGlobal(marker: Marker) {
 
         entity = new alt.VirtualEntity(markerGroup, new alt.Vector3(marker.pos), MAX_STREAM_DISTANCE, {
             type: GroupType,
-            ...marker,
+            marker,
         });
     }
 
@@ -67,6 +71,10 @@ export type GlobalMarker = ReturnType<typeof useMarkerGlobal>;
 export function useMarkerLocal(player: alt.Player, marker: Marker) {
     if (!marker.uid) {
         marker.uid = Utility.uid.generate();
+    }
+
+    if (!marker.dimension) {
+        marker.dimension = player.dimension;
     }
 
     function destroy() {

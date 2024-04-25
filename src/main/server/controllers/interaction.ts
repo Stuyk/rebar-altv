@@ -114,8 +114,6 @@ export function useInteraction(colshape: alt.Colshape, type: 'vehicle' | 'player
         for (let cb of callbacks) {
             cb(player, colshape, uid);
         }
-
-        player.emit(Events.controllers.interaction.clear);
     }
 
     function on(callback: InteractionCallback) {

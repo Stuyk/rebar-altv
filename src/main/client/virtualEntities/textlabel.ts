@@ -1,5 +1,5 @@
-import { TextLabel } from '../../shared/types/textLabel.js';
 import * as alt from 'alt-client';
+import { TextLabel } from '../../shared/types/textLabel.js';
 import * as ScreenText from '../screen/textlabel.js';
 
 const GroupType = 'textlabel';
@@ -89,6 +89,7 @@ function isVirtualEntity(object: alt.Object) {
     return object.getStreamSyncedMeta('type') === GroupType;
 }
 
+alt.log(`Virtual Entities - Loaded Text Label Handler`);
 alt.on('worldObjectStreamIn', onStreamEnter);
 alt.on('worldObjectStreamOut', onStreamExit);
 alt.on('streamSyncedMetaChange', onStreamSyncedMetaChanged);

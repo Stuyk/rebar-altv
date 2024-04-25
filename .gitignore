@@ -13,6 +13,8 @@ server.log
 webview/pages/plugins.ts
 .env
 
+src/plugins/sandbox-*
+
 # Logs
 logs
 *.log

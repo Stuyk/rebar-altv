@@ -53,9 +53,5 @@ export type Marker = {
     pos: alt.IVector3;
     scale: alt.IVector3;
     color: alt.RGBA;
-    dimension: number;
+    dimension?: number;
 };
-
-export type MarkerClient = {
-    type: 'marker';
-} & Marker;

@@ -23,7 +23,7 @@ export function useTextLabelGlobal(label: TextLabel) {
 
     let entity = new alt.VirtualEntity(labelGroup, new alt.Vector3(label.pos), MAX_STREAM_DISTANCE, {
         type: GroupType,
-        ...label,
+        textlabel: label,
     });
 
     function destroy() {
@@ -38,7 +38,7 @@ export function useTextLabelGlobal(label: TextLabel) {
 
         entity = new alt.VirtualEntity(labelGroup, new alt.Vector3(label.pos), MAX_STREAM_DISTANCE, {
             type: GroupType,
-            ...label,
+            textlabel: label,
         });
     }
 

@@ -3,7 +3,7 @@
     "type": "module",
     "scripts": {
         "clean": "shx rm -rf resources/core",
-        "dev": "nodemon -e ts -e vue -w ./src -w ./webview -x pnpm start",
+        "dev": "nodemon -V -x pnpm start",
         "start": "pnpm script:kill && pnpm run /^build:.*/ && pnpm script:paths && pnpm script:imports && pnpm script:database && altv-server",
         "binaries": "pnpm altv-pkg",
         "[-] Build": "",
@@ -44,7 +44,6 @@
     "dependencies": {
         "@vitejs/plugin-vue": "^5.0.4",
         "dotenv": "^16.4.5",
-        "mongodb": "^6.5.0",
         "sjcl": "^1.0.8",
         "typescript": "^5.4.5",
         "vite": "^5.2.9",
@@ -56,5 +55,16 @@
         "singleQuote": true,
         "semi": true,
         "printWidth": 120
+    },
+    "nodemonConfig": {
+        "verbose": true,
+        "ext": "ts, vue",
+        "watch": [
+            "./src",
+            "./webview"
+        ],
+        "ignore": [
+            "webview/pages/plugins.ts"
+        ]
     }
 }

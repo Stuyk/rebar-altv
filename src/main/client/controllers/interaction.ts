@@ -3,10 +3,12 @@ import { Events } from '../../shared/events/index.js';
 
 type InteractionCallback = (uid: string, pos: alt.Vector3) => void;
 
+const DEFAULT_COOLDOWN = 1000;
 const DEFAULT_KEY = 69; // E
 const onEnterCallbacks: InteractionCallback[] = [];
 const onLeaveCallbacks: InteractionCallback[] = [];
 
+let timeout = Date.now();
 let message: string | undefined;
 let uid: string | undefined;
 let pos: alt.Vector3;
@@ -20,6 +22,11 @@ function handleKeyPress(key: alt.KeyCode) {
         return;
     }
 
+    if (timeout > Date.now()) {
+        return;
+    }
+
+    timeout = Date.now() + DEFAULT_COOLDOWN;
     alt.emitServer(Events.controllers.interaction.trigger, uid);
 }
 
@@ -62,6 +69,6 @@ export function useClientInteraction() {
     };
 }
 
-alt.on('keyup', handleKeyPress);
 alt.onServer(Events.controllers.interaction.clear, handleClear);
 alt.onServer(Events.controllers.interaction.set, handleSet);
+alt.on('keyup', handleKeyPress);

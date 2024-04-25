@@ -1,10 +1,9 @@
-import { Marker } from '../../shared/types/marker.js';
 import * as alt from 'alt-client';
+import { Marker } from '../../shared/types/marker.js';
 import * as ScreenMarker from '../screen/marker.js';
 
 const GroupType = 'marker';
 
-let interval: number;
 let markers: (Marker & { entity: alt.Entity })[] = [];
 
 function draw() {
@@ -12,7 +11,6 @@ function draw() {
         if (!marker.scale) {
             marker.scale = new alt.Vector3(1, 1, 1);
         }
-
         ScreenMarker.draw(marker.type, marker.entity.pos, marker.scale, marker.color, false, false, false);
     }
 }
@@ -20,10 +18,6 @@ function draw() {
 function onStreamEnter(entity: alt.Object) {
     if (!isVirtualEntity(entity)) {
         return;
-    }
-
-    if (!interval) {
-        interval = alt.setInterval(draw, 0);
     }
 
     const data = getData(entity);
@@ -55,11 +49,6 @@ function onStreamExit(entity: alt.Object) {
         }
 
         markers.splice(i, 1);
-    }
-
-    if (markers.length <= 0) {
-        alt.clearInterval(interval);
-        interval = undefined;
     }
 }
 
@@ -93,6 +82,8 @@ function isVirtualEntity(object: alt.Object) {
     return object.getStreamSyncedMeta('type') === GroupType;
 }
 
+alt.log(`Virtual Entities - Loaded Marker Handler`);
 alt.on('worldObjectStreamIn', onStreamEnter);
 alt.on('worldObjectStreamOut', onStreamExit);
 alt.on('streamSyncedMetaChange', onStreamSyncedMetaChanged);
+alt.everyTick(draw);
