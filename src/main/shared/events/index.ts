@@ -5,6 +5,10 @@ export const Events = {
             trigger: 'interaction:trigger',
             clear: 'interaction:on:clear',
         },
+        marker: {
+            create: 'marker:create',
+            destroy: 'marker:destroy',
+        },
     },
     view: {
         onServer: 'webview:on:server',

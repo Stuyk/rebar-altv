@@ -326,6 +326,7 @@ export function usePermission(player: alt.Player) {
         has,
         hasOne,
         hasAll,
+        remove,
     };
 }
 

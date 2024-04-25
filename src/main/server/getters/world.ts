@@ -56,11 +56,3 @@ export function useWorldGetter() {
         isInOceanWater,
     };
 }
-
-const getter = useWorldGetter();
-
-// Check if an entity is in ocean water
-const isInWater = getter.isInOceanWater(somePlayerOrVehicle);
-
-// Check if a position is completely clear
-const isClear = getter.positionIsClear(new alt.Vector3(0, 0, 0), 'all');

@@ -122,7 +122,7 @@ export function useInteraction(colshape: alt.Colshape, type: 'vehicle' | 'player
         callbacks.push(callback);
     }
 
-    function remove() {
+    function destroy() {
         const index = getIndex(shape);
         if (index >= 0) {
             interactions.splice(index, 1);
@@ -146,7 +146,7 @@ export function useInteraction(colshape: alt.Colshape, type: 'vehicle' | 'player
 
     return {
         on,
-        remove,
+        destroy,
         setMessage,
         type,
         uid,

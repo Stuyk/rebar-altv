@@ -25,5 +25,5 @@ interaction.setMessage('enter', "Press 'E' to Interact");
 interaction.setMessage('leave', 'You left the interaction...');
 
 // Removing the interaction also destroys the colshape
-interaction.remove();
+interaction.destroy();
 ```
