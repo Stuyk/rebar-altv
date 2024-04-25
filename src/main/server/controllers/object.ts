@@ -2,10 +2,16 @@ import * as alt from 'alt-server';
 import * as Utility from '../../shared/utility/index.js';
 import { TextLabel } from '../../shared/types/textLabel.js';
 import { Events } from '../../shared/events/index.js';
-import { Object } from '../../shared/types/object.js';
-import { Vector3 } from 'alt-shared';
+import { iObject } from '../../shared/types/object.js';
 
-export function useObjectGlobal(objectData: Object) {
+/**
+ * Create an object globally
+ *
+ * @export
+ * @param {iObject} objectData
+ * @return
+ */
+export function useObjectGlobal(objectData: iObject) {
     if (!objectData.uid) {
         objectData.uid = Utility.uid.generate();
     }
@@ -19,7 +25,7 @@ export function useObjectGlobal(objectData: Object) {
         } catch (err) {}
     }
 
-    function update(newObjectData: Partial<Object>) {
+    function update(newObjectData: Partial<iObject>) {
         for (let key of Object.keys(newObjectData)) {
             objectData[key] = newObjectData[key];
             if (!newObject[key]) {
@@ -44,7 +50,15 @@ export function useObjectGlobal(objectData: Object) {
 
 export type GlobalObject = ReturnType<typeof useObjectGlobal>;
 
-export function useObjectLocal(player: alt.Player, objectData: Object) {
+/**
+ * Create an object for a single player to see
+ *
+ * @export
+ * @param {alt.Player} player
+ * @param {iObject} objectData
+ * @return
+ */
+export function useObjectLocal(player: alt.Player, objectData: iObject) {
     if (!objectData.uid) {
         objectData.uid = Utility.uid.generate();
     }
@@ -75,7 +89,3 @@ export function useObjectLocal(player: alt.Player, objectData: Object) {
 }
 
 export type LocalObject = ReturnType<typeof useObjectLocal>;
-
-const object = useObjectGlobal({ model: alt.hash('prop_barrel_pile_02'), pos: Vector3.zero });
-
-object.update({ pos: new alt.Vector3(0, 0, 0) });

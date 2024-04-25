@@ -1,10 +1,10 @@
 import * as alt from 'alt-client';
 import { Events } from '../../shared/events/index.js';
-import { Object } from '../../shared/types/object.js';
+import { iObject } from '../../shared/types/object.js';
 import { distance2d } from '../../shared/utility/vector.js';
 
 const MAX_DISTANCE = 50;
-const objects: Object[] = [];
+const objects: iObject[] = [];
 const objectsDrawn: { [key: string]: alt.LocalObject } = {};
 
 function draw() {
@@ -42,7 +42,7 @@ function draw() {
     }
 }
 
-async function handleCreate(object: Object) {
+async function handleCreate(object: iObject) {
     try {
         await alt.Utils.requestModel(object.model);
     } catch (err) {
