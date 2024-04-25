@@ -9,6 +9,10 @@ export const Events = {
             create: 'marker:create',
             destroy: 'marker:destroy',
         },
+        textlabel: {
+            create: 'textlabel:create',
+            destroy: 'textlabel:destroy',
+        },
     },
     view: {
         onServer: 'webview:on:server',

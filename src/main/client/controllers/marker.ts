@@ -18,6 +18,10 @@ function draw() {
             continue;
         }
 
+        if (marker.dimension !== alt.Player.local.dimension) {
+            continue;
+        }
+
         ScreenMarker.draw(marker.type, marker.pos, marker.scale, marker.color, false, false, false);
     }
 }

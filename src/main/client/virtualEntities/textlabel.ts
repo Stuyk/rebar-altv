@@ -1,19 +1,15 @@
-import { Marker } from '../../shared/types/marker.js';
+import { TextLabel } from '../../shared/types/textLabel.js';
 import * as alt from 'alt-client';
-import * as ScreenMarker from '../screen/marker.js';
+import * as ScreenText from '../screen/textlabel.js';
 
-const GroupType = 'marker';
+const GroupType = 'textlabel';
 
 let interval: number;
-let markers: (Marker & { entity: alt.Entity })[] = [];
+let markers: (TextLabel & { entity: alt.Entity })[] = [];
 
 function draw() {
-    for (let marker of markers) {
-        if (!marker.scale) {
-            marker.scale = new alt.Vector3(1, 1, 1);
-        }
-
-        ScreenMarker.draw(marker.type, marker.entity.pos, marker.scale, marker.color, false, false, false);
+    for (let label of markers) {
+        ScreenText.drawText3D(label.text, label.pos, 0.4, new alt.RGBA(255, 255, 255, 255));
     }
 }
 
@@ -81,8 +77,8 @@ function onStreamSyncedMetaChanged(entity: alt.Object, key: string, value: any) 
     markers[index] = { ...data, entity };
 }
 
-function getData(object: alt.Object): Marker {
-    return object.getStreamSyncedMeta(GroupType) as Marker;
+function getData(object: alt.Object) {
+    return object.getStreamSyncedMeta(GroupType) as TextLabel;
 }
 
 function isVirtualEntity(object: alt.Object) {

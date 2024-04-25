@@ -1,6 +1,7 @@
 import * as alt from 'alt-client';
 import '../translate/index.js';
 import './controllers/index.js';
+import './virtualEntities/index.js';
 
 async function start() {
     // Load Plugins

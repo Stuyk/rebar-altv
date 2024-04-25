@@ -1,8 +1,9 @@
 import * as alt from 'alt-server';
 import * as Utility from '../../shared/utility/index.js';
-import { Marker, MarkerType } from '../../shared/types/marker.js';
+import { Marker } from '../../shared/types/marker.js';
 import { Events } from '../../shared/events/index.js';
 
+const GroupType = 'marker';
 const MAX_STREAM_DISTANCE = 100;
 const MAX_MARKERS = 10;
 
@@ -21,7 +22,7 @@ export function useMarkerGlobal(marker: Marker) {
     }
 
     let entity = new alt.VirtualEntity(markerGroup, new alt.Vector3(marker.pos), MAX_STREAM_DISTANCE, {
-        type: 'marker',
+        type: GroupType,
         ...marker,
     });
 
@@ -36,7 +37,7 @@ export function useMarkerGlobal(marker: Marker) {
         } catch (err) {}
 
         entity = new alt.VirtualEntity(markerGroup, new alt.Vector3(marker.pos), MAX_STREAM_DISTANCE, {
-            type: 'marker',
+            type: GroupType,
             ...marker,
         });
     }
