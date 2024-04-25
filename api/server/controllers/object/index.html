@@ -9,24 +9,24 @@
     <meta name="generator" content="Retype 3.5.0">
 
     <!-- Primary Meta Tags -->
-    <title>Player</title>
-    <meta name="title" content="Player">
-    <meta name="description" content="The player getter gives information about a single player.">
+    <title>Objects</title>
+    <meta name="title" content="Objects">
+    <meta name="description" content="Objects are well... objects. They're things on the map like ATMs, Boxes, etc.">
 
     <!-- Canonical -->
-    <link rel="canonical" href="/api/server/getters/getters-player/">
+    <link rel="canonical" href="/api/server/controllers/object/">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="/api/server/getters/getters-player/">
-    <meta property="og:title" content="Player">
-    <meta property="og:description" content="The player getter gives information about a single player.">
+    <meta property="og:url" content="/api/server/controllers/object/">
+    <meta property="og:title" content="Objects">
+    <meta property="og:description" content="Objects are well... objects. They're things on the map like ATMs, Boxes, etc.">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="/api/server/getters/getters-player/">
-    <meta property="twitter:title" content="Player">
-    <meta property="twitter:description" content="The player getter gives information about a single player.">
+    <meta property="twitter:url" content="/api/server/controllers/object/">
+    <meta property="twitter:title" content="Objects">
+    <meta property="twitter:description" content="Objects are well... objects. They're things on the map like ATMs, Boxes, etc.">
 
     <script data-cfasync="false">(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
@@ -174,44 +174,50 @@
                                 <!-- Rendered if sidebar right is enabled -->
                                 <div id="docs-sidebar-right-toggle"></div>
                                 <!-- Page content  -->
-<doc-anchor-target id="player" class="break-words">
+<doc-anchor-target id="objects" class="break-words">
     <h1>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#player">#</doc-anchor-trigger>
-        <span>Player</span>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#objects">#</doc-anchor-trigger>
+        <span>Objects</span>
     </h1>
 </doc-anchor-target>
-<p>The player getter gives information about a single player.</p>
+<p>Objects are well... objects. They&#x27;re things on the map like ATMs, Boxes, etc.</p>
+<doc-anchor-target id="global-object">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#global-object">#</doc-anchor-trigger>
+        <span>Global Object</span>
+    </h2>
+</doc-anchor-target>
+<p>Global objects can be seen by all players.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">import { usePlayerGetter } from '@Server/getters/player.js';
+<pre class="language-typescript"><code v-pre class="language-typescript">import { useObjectGlobal } from '@Server/controllers/object.js';
 
-const getter = usePlayerGetter();
+// Create the object
+const object = useObjectGlobal({ model: alt.hash('prop_barrel_pile_02'), pos: Vector3.zero });
 
-// Returns a account by account _id
-const somePlayer = getter.byAccount('_id');
+// Update object
+object.update({ pos: new alt.Vector3(0, 0, 0) });
 
-// Returns a player by character _id
-const somePlayer2 = getter.byCharacter('_id');
+// Destroy the global object
+object.destroy();</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="local-object">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#local-object">#</doc-anchor-trigger>
+        <span>Local Object</span>
+    </h2>
+</doc-anchor-target>
+<p>Local objects can only be seen by a single player.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">import { useObjectLocal } from '@Server/controllers/object.js';
 
-// Returns a player by full name
-const somePlayer3 = getter.byName('john_doe');
+// Create the object
+const object = useObjectLocal(somePlayer, { model: alt.hash('prop_barrel_pile_02'), pos: Vector3.zero });
 
-// Returns a player by partial name
-const somePlayer4 = getter.byPartialName('john');
+// Update object
+object.update({ pos: new alt.Vector3(0, 0, 0) });
 
-// Returns the closest player to a player
-const somePlayer5 = getter.closestToPlayer(somePlayer);
-
-// Returns the closest player to a vehicle
-const somePlayer6 = getter.closestToVehicle(someVehicle);
-
-// Returns a player in front of the player, if present
-const somePlayer7 = getter.inFrontOf(somePlayer, 5); // Returns a player in front of the player, if present
-
-// Returns true if player is near a position
-const result1 = getter.isNearPosition(somePlayer, new alt.Vector3(0, 0, 0));
-
-// Returns true if the player is logged in and playing on a character
-const result2 = getter.isValid(somePlayer);</code></pre>
+// Destroy the local object for the player
+object.destroy();</code></pre>
 </doc-codeblock></div>
 
                                 
@@ -222,20 +228,20 @@ const result2 = getter.isValid(somePlayer);</code></pre>
                             
                                 <nav class="flex mt-14">
                                     <div class="w-1/2">
-                                        <a class="px-5 py-4 h-full flex items-center break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-l-lg transition-colors duration-150 relative hover:z-5" href="../../../../api/server/document/document-vehicle/">
+                                        <a class="px-5 py-4 h-full flex items-center break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-l-lg transition-colors duration-150 relative hover:z-5" href="../../../../api/server/controllers/marker/">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="mr-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19 11H7.41l5.29-5.29a.996.996 0 10-1.41-1.41l-7 7a1 1 0 000 1.42l7 7a1.024 1.024 0 001.42-.01.996.996 0 000-1.41L7.41 13H19c.55 0 1-.45 1-1s-.45-1-1-1z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
                                             <span>
                                                 <span class="block text-xs font-normal text-gray-400 dark:text-dark-400">Previous</span>
-                                                <span class="block mt-1">Vehicle</span>
+                                                <span class="block mt-1">Marker</span>
                                             </span>
                                         </a>
                                     </div>
                             
                                     <div class="w-1/2">
-                                        <a class="px-5 py-4 -mx-px h-full flex items-center justify-end break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-r-lg transition-colors duration-150 relative hover:z-5" href="../../../../api/server/getters/getters-players/">
+                                        <a class="px-5 py-4 -mx-px h-full flex items-center justify-end break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-r-lg transition-colors duration-150 relative hover:z-5" href="../../../../api/server/controllers/textlabel/">
                                             <span>
                                                 <span class="block text-xs font-normal text-right text-gray-400 dark:text-dark-400">Next</span>
-                                                <span class="block mt-1">Players</span>
+                                                <span class="block mt-1">Text Labels</span>
                                             </span>
                                             <svg xmlns="http://www.w3.org/2000/svg" class="ml-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19.92 12.38a1 1 0 00-.22-1.09l-7-7a.996.996 0 10-1.41 1.41l5.3 5.3H5c-.55 0-1 .45-1 1s.45 1 1 1h11.59l-5.29 5.29a.996.996 0 000 1.41c.19.2.44.3.7.3s.51-.1.71-.29l7-7c.09-.09.16-.21.21-.33z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
                                         </a>
@@ -279,6 +285,6 @@ const result2 = getter.isValid(somePlayer);</code></pre>
 
     <div id="docs-overlay-target"></div>
 
-    <script data-cfasync="false">window.__DOCS__ = { "title": "Player", level: 4, icon: "file", hasPrism: true, hasMermaid: false, hasMath: false, tocDepth: 23 }</script>
+    <script data-cfasync="false">window.__DOCS__ = { "title": "Objects", level: 4, icon: "file", hasPrism: true, hasMermaid: false, hasMath: false, tocDepth: 23 }</script>
 </body>
 </html>
