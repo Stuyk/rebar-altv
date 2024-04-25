@@ -31,7 +31,9 @@ export function useMarkerGlobal(marker: Marker) {
     });
 
     function destroy() {
-        entity.destroy();
+        try {
+            entity.destroy();
+        } catch (err) {}
     }
 
     function update(newMarker: Partial<Marker>) {

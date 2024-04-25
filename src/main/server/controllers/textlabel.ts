@@ -27,7 +27,9 @@ export function useTextLabelGlobal(label: TextLabel) {
     });
 
     function destroy() {
-        entity.destroy();
+        try {
+            entity.destroy();
+        } catch (err) {}
     }
 
     function update(newMarker: Partial<TextLabel>) {

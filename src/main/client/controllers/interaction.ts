@@ -69,6 +69,7 @@ export function useClientInteraction() {
     };
 }
 
+alt.log(`Controllers - Loaded Interaction Handler`);
 alt.onServer(Events.controllers.interaction.clear, handleClear);
 alt.onServer(Events.controllers.interaction.set, handleSet);
 alt.on('keyup', handleKeyPress);

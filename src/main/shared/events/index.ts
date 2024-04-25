@@ -9,6 +9,10 @@ export const Events = {
             create: 'marker:create',
             destroy: 'marker:destroy',
         },
+        object: {
+            create: 'object:create',
+            destroy: 'object:destroy',
+        },
         textlabel: {
             create: 'textlabel:create',
             destroy: 'textlabel:destroy',

@@ -45,6 +45,7 @@ function handleDestroy(uid: string) {
     }
 }
 
+alt.log(`Controllers - Loaded Marker Handler`);
 alt.onServer(Events.controllers.marker.create, handleCreate);
 alt.onServer(Events.controllers.marker.destroy, handleDestroy);
 alt.everyTick(draw);
