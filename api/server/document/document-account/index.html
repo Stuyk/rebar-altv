@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.5.0.767459999518">
+    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.5.0.767464357879">
 
     <!-- See retype.com -->
     <meta name="generator" content="Retype 3.5.0">
@@ -30,12 +30,12 @@
 
     <script data-cfasync="false">(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
-    <link href="../../../../resources/css/retype.css?v=3.5.0.767459999518" rel="stylesheet">
+    <link href="../../../../resources/css/retype.css?v=3.5.0.767464357879" rel="stylesheet">
 
-    <script data-cfasync="false" src="../../../../resources/js/config.js?v=3.5.0.767459999518" data-turbo-eval="false" defer></script>
+    <script data-cfasync="false" src="../../../../resources/js/config.js?v=3.5.0.767464357879" data-turbo-eval="false" defer></script>
     <script data-cfasync="false" src="../../../../resources/js/retype.js?v=3.5.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" data-cfasync="false" src="../../../../resources/js/lunr.js?v=3.5.0.767459999518" data-turbo-eval="false" defer></script>
-    <script id="prism-js" data-cfasync="false" src="../../../../resources/js/prism.js?v=3.5.0.767459999518" defer></script>
+    <script id="lunr-js" data-cfasync="false" src="../../../../resources/js/lunr.js?v=3.5.0.767464357879" data-turbo-eval="false" defer></script>
+    <script id="prism-js" data-cfasync="false" src="../../../../resources/js/prism.js?v=3.5.0.767464357879" defer></script>
 </head>
 <body>
     <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -197,8 +197,7 @@
 const someAccountData = someDatabaseFetchOrCreateFunction();
 
 // Bind account data to the player after fetching
-const accBinder = useAccountBinder(player);
-accBinder.bind(someAccountData);</code></pre>
+const document = useAccountBinder(player).bind(someAccountData);</code></pre>
 </doc-codeblock></div>
 <doc-anchor-target id="getting-data">
     <h2>
@@ -208,7 +207,7 @@ accBinder.bind(someAccountData);</code></pre>
 </doc-anchor-target>
 <p>Data can be retrieved for the bound account like this.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">import { useAccount, useAccountBinder } from '@Server/document/account.js';
+<pre class="language-typescript"><code v-pre class="language-typescript">import { useAccount } from '@Server/document/account.js';
 
 //... some function
 const account = useAccount(player);
@@ -223,7 +222,7 @@ console.log(data.email);</code></pre>
 </doc-anchor-target>
 <p>Data can easily be appended or set in two different ways.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">import { useAccount, useAccountBinder } from '@Server/document/account.js';
+<pre class="language-typescript"><code v-pre class="language-typescript">import { useAccount } from '@Server/document/account.js';
 
 type CustomAccount = { whatever: string };
 
@@ -275,6 +274,38 @@ const document = useAccount(player);
 await document.permission.addPermission('admin');
 await document.permission.removePermission('admin');
 const result = document.permission.hasPermission('admin');</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="password">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#password">#</doc-anchor-trigger>
+        <span>Password</span>
+    </h2>
+</doc-anchor-target>
+<p>When you setup an account you often want to also setup a password, or check a password.</p>
+<p>We&#x27;ve made it pretty easy in Rebar to simply check a password to login.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">import { useAccount, useAccountBinder } from '@Server/document/account.js';
+
+// Bind, and get the document
+const document = useAccountBinder(player).bind(someAccountDataHere);
+
+// Verify a password for the account
+const isValid = document.checkPassword('myplaintextpassword');</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="banning">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#banning">#</doc-anchor-trigger>
+        <span>Banning</span>
+    </h2>
+</doc-anchor-target>
+<p>Banning an account is pretty straight forward but it does not prevent new accounts with new ips.</p>
+<p>It&#x27;s simply an account level ban that happens during server runtime.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">import { useAccount } from '@Server/document/account.js';
+
+// Bind, and get the document
+const document = useAccount(player);
+const isValid = document.setBanned('oops your banned');</code></pre>
 </doc-codeblock></div>
 
                                 
