@@ -57,14 +57,15 @@
         "printWidth": 120
     },
     "nodemonConfig": {
-        "verbose": true,
+        "verbose": false,
         "ext": "ts, vue",
         "watch": [
             "./src",
             "./webview"
         ],
         "ignore": [
-            "webview/pages/plugins.ts"
+            "webview/pages/*",
+            "webview/vite.config.*"
         ]
     }
 }
