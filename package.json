@@ -4,23 +4,22 @@
     "scripts": {
         "clean": "shx rm -rf resources/core",
         "dev": "nodemon -V -x pnpm start",
-        "start": "pnpm script:kill && pnpm run /^build:.*/ && pnpm script:paths && pnpm script:imports && pnpm script:database && altv-server",
+        "start": "pnpm run /^build:.*/ && pnpm run /^paths:.*/ && altv-server",
         "binaries": "pnpm altv-pkg",
         "[-] Build": "",
         "build:code": "pnpm clean && pnpm transpile && shx cp ./src/resource.toml ./resources/core/resource.toml",
         "build:webview": "pnpm webview:build",
-        "[-] Scripts": "",
-        "script:kill": "node ./scripts/pkill.js",
-        "script:webview": "node ./scripts/webview.js",
-        "script:imports": "node ./scripts/buildPluginImports.js",
-        "script:paths": "node ./scripts/pathResolver.js",
-        "script:database": "node ./scripts/database.js",
+        "build:kill": "node ./scripts/pkill.js",
+        "build:env": "node ./scripts/env.js",
+        "[-] Paths": "",
+        "paths:imports": "node ./scripts/buildPluginImports.js",
+        "paths:pathresolver": "node ./scripts/pathResolver.js",
         "[-] Transpile": "",
         "transpile": "sucrase ./src -d ./resources/core --transforms typescript -q",
         "transpile:verbose": "sucrase ./src -d ./resources/core --transforms typescript",
         "[-] Webview": "",
-        "webview:build": "pnpm script:webview && pnpm -C webview run build",
-        "webview:dev": "pnpm script:webview && pnpm -C webview run dev"
+        "webview:build": "node ./scripts/webview.js && pnpm -C webview run build",
+        "webview:dev": "node ./scripts/webview.js && pnpm -C webview run dev"
     },
     "devDependencies": {
         "@altv/types-client": "^16.2.2",
@@ -65,7 +64,8 @@
         ],
         "ignore": [
             "webview/pages/*",
-            "webview/vite.config.*"
+            "webview/vite.config.*",
+            "*/package.json"
         ]
     }
 }

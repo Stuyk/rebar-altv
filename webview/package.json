@@ -1,7 +1,7 @@
 {
     "type": "module",
     "scripts": {
-        "dev": "vite . -- --clearScreen --debug=true --host=localhost --port=3000",
+        "dev": "vite . -- --debug=true --host=localhost --port=3000",
         "build": "vite build ."
     }
 }
