@@ -9,24 +9,24 @@
     <meta name="generator" content="Retype 3.5.0">
 
     <!-- Primary Meta Tags -->
-    <title>Appearance</title>
-    <meta name="title" content="Appearance">
-    <meta name="description" content="Used to set various freeroam character appearance data and store in the database.">
+    <title>World</title>
+    <meta name="title" content="World">
+    <meta name="description" content="These functions change what the player will see, or doesn't see.">
 
     <!-- Canonical -->
-    <link rel="canonical" href="/api/server/player/player-appearance/">
+    <link rel="canonical" href="/api/server/player/player-world/">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="/api/server/player/player-appearance/">
-    <meta property="og:title" content="Appearance">
-    <meta property="og:description" content="Used to set various freeroam character appearance data and store in the database.">
+    <meta property="og:url" content="/api/server/player/player-world/">
+    <meta property="og:title" content="World">
+    <meta property="og:description" content="These functions change what the player will see, or doesn't see.">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="/api/server/player/player-appearance/">
-    <meta property="twitter:title" content="Appearance">
-    <meta property="twitter:description" content="Used to set various freeroam character appearance data and store in the database.">
+    <meta property="twitter:url" content="/api/server/player/player-world/">
+    <meta property="twitter:title" content="World">
+    <meta property="twitter:description" content="These functions change what the player will see, or doesn't see.">
 
     <script data-cfasync="false">(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
@@ -174,68 +174,44 @@
                                 <!-- Rendered if sidebar right is enabled -->
                                 <div id="docs-sidebar-right-toggle"></div>
                                 <!-- Page content  -->
-<doc-anchor-target id="appearance" class="break-words">
+<doc-anchor-target id="world" class="break-words">
     <h1>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#appearance">#</doc-anchor-trigger>
-        <span>Appearance</span>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#world">#</doc-anchor-trigger>
+        <span>World</span>
     </h1>
 </doc-anchor-target>
-<p>Used to set various freeroam character appearance data and store in the database.</p>
-<div class="flex mb-6">
-    <div class="shrink-0 w-1 rounded-tl rounded-bl bg-blue-500 dark:bg-blue-400"></div>
-    <div class="flex w-full py-4 border border-l-0 border-gray-300 rounded-tr rounded-br doc-alert bg-white dark:bg-dark-700 dark:border-dark-700" role="alert">
-        <div class="flex items-center ml-4 h-7">
-            <svg xmlns="http://www.w3.org/2000/svg" class="mb-px text-blue-500 dark:text-blue-400" width="22" height="22" viewBox="0 0 24 24" role="presentation">
-                <g fill="currentColor"><g>
-                    <path d="M12 1C5.93 1 1 5.93 1 12s4.93 11 11 11 11-4.93 11-11S18.07 1 12 1zm0 20c-4.96 0-9-4.04-9-9s4.04-9 9-9 9 4.04 9 9-4.04 9-9 9z"></path>
-                    <path d="M12 11c-.55 0-1 .45-1 1v4c0 .55.45 1 1 1s1-.45 1-1v-4c0-.55-.45-1-1-1zM12.01 7c-.56 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1z"></path>
-                    <path fill="none" d="M0 0h24v24H0z"></path>
-                </g></g>
-            </svg>
-        </div>
-        <div class="pr-5 ml-3 w-full">
-<p>All functions will automatically save to the database, except for <code v-pre>update</code></p>
-        </div>
-    </div>
-</div>
+<p>These functions change what the player will see, or doesn&#x27;t see.</p>
+<p>Often used for <code v-pre>drunk effects</code>, <code v-pre>changing weather</code>, <code v-pre>changing time</code>, or <code v-pre>fading a screen to black</code>.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">import { usePlayerAppearance } from '@Server/player/appearance.js';
+<pre class="language-typescript"><code v-pre class="language-typescript">import { useWorld } from '@Server/player/world.js';
+import { TimecycleTypes } from '../../shared/data/timecycleTypes.js';
+import { ScreenEffects } from '../../shared/data/screenEffects.js';
+import { Weathers } from '../../shared/data/weathers.js';
 
-const appearance = usePlayerAppearance(somePlayer);
+// Access player world
+const playerWorld = useWorld(somePlayer);
 
-// Get hair decorator for style, and save to database
-const hairDecorator = appearance.getHairOverlay(0, 5);
+// Blur the screen over 5 seconds, and keep it blurred
+playerWorld.setScreenBlur(5000);
+playerWorld.clearScreenBlur(5000);
 
-// Set eye color and save to database
-appearance.setEyeColor(5);
+// Show a screen effect to the player like 'Trevors Rage' when using his special ability
+playerWorld.setScreenEffect(ScreenEffects.RAMPAGE, 10000, true);
+playerWorld.clearScreenEffect(ScreenEffects.RAMPAGE);
+playerWorld.clearAllScreenEffects();
 
-// Set eyebrow style and save to database
-appearance.setEyebrows({ style: 1, color: 5, opacity: 1 });
+// Fade the screen to black over 5 seconds, and leave it black
+playerWorld.setScreenFade(5000);
+playerWorld.clearScreenFade(5000);
 
-// Set facial hair style and save to database
-appearance.setFacialHair({ style: 5, color: 2, opacity: 1 });
+// Set the in-game GTA:V world time to 9 AM
+playerWorld.setTime(9, 0, 0);
 
-// Set a hair style and save to database
-appearance.setHairStyle({ hair: 5, color1: 25, color2: 25, decorator: hairDecorator });
+// Apply colors to the screen, best paired with screen effects as well
+playerWorld.setTimecycle('stoned', 5000);
 
-// Set face appearance data
-appearance.setHeadBlendData({
-    faceFather: 0,
-    faceMother: 0,
-    skinFather: 5,
-    skinMother: 45,
-    faceMix: 0.5,
-    skinMix: 0.5,
-});
-
-// Set to true to have a more feminine body
-appearance.setModel(true);
-
-// Set tattoos on the player and save to database
-appearance.setTattoos([{ collection: 'mpairraces_overlays', overlay: 'MP_Airraces_Tattoo_000_M' }]);
-
-// Called automatically, but resynchronizes freeroam player appearance
-appearance.update();</code></pre>
+// Change the weather to Thunder over 5 seconds
+playerWorld.setWeather('THUNDER', 5);</code></pre>
 </doc-codeblock></div>
 
                                 
@@ -246,20 +222,20 @@ appearance.update();</code></pre>
                             
                                 <nav class="flex mt-14">
                                     <div class="w-1/2">
-                                        <a class="px-5 py-4 h-full flex items-center break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-l-lg transition-colors duration-150 relative hover:z-5" href="../../../../api/server/player/player-animation/">
+                                        <a class="px-5 py-4 h-full flex items-center break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-l-lg transition-colors duration-150 relative hover:z-5" href="../../../../api/server/player/player-notify/">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="mr-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19 11H7.41l5.29-5.29a.996.996 0 10-1.41-1.41l-7 7a1 1 0 000 1.42l7 7a1.024 1.024 0 001.42-.01.996.996 0 000-1.41L7.41 13H19c.55 0 1-.45 1-1s-.45-1-1-1z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
                                             <span>
                                                 <span class="block text-xs font-normal text-gray-400 dark:text-dark-400">Previous</span>
-                                                <span class="block mt-1">Animation</span>
+                                                <span class="block mt-1">Notify</span>
                                             </span>
                                         </a>
                                     </div>
                             
                                     <div class="w-1/2">
-                                        <a class="px-5 py-4 -mx-px h-full flex items-center justify-end break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-r-lg transition-colors duration-150 relative hover:z-5" href="../../../../api/server/player/player-clothing/">
+                                        <a class="px-5 py-4 -mx-px h-full flex items-center justify-end break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-r-lg transition-colors duration-150 relative hover:z-5" href="../../../../api/shared/utility/">
                                             <span>
                                                 <span class="block text-xs font-normal text-right text-gray-400 dark:text-dark-400">Next</span>
-                                                <span class="block mt-1">Clothing</span>
+                                                <span class="block mt-1">Utility</span>
                                             </span>
                                             <svg xmlns="http://www.w3.org/2000/svg" class="ml-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19.92 12.38a1 1 0 00-.22-1.09l-7-7a.996.996 0 10-1.41 1.41l5.3 5.3H5c-.55 0-1 .45-1 1s.45 1 1 1h11.59l-5.29 5.29a.996.996 0 000 1.41c.19.2.44.3.7.3s.51-.1.71-.29l7-7c.09-.09.16-.21.21-.33z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
                                         </a>
@@ -303,6 +279,6 @@ appearance.update();</code></pre>
 
     <div id="docs-overlay-target"></div>
 
-    <script data-cfasync="false">window.__DOCS__ = { "title": "Appearance", level: 4, icon: "file", hasPrism: true, hasMermaid: false, hasMath: false, tocDepth: 23 }</script>
+    <script data-cfasync="false">window.__DOCS__ = { "title": "World", level: 4, icon: "file", hasPrism: true, hasMermaid: false, hasMath: false, tocDepth: 23 }</script>
 </body>
 </html>
