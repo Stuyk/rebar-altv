@@ -23,6 +23,9 @@ export const Events = {
         },
     },
     player: {
+        native: {
+            invoke: 'player:native:invoke',
+        },
         notify: {
             notification: {
                 create: 'player:notify:notification:create',
