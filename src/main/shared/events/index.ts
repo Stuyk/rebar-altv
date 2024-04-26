@@ -5,6 +5,10 @@ export const Events = {
             trigger: 'interaction:trigger',
             clear: 'interaction:on:clear',
         },
+        blip: {
+            create: 'blip:create',
+            destroy: 'blip:destroy',
+        },
         marker: {
             create: 'marker:create',
             destroy: 'marker:destroy',

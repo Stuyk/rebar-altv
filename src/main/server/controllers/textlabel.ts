@@ -91,4 +91,4 @@ export function useTextLabelLocal(player: alt.Player, label: TextLabel) {
     };
 }
 
-export type LocalMarker = ReturnType<typeof useTextLabelLocal>;
+export type LocalTextLabel = ReturnType<typeof useTextLabelLocal>;
