@@ -22,6 +22,27 @@ export const Events = {
             destroy: 'textlabel:destroy',
         },
     },
+    player: {
+        notify: {
+            notification: {
+                create: 'player:notify:notification:create',
+            },
+            missiontext: {
+                create: 'player:notify:missiontext:create',
+            },
+            spinner: {
+                create: 'player:notify:spinner:create',
+                destroy: 'player:notify:spinner:destroy',
+            },
+            shard: {
+                create: 'player:notify:shard:create',
+                destroy: 'player:notify:shard:create',
+            },
+            credits: {
+                create: 'player:notify:credits:create',
+            },
+        },
+    },
     view: {
         onServer: 'webview:on:server',
         onEmit: 'webview:emit:on',
