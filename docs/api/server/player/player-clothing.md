@@ -43,13 +43,6 @@ clothing.setClothing([
 // Clear clothing removes all clothing and resets to default clothing values
 clothing.clearClothing();
 
-// This will set the absolute value of a clothing component, meaning it can be any number.
-// However, it is not guarenteed to work. Instead look into using setClothingComponent with a dlc hash.
-clothing.setClothingComponentAbsolute('shoes', 5, 0, 0);
-clothing.setClothingComponentAbsolute('mask', 5, 0, 0);
-
-clothing.setPropComponentAbsolute('glasses', 5, 0);
-
 // This will remove a specific clothing component
 clothing.removeClothingComponent('shoes');
 clothing.removeClothingComponent('mask');
