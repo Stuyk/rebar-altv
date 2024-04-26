@@ -6,11 +6,11 @@ const clientImportsPath = './resources/core/main/client/plugins.js';
 
 const options = { onlyDirectories: true };
 
-function cleanupPath(path: string) {
+function cleanupPath(path) {
     return path.replace('./src/plugins/', '../../plugins/').replace('.ts', '.js');
 }
 
-function getIndexPath(folder: string): string | null {
+function getIndexPath(folder) {
     const exists = fs.existsSync(folder + '/index.ts');
     return exists ? cleanupPath(folder + '/index.ts') : null;
 }

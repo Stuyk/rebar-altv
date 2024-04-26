@@ -1,7 +1,7 @@
 import glob from 'fast-glob';
 import * as fs from 'fs';
 
-function updatePaths(path: string) {
+function updatePaths(path) {
     const strippedPath = path.replace('./resources/core/', './');
     const pathDepth = strippedPath.split('/').length - 2;
     const relativePath = `../`.repeat(pathDepth);

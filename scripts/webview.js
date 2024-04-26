@@ -1,7 +1,7 @@
 import glob from 'fast-glob';
 import path from 'path';
-import { getEnabledPlugins, sanitizePath } from './shared';
-import { writeFile } from './fileHelpers';
+import { getEnabledPlugins, sanitizePath } from './shared.js';
+import { writeFile } from './fileHelpers.js';
 
 function start() {
     const plugins = getEnabledPlugins();

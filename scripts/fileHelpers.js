@@ -1,7 +1,6 @@
 import fs from 'node:fs';
 import glob from 'fast-glob';
-import { sanitizePath } from './shared';
-import path from 'node:path';
+import { sanitizePath } from './shared.js';
 
 const PLUGIN_FOLDER = 'src/core/plugins';
 
