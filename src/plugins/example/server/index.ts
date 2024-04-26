@@ -12,7 +12,6 @@ alt.on('playerConnect', (player) => {
 
     const account = useAccount(player);
     const data = account.get();
-    console.log(data.email);
 
     account.set('banned', true);
     account.setBulk({ banned: true, reason: 'big nerd' });
