@@ -281,12 +281,13 @@ export function useCharacterBinder(player: alt.Player) {
      *
      * @param {Character & T} document
      */
-    function bind<T = {}>(document: Character & T) {
+    function bind<T = {}>(document: Character & T): ReturnType<typeof useCharacter> | undefined {
         if (!player.valid) {
-            return;
+            return undefined;
         }
 
         player.setMeta(sessionKey, document);
+        return useCharacter(player);
     }
 
     /**

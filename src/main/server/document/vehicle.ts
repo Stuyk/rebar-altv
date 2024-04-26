@@ -128,12 +128,13 @@ export function useVehicleBinder(vehicle: alt.Vehicle) {
      *
      * @param {Vehicle & T} document
      */
-    function bind<T = {}>(document: Vehicle & T) {
+    function bind<T = {}>(document: Vehicle & T): ReturnType<typeof useVehicle> | undefined {
         if (!vehicle.valid) {
-            return;
+            return undefined;
         }
 
         vehicle.setMeta(sessionKey, document);
+        return useVehicle(vehicle);
     }
 
     /**

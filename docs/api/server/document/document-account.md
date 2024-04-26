@@ -16,8 +16,7 @@ import { useAccount, useAccountBinder } from '@Server/document/account.js';
 const someAccountData = someDatabaseFetchOrCreateFunction();
 
 // Bind account data to the player after fetching
-const accBinder = useAccountBinder(player);
-accBinder.bind(someAccountData);
+const document = useAccountBinder(player).bind(someAccountData);
 ```
 
 ## Getting Data
@@ -25,7 +24,7 @@ accBinder.bind(someAccountData);
 Data can be retrieved for the bound account like this.
 
 ```ts
-import { useAccount, useAccountBinder } from '@Server/document/account.js';
+import { useAccount } from '@Server/document/account.js';
 
 //... some function
 const account = useAccount(player);
@@ -38,7 +37,7 @@ console.log(data.email);
 Data can easily be appended or set in two different ways.
 
 ```ts
-import { useAccount, useAccountBinder } from '@Server/document/account.js';
+import { useAccount } from '@Server/document/account.js';
 
 type CustomAccount = { whatever: string };
 
@@ -87,4 +86,34 @@ const document = useAccount(player);
 await document.permission.addPermission('admin');
 await document.permission.removePermission('admin');
 const result = document.permission.hasPermission('admin');
+```
+
+## Password
+
+When you setup an account you often want to also setup a password, or check a password.
+
+We've made it pretty easy in Rebar to simply check a password to login.
+
+```ts
+import { useAccount, useAccountBinder } from '@Server/document/account.js';
+
+// Bind, and get the document
+const document = useAccountBinder(player).bind(someAccountDataHere);
+
+// Verify a password for the account
+const isValid = document.checkPassword('myplaintextpassword');
+```
+
+## Banning
+
+Banning an account is pretty straight forward but it does not prevent new accounts with new ips.
+
+It's simply an account level ban that happens during server runtime.
+
+```ts
+import { useAccount } from '@Server/document/account.js';
+
+// Bind, and get the document
+const document = useAccount(player);
+const isValid = document.setBanned('oops your banned');
 ```

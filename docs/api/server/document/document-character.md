@@ -16,8 +16,7 @@ import { useCharacter, useCharacterBinder } from '@Server/document/character.js'
 const someCharacterData = someDatabaseFetchOrCreateFunction();
 
 // Bind character data to the player after fetching
-const charBinder = useCharacterBinder(player);
-charBinder.bind(someCharacterData);
+const document = useCharacterBinder(player).bind(someCharacterData);
 ```
 
 ## Getting Data

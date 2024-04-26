@@ -13,11 +13,10 @@ import { useVehicle, useVehicleBinder } from '@Server/document/vehicle.js';
 
 // ... some function
 // Use database functions to fetch or create a vehicle
-const someCharacterData = someDatabaseFetchOrCreateFunction();
+const someVehicleData = someDatabaseFetchOrCreateFunction();
 
 // Bind vehicle data to the player after fetching
-const vehBinder = useVehicleBinder(player);
-vehBinder.bind(someCharacterData);
+const document = useVehicleBinder(player).bind(someVehicleData);
 ```
 
 ## Getting Data

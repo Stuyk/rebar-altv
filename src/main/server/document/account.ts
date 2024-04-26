@@ -1,4 +1,5 @@
 import * as alt from 'alt-server';
+import * as Utility from '../utility/index.js';
 import { Account } from '../../shared/types/account.js';
 import { KnownKeys } from '../../shared/utilityTypes/index.js';
 import { useDatabase } from '@Server/database/index.js';
@@ -176,13 +177,50 @@ export function useAccount(player: alt.Player) {
         return perm.has('account', permission);
     }
 
+    /**
+     * Set the password for this account
+     *
+     * @param {string} plainText
+     */
+    async function setPassword(plainText: string) {
+        await set('password', Utility.hash(plainText));
+    }
+
+    /**
+     * Ban an account with a reason, and kick them from the server.
+     *
+     * @param {string} reason
+     */
+    async function setBanned(reason: string) {
+        await setBulk({ reason, banned: true });
+        if (player && player.valid) {
+            player.kick(reason);
+        }
+    }
+
+    /**
+     * Check a provided password for this account
+     *
+     * @param {string} plainText
+     * @return
+     */
+    function checkPassword(plainText: string) {
+        const data = get();
+        if (!data) {
+            return false;
+        }
+
+        return Utility.check(plainText, data.password);
+    }
+
     const permission = {
         addPermission,
         removePermission,
         hasPermission,
+        setBanned,
     };
 
-    return { addPermission, get, getCharacters, getField, permission, set, setBulk };
+    return { addPermission, get, getCharacters, getField, permission, set, setBulk, setPassword, checkPassword };
 }
 
 export function useAccountBinder(player: alt.Player) {
@@ -193,12 +231,13 @@ export function useAccountBinder(player: alt.Player) {
      *
      * @param {Account & T} document
      */
-    function bind<T = {}>(document: Account & T) {
+    function bind<T = {}>(document: Account & T): ReturnType<typeof useAccount> | undefined {
         if (!player.valid) {
-            return;
+            return undefined;
         }
 
         player.setMeta(sessionKey, document);
+        return useAccount(player);
     }
 
     /**

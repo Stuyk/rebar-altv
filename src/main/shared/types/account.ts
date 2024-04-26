@@ -72,4 +72,11 @@ export type Account = {
      *
      */
     reason?: string;
+
+    /**
+     * Set a password for the account
+     *
+     * @type {string}
+     */
+    password?: string;
 };
