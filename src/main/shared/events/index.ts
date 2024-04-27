@@ -23,6 +23,11 @@ export const Events = {
         },
     },
     player: {
+        audio: {
+            play: {
+                local: 'audio:player:sound:2d',
+            },
+        },
         native: {
             invoke: 'player:native:invoke',
         },

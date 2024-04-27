@@ -2,6 +2,7 @@
 import { onMounted } from 'vue';
 import { usePages } from '../composables/usePages';
 import { usePageEvents } from '../composables/usePageEvents';
+import { useAudio } from '../composables/useAudio';
 import DevelopmentBar from './components/Development.vue';
 
 const { pagesPersistent, pagesOverlay, page } = usePages();
@@ -14,6 +15,7 @@ function handleMount() {
     }
 
     init();
+    useAudio();
 }
 
 onMounted(handleMount);

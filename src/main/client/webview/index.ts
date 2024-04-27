@@ -22,11 +22,12 @@ function handleClientEvent(event: string, ...args: any[]) {
     ClientEvents[event](...args);
 }
 
-export function useWebview(path: 'http://assets/webview/index.html') {
+export function useWebview(path = 'http://assets/webview/index.html') {
     let isInitialized = true;
 
     if (!webview) {
         webview = new alt.WebView(path);
+        webview.unfocus();
         isInitialized = false;
     }
 

@@ -6,8 +6,11 @@ import './controllers/index.js';
 import './screen/index.js';
 import './system/index.js';
 import './virtualEntities/index.js';
+import { useWebview } from './webview/index.js';
 
 async function start() {
+    useWebview();
+
     // Load Plugins
     alt.log(':: Loading Client Plugins');
     import('./plugins.js');
