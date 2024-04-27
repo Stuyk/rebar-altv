@@ -8,6 +8,7 @@ const ClientEvents: { [eventName: string]: AnyCallback } = {};
 
 let webview: alt.WebView;
 let cursorCount: number = 0;
+let isPageOpen = false;
 
 function handleServerEvent(event: string, ...args: any[]) {
     alt.emitServer(event, ...args);
@@ -102,7 +103,25 @@ export function useWebview(path = 'http://assets/webview/index.html') {
      * @param {PageType} type
      */
     function show(vueName: PageNames, type: PageType) {
+        isPageOpen = true;
         webview.emit(Events.view.show, vueName, type);
+        focus();
+    }
+
+    /**
+     * Show the cursor to the player, and focus the webview instance
+     */
+    function focus() {
+        webview.focus();
+        showCursor(true);
+    }
+
+    /**
+     * Remove the cursor on screen, and unfocus the webview instance
+     */
+    function unfocus() {
+        webview.unfocus();
+        showCursor(false);
     }
 
     /**
@@ -111,7 +130,9 @@ export function useWebview(path = 'http://assets/webview/index.html') {
      * @param {PageNames} vueName
      */
     function hide(vueName: PageNames) {
+        isPageOpen = false;
         webview.emit(Events.view.hide, vueName);
+        unfocus();
     }
 
     /**
@@ -133,6 +154,10 @@ export function useWebview(path = 'http://assets/webview/index.html') {
     }
 
     if (!isInitialized) {
+        alt.onServer(Events.view.focus, focus);
+        alt.onServer(Events.view.unfocus, unfocus);
+        alt.onServer(Events.view.hide, hide);
+        alt.onServer(Events.view.show, show);
         alt.onServer(Events.view.onServer, emit);
         webview.on(Events.view.emitClient, handleClientEvent);
         webview.on(Events.view.emitServer, handleServerEvent);
@@ -147,5 +172,8 @@ export function useWebview(path = 'http://assets/webview/index.html') {
         on,
         showCursor,
         show,
+        isAnyPageOpen() {
+            return isPageOpen;
+        },
     };
 }

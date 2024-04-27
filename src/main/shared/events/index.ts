@@ -61,5 +61,7 @@ export const Events = {
         hide: 'webview:emit:page:hide',
         hideAll: 'webview:emit:page:hide:all',
         hideAllByType: 'webview:emit:page:hide:all:type',
+        focus: 'webview:emit:focus',
+        unfocus: 'webview:emit:unfocus',
     },
 };

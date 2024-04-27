@@ -37,6 +37,42 @@ Click the `Arrow in the Top Right` and then click on your page to see it rendere
 
 ## Showing in-game
 
+You can actually show a page from the server-side using the player webview functionality.
+
+However, this section will show you how to do both client and server side.
+
 !!!
-These documents are a work in progress, this will be completed soon.
+When you show a page both the cursor and webview focus will happen automatically.
 !!!
+
+## Server Side
+
+Just ensure that you **run the server once** to populate the available pages.
+
+```ts
+import { useWebview } from '@Server/player/webview.js';
+
+// Show the page
+function someShowFunction(somePlayer: alt.Player) {
+    useWebview(somePlayer).show('MyExampleView');
+}
+
+// Hide the page
+function someHideFunction(somePlayer: alt.Player) {
+    useWebview(somePlayer).hide('MyExampleView');
+}
+```
+
+## Client side
+
+```ts
+import { useWebview } from '@Client/webview/index.js';
+
+// Show a page
+useWebview().show('Example', 'page');
+
+// Hide a page
+useWebview().hide('Example');
+```
+
+That's all it takes to show / hide your custom WebViews.
