@@ -23,7 +23,7 @@ export interface Option {
      * @type {string}
      * @memberof Option
      */
-    eventName?: string;
+    callback?: Function;
 }
 
 export interface TextInput extends Option {
@@ -66,7 +66,7 @@ export type NativeMenu = {
      * @type {string}
      * @memberof Menu
      */
-    backEvent?: string;
+    backCallback?: Function;
 
     /**
      * If this is set to true, it will prevent the user from fully exiting the menu.

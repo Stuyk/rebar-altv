@@ -3,8 +3,10 @@ import * as native from 'natives';
 
 import { Color, Invoke, NativeMenu, Selection, TextInput } from '../../../shared/types/nativeMenu.js';
 import { getInput } from './input.js';
+import { useInstructionalButtons } from '../../screen/instructionalButtons.js';
 
 let onDestroy: Function;
+let instructionalButtons = useInstructionalButtons();
 
 // Page Navigation
 let pageLimit = 8;
@@ -92,7 +94,6 @@ export function down() {
     }
 
     option = currentOptions[optionIndex];
-    alt.emit('crc-native-menu-option-changed', option);
     playSound('NAVIGATE');
 }
 
@@ -104,22 +105,21 @@ export function up() {
     }
 
     option = currentOptions[optionIndex];
-    alt.emit('crc-native-menu-option-changed', option);
     playSound('NAVIGATE');
 }
 
 export async function select() {
     switch (option.type) {
         case 'color':
-            alt.emit(option.eventName, option.options[option.index]);
+            option.callback(option.options[option.index]);
             break;
         case 'selection':
-            alt.emit(option.eventName, option.options[option.index]);
+            option.callback(option.options[option.index]);
             break;
         case 'input':
             const result = await getInput(option.value);
             option.value = result;
-            alt.emit(option.eventName, result);
+            option.callback(result);
             break;
         case 'invoke':
             if (option.rightCallback) {
@@ -132,7 +132,7 @@ export async function select() {
                 break;
             }
 
-            alt.emit(option.eventName, option.value);
+            option.callback(option.value);
             break;
     }
 
@@ -140,9 +140,9 @@ export async function select() {
 }
 
 export function back() {
-    if (menu.backEvent) {
+    if (menu.backCallback) {
         playSound('BACK');
-        alt.emit(menu.backEvent);
+        menu.backCallback();
         return;
     }
 
@@ -174,8 +174,8 @@ export function left() {
         option.index -= 1;
     }
 
-    if (option.eventName) {
-        alt.emit(option.eventName, option.options[option.index].value);
+    if (option.callback) {
+        option.callback(option.options[option.index].value);
     }
 
     playSound('NAV_UP_DOWN');
@@ -201,8 +201,8 @@ export function right() {
         option.index += 1;
     }
 
-    if (option.eventName) {
-        alt.emit(option.eventName, option.options[option.index].value);
+    if (option.callback) {
+        option.callback(option.options[option.index].value);
     }
 
     playSound('NAV_UP_DOWN');
@@ -238,19 +238,21 @@ export function setMenu(_menu: NativeMenu, _onDestroy: Function) {
 
     updatePages();
 
-    alt.emit('crc-instructional-buttons', {
-        set: [
-            { text: 'Back / Exit', input: '~INPUT_FRONTEND_RRIGHT~' },
-            { text: 'Enter', input: '~INPUT_FRONTEND_RDOWN~' },
-            { text: 'Change', input: '~INPUTGROUP_CELLPHONE_NAVIGATE_LR~' },
-            { text: 'Navigate', input: '~INPUTGROUP_CELLPHONE_NAVIGATE_UD~' },
-        ],
-    });
+    instructionalButtons.create([
+        { text: ' ', input: '' },
+        { text: ' ', input: '' },
+        { text: ' ', input: '' },
+        { text: ' ', input: '' },
+        { text: 'Back / Exit', input: '~INPUT_FRONTEND_RRIGHT~' },
+        { text: 'Enter', input: '~INPUT_FRONTEND_RDOWN~' },
+        { text: 'Change', input: '~INPUTGROUP_CELLPHONE_NAVIGATE_LR~' },
+        { text: 'Navigate', input: '~INPUTGROUP_CELLPHONE_NAVIGATE_UD~' },
+    ]);
 }
 
 export function destroy() {
     playSound('BACK');
-    alt.emit('crc-instructional-buttons', { clear: true });
+    instructionalButtons.destroy();
 
     if (onDestroy) {
         onDestroy();
