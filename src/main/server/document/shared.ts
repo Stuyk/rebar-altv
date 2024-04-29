@@ -6,4 +6,5 @@ export const CollectionNames = {
     Accounts: 'Accounts',
     Characters: 'Characters',
     Vehicles: 'Vehicles',
+    Global: 'Global',
 };
