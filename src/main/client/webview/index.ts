@@ -105,7 +105,10 @@ export function useWebview(path = 'http://assets/webview/index.html') {
     function show(vueName: PageNames, type: PageType) {
         isPageOpen = true;
         webview.emit(Events.view.show, vueName, type);
-        focus();
+
+        if (type === 'page') {
+            focus();
+        }
     }
 
     /**
