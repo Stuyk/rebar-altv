@@ -65,7 +65,8 @@
         "ignore": [
             "webview/pages/*",
             "webview/vite.config.*",
-            "*/package.json"
+            "*/package.json",
+            "*.mjs"
         ]
     }
 }

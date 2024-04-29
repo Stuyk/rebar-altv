@@ -1,0 +1,64 @@
+<rml>
+    <head>
+        <title>Input</title>
+        <style>
+            body {
+                width: 100vw;
+                height: 100vh;
+                position: absolute;
+                background: #00000096;
+            }
+
+            .input-wrapper {
+                position: relative;
+                display: flex;
+                flex-direction: column;
+                font-family: inter-bold;
+                min-width: 30vw;
+                max-width: 30vw;
+                margin: 0 auto;
+                background: #000000c3;
+                box-sizing: border-box;
+                padding: 24px;
+            }
+
+            .top-center {
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+                height: 100%;
+                justify-content: center;
+            }
+
+            .placeholder {
+                font-size: 14px;
+                padding-bottom: 6px;
+                padding-left: 3px;
+                opacity: 1;
+            }
+
+            input {
+                width: 100%;
+                padding: 14px;
+                background: #000000b2;
+                color: #cacaca;
+                box-sizing: border-box;
+                border: 2px #363636b2;
+                font-size: 16px;
+                font-family: inter-regular;
+            }
+        </style>
+    </head>
+    <body id="body">
+        <div>
+            <div class="top-center">
+                <div>
+                    <div class="input-wrapper">
+                        <div id="placeholder" class="placeholder">Input</div>
+                        <input class="input" id="input" type="text" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</rml>
