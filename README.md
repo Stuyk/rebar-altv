@@ -1,6 +1,6 @@
 # Rebar for alt:V
 
-Rebar is a TypeScript framework for [alt:V](https://altv.mp) that prioritizes plugins, translations, and a wide variety of frontend frameworks. Rebar was inspired by Athena and meant to take Athena's best features and create a framework that gives developers a quick starting point.
+Rebar is a TypeScript framework for [alt:V](https://altv.mp) that prioritizes plugins, translations. Rebar was inspired by Athena and meant to take Athena's best features and create a framework that gives developers a quick starting point.
 
 Plugins for Rebar allow developers to drag & drop repositories into their server framework.
 
