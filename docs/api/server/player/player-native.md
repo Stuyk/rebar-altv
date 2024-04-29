@@ -6,7 +6,7 @@ Rebar is adding this because sometimes you don't want to create a whole file to 
 
 ```ts
 import * as alt from 'alt-server';
-import { useNative } from './native.js';
+import { useNative } from '@Server/player/native.js';
 
 // This example sets persistent weather over time
 // This function is already built-in to the framework, but serves as a good example of usage

@@ -139,64 +139,6 @@ export function useClothing(player: alt.Player) {
     }
 
     /**
-     * Based on Absolute ids, it should transform a Absolute clothing set to a dlc clothing set.
-     * Saves clothing to database after modifying.
-     *
-     * However, this is not guarenteed to work. I have not checked.
-     *
-     * @param {keyof typeof ClothingKey} component
-     * @param {number} drawable
-     * @param {number} texture
-     * @param {number} [palette=0]
-     * @return
-     */
-    async function setClothingComponentAbsolute(
-        component: keyof typeof ClothingKey,
-        drawable: number,
-        texture: number,
-        palette = 0
-    ) {
-        const id = ClothingKey[component];
-
-        try {
-            player.setClothes(id, drawable, texture, palette);
-        } catch (err) {
-            return false;
-        }
-
-        const dlcData = player.getDlcClothes(id);
-        const document = useCharacter(player);
-        const componentData = { id, dlc: dlcData.dlc, drawable, texture, palette };
-        return await updateClothing(document, componentData);
-    }
-
-    /**
-     * Based on Absolute ids, it should transform a Absolute prop to a dlc prop.
-     * Saves clothing to database after modifying.
-     *
-     * However, this is not guarenteed to work. I have not checked.
-     *
-     * @param {keyof typeof PropKey} component
-     * @param {number} drawable
-     * @param {number} texture
-     * @return
-     */
-    async function setPropComponentAbsolute(component: keyof typeof PropKey, drawable: number, texture: number) {
-        const id = PropKey[component];
-
-        try {
-            player.setProp(id, drawable, texture);
-        } catch (err) {
-            return false;
-        }
-
-        const dlcData = player.getDlcProp(id);
-        const document = useCharacter(player);
-        const componentData = { id, dlc: dlcData.dlc, drawable, texture, isProp: true };
-        return await updateClothing(document, componentData);
-    }
-
-    /**
      * Set a clothing component on the character to a specific clothing component.
      *
      * Overrides any existing component.
@@ -446,8 +388,6 @@ export function useClothing(player: alt.Player) {
         removePropComponent,
         setSkin,
         setClothing,
-        setClothingComponentAbsolute,
-        setPropComponentAbsolute,
         setClothingComponent,
         setPropComponent,
         setUniform,

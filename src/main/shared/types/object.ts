@@ -1,6 +1,6 @@
 import * as alt from 'alt-shared';
 
-export type Object = {
+export type iObject = {
     /**
      * A unique identifier for this object.
      * @type {string}

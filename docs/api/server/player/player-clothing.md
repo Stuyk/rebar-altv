@@ -15,6 +15,8 @@ All functions will automatically save to the database, except for `update`
 !!!
 
 ```ts
+import { useClothing } from '@Server/player/clothing.js';
+
 const clothing = useClothing(somePlayer);
 
 // Set skin to something other than a freemode ped
