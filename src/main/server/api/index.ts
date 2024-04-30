@@ -1,5 +1,3 @@
-import * as alt from 'alt-server';
-
 declare global {
     export interface ServerPlugin {}
 }

@@ -1,8 +1,11 @@
 input: .
 output: .retype
+url: rebarv.com
 links:
     - text: Discord
       link: https://discord.gg/63rrbadsR7
+    - text: GitHub
+      link: https://github.com/rebar-altv
     - text: alt:V Multiplayer
       link: https://altv.mp
 branding:
