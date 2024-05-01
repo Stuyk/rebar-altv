@@ -11,6 +11,7 @@
         "build:webview": "pnpm webview:build",
         "build:kill": "node ./scripts/pkill.js",
         "build:env": "node ./scripts/env.js",
+        "build:copyFiles": "node ./scripts/copyFiles.js",
         "[-] Paths": "",
         "paths:imports": "node ./scripts/buildPluginImports.js",
         "paths:pathresolver": "node ./scripts/pathResolver.js",
