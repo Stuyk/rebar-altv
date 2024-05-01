@@ -13,6 +13,7 @@ description = 'alt:V Sample Server'
 modules = [ 'js-module' ]
 resources = [
     # All resources and mods should always be loaded before core
+    'sounds',
     'rmlui',
     'webview',
     'core'
