@@ -1,7 +1,7 @@
 import * as alt from 'alt-server';
-import { Events } from '../../shared/events/index.js';
-import { useTranslate } from '../../shared/translate.js';
-import * as Utility from '../../shared/utility/index.js';
+import { Events } from '@Shared/events/index.js';
+import { useTranslate } from '@Shared/translate.js';
+import * as Utility from '@Shared/utility/index.js';
 
 export type InteractionCallback = (entity: alt.Player, colshape: alt.Colshape, uid: string) => void;
 

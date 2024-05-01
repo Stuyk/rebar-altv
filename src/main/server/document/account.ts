@@ -1,10 +1,10 @@
 import * as alt from 'alt-server';
 import * as Utility from '../utility/index.js';
-import { Account } from '../../shared/types/account.js';
-import { KnownKeys } from '../../shared/utilityTypes/index.js';
+import { Account } from '@Shared/types/account.js';
+import { KnownKeys } from '@Shared/utilityTypes/index.js';
 import { useDatabase } from '@Server/database/index.js';
 import { CollectionNames, KeyChangeCallback } from './shared.js';
-import { Character } from '../../shared/types/character.js';
+import { Character } from '@Shared/types/character.js';
 import { usePermission } from '@Server/systems/permission.js';
 
 const sessionKey = 'document:account';

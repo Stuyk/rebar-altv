@@ -2,7 +2,7 @@ import * as alt from 'alt-client';
 import * as native from 'natives';
 import * as page from './page.js';
 import { drawTextAbsolute } from '../../utility/text/index.js';
-import { Color, Invoke, NativeMenu, Selection, TextInput } from '../../../shared/types/nativeMenu.js';
+import { Color, Invoke, NativeMenu, Selection, TextInput } from '@Shared/types/nativeMenu.js';
 
 // Menu Display
 let interval: number;

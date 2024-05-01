@@ -1,6 +1,6 @@
 import * as alt from 'alt-server';
-import { Events } from '../../shared/events/index.js';
-import { PageNames, PageType } from '../../shared/webview/index.js';
+import { Events } from '@Shared/events/index.js';
+import { PageNames, PageType } from '@Shared/webview/index.js';
 
 export function useWebview(player: alt.Player) {
     function emit(eventName: string, ...args: any[]) {

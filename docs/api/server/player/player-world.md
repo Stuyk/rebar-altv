@@ -6,9 +6,9 @@ Often used for `drunk effects`, `changing weather`, `changing time`, or `fading 
 
 ```ts
 import { useRebar } from '@Server/index.js';
-import { TimecycleTypes } from '../../shared/data/timecycleTypes.js';
-import { ScreenEffects } from '../../shared/data/screenEffects.js';
-import { Weathers } from '../../shared/data/weathers.js';
+import { TimecycleTypes } from '@Shared/data/timecycleTypes.js';
+import { ScreenEffects } from '@Shared/data/screenEffects.js';
+import { Weathers } from '@Shared/data/weathers.js';
 
 const Rebar = useRebar();
 

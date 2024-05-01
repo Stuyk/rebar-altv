@@ -1,7 +1,7 @@
 import * as alt from 'alt-client';
 import * as native from 'natives';
 
-import { Color, Invoke, NativeMenu, Selection, TextInput } from '../../../shared/types/nativeMenu.js';
+import { Color, Invoke, NativeMenu, Selection, TextInput } from '@Shared/types/nativeMenu.js';
 import { getInput } from './input.js';
 import { useInstructionalButtons } from '../../screen/instructionalButtons.js';
 

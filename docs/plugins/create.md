@@ -20,7 +20,7 @@ Ensure that you create an `index.ts` file as an entry point for your client code
 // client/index.ts
 import * as alt from 'alt-client';
 import '../translate/index.js';
-import { useTranslate } from '../../../main/shared/translate.js';
+import { useTranslate } from '@Shared/translate.js';
 
 const { t } = useTranslate('en');
 
@@ -37,7 +37,7 @@ Ensure that you create an `index.ts` file as an entry point for your server code
 // server/index.ts
 import * as alt from 'alt-server';
 import '../translate/index.js';
-import { useTranslate } from '../../../main/shared/translate.js';
+import { useTranslate } from '@Shared/translate.js';
 
 const { t } = useTranslate('en');
 
@@ -69,7 +69,7 @@ Translations can be used on `client-side`, `server-side`, or `webview` as long a
 // translate/index.ts
 
 // It is recommended to use relative paths for translation imports
-import { useTranslate } from '../../../main/shared/translate.js';
+import { useTranslate } from '@Shared/translate.js';
 const { setBulk } = useTranslate();
 
 setBulk({
@@ -101,4 +101,42 @@ console.log(`Hello from webview`);
         <div class="text-red-500 text-lg">{{ t('example.hello-from-webview') }}</div>
     </div>
 </template>
+```
+
+## Extending built-in interfaces
+
+Imagine, you want to add a new attribute to already existing document, like Vehicle.
+
+To not rewrite Rebar's interface, you can use this approach:
+
+```ts /plugins/my-awesome-plugin/server/index.ts
+import '@Shared/types/vehicle.js';
+
+// Your code here.
+
+declare module '@Shared/types/vehicle.js' {
+    export interface Vehicle {
+        mileage: number;
+        plateNumber: string;
+    }
+}
+```
+
+This approach will allow you to use defined keys everywhere.
+
+After that, in any plugin, you'll be able to use:
+
+```ts /plugins/my-new-plugin/server/index.ts
+import * as alt from 'alt-server';
+import { useRebar } from '@Server/index.js';
+
+const Rebar = useRebar();
+
+const vehicleDocument = getOrCreateVehicleDocument(); // Your own implementation
+
+const vehicle = alt.Vehicle(alt.hash(vehicleDocument.model), 0, 0, 0, 0, 0, 0);
+const boundVehicle = Rebar.document.vehicle.useVehicleBinder(vehicle).bind(vehicleDocument)
+
+vehicleWrapper.getField('mileage'); // You will see type hint there, that you're able to use 'mileage' and 'plateNumber'.
+vehicleWrapper.set('mileage', 1000); // Also here
 ```

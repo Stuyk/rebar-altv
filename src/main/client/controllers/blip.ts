@@ -1,6 +1,6 @@
 import * as alt from 'alt-client';
-import { Events } from '../../shared/events/index.js';
-import { Blip } from '../../shared/types/blip.js';
+import { Events } from '@Shared/events/index.js';
+import { Blip } from '@Shared/types/blip.js';
 
 const blips: { [key: string]: alt.PointBlip } = {};
 

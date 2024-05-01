@@ -1,8 +1,8 @@
 import * as alt from 'alt-client';
 import * as ScreenText from '../screen/textlabel.js';
-import { Events } from '../../shared/events/index.js';
-import { TextLabel } from '../../shared/types/textLabel.js';
-import { distance2d } from '../../shared/utility/vector.js';
+import { Events } from '@Shared/events/index.js';
+import { TextLabel } from '@Shared/types/textLabel.js';
+import { distance2d } from '@Shared/utility/vector.js';
 
 const MAX_DISTANCE = 25;
 const labels: TextLabel[] = [];

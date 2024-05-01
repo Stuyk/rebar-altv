@@ -1,6 +1,6 @@
 import * as alt from 'alt-client';
-import { Events } from '../../shared/events/index.js';
-import { PageNames, PageType } from '../../shared/webview/index.js';
+import { Events } from '@Shared/events/index.js';
+import { PageNames, PageType } from '@Shared/webview/index.js';
 
 type AnyCallback = ((...args: any[]) => void) | ((...args: any[]) => Promise<void>) | Function;
 
@@ -9,6 +9,8 @@ const ClientEvents: { [eventName: string]: AnyCallback } = {};
 let webview: alt.WebView;
 let cursorCount: number = 0;
 let isPageOpen = false;
+let openPages: PageNames[] = [];
+
 
 function handleServerEvent(event: string, ...args: any[]) {
     alt.emitServer(event, ...args);
@@ -108,6 +110,7 @@ export function useWebview(path = 'http://assets/webview/index.html') {
 
         if (type === 'page') {
             focus();
+            openPages.push(vueName);
         }
     }
 
@@ -136,6 +139,8 @@ export function useWebview(path = 'http://assets/webview/index.html') {
         isPageOpen = false;
         webview.emit(Events.view.hide, vueName);
         unfocus();
+        const index = openPages.findIndex(page => page === vueName);
+        if (index > -1) openPages.splice(index, 1);
     }
 
     /**
@@ -154,6 +159,16 @@ export function useWebview(path = 'http://assets/webview/index.html') {
      */
     function hideAllByType(type: PageType) {
         webview.emit(Events.view.hideAllByType, type);
+    }
+
+    /**
+     * Check if specific page is open.
+     * 
+     * @param {PageNames} vueName
+     * @returns {boolean}
+     */
+    function isSpecificPageOpen(vueName: PageNames): boolean {
+        return openPages.findIndex(page => page === vueName) > -1;
     }
 
     if (!isInitialized) {
@@ -175,6 +190,7 @@ export function useWebview(path = 'http://assets/webview/index.html') {
         on,
         showCursor,
         show,
+        isSpecificPageOpen,
         isAnyPageOpen() {
             return isPageOpen;
         },

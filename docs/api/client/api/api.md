@@ -23,9 +23,9 @@ export function useMyCoolAPI() {
 ```
 
 2. Create a global declaration for your API.
-
++++ Without arguments
 ```ts
-import { useApi } from '@Client/api/index.js';
+import { useClientApi } from '@Client/api/index.js';
 
 export function useMyCoolAPI() {
     function logPlayerName(player: alt.Player) {
@@ -45,8 +45,33 @@ declare global {
 }
 
 // Really important to execute the return of your function
-useApi().register('my-cool-api', useMyCoolAPI());
+useClientApi().register('my-cool-api', useMyCoolAPI());
 ```
++++ With arguments
+```ts
+import { useClientApi } from '@Client/api/index.js';
+
+export function useMyCoolAPI(player: alt.Player) {
+    function logPlayerName() {
+        console.log(player.name);
+    }
+
+    return {
+        logPlayerName,
+    };
+}
+
+// Declare global to TypeScript recognizes the typings
+declare global {
+    export interface ClientPlugin {
+        ['my-cool-api']: typeof useMyCoolAPI;
+    }
+}
+
+// Don't execute a composable here, because it will be executed later.
+useClientApi().register('my-cool-api', useMyCoolAPI);
+```
++++
 
 3. Done
 
@@ -54,12 +79,24 @@ useApi().register('my-cool-api', useMyCoolAPI());
 
 This is all that's necessary to start working with other plugin APIs
 
++++ Without arguments
 ```ts
-import { useApi } from '@Client/api/index.js';
+import { useClientApi } from '@Client/api/index.js';
 
-const myCoolAPI = useApi().get('my-cool-api');
+const myCoolAPI = useClientApi().get('my-cool-api');
 
 function someFunction(somePlayer: alt.Player) {
     myCoolAPI.logPlayerName(somePlayer);
 }
 ```
++++ With arguments
+```ts
+import { useClientApi } from '@Client/api/index.js';
+
+const useMyCoolAPI = useClientApi().get('my-cool-api');
+
+function someFunction(somePlayer: alt.Player) {
+    useMyCoolAPI(somePlayer).logPlayerName();
+}
+```
++++

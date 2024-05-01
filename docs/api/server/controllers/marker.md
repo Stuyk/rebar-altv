@@ -8,7 +8,7 @@ A global marker can be seen by all players.
 
 ```ts
 import { useRebar } from '@Server/index.js';
-import { MarkerType } from '../../shared/types/marker.js'; // Import may vary
+import { MarkerType } from '@Shared/types/marker.js';
 
 const Rebar = useRebar();
 
@@ -40,7 +40,7 @@ A local marker can only be seen by a single player.
 
 ```ts
 import { useRebar } from '@Server/index.js';
-import { MarkerType } from '../../shared/types/marker.js'; // Import may vary
+import { MarkerType } from '@Shared/types/marker.js';
 
 const Rebar = useRebar();
 

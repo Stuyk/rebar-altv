@@ -1,7 +1,7 @@
 import * as alt from 'alt-server';
-import * as Utility from '../../shared/utility/index.js';
-import { Blip } from '../../shared/types/blip.js';
-import { Events } from '../../shared/events/index.js';
+import * as Utility from '@Shared/utility/index.js';
+import { Blip } from '@Shared/types/blip.js';
+import { Events } from '@Shared/events/index.js';
 
 export function useBlipGlobal(blipData: Blip) {
     if (!blipData.uid) {

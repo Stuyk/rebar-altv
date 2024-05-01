@@ -1,8 +1,8 @@
 import * as alt from 'alt-server';
 import { useNative } from './native.js';
-import { TimecycleTypes } from '../../shared/data/timecycleTypes.js';
-import { ScreenEffects } from '../../shared/data/screenEffects.js';
-import { Weathers } from '../../shared/data/weathers.js';
+import { TimecycleTypes } from '@Shared/data/timecycleTypes.js';
+import { ScreenEffects } from '@Shared/data/screenEffects.js';
+import { Weathers } from '@Shared/data/weathers.js';
 
 export function useWorld(player: alt.Player) {
     const native = useNative(player);

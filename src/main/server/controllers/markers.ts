@@ -1,7 +1,7 @@
 import * as alt from 'alt-server';
-import * as Utility from '../../shared/utility/index.js';
-import { Marker } from '../../shared/types/marker.js';
-import { Events } from '../../shared/events/index.js';
+import * as Utility from '@Shared/utility/index.js';
+import { Marker } from '@Shared/types/marker.js';
+import { Events } from '@Shared/events/index.js';
 
 const GroupType = 'marker';
 const MAX_STREAM_DISTANCE = 100;
