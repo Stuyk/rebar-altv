@@ -3,8 +3,12 @@ import glob from 'fast-glob';
 
 const filesToCopy = {
     'src/plugins/**/sounds/**/*.ogg': {
-        destination: 'resources',
+        destination: ['resources', 'webview/public'],
         keyword: 'sounds',
+    },
+    'src/plugins/**/images/**/*.+(jpg|jpeg|png|bmp|svg|webp)': {
+        destination: ['resources', 'webview/public'],
+        keyword: 'images',
     },
 };
 
@@ -25,8 +29,15 @@ function copyFiles() {
                 continue;
             }
 
-            const finalPath = destination + '/' + splitPath.join('/');
-            fs.copyFileSync(file, finalPath);
+            if (Array.isArray(destination)) {
+                for (let dest of destination) {
+                    const finalPath = dest + '/' + splitPath.join('/');
+                    fs.copyFileSync(file, finalPath);
+                }
+            } else {
+                const finalPath = destination + '/' + splitPath.join('/');
+                fs.copyFileSync(file, finalPath);
+            }
         }
     }
 }

@@ -13,6 +13,13 @@ resources/images/*.jpeg
 resources/images/*.svg
 resources/images/*.bmp
 resources/images/*.webp
+webview/public/sounds/*.ogg
+webview/public/images/*.png
+webview/public/images/*.jpg
+webview/public/images/*.jpeg
+webview/public/images/*.svg
+webview/public/images/*.bmp
+webview/public/images/*.webp
 altv-crash-handler.exe
 altv-server.exe
 libnode.dll

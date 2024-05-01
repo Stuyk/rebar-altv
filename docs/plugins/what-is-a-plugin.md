@@ -22,6 +22,9 @@ Plugins can be found in the `src/plugins` directory, and each plugin should have
     └───your-plugin
         ├───client
         │   └───index.ts
+        ├───images
+        │   ├───somelogo.png
+        │   └───bg.jpg
         ├───server
         │   └───index.ts
         ├───sounds

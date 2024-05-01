@@ -5,10 +5,11 @@ If you wish to create plugins then you need to understand the basic structure of
 1. Create a folder inside `src/plugins` and name it something unique
 2. Create these additional folders under the new folder you created
     1. `client`
-    2. `server`
-    3. `sounds`
-    4. `translate`
-    5. `webview`
+    2. `images`
+    3. `server`
+    4. `sounds`
+    5. `translate`
+    6. `webview`
 
 ## client
 
@@ -44,11 +45,37 @@ const { t } = useTranslate('en');
 alt.log(t('example.hello-from-server'));
 ```
 
+## images
+
+Images are any images with the following extensions: `jpg, jpeg, png, bmp, svg, webp`.
+
+Additionally, the images are loaded as an `asset-pack` and copied to the `webview/public/images` folder as well.
+
+Image paths are absolute so if you put an image in the `images` folder then your `html` path will be `/images/myplugin-myimage.png`.
+
+If you need the image for rmlui then your path will be `http://assets/images/myplugin-myimage.png`.
+
+```jsx
+<img src="/images/myplugin-myimage.png" />
+
+// OR
+
+<img src="http://assets/images/myplugin-myimage.png" />
+```
+
+!!!
+Image names need to be unique for your individual plugin, otherwise they will override each other.
+!!!
+
 ## sounds
 
 Sounds are custom `.ogg` files that can be played as an asset using the `Rebar.player.useAudio` function.
 
-Here's a simple example of playing a sound called `test.ogg` which is in the `sounds folder`.
+Additionally, the images are loaded as an `asset-pack` and copied to the `webview/public/sounds` folder as well.
+
+Here's a simple example of playing a sound called `myplugin-test.ogg` which is in the `sounds folder`.
+
+### Server Sound
 
 ```ts
 import * as alt from 'alt-server';
@@ -57,8 +84,32 @@ import { useRebar } from '@Server/index.js';
 const Rebar = useRebar();
 
 alt.on('playerConnect', async (player) => {
-    Rebar.player.useAudio(player).playSound('http://assets/sounds/test.ogg');
+    Rebar.player.useAudio(player).playSound('http://assets/sounds/myplugin-test.ogg');
+
+    // Alternatively
+    Rebar.player.useAudio(player).playSound('/sounds/myplugin-test.ogg');
 });
+```
+
+### Webview Sound
+
+```tsx
+<script lang="ts" setup>
+import { useAudio } from '../../../../webview/composables/useAudio';
+
+const audio = useAudio();
+
+function playSound() {
+    audio.play('/sounds/myplugin-test.ogg');
+}
+</script>
+
+<template>
+    <div>
+        <button @click="playSound">Click Me!</button>
+    </div>
+</template>
+
 ```
 
 ## translate
@@ -135,7 +186,7 @@ const Rebar = useRebar();
 const vehicleDocument = getOrCreateVehicleDocument(); // Your own implementation
 
 const vehicle = alt.Vehicle(alt.hash(vehicleDocument.model), 0, 0, 0, 0, 0, 0);
-const boundVehicle = Rebar.document.vehicle.useVehicleBinder(vehicle).bind(vehicleDocument)
+const boundVehicle = Rebar.document.vehicle.useVehicleBinder(vehicle).bind(vehicleDocument);
 
 vehicleWrapper.getField('mileage'); // You will see type hint there, that you're able to use 'mileage' and 'plateNumber'.
 vehicleWrapper.set('mileage', 1000); // Also here
