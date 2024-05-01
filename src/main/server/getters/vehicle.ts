@@ -1,6 +1,6 @@
 import * as alt from 'alt-server';
 import * as players from './players.js';
-import * as Utility from '../../shared/utility/index.js';
+import * as Utility from '@Shared/utility/index.js';
 import { useVehicle } from '@Server/document/vehicle.js';
 import { useCharacter } from '@Server/document/character.js';
 

@@ -1,5 +1,5 @@
 import * as alt from 'alt-client';
-import { Marker } from '../../shared/types/marker.js';
+import { Marker } from '@Shared/types/marker.js';
 import * as ScreenMarker from '../screen/marker.js';
 
 const GroupType = 'marker';

@@ -1,7 +1,7 @@
 import * as alt from 'alt-client';
 import { Scaleform, requestScaleForm } from './scaleform.js';
-import { Shard } from '../../shared/types/shard.js';
-import { Events } from '../../shared/events/index.js';
+import { Shard } from '@Shared/types/shard.js';
+import { Events } from '@Shared/events/index.js';
 
 let scaleform: Scaleform;
 let interval: number;

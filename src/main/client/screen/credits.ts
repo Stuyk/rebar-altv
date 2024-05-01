@@ -2,8 +2,8 @@ import * as alt from 'alt-client';
 import * as native from 'natives';
 
 import { requestScaleForm, Scaleform } from './scaleform.js';
-import { Credit, CreditAlignment } from '../../shared/types/credits.js';
-import { Events } from '../../shared/events/index.js';
+import { Credit, CreditAlignment } from '@Shared/types/credits.js';
+import { Events } from '@Shared/events/index.js';
 
 let scaleform: Scaleform;
 let interval: number;

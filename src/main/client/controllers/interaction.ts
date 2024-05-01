@@ -1,5 +1,5 @@
 import * as alt from 'alt-client';
-import { Events } from '../../shared/events/index.js';
+import { Events } from '@Shared/events/index.js';
 
 type InteractionCallback = (uid: string, pos: alt.Vector3) => void;
 

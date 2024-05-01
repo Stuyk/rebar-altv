@@ -1,5 +1,5 @@
 import * as alt from 'alt-server';
-import * as Utility from '../../shared/utility/index.js';
+import * as Utility from '@Shared/utility/index.js';
 import { useAccount, useCharacter } from '@Server/document/index.js';
 
 export function usePlayerGetter() {

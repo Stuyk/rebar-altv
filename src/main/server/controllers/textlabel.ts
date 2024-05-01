@@ -1,7 +1,7 @@
 import * as alt from 'alt-server';
-import * as Utility from '../../shared/utility/index.js';
-import { TextLabel } from '../../shared/types/textLabel.js';
-import { Events } from '../../shared/events/index.js';
+import * as Utility from '@Shared/utility/index.js';
+import { TextLabel } from '@Shared/types/textLabel.js';
+import { Events } from '@Shared/events/index.js';
 
 const GroupType = 'textlabel';
 const MAX_STREAM_DISTANCE = 50;

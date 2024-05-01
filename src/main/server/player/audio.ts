@@ -1,6 +1,6 @@
 import * as alt from 'alt-server';
 import { useNative } from './native.js';
-import { Events } from '../../shared/events/index.js';
+import { Events } from '@Shared/events/index.js';
 import { useWebview } from './webview.js';
 
 export function useAudio(player: alt.Player) {

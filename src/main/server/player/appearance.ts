@@ -1,6 +1,6 @@
 import * as alt from 'alt-server';
 import { useCharacter } from '@Server/document/character.js';
-import { getHairOverlay } from '../../shared/data/hairOverlay.js';
+import { getHairOverlay } from '@Shared/data/hairOverlay.js';
 
 export type Decorator = { overlay: string; collection: string };
 export type HairStyle = { hair: number; dlc?: string | number; color1: number; color2: number; decorator: Decorator };

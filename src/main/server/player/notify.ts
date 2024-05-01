@@ -1,8 +1,8 @@
 import * as alt from 'alt-server';
-import { Events } from '../../shared/events/index.js';
-import { Spinner } from '../../shared/types/spinner.js';
-import { Shard } from '../../shared/types/shard.js';
-import { Credit } from '../../shared/types/credits.js';
+import { Events } from '@Shared/events/index.js';
+import { Spinner } from '@Shared/types/spinner.js';
+import { Shard } from '@Shared/types/shard.js';
+import { Credit } from '@Shared/types/credits.js';
 
 export function useNotify(player: alt.Player) {
     function showNotification(message: string) {
