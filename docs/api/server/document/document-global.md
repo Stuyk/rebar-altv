@@ -9,11 +9,13 @@ They are the only `async` document, and for good reason.
 When creating a global document, it will always come with an identifier.
 
 ```ts
-import { useGlobal } from '@Server/document/global.js';
+import { useRebar } from '@Server/index.js';
+
+const Rebar = useRebar();
 
 // Automatically creates the document, and stores it into the database
 async function doSomething() {
-    const document = await useGlobal('my-identifier-goes-here-for-my-document');
+    const document = await Rebar.document.global.useGlobal('my-identifier-goes-here-for-my-document');
 }
 ```
 
@@ -28,7 +30,7 @@ type MyDataType = {
 };
 
 async function doSomething() {
-    const document = await useGlobal('my-identifier-goes-here-for-my-document');
+    const document = await Rebar.document.global.useGlobal('my-identifier-goes-here-for-my-document');
 
     // Get the entire document
     const data = document.get<MyDataType>();
@@ -54,7 +56,7 @@ type MyDataType = {
 };
 
 async function doSomething() {
-    const document = await useGlobal('my-identifier-goes-here-for-my-document');
+    const document = await Rebar.document.global.useGlobal('my-identifier-goes-here-for-my-document');
 
     // Overwrite or set a single field
     document.setField<MyDataType>('totalMoneyCreated', 200);

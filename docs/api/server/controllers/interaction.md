@@ -7,10 +7,16 @@ If using `player.pos` for your interaction, ensure you subtract `1` from the z a
 !!!
 
 ```ts
-import { useInteraction } from '@Server/controllers/interaction.js';
+import { useRebar } from '@Server/index.js';
+
+const Rebar = useRebar();
 
 // Create an interaction
-const interaction = useInteraction(new alt.ColshapeCylinder(0, 0, 0, 5, 2), 'player', 'something-unique');
+const interaction = Rebar.controllers.useInteraction(
+    new alt.ColshapeCylinder(0, 0, 0, 5, 2),
+    'player',
+    'something-unique'
+);
 
 // Listen for the player to hit 'E' to interact
 interaction.on(handleInteraction);

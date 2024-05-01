@@ -7,10 +7,12 @@ Text labels are floating pieces of text that can be seen in-game in a 3D space.
 Global text labels can be seen by all players.
 
 ```ts
-import { useTextLabelGlobal } from '@Server/controllers/textlabel.js';
+import { useRebar } from '@Server/index.js';
+
+const Rebar = useRebar();
 
 // Create text label
-const label = useTextLabelGlobal({ text: '~r~Hello World', pos: new alt.Vector3(0, 0, 0) });
+const label = Rebar.controllers.useTextLabelGlobal({ text: '~r~Hello World', pos: new alt.Vector3(0, 0, 0) });
 
 // Update text to say something else
 label.update({ text: 'New Text!' });
@@ -24,10 +26,12 @@ label.destroy();
 Local text labels can only be seen by a single player.
 
 ```ts
-import { useTextLabelLocal } from '@Server/controllers/textlabel.js';
+import { useRebar } from '@Server/index.js';
+
+const Rebar = useRebar();
 
 // Create text label
-const label = useTextLabelLocal(somePlayer, { text: 'Hello World', pos: new alt.Vector3(0, 0, 0) });
+const label = Rebar.controllers.useTextLabelLocal(somePlayer, { text: 'Hello World', pos: new alt.Vector3(0, 0, 0) });
 
 // Update text label
 label.update({ text: 'hello world!!!' });

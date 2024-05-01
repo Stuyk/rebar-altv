@@ -7,11 +7,13 @@ Create a physical in-world marker that can be walked through.
 A global marker can be seen by all players.
 
 ```ts
-import { useMarkerGlobal } from '@Server/controllers/marker.js';
+import { useRebar } from '@Server/index.js';
 import { MarkerType } from '../../shared/types/marker.js'; // Import may vary
 
+const Rebar = useRebar();
+
 // Create a global marker
-const globalMarker = useMarkerGlobal({
+const globalMarker = Rebar.controllers.useMarkerGlobal({
     pos: new alt.Vector3(0, 0, 0),
     color: new alt.RGBA(255, 255, 255, 255),
     dimension: 0,
@@ -37,11 +39,13 @@ globalMarker.destroy();
 A local marker can only be seen by a single player.
 
 ```ts
-import { useMarkerLocal } from '@Server/controllers/marker.js';
+import { useRebar } from '@Server/index.js';
 import { MarkerType } from '../../shared/types/marker.js'; // Import may vary
 
+const Rebar = useRebar();
+
 // Create the marker
-const marker = useMarkerLocal(somePlayer, {
+const marker = Rebar.controllers.useMarkerLocal(somePlayer, {
     pos: new alt.Vector3(0, 0, 0),
     color: new alt.RGBA(255, 255, 255, 255),
     dimension: 0,

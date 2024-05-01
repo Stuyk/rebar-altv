@@ -9,14 +9,16 @@ It automatically saves data to the MongoDB database when any `set` function is u
 You should bind character data after fetching call characters owned by an account.
 
 ```ts
-import { useVehicle, useVehicleBinder } from '@Server/document/vehicle.js';
+import { useRebar } from '@Server/index.js';
+
+const Rebar = useRebar();
 
 // ... some function
 // Use database functions to fetch or create a vehicle
 const someVehicleData = someDatabaseFetchOrCreateFunction();
 
 // Bind vehicle data to the player after fetching
-const document = useVehicleBinder(player).bind(someVehicleData);
+const document = Rebar.document.vehicle.useVehicleBinder(someVehicle).bind(someVehicleData);
 ```
 
 ## Getting Data
@@ -24,10 +26,12 @@ const document = useVehicleBinder(player).bind(someVehicleData);
 Data can be retrieved for the bound character like this.
 
 ```ts
-import { useVehicle, useVehicleBinder } from '@Server/document/vehicle.js';
+import { useRebar } from '@Server/index.js';
+
+const Rebar = useRebar();
 
 //... some function
-const document = useVehicle(player);
+const document = Rebar.document.vehicle.useVehicle(player);
 const data = document.get();
 console.log(data.email);
 ```
@@ -37,9 +41,11 @@ console.log(data.email);
 Data can easily be appended or set in two different ways.
 
 ```ts
-import { useVehicle, useVehicleBinder } from '@Server/document/vehicle.js';
+import { useRebar } from '@Server/index.js';
 
-const document = useVehicle(player);
+const Rebar = useRebar();
+
+const document = Rebar.document.vehicle.useVehicle(player);
 
 type CustomVehicle = { whatever: string };
 

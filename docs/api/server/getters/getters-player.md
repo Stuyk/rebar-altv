@@ -3,9 +3,10 @@
 The player getter gives information about a single player.
 
 ```ts
-import { usePlayerGetter } from '@Server/getters/player.js';
+import { useRebar } from '@Server/index.js';
+const Rebar = useRebar();
 
-const getter = usePlayerGetter();
+const getter = Rebar.usePlayerGetter();
 
 // Returns a account by account _id
 const somePlayer = getter.byAccount('_id');

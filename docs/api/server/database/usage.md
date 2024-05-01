@@ -13,9 +13,11 @@ Use the Document system if you are updating characters, accounts, or vehicles.
 Import the database into your plugin file, and begin using it.
 
 ```ts
-import { useDatabase } from '@Server/database/index.js';
+import { useRebar } from '@Server/index.js';
 
-const { get, create, getAll, getMany, update, deleteDocument } = useDatabase();
+const Rebar = useRebar();
+
+const { get, create, getAll, getMany, update, deleteDocument } = Rebar.database.useDatabase();
 ```
 
 ### Create Data

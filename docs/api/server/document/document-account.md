@@ -9,14 +9,16 @@ It automatically saves data to the MongoDB database when any `set` function is u
 You should bind account data when they authenticate to your server.
 
 ```ts
-import { useAccount, useAccountBinder } from '@Server/document/account.js';
+import { useRebar } from '@Server/index.js';
+
+const Rebar = useRebar();
 
 // ... some function
 // Use database functions to fetch or create an account
 const someAccountData = someDatabaseFetchOrCreateFunction();
 
 // Bind account data to the player after fetching
-const document = useAccountBinder(player).bind(someAccountData);
+const document = Rebar.document.account.useAccountBinder(player).bind(someAccountData);
 ```
 
 ## Getting Data
@@ -24,10 +26,12 @@ const document = useAccountBinder(player).bind(someAccountData);
 Data can be retrieved for the bound account like this.
 
 ```ts
-import { useAccount } from '@Server/document/account.js';
+import { useRebar } from '@Server/index.js';
+
+const Rebar = useRebar();
 
 //... some function
-const account = useAccount(player);
+const account = Rebar.document.account.useAccount(player);
 const data = account.get();
 console.log(data.email);
 ```
@@ -37,12 +41,14 @@ console.log(data.email);
 Data can easily be appended or set in two different ways.
 
 ```ts
-import { useAccount } from '@Server/document/account.js';
+import { useRebar } from '@Server/index.js';
+
+const Rebar = useRebar();
 
 type CustomAccount = { whatever: string };
 
 //...some function
-const document = useAccount(player);
+const document = Rebar.document.account.useAccount(player);
 
 // Single field
 document.set('banned', true);
@@ -59,10 +65,12 @@ document.setBulk<CustomAccount>({ banned: true, reason: 'big nerd', whatever: 'h
 When you need to obtain a character file for an account, you can use this function to get all existing characters.
 
 ```ts
-import { useAccount } from '@Server/document/account.js';
+import { useRebar } from '@Server/index.js';
+
+const Rebar = useRebar();
 
 //...some function
-const document = useAccount(player);
+const document = Rebar.document.account.useAccount(player);
 const characters = await document.getCharacters();
 if (characters.length >= 1) {
     console.log('They have a character');
@@ -78,10 +86,12 @@ Permissions for accounts allow permissions to persist across an entire account.
 Here's the simplest way to add, remove, and check permissions.
 
 ```ts
-import { useAccount } from '@Server/document/account.js';
+import { useRebar } from '@Server/index.js';
+
+const Rebar = useRebar();
 
 //...some function
-const document = useAccount(player);
+const document = Rebar.document.account.useAccount(player);
 
 await document.permission.addPermission('admin');
 await document.permission.removePermission('admin');
@@ -95,10 +105,12 @@ When you setup an account you often want to also setup a password, or check a pa
 We've made it pretty easy in Rebar to simply check a password to login.
 
 ```ts
-import { useAccount, useAccountBinder } from '@Server/document/account.js';
+import { useRebar } from '@Server/index.js';
+
+const Rebar = useRebar();
 
 // Bind, and get the document
-const document = useAccountBinder(player).bind(someAccountDataHere);
+const document = Rebar.document.account.useAccountBinder(player).bind(someAccountDataHere);
 
 // Verify a password for the account
 const isValid = document.checkPassword('myplaintextpassword');
@@ -111,9 +123,11 @@ Banning an account is pretty straight forward but it does not prevent new accoun
 It's simply an account level ban that happens during server runtime.
 
 ```ts
-import { useAccount } from '@Server/document/account.js';
+import { useRebar } from '@Server/index.js';
+
+const Rebar = useRebar();
 
 // Bind, and get the document
-const document = useAccount(player);
+const document = Rebar.document.account.useAccount(player);
 const isValid = document.setBanned('oops your banned');
 ```

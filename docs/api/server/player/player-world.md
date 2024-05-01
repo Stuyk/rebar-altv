@@ -5,13 +5,15 @@ These functions change what the player will see, or doesn't see.
 Often used for `drunk effects`, `changing weather`, `changing time`, or `fading a screen to black`.
 
 ```ts
-import { useWorld } from '@Server/player/world.js';
+import { useRebar } from '@Server/index.js';
 import { TimecycleTypes } from '../../shared/data/timecycleTypes.js';
 import { ScreenEffects } from '../../shared/data/screenEffects.js';
 import { Weathers } from '../../shared/data/weathers.js';
 
+const Rebar = useRebar();
+
 // Access player world
-const playerWorld = useWorld(somePlayer);
+const playerWorld = Rebar.player.useWorld(somePlayer);
 
 // Blur the screen over 5 seconds, and keep it blurred
 playerWorld.setScreenBlur(5000);

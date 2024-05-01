@@ -3,9 +3,10 @@
 The players getter gives information about all players.
 
 ```ts
-import { usePlayersGetter } from '@Server/getters/players.js';
+import { useRebar } from '@Server/index.js';
+const Rebar = useRebar();
 
-const getter = usePlayersGetter();
+const getter = Rebar.usePlayersGetter();
 
 // Returns an array of players who are driving
 const playersDriving = getter.driving();

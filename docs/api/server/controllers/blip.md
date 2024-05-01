@@ -11,11 +11,13 @@ These are general purpose blips, if you need more robust functionality use the b
 A global blip can be seen by all players.
 
 ```ts
-import { useBlipGlobal } from '@Server/controllers/blip.js';
+import { useRebar } from '@Server/index.js';
 import { BlipColor } from '../../../main/shared/types/blip.js';
 
+const Rebar = useRebar();
+
 // Create a global blip
-const blip = useBlipGlobal(player, {
+const blip = Rebar.controllers.useBlipGlobal(player, {
     pos: SpawnPos,
     color: BlipColor.BLUE,
     sprite: 57,
@@ -35,11 +37,13 @@ blip.destroy();
 A local blip can only been seen by a single player.
 
 ```ts
-import { useBlipLocal } from '@Server/controllers/blip.js';
+import { useRebar } from '@Server/index.js';
 import { BlipColor } from '../../../main/shared/types/blip.js';
 
+const Rebar = useRebar();
+
 // Create the blip locally
-const blip = useBlipLocal(player, {
+const blip = Rebar.controllers.useBlipLocal(player, {
     pos: SpawnPos,
     color: BlipColor.BLUE,
     sprite: 57,

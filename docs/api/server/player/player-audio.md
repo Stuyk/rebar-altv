@@ -7,10 +7,12 @@ If you want to use custom sound files, put them in the `webview/public/sounds` f
 !!!
 
 ```ts
-import { useAudio } from '@Server/player/audio.js';
+import { useRebar } from '@Server/index.js';
+
+const Rebar = useRebar();
 
 // Create audio instance for player
-const audio = useAudio(player);
+const audio = Rebar.player.useAudio(player);
 
 // Play a custom sound from the public folder
 audio.playSound('sounds/positive.ogg');

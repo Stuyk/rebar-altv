@@ -7,9 +7,11 @@ All functions will automatically save to the database, except for `update`
 !!!
 
 ```ts
-import { usePlayerAppearance } from '@Server/player/appearance.js';
+import { useRebar } from '@Server/index.js';
 
-const appearance = usePlayerAppearance(somePlayer);
+const Rebar = useRebar();
+
+const appearance = Rebar.player.usePlayerAppearance(somePlayer);
 
 // Get hair decorator for style, and save to database
 const hairDecorator = appearance.getHairOverlay(0, 5);

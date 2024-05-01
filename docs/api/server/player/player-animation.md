@@ -5,8 +5,12 @@ Play an animation on a player in various ways.
 [Animation List](https://alexguirre.github.io/animations-list/)
 
 ```ts
+import { useRebar } from '@Server/index.js';
+
+const Rebar = useRebar();
+
 // Create animation instance
-const anim = useAnimation(player);
+const anim = Rebar.player.useAnimation(player);
 
 // Play a handful of animations 2.5s after each one is played
 // Dictionary

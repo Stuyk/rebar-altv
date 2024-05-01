@@ -3,9 +3,11 @@
 Notify allows you to send different text and messages to the player screen.
 
 ```ts
-import { useNotify } from '@Server/player/notify.js';
+import { useRebar } from '@Server/index.js';
 
-const notify = useNotify(player);
+const Rebar = useRebar();
+
+const notify = Rebar.player.useNotify(player);
 
 // Show text credits on the left side of the screen
 notify.showCredits({ largeText: 'Hello', smallText: 'World', duration: 5000 });

@@ -5,9 +5,11 @@ This specific controller allows controlling the client-side webview instance for
 You can focus the webview, hide pages, or show pages with ease.
 
 ```ts
-import { useWebview } from '@Server/player/webview.js';
+import { useRebar } from '@Server/index.js';
 
-const view = useWebview(player);
+const Rebar = useRebar();
+
+const view = Rebar.player.useWebview(player);
 
 // Emit directly into the webview, and recieve the event
 // in the webview with the 'useEvents' composable

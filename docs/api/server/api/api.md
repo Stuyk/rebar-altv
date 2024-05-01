@@ -55,9 +55,10 @@ useApi().register('my-cool-api', useMyCoolAPI());
 This is all that's necessary to start working with other plugin APIs
 
 ```ts
-import { useApi } from '@Server/api/index.js';
+import { useRebar } from '@Server/index.js';
 
-const myCoolAPI = useApi().get('my-cool-api');
+const Rebar = useRebar();
+const myCoolAPI = Rebar.useApi().get('my-cool-api');
 
 function someFunction(somePlayer: alt.Player) {
     myCoolAPI.logPlayerName(somePlayer);

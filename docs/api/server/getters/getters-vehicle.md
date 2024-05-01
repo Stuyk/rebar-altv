@@ -3,9 +3,10 @@
 The vehicle getter gives single vehicle information.
 
 ```ts
-import { useVehicleGetter } from '@Server/getters/vehicle.js';
+import { useRebar } from '@Server/index.js';
+const Rebar = useRebar();
 
-const getter = useVehicleGetter();
+const getter = Rebar.get.useVehicleGetter();
 
 // Get a vehicle by database id
 const someVehicle = getter.byDatabaseID('_id');

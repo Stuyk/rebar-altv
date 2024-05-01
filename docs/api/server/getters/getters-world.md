@@ -3,9 +3,10 @@
 A world getter gives information about the in-game world.
 
 ```ts
-import { useWorldGetter } from '@Server/getters/world.js';
+import { useRebar } from '@Server/index.js';
+const Rebar = useRebar();
 
-const getter = useWorldGetter();
+const getter = Rebar.useWorldGetter();
 
 // Check if an entity is in ocean water
 const isInWater = getter.isInOceanWater(somePlayerOrVehicle);

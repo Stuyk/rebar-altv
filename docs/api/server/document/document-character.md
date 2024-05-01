@@ -9,14 +9,16 @@ It automatically saves data to the MongoDB database when any `set` function is u
 You should bind character data after fetching call characters owned by an account.
 
 ```ts
-import { useCharacter, useCharacterBinder } from '@Server/document/character.js';
+import { useRebar } from '@Server/index.js';
+
+const Rebar = useRebar();
 
 // ... some function
 // Use database functions to fetch or create a character
 const someCharacterData = someDatabaseFetchOrCreateFunction();
 
 // Bind character data to the player after fetching
-const document = useCharacterBinder(player).bind(someCharacterData);
+const document = Rebar.document.character.useCharacterBinder(player).bind(someCharacterData);
 ```
 
 ## Getting Data
@@ -24,10 +26,12 @@ const document = useCharacterBinder(player).bind(someCharacterData);
 Data can be retrieved for the bound character like this.
 
 ```ts
-import { useCharacter, useCharacterBinder } from '@Server/document/character.js';
+import { useRebar } from '@Server/index.js';
+
+const Rebar = useRebar();
 
 //... some function
-const character = useCharacter(player);
+const character = Rebar.document.character.useCharacter(player);
 const document = character.get();
 console.log(document.email);
 ```
@@ -37,9 +41,11 @@ console.log(document.email);
 Data can easily be appended or set in two different ways.
 
 ```ts
-import { useCharacter, useCharacterBinder } from '@Server/document/character.js';
+import { useRebar } from '@Server/index.js';
 
-const document = useCharacter(player);
+const Rebar = useRebar();
+
+const document = Rebar.document.character.useCharacter(player);
 
 type CustomCharacter = { whatever: string };
 
@@ -59,9 +65,11 @@ document.setBulk<CustomCharacter>({ whatever: 'hi' });
 When you need to obtain a vehicle file for an character, you can use this function to get all existing vehicles owned by the player.
 
 ```ts
-import { useCharacter } from '@Server/document/character.js';
+import { useRebar } from '@Server/index.js';
 
-const document = useCharacter(player);
+const Rebar = useRebar();
+
+const document = Rebar.document.character.useCharacter(player);
 
 //...some function
 const vehicles = await document.getVehicles();
@@ -79,10 +87,12 @@ Permissions for characters only allows the permission to exist on the one charac
 Here's the simplest way to add, remove, and check permissions.
 
 ```ts
-import { useCharacter } from '@Server/document/character.js';
+import { useRebar } from '@Server/index.js';
+
+const Rebar = useRebar();
 
 // ...some function
-const document = useCharacter(player);
+const document = Rebar.document.character.useCharacter(player);
 
 await document.permission.addPermission('mechanic');
 await document.permission.removePermission('mechanic');
@@ -94,10 +104,12 @@ const result = document.permission.hasPermission('mechanic');
 Permission groups allow you to assign permissions under a specific group name for a character.
 
 ```ts
-import { useCharacter } from '@Server/document/character.js';
+import { useRebar } from '@Server/index.js';
+
+const Rebar = useRebar();
 
 //...some function
-const document = useCharacter(player);
+const document = Rebar.document.character.useCharacter(player);
 
 await document.permission.addGroupPerm('police', 'cadet');
 await document.permission.removeGroupPerm('police', 'cadet');
