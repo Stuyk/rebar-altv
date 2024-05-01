@@ -37,6 +37,7 @@ import { usePermission } from './systems/permission.js';
 import { usePermissionGroup } from './systems/permissionGroup.js';
 import { sha256, sha256Random } from './utility/hash.js';
 import { check, hash } from './utility/password.js';
+import { rpcOnClient, rpcEmitClient, rpcEmitView, rpcOnView } from './events/rpc.js';
 
 export function useRebar() {
     return {
@@ -97,6 +98,12 @@ export function useRebar() {
         permission: {
             usePermission,
             usePermissionGroup,
+        },
+        rpc: {
+            rpcOnClient,
+            rpcEmitClient,
+            rpcEmitView,
+            rpcOnView,
         },
         utility: {
             sha256,

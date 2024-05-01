@@ -11,7 +11,6 @@ let cursorCount: number = 0;
 let isPageOpen = false;
 let openPages: PageNames[] = [];
 
-
 function handleServerEvent(event: string, ...args: any[]) {
     alt.emitServer(event, ...args);
 }
@@ -32,6 +31,24 @@ export function useWebview(path = 'http://assets/webview/index.html') {
         webview = new alt.WebView(path);
         webview.unfocus();
         isInitialized = false;
+
+        webview.on('view:request:rpc:sendServer', (eventName: string, id: string, ...args: any[]) => {
+            alt.log('Received RPC Request', eventName, id, args);
+            alt.emitServer(eventName, id, ...args);
+
+            alt.onceServer(`webview-${eventName}-${id}`, (data: any) => {
+                webview.emit(`webview-${eventName}-${id}`, data);
+            });
+        });
+
+        alt.onServer('view:request:rpc:sendView', (eventName: string, id: string, ...args: any[]) => {
+            webview.emit(eventName, id, ...args);
+
+            webview.on(`${eventName}-${id}`, (data: any) => {
+                alt.emitServer(`${eventName}-${id}`, data);
+                webview.off(`${eventName}-${id}`, () => {});
+            });
+        });
     }
 
     /**
@@ -139,7 +156,7 @@ export function useWebview(path = 'http://assets/webview/index.html') {
         isPageOpen = false;
         webview.emit(Events.view.hide, vueName);
         unfocus();
-        const index = openPages.findIndex(page => page === vueName);
+        const index = openPages.findIndex((page) => page === vueName);
         if (index > -1) openPages.splice(index, 1);
     }
 
@@ -163,12 +180,12 @@ export function useWebview(path = 'http://assets/webview/index.html') {
 
     /**
      * Check if specific page is open.
-     * 
+     *
      * @param {PageNames} vueName
      * @returns {boolean}
      */
     function isSpecificPageOpen(vueName: PageNames): boolean {
-        return openPages.findIndex(page => page === vueName) > -1;
+        return openPages.findIndex((page) => page === vueName) > -1;
     }
 
     if (!isInitialized) {
