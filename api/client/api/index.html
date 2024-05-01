@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.5.0.767885378820">
+    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.5.0.767886235513">
 
     <!-- See retype.com -->
     <meta name="generator" content="Retype 3.5.0">
@@ -30,12 +30,12 @@
 
     <script data-cfasync="false">(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
-    <link href="../../../resources/css/retype.css?v=3.5.0.767885378820" rel="stylesheet">
+    <link href="../../../resources/css/retype.css?v=3.5.0.767886235513" rel="stylesheet">
 
-    <script data-cfasync="false" src="../../../resources/js/config.js?v=3.5.0.767885378820" data-turbo-eval="false" defer></script>
+    <script data-cfasync="false" src="../../../resources/js/config.js?v=3.5.0.767886235513" data-turbo-eval="false" defer></script>
     <script data-cfasync="false" src="../../../resources/js/retype.js?v=3.5.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" data-cfasync="false" src="../../../resources/js/lunr.js?v=3.5.0.767885378820" data-turbo-eval="false" defer></script>
-    <script id="prism-js" data-cfasync="false" src="../../../resources/js/prism.js?v=3.5.0.767885378820" defer></script>
+    <script id="lunr-js" data-cfasync="false" src="../../../resources/js/lunr.js?v=3.5.0.767886235513" data-turbo-eval="false" defer></script>
+    <script id="prism-js" data-cfasync="false" src="../../../resources/js/prism.js?v=3.5.0.767886235513" defer></script>
 </head>
 <body>
     <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -212,8 +212,11 @@
 <ol start="2">
 <li>Create a global declaration for your API.</li>
 </ol>
+<doc-tabs>
+<doc-tab v-cloak id="without-arguments">
+<template #title>Without arguments</template>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">import { useApi } from '@Client/api/index.js';
+<pre class="language-typescript"><code v-pre class="language-typescript">import { useClientApi } from '@Client/api/index.js';
 
 export function useMyCoolAPI() {
     function logPlayerName(player: alt.Player) {
@@ -233,8 +236,36 @@ declare global {
 }
 
 // Really important to execute the return of your function
-useApi().register('my-cool-api', useMyCoolAPI());</code></pre>
+useClientApi().register('my-cool-api', useMyCoolAPI());</code></pre>
 </doc-codeblock></div>
+</doc-tab>
+<doc-tab v-cloak id="with-arguments">
+<template #title>With arguments</template>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">import { useClientApi } from '@Client/api/index.js';
+
+export function useMyCoolAPI(player: alt.Player) {
+    function logPlayerName() {
+        console.log(player.name);
+    }
+
+    return {
+        logPlayerName,
+    };
+}
+
+// Declare global to TypeScript recognizes the typings
+declare global {
+    export interface ClientPlugin {
+        ['my-cool-api']: typeof useMyCoolAPI;
+    }
+}
+
+// Don't execute a composable here, because it will be executed later.
+useClientApi().register('my-cool-api', useMyCoolAPI);</code></pre>
+</doc-codeblock></div>
+</doc-tab>
+</doc-tabs>
 <ol start="3">
 <li>Done</li>
 </ol>
@@ -245,15 +276,32 @@ useApi().register('my-cool-api', useMyCoolAPI());</code></pre>
     </h2>
 </doc-anchor-target>
 <p>This is all that&#x27;s necessary to start working with other plugin APIs</p>
+<doc-tabs>
+<doc-tab v-cloak id="without-arguments">
+<template #title>Without arguments</template>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">import { useApi } from '@Client/api/index.js';
+<pre class="language-typescript"><code v-pre class="language-typescript">import { useClientApi } from '@Client/api/index.js';
 
-const myCoolAPI = useApi().get('my-cool-api');
+const myCoolAPI = useClientApi().get('my-cool-api');
 
 function someFunction(somePlayer: alt.Player) {
     myCoolAPI.logPlayerName(somePlayer);
 }</code></pre>
 </doc-codeblock></div>
+</doc-tab>
+<doc-tab v-cloak id="with-arguments">
+<template #title>With arguments</template>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">import { useClientApi } from '@Client/api/index.js';
+
+const useMyCoolAPI = useClientApi().get('my-cool-api');
+
+function someFunction(somePlayer: alt.Player) {
+    useMyCoolAPI(somePlayer).logPlayerName();
+}</code></pre>
+</doc-codeblock></div>
+</doc-tab>
+</doc-tabs>
 
                                 
                                 <!-- Required only on API pages -->
