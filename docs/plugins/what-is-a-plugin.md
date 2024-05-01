@@ -24,6 +24,9 @@ Plugins can be found in the `src/plugins` directory, and each plugin should have
         │   └───index.ts
         ├───server
         │   └───index.ts
+        ├───sounds
+        │   ├───alert_a.ogg
+        │   └───alert_b.ogg
         ├───translate
         │   └───index.ts
         └───webview

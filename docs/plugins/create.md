@@ -6,8 +6,9 @@ If you wish to create plugins then you need to understand the basic structure of
 2. Create these additional folders under the new folder you created
     1. `client`
     2. `server`
-    3. `translate`
-    4. `webview`
+    3. `sounds`
+    4. `translate`
+    5. `webview`
 
 ## client
 
@@ -41,6 +42,23 @@ import { useTranslate } from '../../../main/shared/translate.js';
 const { t } = useTranslate('en');
 
 alt.log(t('example.hello-from-server'));
+```
+
+## sounds
+
+Sounds are custom `.ogg` files that can be played as an asset using the `Rebar.player.useAudio` function.
+
+Here's a simple example of playing a sound called `test.ogg` which is in the `sounds folder`.
+
+```ts
+import * as alt from 'alt-server';
+import { useRebar } from '@Server/index.js';
+
+const Rebar = useRebar();
+
+alt.on('playerConnect', async (player) => {
+    Rebar.player.useAudio(player).playSound('http://assets/sounds/test.ogg');
+});
 ```
 
 ## translate
