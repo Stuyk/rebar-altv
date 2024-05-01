@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.5.0.767813145714">
+    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.5.0.767848238372">
 
     <!-- See retype.com -->
     <meta name="generator" content="Retype 3.5.0">
@@ -30,12 +30,12 @@
 
     <script data-cfasync="false">(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
-    <link href="../../../../resources/css/retype.css?v=3.5.0.767813145714" rel="stylesheet">
+    <link href="../../../../resources/css/retype.css?v=3.5.0.767848238372" rel="stylesheet">
 
-    <script data-cfasync="false" src="../../../../resources/js/config.js?v=3.5.0.767813145714" data-turbo-eval="false" defer></script>
+    <script data-cfasync="false" src="../../../../resources/js/config.js?v=3.5.0.767848238372" data-turbo-eval="false" defer></script>
     <script data-cfasync="false" src="../../../../resources/js/retype.js?v=3.5.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" data-cfasync="false" src="../../../../resources/js/lunr.js?v=3.5.0.767813145714" data-turbo-eval="false" defer></script>
-    <script id="prism-js" data-cfasync="false" src="../../../../resources/js/prism.js?v=3.5.0.767813145714" defer></script>
+    <script id="lunr-js" data-cfasync="false" src="../../../../resources/js/lunr.js?v=3.5.0.767848238372" data-turbo-eval="false" defer></script>
+    <script id="prism-js" data-cfasync="false" src="../../../../resources/js/prism.js?v=3.5.0.767848238372" defer></script>
 </head>
 <body>
     <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -196,14 +196,16 @@
 </doc-anchor-target>
 <p>You should bind account data when they authenticate to your server.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">import { useAccount, useAccountBinder } from '@Server/document/account.js';
+<pre class="language-typescript"><code v-pre class="language-typescript">import { useRebar } from '@Server/index.js';
+
+const Rebar = useRebar();
 
 // ... some function
 // Use database functions to fetch or create an account
 const someAccountData = someDatabaseFetchOrCreateFunction();
 
 // Bind account data to the player after fetching
-const document = useAccountBinder(player).bind(someAccountData);</code></pre>
+const document = Rebar.document.account.useAccountBinder(player).bind(someAccountData);</code></pre>
 </doc-codeblock></div>
 <doc-anchor-target id="getting-data">
     <h2>
@@ -213,10 +215,12 @@ const document = useAccountBinder(player).bind(someAccountData);</code></pre>
 </doc-anchor-target>
 <p>Data can be retrieved for the bound account like this.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">import { useAccount } from '@Server/document/account.js';
+<pre class="language-typescript"><code v-pre class="language-typescript">import { useRebar } from '@Server/index.js';
+
+const Rebar = useRebar();
 
 //... some function
-const account = useAccount(player);
+const account = Rebar.document.account.useAccount(player);
 const data = account.get();
 console.log(data.email);</code></pre>
 </doc-codeblock></div>
@@ -228,12 +232,14 @@ console.log(data.email);</code></pre>
 </doc-anchor-target>
 <p>Data can easily be appended or set in two different ways.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">import { useAccount } from '@Server/document/account.js';
+<pre class="language-typescript"><code v-pre class="language-typescript">import { useRebar } from '@Server/index.js';
+
+const Rebar = useRebar();
 
 type CustomAccount = { whatever: string };
 
 //...some function
-const document = useAccount(player);
+const document = Rebar.document.account.useAccount(player);
 
 // Single field
 document.set('banned', true);
@@ -252,10 +258,12 @@ document.setBulk&lt;CustomAccount&gt;({ banned: true, reason: 'big nerd', whatev
 </doc-anchor-target>
 <p>When you need to obtain a character file for an account, you can use this function to get all existing characters.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">import { useAccount } from '@Server/document/account.js';
+<pre class="language-typescript"><code v-pre class="language-typescript">import { useRebar } from '@Server/index.js';
+
+const Rebar = useRebar();
 
 //...some function
-const document = useAccount(player);
+const document = Rebar.document.account.useAccount(player);
 const characters = await document.getCharacters();
 if (characters.length &gt;= 1) {
     console.log('They have a character');
@@ -272,10 +280,12 @@ if (characters.length &gt;= 1) {
 <p>Permissions for accounts allow permissions to persist across an entire account.</p>
 <p>Here&#x27;s the simplest way to add, remove, and check permissions.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">import { useAccount } from '@Server/document/account.js';
+<pre class="language-typescript"><code v-pre class="language-typescript">import { useRebar } from '@Server/index.js';
+
+const Rebar = useRebar();
 
 //...some function
-const document = useAccount(player);
+const document = Rebar.document.account.useAccount(player);
 
 await document.permission.addPermission('admin');
 await document.permission.removePermission('admin');
@@ -290,10 +300,12 @@ const result = document.permission.hasPermission('admin');</code></pre>
 <p>When you setup an account you often want to also setup a password, or check a password.</p>
 <p>We&#x27;ve made it pretty easy in Rebar to simply check a password to login.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">import { useAccount, useAccountBinder } from '@Server/document/account.js';
+<pre class="language-typescript"><code v-pre class="language-typescript">import { useRebar } from '@Server/index.js';
+
+const Rebar = useRebar();
 
 // Bind, and get the document
-const document = useAccountBinder(player).bind(someAccountDataHere);
+const document = Rebar.document.account.useAccountBinder(player).bind(someAccountDataHere);
 
 // Verify a password for the account
 const isValid = document.checkPassword('myplaintextpassword');</code></pre>
@@ -307,10 +319,12 @@ const isValid = document.checkPassword('myplaintextpassword');</code></pre>
 <p>Banning an account is pretty straight forward but it does not prevent new accounts with new ips.</p>
 <p>It&#x27;s simply an account level ban that happens during server runtime.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">import { useAccount } from '@Server/document/account.js';
+<pre class="language-typescript"><code v-pre class="language-typescript">import { useRebar } from '@Server/index.js';
+
+const Rebar = useRebar();
 
 // Bind, and get the document
-const document = useAccount(player);
+const document = Rebar.document.account.useAccount(player);
 const isValid = document.setBanned('oops your banned');</code></pre>
 </doc-codeblock></div>
 

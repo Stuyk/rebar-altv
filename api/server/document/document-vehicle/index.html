@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.5.0.767813145714">
+    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.5.0.767848238372">
 
     <!-- See retype.com -->
     <meta name="generator" content="Retype 3.5.0">
@@ -30,12 +30,12 @@
 
     <script data-cfasync="false">(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
-    <link href="../../../../resources/css/retype.css?v=3.5.0.767813145714" rel="stylesheet">
+    <link href="../../../../resources/css/retype.css?v=3.5.0.767848238372" rel="stylesheet">
 
-    <script data-cfasync="false" src="../../../../resources/js/config.js?v=3.5.0.767813145714" data-turbo-eval="false" defer></script>
+    <script data-cfasync="false" src="../../../../resources/js/config.js?v=3.5.0.767848238372" data-turbo-eval="false" defer></script>
     <script data-cfasync="false" src="../../../../resources/js/retype.js?v=3.5.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" data-cfasync="false" src="../../../../resources/js/lunr.js?v=3.5.0.767813145714" data-turbo-eval="false" defer></script>
-    <script id="prism-js" data-cfasync="false" src="../../../../resources/js/prism.js?v=3.5.0.767813145714" defer></script>
+    <script id="lunr-js" data-cfasync="false" src="../../../../resources/js/lunr.js?v=3.5.0.767848238372" data-turbo-eval="false" defer></script>
+    <script id="prism-js" data-cfasync="false" src="../../../../resources/js/prism.js?v=3.5.0.767848238372" defer></script>
 </head>
 <body>
     <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -196,14 +196,16 @@
 </doc-anchor-target>
 <p>You should bind character data after fetching call characters owned by an account.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">import { useVehicle, useVehicleBinder } from '@Server/document/vehicle.js';
+<pre class="language-typescript"><code v-pre class="language-typescript">import { useRebar } from '@Server/index.js';
+
+const Rebar = useRebar();
 
 // ... some function
 // Use database functions to fetch or create a vehicle
 const someVehicleData = someDatabaseFetchOrCreateFunction();
 
 // Bind vehicle data to the player after fetching
-const document = useVehicleBinder(player).bind(someVehicleData);</code></pre>
+const document = Rebar.document.vehicle.useVehicleBinder(someVehicle).bind(someVehicleData);</code></pre>
 </doc-codeblock></div>
 <doc-anchor-target id="getting-data">
     <h2>
@@ -213,10 +215,12 @@ const document = useVehicleBinder(player).bind(someVehicleData);</code></pre>
 </doc-anchor-target>
 <p>Data can be retrieved for the bound character like this.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">import { useVehicle, useVehicleBinder } from '@Server/document/vehicle.js';
+<pre class="language-typescript"><code v-pre class="language-typescript">import { useRebar } from '@Server/index.js';
+
+const Rebar = useRebar();
 
 //... some function
-const document = useVehicle(player);
+const document = Rebar.document.vehicle.useVehicle(player);
 const data = document.get();
 console.log(data.email);</code></pre>
 </doc-codeblock></div>
@@ -228,9 +232,11 @@ console.log(data.email);</code></pre>
 </doc-anchor-target>
 <p>Data can easily be appended or set in two different ways.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">import { useVehicle, useVehicleBinder } from '@Server/document/vehicle.js';
+<pre class="language-typescript"><code v-pre class="language-typescript">import { useRebar } from '@Server/index.js';
 
-const document = useVehicle(player);
+const Rebar = useRebar();
+
+const document = Rebar.document.vehicle.useVehicle(player);
 
 type CustomVehicle = { whatever: string };
 

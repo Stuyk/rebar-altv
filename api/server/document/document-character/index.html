@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.5.0.767813145714">
+    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.5.0.767848238372">
 
     <!-- See retype.com -->
     <meta name="generator" content="Retype 3.5.0">
@@ -30,12 +30,12 @@
 
     <script data-cfasync="false">(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
-    <link href="../../../../resources/css/retype.css?v=3.5.0.767813145714" rel="stylesheet">
+    <link href="../../../../resources/css/retype.css?v=3.5.0.767848238372" rel="stylesheet">
 
-    <script data-cfasync="false" src="../../../../resources/js/config.js?v=3.5.0.767813145714" data-turbo-eval="false" defer></script>
+    <script data-cfasync="false" src="../../../../resources/js/config.js?v=3.5.0.767848238372" data-turbo-eval="false" defer></script>
     <script data-cfasync="false" src="../../../../resources/js/retype.js?v=3.5.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" data-cfasync="false" src="../../../../resources/js/lunr.js?v=3.5.0.767813145714" data-turbo-eval="false" defer></script>
-    <script id="prism-js" data-cfasync="false" src="../../../../resources/js/prism.js?v=3.5.0.767813145714" defer></script>
+    <script id="lunr-js" data-cfasync="false" src="../../../../resources/js/lunr.js?v=3.5.0.767848238372" data-turbo-eval="false" defer></script>
+    <script id="prism-js" data-cfasync="false" src="../../../../resources/js/prism.js?v=3.5.0.767848238372" defer></script>
 </head>
 <body>
     <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -196,14 +196,16 @@
 </doc-anchor-target>
 <p>You should bind character data after fetching call characters owned by an account.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">import { useCharacter, useCharacterBinder } from '@Server/document/character.js';
+<pre class="language-typescript"><code v-pre class="language-typescript">import { useRebar } from '@Server/index.js';
+
+const Rebar = useRebar();
 
 // ... some function
 // Use database functions to fetch or create a character
 const someCharacterData = someDatabaseFetchOrCreateFunction();
 
 // Bind character data to the player after fetching
-const document = useCharacterBinder(player).bind(someCharacterData);</code></pre>
+const document = Rebar.document.character.useCharacterBinder(player).bind(someCharacterData);</code></pre>
 </doc-codeblock></div>
 <doc-anchor-target id="getting-data">
     <h2>
@@ -213,10 +215,12 @@ const document = useCharacterBinder(player).bind(someCharacterData);</code></pre
 </doc-anchor-target>
 <p>Data can be retrieved for the bound character like this.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">import { useCharacter, useCharacterBinder } from '@Server/document/character.js';
+<pre class="language-typescript"><code v-pre class="language-typescript">import { useRebar } from '@Server/index.js';
+
+const Rebar = useRebar();
 
 //... some function
-const character = useCharacter(player);
+const character = Rebar.document.character.useCharacter(player);
 const document = character.get();
 console.log(document.email);</code></pre>
 </doc-codeblock></div>
@@ -228,9 +232,11 @@ console.log(document.email);</code></pre>
 </doc-anchor-target>
 <p>Data can easily be appended or set in two different ways.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">import { useCharacter, useCharacterBinder } from '@Server/document/character.js';
+<pre class="language-typescript"><code v-pre class="language-typescript">import { useRebar } from '@Server/index.js';
 
-const document = useCharacter(player);
+const Rebar = useRebar();
+
+const document = Rebar.document.character.useCharacter(player);
 
 type CustomCharacter = { whatever: string };
 
@@ -252,9 +258,11 @@ document.setBulk&lt;CustomCharacter&gt;({ whatever: 'hi' });</code></pre>
 </doc-anchor-target>
 <p>When you need to obtain a vehicle file for an character, you can use this function to get all existing vehicles owned by the player.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">import { useCharacter } from '@Server/document/character.js';
+<pre class="language-typescript"><code v-pre class="language-typescript">import { useRebar } from '@Server/index.js';
 
-const document = useCharacter(player);
+const Rebar = useRebar();
+
+const document = Rebar.document.character.useCharacter(player);
 
 //...some function
 const vehicles = await document.getVehicles();
@@ -273,10 +281,12 @@ if (vehicles.length &gt;= 1) {
 <p>Permissions for characters only allows the permission to exist on the one character it is assigned to.</p>
 <p>Here&#x27;s the simplest way to add, remove, and check permissions.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">import { useCharacter } from '@Server/document/character.js';
+<pre class="language-typescript"><code v-pre class="language-typescript">import { useRebar } from '@Server/index.js';
+
+const Rebar = useRebar();
 
 // ...some function
-const document = useCharacter(player);
+const document = Rebar.document.character.useCharacter(player);
 
 await document.permission.addPermission('mechanic');
 await document.permission.removePermission('mechanic');
@@ -290,10 +300,12 @@ const result = document.permission.hasPermission('mechanic');</code></pre>
 </doc-anchor-target>
 <p>Permission groups allow you to assign permissions under a specific group name for a character.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">import { useCharacter } from '@Server/document/character.js';
+<pre class="language-typescript"><code v-pre class="language-typescript">import { useRebar } from '@Server/index.js';
+
+const Rebar = useRebar();
 
 //...some function
-const document = useCharacter(player);
+const document = Rebar.document.character.useCharacter(player);
 
 await document.permission.addGroupPerm('police', 'cadet');
 await document.permission.removeGroupPerm('police', 'cadet');

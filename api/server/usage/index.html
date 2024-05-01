@@ -9,24 +9,24 @@
     <meta name="generator" content="Retype 3.5.0">
 
     <!-- Primary Meta Tags -->
-    <title>Webview</title>
-    <meta name="title" content="Webview">
-    <meta name="description" content="When using the webview on client-side, you have a lot of options.">
+    <title>Server API Usage</title>
+    <meta name="title" content="Server API Usage">
+    <meta name="description" content="The server API can be accessed through a single import.">
 
     <!-- Canonical -->
-    <link rel="canonical" href="https://rebarv.com/api/client/webview/">
+    <link rel="canonical" href="https://rebarv.com/api/server/usage/">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://rebarv.com/api/client/webview/">
-    <meta property="og:title" content="Webview">
-    <meta property="og:description" content="When using the webview on client-side, you have a lot of options.">
+    <meta property="og:url" content="https://rebarv.com/api/server/usage/">
+    <meta property="og:title" content="Server API Usage">
+    <meta property="og:description" content="The server API can be accessed through a single import.">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://rebarv.com/api/client/webview/">
-    <meta property="twitter:title" content="Webview">
-    <meta property="twitter:description" content="When using the webview on client-side, you have a lot of options.">
+    <meta property="twitter:url" content="https://rebarv.com/api/server/usage/">
+    <meta property="twitter:title" content="Server API Usage">
+    <meta property="twitter:description" content="The server API can be accessed through a single import.">
 
     <script data-cfasync="false">(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
@@ -180,27 +180,22 @@
                                 <!-- Rendered if sidebar right is enabled -->
                                 <div id="docs-sidebar-right-toggle"></div>
                                 <!-- Page content  -->
-<doc-anchor-target id="webview" class="break-words">
+<doc-anchor-target id="server-api-usage" class="break-words">
     <h1>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#webview">#</doc-anchor-trigger>
-        <span>Webview</span>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#server-api-usage">#</doc-anchor-trigger>
+        <span>Server API Usage</span>
     </h1>
 </doc-anchor-target>
-<p>When using the webview on client-side, you have a lot of options.</p>
+<p>The server API can be accessed through a single import.</p>
+<p>If you want more direct imports, those are also available through your intellisense.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">import { useWebview } from '@Client/webview/index.js';
+<pre class="language-typescript"><code v-pre class="language-typescript">import { useRebar } from '@Server/index.js';
 
-// Show a page, automatically focuses if page type
-useWebview().show('Example', 'page');
+const Rebar = useRebar();
 
-// Hide a page, automatically unfocuses
-useWebview().hide('Example');
-
-// Focus webview, and show cursor
-useWebview().focus();
-
-// Unfocus webview, and hide cursor
-useWebview().unfocus();</code></pre>
+// Example(s)
+const document = Rebar.document.account.useAccount();
+const audioInstance = Rebar.player.useAudio(somePlayer);</code></pre>
 </doc-codeblock></div>
 
                                 
@@ -211,20 +206,20 @@ useWebview().unfocus();</code></pre>
                             
                                 <nav class="flex mt-14">
                                     <div class="w-1/2">
-                                        <a class="px-5 py-4 h-full flex items-center break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-l-lg transition-colors duration-150 relative hover:z-5" href="../../../api/client/api/">
+                                        <a class="px-5 py-4 h-full flex items-center break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-l-lg transition-colors duration-150 relative hover:z-5" href="../../../api/client/webview/">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="mr-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19 11H7.41l5.29-5.29a.996.996 0 10-1.41-1.41l-7 7a1 1 0 000 1.42l7 7a1.024 1.024 0 001.42-.01.996.996 0 000-1.41L7.41 13H19c.55 0 1-.45 1-1s-.45-1-1-1z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
                                             <span>
                                                 <span class="block text-xs font-normal text-gray-400 dark:text-dark-400">Previous</span>
-                                                <span class="block mt-1">Plugin API</span>
+                                                <span class="block mt-1">Webview</span>
                                             </span>
                                         </a>
                                     </div>
                             
                                     <div class="w-1/2">
-                                        <a class="px-5 py-4 -mx-px h-full flex items-center justify-end break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-r-lg transition-colors duration-150 relative hover:z-5" href="../../../api/server/usage/">
+                                        <a class="px-5 py-4 -mx-px h-full flex items-center justify-end break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-r-lg transition-colors duration-150 relative hover:z-5" href="../../../api/server/controllers/blip/">
                                             <span>
                                                 <span class="block text-xs font-normal text-right text-gray-400 dark:text-dark-400">Next</span>
-                                                <span class="block mt-1">Server API Usage</span>
+                                                <span class="block mt-1">Blip</span>
                                             </span>
                                             <svg xmlns="http://www.w3.org/2000/svg" class="ml-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19.92 12.38a1 1 0 00-.22-1.09l-7-7a.996.996 0 10-1.41 1.41l5.3 5.3H5c-.55 0-1 .45-1 1s.45 1 1 1h11.59l-5.29 5.29a.996.996 0 000 1.41c.19.2.44.3.7.3s.51-.1.71-.29l7-7c.09-.09.16-.21.21-.33z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
                                         </a>
@@ -268,6 +263,6 @@ useWebview().unfocus();</code></pre>
 
     <div id="docs-overlay-target"></div>
 
-    <script data-cfasync="false">window.__DOCS__ = { "title": "Webview", level: 3, icon: "file", hasPrism: true, hasMermaid: false, hasMath: false, tocDepth: 23 }</script>
+    <script data-cfasync="false">window.__DOCS__ = { "title": "Server API Usage", level: 3, icon: "file", hasPrism: true, hasMermaid: false, hasMath: false, tocDepth: 23 }</script>
 </body>
 </html>
