@@ -9,7 +9,7 @@ Your import path may vary depending on where you're importing from.
 ## Import
 
 ```ts
-import * as Utility from '../../../main/shared/utility/index.js';
+import * as Utility from '@Shared/utility/index.js';
 ```
 
 ## Usage

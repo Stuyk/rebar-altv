@@ -1,6 +1,6 @@
 import * as alt from 'alt-server';
 import { MongoClient, Db, InsertOneResult, ObjectId } from 'mongodb';
-import * as Utility from '../../shared/utility/index.js';
+import * as Utility from '@Shared/utility/index.js';
 
 const DatabaseName = 'Rebar';
 

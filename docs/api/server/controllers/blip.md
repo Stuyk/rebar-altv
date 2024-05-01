@@ -12,7 +12,7 @@ A global blip can be seen by all players.
 
 ```ts
 import { useRebar } from '@Server/index.js';
-import { BlipColor } from '../../../main/shared/types/blip.js';
+import { BlipColor } from '@Shared/types/blip.js';
 
 const Rebar = useRebar();
 
@@ -38,7 +38,7 @@ A local blip can only been seen by a single player.
 
 ```ts
 import { useRebar } from '@Server/index.js';
-import { BlipColor } from '../../../main/shared/types/blip.js';
+import { BlipColor } from '@Shared/types/blip.js';
 
 const Rebar = useRebar();
 

@@ -1,6 +1,6 @@
 import * as alt from 'alt-server';
 import * as native from 'natives';
-import { Events } from '../../shared/events/index.js';
+import { Events } from '@Shared/events/index.js';
 
 export function useNative(player: alt.Player) {
     /**

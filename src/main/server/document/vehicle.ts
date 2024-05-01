@@ -1,6 +1,6 @@
 import * as alt from 'alt-server';
-import { Vehicle } from '../../shared/types/vehicle.js';
-import { KnownKeys } from '../../shared/utilityTypes/index.js';
+import { Vehicle } from '@Shared/types/vehicle.js';
+import { KnownKeys } from '@Shared/utilityTypes/index.js';
 import { useDatabase } from '@Server/database/index.js';
 import { CollectionNames, KeyChangeCallback } from './shared.js';
 
