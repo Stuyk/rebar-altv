@@ -3,7 +3,8 @@
         "baseUrl": "src",
         "paths": {
             "@Server/*": ["main/server/*"],
-            "@Client/*": ["main/client/*"]
+            "@Client/*": ["main/client/*"],
+            "@Shared/*": ["main/shared/*"]
         },
         "typeRoots": ["./node_modules/@types", "./node_modules/@altv"],
         "removeComments": true,
