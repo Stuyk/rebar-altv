@@ -23,7 +23,8 @@ export function useMyCoolAPI() {
 ```
 
 2. Create a global declaration for your API.
-+++ Without arguments
+   +++ Without arguments
+
 ```ts
 import { useClientApi } from '@Client/api/index.js';
 
@@ -47,7 +48,9 @@ declare global {
 // Really important to execute the return of your function
 useClientApi().register('my-cool-api', useMyCoolAPI());
 ```
+
 +++ With arguments
+
 ```ts
 import { useClientApi } from '@Client/api/index.js';
 
@@ -71,6 +74,7 @@ declare global {
 // Don't execute a composable here, because it will be executed later.
 useClientApi().register('my-cool-api', useMyCoolAPI);
 ```
+
 +++
 
 3. Done
@@ -79,7 +83,10 @@ useClientApi().register('my-cool-api', useMyCoolAPI);
 
 This is all that's necessary to start working with other plugin APIs
 
+Below is dependent on load order, so your mileage may vary.
+
 +++ Without arguments
+
 ```ts
 import { useClientApi } from '@Client/api/index.js';
 
@@ -89,7 +96,9 @@ function someFunction(somePlayer: alt.Player) {
     myCoolAPI.logPlayerName(somePlayer);
 }
 ```
+
 +++ With arguments
+
 ```ts
 import { useClientApi } from '@Client/api/index.js';
 
@@ -99,4 +108,27 @@ function someFunction(somePlayer: alt.Player) {
     useMyCoolAPI(somePlayer).logPlayerName();
 }
 ```
-+++
+
+If you do not want to worry about load order. Consider the following pattern:
+
+```ts
+import * as alt from 'alt-client';
+import { useClientApi } from '@Client/api/index.js';
+
+const api = useClientApi();
+
+async function init() {
+    // Wait for the API to be ready
+    await alt.Utils.waitFor(() => api.isReady('auth-api'), 30000);
+
+    // Get the API
+    const authApi = api.get('auth-api');
+
+    // Hook in your events
+    authApi.onLogin((player) => {
+        alt.log('Player Ready!');
+    });
+}
+
+init();
+```

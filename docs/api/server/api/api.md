@@ -52,7 +52,9 @@ useApi().register('my-cool-api', useMyCoolAPI());
 
 ## How to Get an API
 
-This is all that's necessary to start working with other plugin APIs
+This is all that's necessary to start working with other plugin APIs.
+
+Below is dependent on load order, so your mileage may vary.
 
 ```ts
 import { useRebar } from '@Server/index.js';
@@ -63,4 +65,29 @@ const myCoolAPI = Rebar.useApi().get('my-cool-api');
 function someFunction(somePlayer: alt.Player) {
     myCoolAPI.logPlayerName(somePlayer);
 }
+```
+
+If you do not want to worry about load order. Consider the following pattern:
+
+```ts
+import * as alt from 'alt-server';
+import { useRebar } from '@Server/index.js';
+
+const Rebar = useRebar();
+const api = Rebar.useApi();
+
+async function init() {
+    // Wait for the API to be ready
+    await alt.Utils.waitFor(() => api.isReady('auth-api'), 30000);
+
+    // Get the API
+    const authApi = api.get('auth-api');
+
+    // Hook in your events
+    authApi.onLogin((player) => {
+        alt.log('Player Ready!');
+    });
+}
+
+init();
 ```
