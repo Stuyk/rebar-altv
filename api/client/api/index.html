@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.5.0.767892640739">
+    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.5.0.767983934317">
 
     <!-- See retype.com -->
     <meta name="generator" content="Retype 3.5.0">
@@ -30,12 +30,12 @@
 
     <script data-cfasync="false">(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
-    <link href="../../../resources/css/retype.css?v=3.5.0.767892640739" rel="stylesheet">
+    <link href="../../../resources/css/retype.css?v=3.5.0.767983934317" rel="stylesheet">
 
-    <script data-cfasync="false" src="../../../resources/js/config.js?v=3.5.0.767892640739" data-turbo-eval="false" defer></script>
+    <script data-cfasync="false" src="../../../resources/js/config.js?v=3.5.0.767983934317" data-turbo-eval="false" defer></script>
     <script data-cfasync="false" src="../../../resources/js/retype.js?v=3.5.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" data-cfasync="false" src="../../../resources/js/lunr.js?v=3.5.0.767892640739" data-turbo-eval="false" defer></script>
-    <script id="prism-js" data-cfasync="false" src="../../../resources/js/prism.js?v=3.5.0.767892640739" defer></script>
+    <script id="lunr-js" data-cfasync="false" src="../../../resources/js/lunr.js?v=3.5.0.767983934317" data-turbo-eval="false" defer></script>
+    <script id="prism-js" data-cfasync="false" src="../../../resources/js/prism.js?v=3.5.0.767983934317" defer></script>
 </head>
 <body>
     <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -210,11 +210,13 @@
 }</code></pre>
 </doc-codeblock></div>
 <ol start="2">
-<li>Create a global declaration for your API.</li>
-</ol>
+<li>Create a global declaration for your API.
 <doc-tabs>
 <doc-tab v-cloak id="without-arguments">
 <template #title>Without arguments</template>
+</doc-tab>
+</li>
+</ol>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-typescript"><code v-pre class="language-typescript">import { useClientApi } from '@Client/api/index.js';
 
@@ -238,7 +240,7 @@ declare global {
 // Really important to execute the return of your function
 useClientApi().register('my-cool-api', useMyCoolAPI());</code></pre>
 </doc-codeblock></div>
-</doc-tab>
+<doc-tabs>
 <doc-tab v-cloak id="with-arguments">
 <template #title>With arguments</template>
 <div class="codeblock-wrapper"><doc-codeblock>
@@ -276,6 +278,7 @@ useClientApi().register('my-cool-api', useMyCoolAPI);</code></pre>
     </h2>
 </doc-anchor-target>
 <p>This is all that&#x27;s necessary to start working with other plugin APIs</p>
+<p>Below is dependent on load order, so your mileage may vary.</p>
 <doc-tabs>
 <doc-tab v-cloak id="without-arguments">
 <template #title>Without arguments</template>
@@ -300,8 +303,29 @@ function someFunction(somePlayer: alt.Player) {
     useMyCoolAPI(somePlayer).logPlayerName();
 }</code></pre>
 </doc-codeblock></div>
+<p>If you do not want to worry about load order. Consider the following pattern:</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">import * as alt from 'alt-client';
+import { useClientApi } from '@Client/api/index.js';
+
+const api = useClientApi();
+
+async function init() {
+    // Wait for the API to be ready
+    await alt.Utils.waitFor(() =&gt; api.isReady('auth-api'), 30000);
+
+    // Get the API
+    const authApi = api.get('auth-api');
+
+    // Hook in your events
+    authApi.onLogin((player) =&gt; {
+        alt.log('Player Ready!');
+    });
+}
+
+init();</code></pre>
+</doc-codeblock></div>
 </doc-tab>
-</doc-tabs>
 
                                 
                                 <!-- Required only on API pages -->
