@@ -6,7 +6,9 @@ links:
       link: https://discord.gg/63rrbadsR7
     - text: GitHub
       link: https://github.com/stuyk/rebar-altv
-    - text: alt:V Multiplayer
+    - text: Plugins
+      link: https://forge.plebmasters.de/hub/Script
+    - text: alt:V
       link: https://altv.mp
 branding:
     title: Rebar for alt:V
