@@ -11,7 +11,6 @@ let cursorCount: number = 0;
 let isPageOpen = false;
 let openPages: PageNames[] = [];
 
-
 function handleServerEvent(event: string, ...args: any[]) {
     alt.emitServer(event, ...args);
 }
@@ -139,7 +138,7 @@ export function useWebview(path = 'http://assets/webview/index.html') {
         isPageOpen = false;
         webview.emit(Events.view.hide, vueName);
         unfocus();
-        const index = openPages.findIndex(page => page === vueName);
+        const index = openPages.findIndex((page) => page === vueName);
         if (index > -1) openPages.splice(index, 1);
     }
 
@@ -163,12 +162,12 @@ export function useWebview(path = 'http://assets/webview/index.html') {
 
     /**
      * Check if specific page is open.
-     * 
+     *
      * @param {PageNames} vueName
      * @returns {boolean}
      */
     function isSpecificPageOpen(vueName: PageNames): boolean {
-        return openPages.findIndex(page => page === vueName) > -1;
+        return openPages.findIndex((page) => page === vueName) > -1;
     }
 
     if (!isInitialized) {
