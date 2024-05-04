@@ -37,6 +37,7 @@ import { usePermission } from './systems/permission.js';
 import { usePermissionGroup } from './systems/permissionGroup.js';
 import { sha256, sha256Random } from './utility/hash.js';
 import { check, hash } from './utility/password.js';
+import { usePickupGlobal } from './controllers/pickups.js';
 
 export function useRebar() {
     return {
@@ -52,6 +53,7 @@ export function useRebar() {
             useObjectLocal,
             useTextLabelGlobal,
             useTextLabelLocal,
+            usePickupGlobal,
         },
         database: {
             useDatabase,
