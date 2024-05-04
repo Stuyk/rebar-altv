@@ -6,6 +6,10 @@ let isInitialized = false;
 
 function handleEmits(event: string, ...args: any[]) {
     if (!OnEvents[event]) {
+        if (event.includes('localplayer')) {
+            return;
+        }
+
         console.warn(`[Webview] Event ${event}, has no callback`);
         return;
     }
