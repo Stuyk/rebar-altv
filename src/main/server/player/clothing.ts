@@ -327,7 +327,7 @@ export function useClothing(player: alt.Player) {
             player.clearProp(propComponents[i]);
         }
 
-        if (typeof data.skin === null || typeof data.skin === undefined) {
+        if (data.skin === null || typeof data.skin === 'undefined') {
             const useModel = data.appearance.sex === 1 ? mModel : fModel;
             if (player.model !== useModel) {
                 player.model = useModel;
