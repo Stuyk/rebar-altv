@@ -9,33 +9,33 @@
     <meta name="generator" content="Retype 3.5.0">
 
     <!-- Primary Meta Tags -->
-    <title>Native</title>
-    <meta name="title" content="Native">
-    <meta name="description" content="Invoke client natives from server side.">
+    <title>Console Commands</title>
+    <meta name="title" content="Console Commands">
+    <meta name="description" content="Console commands are commands that can be ran by opening your client-side F8 console menu and typing a command.">
 
     <!-- Canonical -->
-    <link rel="canonical" href="https://rebarv.com/api/server/player/player-native/">
+    <link rel="canonical" href="https://rebarv.com/utilities/console-commands/">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://rebarv.com/api/server/player/player-native/">
-    <meta property="og:title" content="Native">
-    <meta property="og:description" content="Invoke client natives from server side.">
+    <meta property="og:url" content="https://rebarv.com/utilities/console-commands/">
+    <meta property="og:title" content="Console Commands">
+    <meta property="og:description" content="Console commands are commands that can be ran by opening your client-side F8 console menu and typing a command.">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://rebarv.com/api/server/player/player-native/">
-    <meta property="twitter:title" content="Native">
-    <meta property="twitter:description" content="Invoke client natives from server side.">
+    <meta property="twitter:url" content="https://rebarv.com/utilities/console-commands/">
+    <meta property="twitter:title" content="Console Commands">
+    <meta property="twitter:description" content="Console commands are commands that can be ran by opening your client-side F8 console menu and typing a command.">
 
     <script data-cfasync="false">(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
-    <link href="../../../../resources/css/retype.css?v=3.5.0.768109654295" rel="stylesheet">
+    <link href="../../resources/css/retype.css?v=3.5.0.768109654295" rel="stylesheet">
 
-    <script data-cfasync="false" src="../../../../resources/js/config.js?v=3.5.0.768109654295" data-turbo-eval="false" defer></script>
-    <script data-cfasync="false" src="../../../../resources/js/retype.js?v=3.5.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" data-cfasync="false" src="../../../../resources/js/lunr.js?v=3.5.0.768109654295" data-turbo-eval="false" defer></script>
-    <script id="prism-js" data-cfasync="false" src="../../../../resources/js/prism.js?v=3.5.0.768109654295" defer></script>
+    <script data-cfasync="false" src="../../resources/js/config.js?v=3.5.0.768109654295" data-turbo-eval="false" defer></script>
+    <script data-cfasync="false" src="../../resources/js/retype.js?v=3.5.0" data-turbo-eval="false" defer></script>
+    <script id="lunr-js" data-cfasync="false" src="../../resources/js/lunr.js?v=3.5.0.768109654295" data-turbo-eval="false" defer></script>
+    <script id="prism-js" data-cfasync="false" src="../../resources/js/prism.js?v=3.5.0.768109654295" defer></script>
 </head>
 <body>
     <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -50,10 +50,10 @@
                 <!-- Logo -->
                 <div class="flex items-center justify-between h-full py-2 md:w-75">
                     <div class="flex items-center px-2 md:px-6">
-                        <a id="docs-site-logo" href="../../../../" class="flex items-center leading-snug text-xl">
+                        <a id="docs-site-logo" href="../../" class="flex items-center leading-snug text-xl">
                             <span class="w-10 mr-2 grow-0 shrink-0 overflow-hidden">
-                                <img class="max-h-10 dark:hidden md:inline-block" src="../../../../static/logo_dark.svg">
-                                <img class="max-h-10 hidden dark:inline-block" src="../../../../static/logo_light.svg">
+                                <img class="max-h-10 dark:hidden md:inline-block" src="../../static/logo_dark.svg">
+                                <img class="max-h-10 hidden dark:inline-block" src="../../static/logo_light.svg">
                             </span>
                             <span class="dark:text-white font-semibold line-clamp-1 md:line-clamp-2">Rebar for alt:V</span>
                         </a>
@@ -186,34 +186,32 @@
                                 <!-- Rendered if sidebar right is enabled -->
                                 <div id="docs-sidebar-right-toggle"></div>
                                 <!-- Page content  -->
-<doc-anchor-target id="native" class="break-words">
+<doc-anchor-target id="console-commands" class="break-words">
     <h1>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#native">#</doc-anchor-trigger>
-        <span>Native</span>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#console-commands">#</doc-anchor-trigger>
+        <span>Console Commands</span>
     </h1>
 </doc-anchor-target>
-<p>Invoke client natives from server side.</p>
-<p>Rebar is adding this because sometimes you don&#x27;t want to create a whole file to invoke one native on client-side.</p>
+<p>Console commands are commands that can be ran by opening your client-side <code v-pre>F8</code> console menu and typing a command.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">import * as alt from 'alt-server';
-import { useRebar } from '@Server/index.js';
-
-const Rebar = useRebar();
-
-// This example sets persistent weather over time
-// This function is already built-in to the framework, but serves as a good example of usage
-function setWeather(player: alt.Player, weather: string, timeInSeconds: number) {
-    Rebar.player.useNative(player).invoke('setWeatherTypeOvertimePersist', weather, timeInSeconds);
-}
-
-function setManyWeathers(player: alt.Player) {
-    // Don't actually do this, just shows how to call many natives at once
-    Rebar.player.useNative(player).invokeMany([
-        { native: 'setWeatherTypeOvertimePersist', args: ['BLIZZARD', 10000] },
-        { native: 'setWeatherTypeOvertimePersist', args: ['CLEAR', 10000] },
-        { native: 'setWeatherTypeOvertimePersist', args: ['THUNDER', 10000] },
-    ]);
-}</code></pre>
+<pre class="language-bash"><code v-pre class="language-bash">pos # Get local player position
+floorpos # Get floor position at local player position
+vehpos # Get vehicle position
+rot # Get local player rotation
+vehrot # Get vehicle rotation
+dimension # Get local player dimension
+weapons # Get local player equipped weapon hashes
+weapon # Get local player weapon
+id # Get local player id
+remoteid # Get local player remote id
+resources # Get loaded resources
+ping # Get local player ping
+fps # Get local player fps
+debug #Check if debug is on
+players # Get closest players
+objects # Get closest objects
+entities # Get closeset entities (Like virtual entities)
+vehicles # Get closest vehicles</code></pre>
 </doc-codeblock></div>
 
                                 
@@ -224,20 +222,20 @@ function setManyWeathers(player: alt.Player) {
                             
                                 <nav class="flex mt-14">
                                     <div class="w-1/2">
-                                        <a class="px-5 py-4 h-full flex items-center break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-l-lg transition-colors duration-150 relative hover:z-5" href="../../../../api/server/player/player-clothing/">
+                                        <a class="px-5 py-4 h-full flex items-center break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-l-lg transition-colors duration-150 relative hover:z-5" href="../../api/shared/utility/">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="mr-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19 11H7.41l5.29-5.29a.996.996 0 10-1.41-1.41l-7 7a1 1 0 000 1.42l7 7a1.024 1.024 0 001.42-.01.996.996 0 000-1.41L7.41 13H19c.55 0 1-.45 1-1s-.45-1-1-1z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
                                             <span>
                                                 <span class="block text-xs font-normal text-gray-400 dark:text-dark-400">Previous</span>
-                                                <span class="block mt-1">Clothing</span>
+                                                <span class="block mt-1">Utility</span>
                                             </span>
                                         </a>
                                     </div>
                             
                                     <div class="w-1/2">
-                                        <a class="px-5 py-4 -mx-px h-full flex items-center justify-end break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-r-lg transition-colors duration-150 relative hover:z-5" href="../../../../api/server/player/player-notify/">
+                                        <a class="px-5 py-4 -mx-px h-full flex items-center justify-end break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-r-lg transition-colors duration-150 relative hover:z-5" href="../../data/explosions/">
                                             <span>
                                                 <span class="block text-xs font-normal text-right text-gray-400 dark:text-dark-400">Next</span>
-                                                <span class="block mt-1">Notify</span>
+                                                <span class="block mt-1">Explosion Types</span>
                                             </span>
                                             <svg xmlns="http://www.w3.org/2000/svg" class="ml-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19.92 12.38a1 1 0 00-.22-1.09l-7-7a.996.996 0 10-1.41 1.41l5.3 5.3H5c-.55 0-1 .45-1 1s.45 1 1 1h11.59l-5.29 5.29a.996.996 0 000 1.41c.19.2.44.3.7.3s.51-.1.71-.29l7-7c.09-.09.16-.21.21-.33z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
                                         </a>
@@ -281,6 +279,6 @@ function setManyWeathers(player: alt.Player) {
 
     <div id="docs-overlay-target"></div>
 
-    <script data-cfasync="false">window.__DOCS__ = { "title": "Native", level: 4, icon: "file", hasPrism: true, hasMermaid: false, hasMath: false, tocDepth: 23 }</script>
+    <script data-cfasync="false">window.__DOCS__ = { "title": "Console Commands", level: 2, icon: "file", hasPrism: true, hasMermaid: false, hasMath: false, tocDepth: 23 }</script>
 </body>
 </html>
