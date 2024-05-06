@@ -74,6 +74,13 @@ export const Events = {
                 create: 'player:notify:credits:create',
             },
         },
+        webview: {
+            set: {
+                page: 'player:webview:set:page',
+                overlays: 'player:webview:set:overlays',
+                persistent: 'player:webview:set:persistent',
+            },
+        },
     },
     view: {
         onServer: 'webview:on:server',

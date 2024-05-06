@@ -1,8 +1,10 @@
 import { ref } from 'vue';
 import { PageType } from '../../src/main/shared/webview/index';
+import { useEvents } from './useEvents';
+import { Events } from '../../src/main/shared/events';
+import { PageInfo } from '../../src/main/shared/types/webview';
 
-type PageInfo = { name: string; visible: boolean };
-
+const events = useEvents();
 const pagesPersistent = ref<PageInfo[]>([]);
 const pagesOverlay = ref<PageInfo[]>([]);
 const page = ref<string | undefined>();
@@ -15,6 +17,20 @@ function toggleByType(type: PageType, value: boolean) {
     const target = type === 'persistent' ? pagesPersistent : pagesOverlay;
     for (let pageRef of target.value) {
         pageRef.visible = value;
+    }
+}
+
+function updatePages(type: PageType) {
+    switch (type) {
+        case 'page':
+            events.emitServer(Events.player.webview.set.page, page.value);
+            break;
+        case 'overlay':
+            events.emitServer(Events.player.webview.set.overlays, pagesOverlay.value);
+            break;
+        case 'persistent':
+            events.emitServer(Events.player.webview.set.persistent, pagesPersistent.value);
+            break;
     }
 }
 
@@ -37,10 +53,12 @@ export function usePages() {
     function hideAllByType(type: PageType) {
         if (type === 'page') {
             page.value = undefined;
+            updatePages(type);
             return;
         }
 
         toggleByType(type, false);
+        updatePages(type);
     }
 
     /**
@@ -54,6 +72,8 @@ export function usePages() {
         if (page.value === pageName) {
             page.value = undefined;
             toggleByType('overlay', true);
+            events.emitServer(Events.player.webview.set.page, undefined);
+            updatePages('page');
             return;
         }
 
@@ -63,6 +83,7 @@ export function usePages() {
             }
 
             pageRef.visible = false;
+            updatePages('persistent');
             break;
         }
 
@@ -72,6 +93,7 @@ export function usePages() {
             }
 
             pageRef.visible = false;
+            updatePages('overlay');
             break;
         }
     }
@@ -86,6 +108,7 @@ export function usePages() {
         if (type === 'page') {
             page.value = pageName;
             toggleByType('overlay', false);
+            updatePages(type);
             return;
         }
 
@@ -93,10 +116,12 @@ export function usePages() {
         const index = target.value.findIndex((x) => x.name === pageName);
         if (index <= -1) {
             target.value.push({ name: pageName, visible: true });
+            updatePages(type);
             return;
         }
 
         target.value[index].visible = true;
+        updatePages(type);
     }
 
     return {

@@ -1,4 +1,4 @@
-import { Events } from '../../src/main/shared/events/index';
+import { Events } from '../../src/main/shared/events/index.js';
 
 const OnEvents: { [key: string]: (...args: any[]) => void } = {};
 

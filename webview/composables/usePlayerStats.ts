@@ -1,6 +1,6 @@
 import { ref, computed } from 'vue';
-import { Events } from '@Shared/events';
-import { useEvents } from './useEvents';
+import { Events } from '../../src/main/shared/events/index.js';
+import { useEvents } from './useEvents.js';
 import { VehicleIndicatorLights } from 'alt-client';
 
 const events = useEvents();
