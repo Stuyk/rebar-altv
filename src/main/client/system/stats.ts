@@ -38,7 +38,7 @@ function update() {
         alt.Player.local.vehicle ? alt.Player.local.vehicle.indicatorLights : 0
     );
     view.emit(
-        Events.localPlayer.stats.gear,
+        Events.localPlayer.stats.vehicleHealth,
         alt.Player.local.vehicle ? native.getVehicleEngineHealth(alt.Player.local.vehicle) : 0
     );
     view.emit(
