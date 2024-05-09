@@ -4,9 +4,10 @@
     "scripts": {
         "clean": "shx rm -rf resources/core",
         "dev": "nodemon -V -x pnpm start",
-        "start": "pnpm run /^build:.*/ && pnpm run /^paths:.*/ && altv-server",
+        "start": "pnpm build && altv-server",
         "binaries": "pnpm altv-pkg",
         "[-] Build": "",
+        "build": "pnpm run /^build:.*/ && pnpm run /^paths:.*/",
         "build:code": "pnpm clean && pnpm transpile && shx cp ./src/resource.toml ./resources/core/resource.toml",
         "build:webview": "pnpm webview:build",
         "build:kill": "node ./scripts/pkill.js",
@@ -35,6 +36,8 @@
         "fkill": "^9.0.0",
         "nodemon": "^3.1.0",
         "postcss": "^8.4.38",
+        "prettier": "^3.2.5",
+        "prettier-plugin-tailwindcss": "^0.5.14",
         "retypeapp": "^3.5.0",
         "shx": "^0.3.4",
         "sucrase": "^3.35.0",
@@ -54,7 +57,10 @@
         "tabWidth": 4,
         "singleQuote": true,
         "semi": true,
-        "printWidth": 120
+        "printWidth": 120,
+        "plugins": [
+            "prettier-plugin-tailwindcss"
+        ]
     },
     "nodemonConfig": {
         "verbose": false,
