@@ -155,7 +155,7 @@ export function useClothing(player: alt.Player) {
         dlc: number,
         drawable: number,
         texture: number,
-        palette = 0
+        palette = 0,
     ) {
         const id = ClothingKey[component];
 
@@ -327,8 +327,13 @@ export function useClothing(player: alt.Player) {
             player.clearProp(propComponents[i]);
         }
 
+        let sex = 1;
+        if (data.appearance && typeof data.appearance.sex !== 'undefined') {
+            sex = data.appearance.sex;
+        }
+
         if (data.skin === null || typeof data.skin === 'undefined') {
-            const useModel = data.appearance.sex === 1 ? mModel : fModel;
+            const useModel = sex ? mModel : fModel;
             if (player.model !== useModel) {
                 player.model = useModel;
             }
@@ -342,7 +347,7 @@ export function useClothing(player: alt.Player) {
             return;
         }
 
-        const dataSet = data.appearance.sex === 0 ? femaleClothes : maleClothes;
+        const dataSet = sex === 0 ? femaleClothes : maleClothes;
         Object.keys(dataSet).forEach((key) => {
             player.setDlcClothes(0, parseInt(key), parseInt(dataSet[key]), 0, 0);
         });

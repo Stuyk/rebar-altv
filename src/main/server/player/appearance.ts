@@ -197,6 +197,21 @@ export function usePlayerAppearance(player: alt.Player) {
         await document.set('appearance', data.appearance);
     }
 
+    function clear() {
+        player.clearBloodDamage();
+        player.clearDecorations();
+        player.removeHeadBlendData();
+        player.removeHeadBlendPaletteColor();
+
+        for (let i = 0; i < 13; i++) {
+            player.removeHeadOverlay(i);
+        }
+
+        for (let i = 0; i < 20; i++) {
+            player.removeFaceFeature(i);
+        }
+    }
+
     /**
      * Updates facial and model appearance for the player, does not apply clothes.
      *
@@ -215,8 +230,9 @@ export function usePlayerAppearance(player: alt.Player) {
             player.model = data.sex === 0 ? 'mp_f_freemode_01' : 'mp_m_freemode_01';
         }
 
+        clear();
+
         // Set Face
-        player.clearBloodDamage();
         player.setHeadBlendData(
             data.faceMother ?? 0,
             data.faceFather ?? 0,
@@ -226,7 +242,7 @@ export function usePlayerAppearance(player: alt.Player) {
             0,
             parseFloat(data.faceMix.toString()) ?? 0.5,
             parseFloat(data.skinMix.toString()) ?? 0.5,
-            0
+            0,
         );
 
         // Facial Features
@@ -313,6 +329,7 @@ export function usePlayerAppearance(player: alt.Player) {
     }
 
     return {
+        clear,
         getHairOverlay,
         setEyeColor,
         setEyebrows,

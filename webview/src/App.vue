@@ -22,7 +22,10 @@ onMounted(handleMount);
 </script>
 
 <template>
-    <div class="flex relative top-0 left-0 w-full h-full overflow-hidden">
+    <div
+        class="flex relative top-0 left-0 w-full h-full min-h-full min-w-full overflow-hidden"
+        :class="isDeveloping ? ['devbg'] : []"
+    >
         <DevelopmentBar v-if="isDeveloping" />
         <!-- Persistent Pages -->
         <template v-for="(pageInfo, index) in pagesPersistent">
@@ -38,3 +41,12 @@ onMounted(handleMount);
         </template>
     </div>
 </template>
+
+<style scoped>
+.devbg {
+    background: url('./devbg.jpg');
+    background-size: 100% 100%;
+    width: 100vw;
+    height: 100vh;
+}
+</style>

@@ -18,6 +18,12 @@ This is not optional, install these programs.
     -   Ensure that if you are running it locally, do not set a database password.
     -   When you move your server to production use something like [MongoDB Atlas](https://www.mongodb.com/atlas/database)
 
+Additionally, if you are having trouble installing `pnpm` you can run this command in a `Powershell Window` with `Admin` **Enabled**.
+
+```
+set-executionpolicy unrestricted
+```
+
 ## Setup
 
 !!!
