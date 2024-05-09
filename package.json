@@ -29,7 +29,7 @@
         "@altv/types-server": "^16.2.1",
         "@altv/types-shared": "^16.2.1",
         "@altv/types-webview": "^16.2.1",
-        "@types/node": "^20.12.7",
+        "@types/node": "^20.12.11",
         "altv-pkg": "^2.7.5",
         "autoprefixer": "^10.4.19",
         "fast-glob": "^3.3.2",
@@ -46,12 +46,12 @@
     "dependencies": {
         "@vitejs/plugin-vue": "^5.0.4",
         "dotenv": "^16.4.5",
-        "mongodb": "^6.5.0",
+        "mongodb": "^6.6.1",
         "sjcl": "^1.0.8",
         "typescript": "^5.4.5",
-        "vite": "^5.2.9",
-        "vue": "^3.4.23",
-        "vue-tsc": "^2.0.13"
+        "vite": "^5.2.11",
+        "vue": "^3.4.27",
+        "vue-tsc": "^2.0.16"
     },
     "prettier": {
         "tabWidth": 4,
