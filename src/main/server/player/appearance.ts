@@ -285,9 +285,9 @@ export function usePlayerAppearance(player: alt.Player) {
         }
 
         // Decor
-        if (Array.isArray(data.colorOverlays)) {
-            for (let i = 0; i < data.colorOverlays.length; i++) {
-                const overlay = data.colorOverlays[i];
+        if (Array.isArray(data.headOverlays)) {
+            for (let i = 0; i < data.headOverlays.length; i++) {
+                const overlay = data.headOverlays[i];
                 const color2 = overlay.color2 ? overlay.color2 : overlay.color1;
 
                 player.setHeadOverlay(overlay.id, overlay.value, parseFloat(overlay.opacity.toString()));

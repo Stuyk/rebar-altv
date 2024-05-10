@@ -182,14 +182,7 @@ export type Appearance = {
      * @type {AppearanceInfo[]}
      *
      */
-    opacityOverlays: AppearanceInfo[];
-
-    /**
-     * These have to do with makeup, lipstick, etc.
-     * @type {ColorInfo[]}
-     *
-     */
-    colorOverlays: ColorInfo[];
+    headOverlays: AppearanceInfo[];
 
     /**
      * Apply tattoos
@@ -218,9 +211,9 @@ export interface ColorInfo {
  * @interface AppearanceInfo
  */
 export interface AppearanceInfo {
-    value: number;
-    opacity: number;
     id: number;
-    collection: string;
-    overlay: string;
+    value: number;
+    color1: number;
+    color2: number;
+    opacity: number;
 }
