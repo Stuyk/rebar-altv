@@ -16,6 +16,7 @@ function destroy() {
     native.destroyAllCams(true);
     native.setCamActive(camera, false);
     native.renderScriptCams(false, false, 0, false, false, 0);
+    camera = undefined;
 }
 
 export function useCamera() {
