@@ -97,6 +97,17 @@ function someFunction(somePlayer: alt.Player) {
 }
 ```
 
+If you do not want to worry about load order. Consider the following pattern:
+
+```ts
+import { useClientApi } from '@Client/api/index.js';
+
+async function init() {
+   const myCoolAPI = await useClientApi().getAsync('my-cool-api');
+   myCoolAPI.logPlayerName(somePlayer);
+}
+```
+
 +++ With arguments
 
 ```ts
@@ -118,11 +129,8 @@ import { useClientApi } from '@Client/api/index.js';
 const api = useClientApi();
 
 async function init() {
-    // Wait for the API to be ready
-    await alt.Utils.waitFor(() => api.isReady('auth-api'), 30000);
-
-    // Get the API
-    const authApi = api.get('auth-api');
+    // Wait for isReady and Get the API
+    const authApi = await api.getAsync('auth-api');
 
     // Hook in your events
     authApi.onLogin((player) => {

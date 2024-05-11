@@ -1,3 +1,5 @@
+import * as alt from 'alt-server';
+
 declare global {
     export interface ServerPlugin {}
 }
@@ -17,8 +19,14 @@ export function useApi() {
         return registeredApis[apiName] as ServerPlugin[K];
     }
 
+    async function getAsync<K extends keyof ServerPlugin>(apiName: K, timeout = 30000): Promise<ServerPlugin[K]> {
+        await alt.Utils.waitFor( () => isReady(apiName), timeout);
+        return get(apiName);
+    }
+
     return {
         get,
+        getAsync,
         isReady,
         register,
     };
