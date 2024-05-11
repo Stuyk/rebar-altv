@@ -78,7 +78,7 @@ const api = Rebar.useApi();
 
 async function init() {
     // Wait for isReady and Get the API
-    const authApi = await api.getSync("auth-api");
+    const authApi = await api.getAsync("auth-api");
 
     // Hook in your events
     authApi.onLogin((player) => {

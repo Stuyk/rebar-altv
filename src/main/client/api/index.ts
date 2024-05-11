@@ -19,14 +19,14 @@ export function useClientApi() {
         return registeredApis[apiName] as ClientPlugin[K];
     }
 
-    async function getSync<K extends keyof ClientPlugin>(apiName: K, timeout = 30000): Promise<ClientPlugin[K]> {
+    async function getAsync<K extends keyof ClientPlugin>(apiName: K, timeout = 30000): Promise<ClientPlugin[K]> {
         await alt.Utils.waitFor( () => isReady(apiName), timeout);
         return get(apiName);
     }
 
     return {
         get,
-        getSync,
+        getAsync,
         isReady,
         register,
     };

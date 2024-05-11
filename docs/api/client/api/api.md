@@ -103,7 +103,7 @@ If you do not want to worry about load order. Consider the following pattern:
 import { useClientApi } from '@Client/api/index.js';
 
 async function init() {
-   const myCoolAPI = await useClientApi().getSync('my-cool-api');
+   const myCoolAPI = await useClientApi().getAsync('my-cool-api');
    myCoolAPI.logPlayerName(somePlayer);
 }
 ```
@@ -130,7 +130,7 @@ const api = useClientApi();
 
 async function init() {
     // Wait for isReady and Get the API
-    const authApi = await api.getSync('auth-api');
+    const authApi = await api.getAsync('auth-api');
 
     // Hook in your events
     authApi.onLogin((player) => {
