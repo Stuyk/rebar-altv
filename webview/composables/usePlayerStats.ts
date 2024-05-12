@@ -80,22 +80,22 @@ export function usePlayerStats() {
         events.on(Events.localPlayer.stats.lights, (lights: [boolean, boolean]) => (data.value.lights = lights));
         events.on(
             Events.localPlayer.stats.indicatorLights,
-            (indicatorLights: VehicleIndicatorLights) => (data.value.indicatorLights = indicatorLights)
+            (indicatorLights: VehicleIndicatorLights) => (data.value.indicatorLights = indicatorLights),
         );
         events.on(
             Events.localPlayer.stats.vehicleHealth,
-            (vehicleHealth: number) => (data.value.vehicleHealth = vehicleHealth)
+            (vehicleHealth: number) => (data.value.vehicleHealth = vehicleHealth),
         );
 
         // World
         events.on(
             Events.localPlayer.stats.time,
-            (time: [void, number, number, number, number, number, number]) => (data.value.time = time)
+            (time: [void, number, number, number, number, number, number]) => (data.value.time = time),
         );
 
         events.on(
             Events.localPlayer.stats.street,
-            (street: [StreetName, CrossingRoad]) => (data.value.street = street)
+            (street: [StreetName, CrossingRoad]) => (data.value.street = street),
         );
 
         events.on(Events.localPlayer.stats.weather, (weather: string) => (data.value.weather = weather));
