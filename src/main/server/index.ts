@@ -19,6 +19,7 @@ import {
     useVehicle,
     useVehicleBinder,
     useVehicleEvents,
+    useVirtual,
 } from './document/index.js';
 import { usePlayerGetter } from './getters/player.js';
 import { usePlayersGetter } from './getters/players.js';
@@ -77,6 +78,9 @@ export function useRebar() {
                 useVehicle,
                 useVehicleBinder,
                 useVehicleEvents,
+            },
+            virtual: {
+                useVirtual,
             },
         },
         get: {

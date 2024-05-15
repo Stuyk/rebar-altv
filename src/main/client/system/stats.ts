@@ -35,15 +35,15 @@ function update() {
     view.emit(Events.localPlayer.stats.engineOn, alt.Player.local.vehicle ? alt.Player.local.vehicle.engineOn : false);
     view.emit(
         Events.localPlayer.stats.indicatorLights,
-        alt.Player.local.vehicle ? alt.Player.local.vehicle.indicatorLights : 0
+        alt.Player.local.vehicle ? alt.Player.local.vehicle.indicatorLights : 0,
     );
     view.emit(
         Events.localPlayer.stats.vehicleHealth,
-        alt.Player.local.vehicle ? native.getVehicleEngineHealth(alt.Player.local.vehicle) : 0
+        alt.Player.local.vehicle ? native.getVehicleEngineHealth(alt.Player.local.vehicle) : 0,
     );
     view.emit(
         Events.localPlayer.stats.speed,
-        alt.Player.local.vehicle ? alt.Player.local.vehicle.speed : alt.Player.local.moveSpeed
+        alt.Player.local.vehicle ? alt.Player.local.vehicle.speed : alt.Player.local.moveSpeed,
     );
 
     if (alt.Player.local.vehicle) {
@@ -62,7 +62,7 @@ function update() {
     const [_, streetNameHash, crossingRoadHash] = native.getStreetNameAtCoord(
         alt.Player.local.pos.x,
         alt.Player.local.pos.y,
-        alt.Player.local.pos.z
+        alt.Player.local.pos.z,
     );
 
     const streetName = native.getStreetNameFromHashKey(streetNameHash);
