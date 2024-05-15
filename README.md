@@ -4,6 +4,8 @@ Rebar is a TypeScript framework for [alt:V](https://altv.mp) that prioritizes pl
 
 Plugins for Rebar allow developers to drag & drop repositories into their server framework.
 
+### [Read our Docs!](https://rebarv.com)
+
 ### [Join our Discord!](https://discord.gg/63rrbadsR7)
 
 ## Features
