@@ -1,21 +1,46 @@
-import * as alt from 'alt-client';
-import '../translate/index.js';
+import './startup.js';
+import { useClientApi } from './api/index.js';
 
-// Load all other files after translate
-import './controllers/index.js';
-import './rmlui/index.js';
-import './screen/index.js';
-import './system/index.js';
-import './virtualEntities/index.js';
+import { useClientInteraction } from './controllers/interaction.js';
+
+import { getInput } from './menus/native/input.js';
+import { useNativeMenu } from './menus/native/index.js';
+
+import { useClonedPed } from './ped/clone.js';
+
+import { useCamera } from './player/camera.js';
+
+import * as math from './utility/math/index.js';
+import * as text from './utility/text/index.js';
+
 import { useWebview } from './webview/index.js';
 
-async function start() {
-    useWebview();
-
-    // Load Plugins
-    alt.log(':: Loading Client Plugins');
-    import('./plugins.js');
-    alt.log(':: Loaded Client Plugins');
+export function useRebarClient() {
+    return {
+        useClientApi,
+        controllers: {
+            interaction: {
+                useClientInteraction,
+            },
+        },
+        menus: {
+            useNativeMenu,
+            input: {
+                getInput,
+            },
+        },
+        ped: {
+            useClonedPed,
+        },
+        player: {
+            useCamera,
+        },
+        utility: {
+            math,
+            text,
+        },
+        webview: {
+            useWebview,
+        },
+    };
 }
-
-start();
