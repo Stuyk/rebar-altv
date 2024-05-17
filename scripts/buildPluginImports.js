@@ -37,10 +37,6 @@ async function start() {
 
     // Propogate server import paths
     for (let serverFolder of serverFolders) {
-        if (serverFolder.includes('!') || fs.existsSync(serverFolder + '../.disable')) {
-            continue;
-        }
-
         const path = getIndexPath(serverFolder);
         if (!path) {
             continue;
@@ -55,10 +51,6 @@ async function start() {
 
     // Propogate client import paths
     for (let clientFolder of clientFolders) {
-        if (clientFolder.includes('!') || fs.existsSync(clientFolder + '../.disable')) {
-            continue;
-        }
-
         const path = getIndexPath(clientFolder);
         if (!path) {
             continue;
