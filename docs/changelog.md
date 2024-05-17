@@ -4,6 +4,18 @@ order: -1000
 
 # Changelog
 
+## Version 3
+
+### Code Changes
+
+-   Added `focus` and `unfocus` support to client-side webviews
+
+## Version 2
+
+### Code Changes
+
+-   Fixed issue with disabling plugins
+
 ## Version 1
 
 ### Code Changes
