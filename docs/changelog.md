@@ -21,5 +21,7 @@ order: -1000
 ### Docs Changes
 
 -   Added question about NPM packages to FAQ docs
+-   Added `virtual` document type docs to the `API/Document` section
 -   Updated what is a plugin, and create docs to clarify new changes
 -   Updated `useNotify` docs for `sendMessage`
+-   Added `useMessenger` docs for composable, and server-side
