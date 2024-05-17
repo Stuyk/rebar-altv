@@ -32,6 +32,10 @@ To run your own database you will need to write it as a plugin and use it exclus
 
 Doing so may limit your ability to load plugins from other users.
 
+## Can I use npm packages client-side
+
+Nope! You won't ever be able to. However, you can use them in the webview, and on server-side.
+
 ## Do I need to buy a server?
 
 Only buy a server when you're ready for your server to go live.

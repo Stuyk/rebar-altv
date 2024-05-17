@@ -82,6 +82,12 @@ export const Events = {
             },
         },
     },
+    systems: {
+        messenger: {
+            process: 'systems:messenger:process',
+            send: 'systems:messenger:send',
+        },
+    },
     view: {
         onServer: 'webview:on:server',
         onEmit: 'webview:emit:on',

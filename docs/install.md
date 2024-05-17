@@ -27,7 +27,7 @@ set-executionpolicy unrestricted
 ## Setup
 
 !!!
-Never run the `altv-server` binary directly, you must use `pnpm` commands
+Never run the `altv-server` binary directly, you should use `pnpm` commands
 !!!
 
 ---

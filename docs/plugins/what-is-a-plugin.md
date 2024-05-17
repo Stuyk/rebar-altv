@@ -20,6 +20,7 @@ Plugins can be found in the `src/plugins` directory, and each plugin should have
 │   └───translate
 └───plugins
     └───your-plugin
+        ├───dependencies.json (alt: package.json)
         ├───client
         │   └───index.ts
         ├───images
@@ -42,14 +43,24 @@ See [create a plugin](./create.md) for more information.
 
 If you wish to disable a plugin simply add a `!` before the folder name.
 
-### Before
+Alternatively you can add a file named `.disable` to the plugin folder to disable it.
 
-```
-src/plugins/myplugin
-```
+## Adding Dependencies
 
-### After
+If you noticed a plugin can use npm packages for the webview or server.
 
-```
-src/plugins/!myplugin
+!!!
+It is recommended to avoid using packages where possible to keep everything 'future proofed'
+!!!
+
+Simply add a `dependencies.json` or `package.json` to your plugin folder.
+
+Add a section called `dependencies` and it will automatically install the dependencies the next time you run your server.
+
+```json
+{
+    "dependencies": {
+        "@formkit/auto-animate": "latest"
+    }
+}
 ```
