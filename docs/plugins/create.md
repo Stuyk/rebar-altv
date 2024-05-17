@@ -10,6 +10,7 @@ If you wish to create plugins then you need to understand the basic structure of
     4. `sounds`
     5. `translate`
     6. `webview`
+    7. `dependencies`
 
 ## client
 
@@ -190,4 +191,24 @@ const boundVehicle = Rebar.document.vehicle.useVehicleBinder(vehicle).bind(vehic
 
 vehicleWrapper.getField('mileage'); // You will see type hint there, that you're able to use 'mileage' and 'plateNumber'.
 vehicleWrapper.set('mileage', 1000); // Also here
+```
+
+## Dependencies
+
+If you noticed a plugin can use npm packages for the webview or server.
+
+!!!
+It is recommended to avoid using packages where possible to keep everything 'future proofed'
+!!!
+
+Simply add a `dependencies.json` or `package.json` to your plugin folder.
+
+Add a section called `dependencies` and it will automatically install the dependencies the next time you run your server.
+
+```json
+{
+    "dependencies": {
+        "@formkit/auto-animate": "latest"
+    }
+}
 ```

@@ -25,4 +25,8 @@ notify.showMissionText('Hello Mission Text!', 5000);
 // Additionally, if a notification is being intercepted on client-side. The notification will not show.
 // Thus by default it uses GTA:V built-in native notifications until it does not.
 notify.showNotification('Hello there');
+
+// Send a message to the player
+notify.sendMessage({ type: 'info', content: 'Hello there!' });
+notify.sendMessage({ type: 'player', content: 'Hello there!', author: 'Some Other Player' });
 ```

@@ -4,6 +4,7 @@ import { usePages } from '../composables/usePages';
 import { usePageEvents } from '../composables/usePageEvents';
 import { useAudio } from '../composables/useAudio';
 import DevelopmentBar from './components/Development.vue';
+import { useMessenger } from '../composables/useMessenger';
 
 const { pagesPersistent, pagesOverlay, page } = usePages();
 const { init } = usePageEvents();
@@ -16,6 +17,7 @@ function handleMount() {
 
     init();
     useAudio();
+    useMessenger();
 }
 
 onMounted(handleMount);
@@ -23,7 +25,7 @@ onMounted(handleMount);
 
 <template>
     <div
-        class="flex relative top-0 left-0 w-full h-full min-h-full min-w-full overflow-hidden"
+        class="relative left-0 top-0 flex h-full min-h-full w-full min-w-full overflow-hidden"
         :class="isDeveloping ? ['devbg'] : []"
     >
         <DevelopmentBar v-if="isDeveloping" />

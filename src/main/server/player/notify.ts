@@ -3,6 +3,10 @@ import { Events } from '@Shared/events/index.js';
 import { Spinner } from '@Shared/types/spinner.js';
 import { Shard } from '@Shared/types/shard.js';
 import { Credit } from '@Shared/types/credits.js';
+import { Message } from '@Shared/types/message.js';
+import { useMessenger } from '../systems/messenger.js';
+
+const messenger = useMessenger();
 
 export function useNotify(player: alt.Player) {
     function showNotification(message: string) {
@@ -45,7 +49,12 @@ export function useNotify(player: alt.Player) {
         player.emit(Events.player.notify.credits.create, credits);
     }
 
+    function sendMessage(message: Message) {
+        messenger.message.send(player, message);
+    }
+
     return {
+        sendMessage,
         showNotification,
         showMissionText,
         showSpinner,

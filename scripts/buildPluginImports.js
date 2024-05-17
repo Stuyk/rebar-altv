@@ -21,7 +21,7 @@ async function start() {
 
     // Propogate server import paths
     for (let serverFolder of serverFolders) {
-        if (serverFolder.includes('!')) {
+        if (serverFolder.includes('!') || fs.existsSync(serverFolder + '/.disable')) {
             continue;
         }
 
