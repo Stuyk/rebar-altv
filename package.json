@@ -1,7 +1,7 @@
 {
     "author": "stuyk",
     "type": "module",
-    "version": "2",
+    "version": "3",
     "scripts": {
         "clean": "shx rm -rf resources/core",
         "dev": "nodemon -V -x pnpm start",

@@ -187,6 +187,8 @@ export function useWebview(path = 'http://assets/webview/index.html') {
         hideAllByType,
         off,
         on,
+        focus,
+        unfocus,
         showCursor,
         show,
         isSpecificPageOpen,
