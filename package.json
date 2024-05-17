@@ -1,12 +1,14 @@
 {
     "author": "stuyk",
     "type": "module",
+    "version": "2",
     "scripts": {
         "clean": "shx rm -rf resources/core",
         "dev": "nodemon -V -x pnpm start",
-        "start": "pnpm build && altv-server",
+        "start": "pnpm dependencies && pnpm build && altv-server",
         "binaries": "pnpm altv-pkg",
         "[-] Build": "",
+        "dependencies": "node ./scripts/buildPluginDependencies.js",
         "build": "pnpm run /^build:.*/ && pnpm run /^paths:.*/",
         "build:code": "pnpm clean && pnpm transpile && shx cp ./src/resource.toml ./resources/core/resource.toml",
         "build:webview": "pnpm webview:build",
@@ -21,7 +23,7 @@
         "transpile:verbose": "sucrase ./src -d ./resources/core --transforms typescript",
         "[-] Webview": "",
         "webview:build": "node ./scripts/webview.js && pnpm -C webview run build",
-        "webview:dev": "pnpm build:copyFiles && node ./scripts/webview.js && pnpm -C webview run dev"
+        "webview:dev": "pnpm dependencies && pnpm build:copyFiles && node ./scripts/webview.js && pnpm -C webview run dev"
     },
     "devDependencies": {
         "@altv/types-client": "^16.2.2",
