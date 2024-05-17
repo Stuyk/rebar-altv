@@ -16,12 +16,28 @@ function getIndexPath(folder) {
 }
 
 async function start() {
-    const serverFolders = await glob('./src/plugins/*/server', options);
-    const clientFolders = await glob('./src/plugins/*/client', options);
+    const pluginFolders = await glob('./src/plugins/*', options);
+
+    const serverFolders = [];
+    const clientFolders = [];
+
+    for (let pluginFolder of pluginFolders) {
+        if (fs.existsSync(pluginFolder + '/.disable') || pluginFolder.includes('!')) {
+            continue;
+        }
+
+        if (fs.existsSync(pluginFolder + '/client')) {
+            clientFolders.push(pluginFolder + '/client');
+        }
+
+        if (fs.existsSync(pluginFolder + '/server')) {
+            serverFolders.push(pluginFolder + '/server');
+        }
+    }
 
     // Propogate server import paths
     for (let serverFolder of serverFolders) {
-        if (serverFolder.includes('!') || fs.existsSync(serverFolder + '/.disable')) {
+        if (serverFolder.includes('!') || fs.existsSync(serverFolder + '../.disable')) {
             continue;
         }
 
@@ -39,7 +55,7 @@ async function start() {
 
     // Propogate client import paths
     for (let clientFolder of clientFolders) {
-        if (clientFolder.includes('!')) {
+        if (clientFolder.includes('!') || fs.existsSync(clientFolder + '../.disable')) {
             continue;
         }
 
