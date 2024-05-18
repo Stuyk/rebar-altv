@@ -126,9 +126,11 @@ function cleanMessage(msg: string): string {
  * @return
  */
 function processMessage(player: alt.Player, msg: string) {
-    const messageSystem = useMessenger();
-    msg = cleanMessage(msg);
+    if (!player.valid) {
+        return;
+    }
 
+    const messageSystem = useMessenger();
     if (msg.charAt(0) !== '/') {
         for (let cb of callbacks) {
             cb(player, msg);
@@ -136,6 +138,8 @@ function processMessage(player: alt.Player, msg: string) {
 
         return;
     }
+
+    msg = cleanMessage(msg);
 
     const args = msg.split(' ');
     const commandName = args.shift();
