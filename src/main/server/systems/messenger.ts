@@ -56,6 +56,8 @@ export function useMessenger() {
     }
 
     function invokeCommand(player: alt.Player, cmdName: string, ...args: any[]): boolean {
+        cmdName = cmdName.replace('/', '');
+
         const index = commands.findIndex((x) => x.name === cmdName);
         if (index <= -1) {
             return false;
@@ -132,6 +134,7 @@ function processMessage(player: alt.Player, msg: string) {
 
     const messageSystem = useMessenger();
     if (msg.charAt(0) !== '/') {
+        msg = cleanMessage(msg);
         for (let cb of callbacks) {
             cb(player, msg);
         }
@@ -139,11 +142,9 @@ function processMessage(player: alt.Player, msg: string) {
         return;
     }
 
-    msg = cleanMessage(msg);
-
     const args = msg.split(' ');
     const commandName = args.shift();
-    messageSystem.commands.invoke(player, commandName.toLowerCase(), args);
+    messageSystem.commands.invoke(player, commandName.toLowerCase(), ...args);
 }
 
 alt.onClient(Events.systems.messenger.process, processMessage);
