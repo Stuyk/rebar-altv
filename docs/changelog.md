@@ -4,6 +4,13 @@ order: -1000
 
 # Changelog
 
+## Version 4
+
+### Code Changes
+
+-   Added `getCommands` to the `messenger` system
+-   Added `formatTimestamp` to the shared utilities
+
 ## Version 3
 
 ### Code Changes
