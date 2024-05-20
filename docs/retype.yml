@@ -7,7 +7,7 @@ links:
     - text: GitHub
       link: https://github.com/stuyk/rebar-altv
     - text: Plugins
-      link: https://forge.plebmasters.de/hub/Script
+      link: https://forge.plebmasters.de/hub?targetFrameworks=Rebar+(alt:V)&contentType=Script
     - text: alt:V
       link: https://altv.mp
 branding:
