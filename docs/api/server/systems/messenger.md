@@ -46,4 +46,7 @@ messenger.message.on((player: alt.Player, msg: string) => {
         messenger.message.send(player, { type: 'player', content: msg, author: player.name });
     }
 });
+
+// Get a list of all commands the player has permission for
+const commands = await messenger.commands.getCommands(player);
 ```
