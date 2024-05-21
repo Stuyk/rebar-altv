@@ -104,11 +104,11 @@ export function useWebview(path = 'http://assets/webview/index.html') {
      * @param {PageType} type
      */
     function show(vueName: PageNames, type: PageType) {
-        isPageOpen = true;
         webview.emit(Events.view.show, vueName, type);
 
         if (type === 'page') {
             focus();
+            isPageOpen = true;
             openPages.push(vueName);
         }
     }
@@ -135,11 +135,15 @@ export function useWebview(path = 'http://assets/webview/index.html') {
      * @param {PageNames} vueName
      */
     function hide(vueName: PageNames) {
-        isPageOpen = false;
         webview.emit(Events.view.hide, vueName);
         unfocus();
+
+        // Only remove 'page' types
         const index = openPages.findIndex((page) => page === vueName);
-        if (index > -1) openPages.splice(index, 1);
+        if (index > -1) {
+            isPageOpen = false;
+            openPages.splice(index, 1);
+        }
     }
 
     /**
