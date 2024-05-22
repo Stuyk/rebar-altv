@@ -17,6 +17,7 @@ export function useObjectGlobal(objectData: iObject) {
     }
 
     const newObject = new alt.Object(objectData.model, objectData.pos, objectData.rot ?? alt.Vector3.zero, 255);
+    newObject.dimension = objectData.dimension ?? 0;
     newObject.setStreamSyncedMeta('data', objectData.data);
 
     function destroy() {
