@@ -43,12 +43,14 @@ let endCommandRegistrationTime = Date.now();
 
 export function useMessenger() {
     function registerCommand(command: Command) {
+        command.name = command.name.replaceAll('/', '');
+        command.name = command.name.toLowerCase();
+
         const index = commands.findIndex((x) => x.name === command.name);
         if (index >= 1) {
             throw new Error(`${command.name} is already a registered command.`);
         }
 
-        command.name = command.name.replaceAll('/', '');
         commands.push(command);
         endCommandRegistrationTime = Date.now() + 5000;
     }
@@ -76,6 +78,7 @@ export function useMessenger() {
 
     function invokeCommand(player: alt.Player, cmdName: string, ...args: any[]): boolean {
         cmdName = cmdName.replace('/', '');
+        cmdName = cmdName.toLowerCase();
 
         const index = commands.findIndex((x) => x.name === cmdName);
         if (index <= -1) {
@@ -165,6 +168,10 @@ function processMessage(player: alt.Player, msg: string) {
         return;
     }
 
+    if (!Rebar.player.useStatus(player).hasCharacter()) {
+        return;
+    }
+
     const messageSystem = useMessenger();
     if (msg.charAt(0) !== '/') {
         msg = cleanMessage(msg);
@@ -172,12 +179,13 @@ function processMessage(player: alt.Player, msg: string) {
             cb(player, msg);
         }
 
+        Rebar.events.useEvents().invoke('message', player, msg);
         return;
     }
 
     const args = msg.split(' ');
     const commandName = args.shift();
-    messageSystem.commands.invoke(player, commandName.toLowerCase(), ...args);
+    messageSystem.commands.invoke(player, commandName, ...args);
 }
 
 alt.onClient(Events.systems.messenger.process, processMessage);

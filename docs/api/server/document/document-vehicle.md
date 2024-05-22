@@ -21,6 +21,17 @@ const someVehicleData = someDatabaseFetchOrCreateFunction();
 const document = Rebar.document.vehicle.useVehicleBinder(someVehicle).bind(someVehicleData);
 ```
 
+## Checking Validity
+
+If you need to check if a vehicle has a document bound to them, you can use the following method.
+
+```ts
+if (!Rebar.document.vehicle.useVehicle(player).isValid()) {
+    // No vehicle document bound
+    return;
+}
+```
+
 ## Getting Data
 
 Data can be retrieved for the bound character like this.

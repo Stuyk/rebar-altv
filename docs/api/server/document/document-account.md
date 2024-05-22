@@ -21,6 +21,17 @@ const someAccountData = someDatabaseFetchOrCreateFunction();
 const document = Rebar.document.account.useAccountBinder(player).bind(someAccountData);
 ```
 
+## Checking Validity
+
+If you need to check if a player has a document bound to them, you can use the following method.
+
+```ts
+if (!Rebar.document.account.useAccount(player).isValid()) {
+    // No account bound
+    return;
+}
+```
+
 ## Getting Data
 
 Data can be retrieved for the bound account like this.

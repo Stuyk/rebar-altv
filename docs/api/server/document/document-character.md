@@ -21,6 +21,17 @@ const someCharacterData = someDatabaseFetchOrCreateFunction();
 const document = Rebar.document.character.useCharacterBinder(player).bind(someCharacterData);
 ```
 
+## Checking Validity
+
+If you need to check if a player has a document bound to them, you can use the following method.
+
+```ts
+if (!Rebar.document.character.useCharacter(player).isValid()) {
+    // No character bound
+    return;
+}
+```
+
 ## Getting Data
 
 Data can be retrieved for the bound character like this.

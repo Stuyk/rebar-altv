@@ -6,12 +6,29 @@ import { useDatabase } from '@Server/database/index.js';
 import { CollectionNames, KeyChangeCallback } from './shared.js';
 import { Character } from '@Shared/types/character.js';
 import { usePermission } from '@Server/systems/permission.js';
+import { useRebar } from '../index.js';
 
+const Rebar = useRebar();
 const sessionKey = 'document:account';
 const callbacks: { [key: string]: Array<KeyChangeCallback> } = {};
 const db = useDatabase();
 
 export function useAccount(player: alt.Player) {
+    /**
+     * Check if the player currently has an account bound to them
+     */
+    function isValid() {
+        if (!player.hasMeta(sessionKey)) {
+            return false;
+        }
+
+        if (!player.getMeta(sessionKey)) {
+            return false;
+        }
+
+        return true;
+    }
+
     /**
      * Return current player data and their associated account object.
      *
@@ -220,7 +237,18 @@ export function useAccount(player: alt.Player) {
         setBanned,
     };
 
-    return { addPermission, get, getCharacters, getField, permission, set, setBulk, setPassword, checkPassword };
+    return {
+        addPermission,
+        get,
+        getCharacters,
+        getField,
+        isValid,
+        permission,
+        set,
+        setBulk,
+        setPassword,
+        checkPassword,
+    };
 }
 
 export function useAccountBinder(player: alt.Player) {
@@ -237,6 +265,7 @@ export function useAccountBinder(player: alt.Player) {
         }
 
         player.setMeta(sessionKey, document);
+        Rebar.events.useEvents().invoke('account-bound', player, document);
         return useAccount(player);
     }
 

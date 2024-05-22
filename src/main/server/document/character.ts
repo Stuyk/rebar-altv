@@ -6,12 +6,29 @@ import { CollectionNames, KeyChangeCallback } from './shared.js';
 import { Vehicle } from 'main/shared/types/vehicle.js';
 import { usePermission } from '@Server/systems/permission.js';
 import { usePermissionGroup } from '@Server/systems/permissionGroup.js';
+import { useRebar } from '../index.js';
 
+const Rebar = useRebar();
 const sessionKey = 'document:character';
 const callbacks: { [key: string]: Array<KeyChangeCallback> } = {};
 const db = useDatabase();
 
 export function useCharacter(player: alt.Player) {
+    /**
+     * Check if the player currently has a character bound to them
+     */
+    function isValid() {
+        if (!player.hasMeta(sessionKey)) {
+            return false;
+        }
+
+        if (!player.getMeta(sessionKey)) {
+            return false;
+        }
+
+        return true;
+    }
+
     /**
      * Return current player data and their associated character object.
      *
@@ -270,7 +287,7 @@ export function useCharacter(player: alt.Player) {
         hasGroupPermission,
     };
 
-    return { get, getField, getVehicles, permission, set, setBulk };
+    return { get, getField, isValid, getVehicles, permission, set, setBulk };
 }
 
 export function useCharacterBinder(player: alt.Player) {
@@ -287,6 +304,7 @@ export function useCharacterBinder(player: alt.Player) {
         }
 
         player.setMeta(sessionKey, document);
+        Rebar.events.useEvents().invoke('character-bound', player, document);
         return useCharacter(player);
     }
 
