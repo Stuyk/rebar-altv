@@ -3,12 +3,29 @@ import { Vehicle } from '@Shared/types/vehicle.js';
 import { KnownKeys } from '@Shared/utilityTypes/index.js';
 import { useDatabase } from '@Server/database/index.js';
 import { CollectionNames, KeyChangeCallback } from './shared.js';
+import { useRebar } from '../index.js';
 
+const Rebar = useRebar();
 const sessionKey = 'document:vehicle';
 const callbacks: { [key: string]: Array<KeyChangeCallback<alt.Vehicle>> } = {};
 const db = useDatabase();
 
 export function useVehicle(vehicle: alt.Vehicle) {
+    /**
+     * Check if the vehicle currently has a character bound to them
+     */
+    function isValid() {
+        if (!vehicle.hasMeta(sessionKey)) {
+            return false;
+        }
+
+        if (!vehicle.getMeta(sessionKey)) {
+            return false;
+        }
+
+        return true;
+    }
+
     /**
      * Return current vehicle data and their associated Vehicle object.
      *
@@ -117,7 +134,7 @@ export function useVehicle(vehicle: alt.Vehicle) {
         });
     }
 
-    return { get, getField, set, setBulk };
+    return { get, getField, isValid, set, setBulk };
 }
 
 export function useVehicleBinder(vehicle: alt.Vehicle) {
@@ -134,6 +151,7 @@ export function useVehicleBinder(vehicle: alt.Vehicle) {
         }
 
         vehicle.setMeta(sessionKey, document);
+        Rebar.events.useEvents().invoke('vehicle-bound', vehicle, document);
         return useVehicle(vehicle);
     }
 

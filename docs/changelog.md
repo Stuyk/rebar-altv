@@ -4,6 +4,26 @@ order: -1000
 
 # Changelog
 
+## Version 5
+
+### Code Changes
+
+-   Added `isValid` to `character`, `account`, and `vehicle` documents to check if an entity has a bound document
+-   Added `useStatus` to `player` API pathway to check for `account` and `character` status
+-   Added `events` to the `Rebar` API
+    -   Added on account bound
+    -   Added on character bound
+    -   Added on vehicle bound
+    -   Added on message
+-   Fixed small bug with case-sensitive commands
+-   Fixed bug that allowed sending messages when a `character` was not bound
+
+### Docs Changes
+
+-   Added `isValid` examples to `character`, `account`, and `vehicle`.
+-   Added `useStatus` to `player` section
+-   Added `events` section to Server API
+
 ## Version 4
 
 ### Code Changes
