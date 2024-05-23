@@ -1,5 +1,7 @@
 import * as alt from 'alt-shared';
 
+export type WheelState = 'attached' | 'detached' | 'burst';
+
 /**
  * Used as the main describer of a stored vehicle.
  *
@@ -27,10 +29,10 @@ export interface Vehicle {
 
     /**
      * The model of this vehicle.
-     * @type {string}
+     * @type {string | number}
      *
      */
-    model: string;
+    model: string | number;
 
     /**
      * The last position where this vehicle was last left.
@@ -68,4 +70,94 @@ export interface Vehicle {
      *
      */
     fuel: number;
+
+    /**
+     * Store current wheel state of the vehicle
+     *
+     * @type { WheelState[]}
+     * @memberof Vehicle
+     */
+    wheelState?: WheelState[];
+
+    /**
+     * A list of mods based on value of number `numerically` and what value as a `number`.
+     *
+     * @type {{ [key: string]: number }}
+     */
+    mods?: { [key: string]: number };
+
+    /**
+     * A list of vehicle extras to apply
+     *
+     * @type {{ [key: string]: boolean }}
+     * @memberof Vehicle
+     */
+    extras?: { [key: string]: boolean };
+
+    /**
+     * Window state for armored and regular windows
+     *
+     * @type {{ [key: string]: number }}
+     * @memberof Vehicle
+     */
+    windows?: { [key: string]: number };
+
+    stateProps?: {
+        /**
+         * Dirt level of the vehicle
+         *
+         * @type {number}
+         * @memberof Vehicle
+         */
+        dirtLevel?: number;
+
+        /**
+         * Lock state of the vehicle
+         *
+         * @type {number}
+         */
+        lockState?: number;
+
+        /**
+         * Engine health of the vehicle
+         *
+         * @type {number}
+         */
+        engineHealth?: number;
+
+        /**
+         * Is the vehicle engine turned on
+         *
+         * @type {boolean}
+         */
+        engineOn?: boolean;
+
+        /**
+         * The body health of the vehicle
+         *
+         * @type {number}
+         */
+        bodyHealth?: number;
+
+        /**
+         * The light state of the vehicle, whether they're on or off
+         *
+         * @type {number}
+         */
+        lightState?: number;
+
+        /**
+         * Usually set to `1` when mods are available for the given vehicle
+         *
+         * @type {number}
+         */
+        modKit?: number;
+
+        /**
+         * Are the daylights for the vehicle turned on
+         *
+         * @type {boolean}
+         */
+        daylightOn?: boolean;
+    };
 }

@@ -145,13 +145,18 @@ export function useVehicleBinder(vehicle: alt.Vehicle) {
      *
      * @param {Vehicle & T} document
      */
-    function bind<T = {}>(document: Vehicle & T): ReturnType<typeof useVehicle> | undefined {
+    function bind<T = {}>(document: Vehicle & T, syncVehicle = true): ReturnType<typeof useVehicle> | undefined {
         if (!vehicle.valid) {
             return undefined;
         }
 
         vehicle.setMeta(sessionKey, document);
         Rebar.events.useEvents().invoke('vehicle-bound', vehicle, document);
+
+        if (syncVehicle) {
+            Rebar.vehicle.useVehicle(vehicle).sync();
+        }
+
         return useVehicle(vehicle);
     }
 

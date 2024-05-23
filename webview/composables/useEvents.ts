@@ -1,6 +1,7 @@
 import { Events } from '../../src/main/shared/events/index.js';
 
 const OnEvents: { [key: string]: (...args: any[]) => void } = {};
+const OnKeybind: { [identifier: string]: { key: number; callback: (...args: any[]) => void } } = {};
 
 let isInitialized = false;
 
@@ -17,10 +18,21 @@ function handleEmits(event: string, ...args: any[]) {
     OnEvents[event](...args);
 }
 
+function handleKeypress(keycode: number) {
+    for (let value of Object.values(OnKeybind)) {
+        if (value.key !== keycode) {
+            continue;
+        }
+
+        value.callback(keycode);
+    }
+}
+
 export function useEvents() {
     if (!isInitialized && 'alt' in window) {
         isInitialized = true;
         alt.on(Events.view.onEmit, handleEmits);
+        alt.on(Events.view.onKeypress, handleKeypress);
     }
 
     /**
@@ -73,9 +85,26 @@ export function useEvents() {
         OnEvents[eventName] = callback;
     }
 
+    /**
+     * Register a callback that sends when a key bind is pressed.
+     *
+     * Used for advanced interface functionality. Great for overlays.
+     *
+     * @param {string} identifier
+     * @param {number} key
+     * @param {() => void} callback
+     */
+    function onKeyUp(identifier: string, key: number, callback: () => void) {
+        OnKeybind[identifier] = {
+            key,
+            callback,
+        };
+    }
+
     return {
         emitClient,
         emitServer,
         on,
+        onKeyUp,
     };
 }

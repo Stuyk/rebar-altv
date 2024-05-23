@@ -22,7 +22,7 @@ import {
     useCharacter,
     useCharacterBinder,
     useGlobal,
-    useVehicle,
+    useVehicle as useVehicleDocument,
     useVehicleBinder,
     useVehicleEvents,
     useVirtual,
@@ -45,6 +45,7 @@ import { useWebview } from './player/webview.js';
 import { useClothing } from './player/clothing.js';
 import { useAnimation } from './player/animation.js';
 import { usePlayerAppearance } from './player/appearance.js';
+import { useWeapon } from './player/weapon.js';
 
 import { useMessenger } from './systems/messenger.js';
 import { usePermission } from './systems/permission.js';
@@ -52,6 +53,8 @@ import { usePermissionGroup } from './systems/permissionGroup.js';
 
 import { check, hash } from './utility/password.js';
 import { sha256, sha256Random } from './utility/hash.js';
+import { useVehicle } from './vehicle/index.js';
+import { useState } from './player/state.js';
 
 export function useRebar() {
     return {
@@ -88,7 +91,7 @@ export function useRebar() {
                 useGlobal,
             },
             vehicle: {
-                useVehicle,
+                useVehicle: useVehicleDocument,
                 useVehicleBinder,
                 useVehicleEvents,
             },
@@ -114,6 +117,8 @@ export function useRebar() {
             useClothing,
             useNative,
             useNotify,
+            useState,
+            useWeapon,
             useWebview,
             useWorld,
         },
@@ -131,6 +136,9 @@ export function useRebar() {
                 check,
                 hash,
             },
+        },
+        vehicle: {
+            useVehicle,
         },
     };
 }

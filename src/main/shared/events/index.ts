@@ -91,6 +91,7 @@ export const Events = {
     view: {
         onServer: 'webview:on:server',
         onEmit: 'webview:emit:on',
+        onKeypress: 'webview:emit:keypress',
         emitServer: 'webview:emit:server',
         emitClient: 'webview:emit:client',
         emitReady: 'webview:emit:page:ready',
@@ -100,5 +101,6 @@ export const Events = {
         hideAllByType: 'webview:emit:page:hide:all:type',
         focus: 'webview:emit:focus',
         unfocus: 'webview:emit:unfocus',
+        playFrontendSound: 'webview:play:frontend:sound',
     },
 };

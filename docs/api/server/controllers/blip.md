@@ -17,7 +17,7 @@ import { BlipColor } from '@Shared/types/blip.js';
 const Rebar = useRebar();
 
 // Create a global blip
-const blip = Rebar.controllers.useBlipGlobal(player, {
+const blip = Rebar.controllers.useBlipGlobal({
     pos: SpawnPos,
     color: BlipColor.BLUE,
     sprite: 57,

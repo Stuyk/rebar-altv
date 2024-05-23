@@ -2,6 +2,54 @@ import * as alt from 'alt-shared';
 import { Appearance } from './appearance.js';
 import { ClothingComponent } from './clothingComponent.js';
 
+export type BaseCharacter = {
+    /**
+     * The current dimension of the player. When they spawn
+     * they are automatically moved into this dimension.
+     *
+     * @type {number}
+     *
+     */
+    dimension?: number;
+
+    /**
+     * The position that this character last logged out at.
+     * This also updates every 5s or so.
+     * @type {alt.IVector3}
+     *
+     */
+    pos?: alt.IVector3;
+
+    /**
+     * The rotation that this character last logged out at.
+     *
+     * @type {alt.IVector3}
+     */
+    rot?: alt.IVector3;
+
+    /**
+     * The amount of health the player last had.
+     * @type {number} 99 - 199
+     *
+     */
+    health?: number;
+
+    /**
+     * The amount of armour the player last had.
+     * @type {number} 0 - 100
+     *
+     */
+    armour?: number;
+
+    /**
+     * Is this player dead or not.
+     * Health does not dictate whether a player is alive or dead.
+     * @type {boolean}
+     *
+     */
+    isDead?: boolean;
+};
+
 /**
  * Used as the main interface for storing character data.
  *
@@ -22,23 +70,6 @@ export type Character = {
      *
      */
     account_id: string;
-
-    /**
-     * The current dimension of the player. When they spawn
-     * they are automatically moved into this dimension.
-     *
-     * @type {number}
-     *
-     */
-    dimension?: number;
-
-    /**
-     * The position that this character last logged out at.
-     * This also updates every 5s or so.
-     * @type {Partial<alt.IVector3>}
-     *
-     */
-    pos?: Partial<alt.IVector3>;
 
     /**
      * The name of this character to display to other users.
@@ -62,20 +93,6 @@ export type Character = {
     bank?: number;
 
     /**
-     * The amount of health the player last had.
-     * @type {number} 99 - 199
-     *
-     */
-    health?: number;
-
-    /**
-     * The amount of armour the player last had.
-     * @type {number} 0 - 100
-     *
-     */
-    armour?: number;
-
-    /**
      * The amount of food the player has.
      * @type {number} 0 - 100
      *
@@ -88,14 +105,6 @@ export type Character = {
      *
      */
     water?: number;
-
-    /**
-     * Is this player dead or not.
-     * Health does not dictate whether a player is alive or dead.
-     * @type {boolean}
-     *
-     */
-    isDead?: boolean;
 
     /**
      * Amount of hours the player has played.
@@ -162,4 +171,18 @@ export type Character = {
      * @memberof Character
      */
     groups?: { [key: string]: Array<string> };
-};
+
+    /**
+     * Player weapons that the player currently has equipped
+     *
+     * @type {alt.IWeapon[]}
+     */
+    weapons?: alt.IWeapon[];
+
+    /**
+     * Ammo the player has based on weapon hash
+     *
+     * @type {{ [weaponHash: string]: number }}
+     */
+    ammo?: { [weaponHash: string]: number };
+} & BaseCharacter;

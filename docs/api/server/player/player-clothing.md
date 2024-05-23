@@ -56,5 +56,5 @@ clothing.setClothingComponent('mask', alt.hash('some_dlc'), 5, 0, 0);
 clothing.setPropComponent('glasses', alt.hash('some_dlc'), 5, 0);
 
 // Forces character clothing to update, and rerenders everything
-clothing.update();
+clothing.sync();
 ```

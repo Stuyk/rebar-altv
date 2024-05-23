@@ -1,5 +1,5 @@
 import { Events } from '../../src/main/shared/events';
-import { useEvents } from './useEvents';
+import { useEvents } from './useEvents.js';
 
 const events = useEvents();
 
@@ -29,7 +29,23 @@ export function useAudio() {
         // this._ambientPan[soundID].pan.value = pan;
     }
 
+    /**
+     * Play a native frontend sound from the Webview
+     *
+     * @param {string} audioName
+     * @param {string} audioRef
+     * @return
+     */
+    async function playFrontend(audioName: string, audioRef: string, audioBank = '') {
+        if (!('alt' in window)) {
+            return;
+        }
+
+        alt.emit(Events.view.playFrontendSound, audioName, audioRef, audioBank);
+    }
+
     return {
         play,
+        playFrontend,
     };
 }

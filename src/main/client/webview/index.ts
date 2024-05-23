@@ -1,4 +1,5 @@
 import * as alt from 'alt-client';
+import * as native from 'natives';
 import { Events } from '@Shared/events/index.js';
 import { PageNames, PageType } from '@Shared/webview/index.js';
 
@@ -24,13 +25,32 @@ function handleClientEvent(event: string, ...args: any[]) {
     ClientEvents[event](...args);
 }
 
+async function handleFrontendSound(audioName: string, audioRef: string, audioBank = '') {
+    if (audioBank !== '') {
+        native.requestScriptAudioBank(audioBank, false, -1);
+    }
+
+    native.playSoundFrontend(-1, audioName, audioRef, true);
+}
+
 export function useWebview(path = 'http://assets/webview/index.html') {
     let isInitialized = true;
 
     if (!webview) {
+        isInitialized = false;
         webview = new alt.WebView(path);
         webview.unfocus();
-        isInitialized = false;
+        webview.on(Events.view.playFrontendSound, handleFrontendSound);
+        alt.on('keyup', emitKeypress);
+    }
+
+    /**
+     * Emits key presses to the webview
+     *
+     * @param {number} key
+     */
+    function emitKeypress(key: number) {
+        webview.emit(Events.view.onKeypress, key);
     }
 
     /**

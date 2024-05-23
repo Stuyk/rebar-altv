@@ -45,5 +45,5 @@ appearance.setModel(true);
 appearance.setTattoos([{ collection: 'mpairraces_overlays', overlay: 'MP_Airraces_Tattoo_000_M' }]);
 
 // Called automatically, but resynchronizes freeroam player appearance
-appearance.update();
+appearance.sync();
 ```

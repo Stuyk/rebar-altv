@@ -4,6 +4,44 @@ order: -1000
 
 # Changelog
 
+## Version 6
+
+### Code Changes
+
+-   Added `vehicle` synchronization when a vehicle document is bound to the vehicle
+-   Added `useVehicle` function for synchronizing vehicle data, applying data, repairing, and creating new vehicle documents
+    -   Synchronizes damage (not appearance)
+    -   Synchronizes position, and rotation
+    -   Synchronizes window damage
+    -   Synchronizes tire damage
+    -   Synchronizes dirt levels
+    -   Synchronizes mods
+-   Added `character` synchronization when a character document is bound to the player
+    -   Synchronizes appearance, and clothing
+    -   Synchronizes weapons, and ammo
+    -   Synchronizes position, and rotation
+    -   Synchronizes health, and armor
+    -   Synchronizes death state
+-   Added ways to disable auto-sync for `vehicle` and `character` documents in the `binding` functions
+-   Added `onKeyUp` to the `Webview Events` functionality, allowing an easy way to listen for keybinds
+-   Added `playFrontendSound` to `useAudio` composable in the webview
+-   Added `useWeapon` to player pathway. Allows for synchronizing weapons, and ammo for database
+-   Added ability for commands to be `async`
+-   Separated logic for appyling data on `appearance` and `clothing` so overrides are possible
+-   Changed all `update()` functions to `sync` and added backwards compatible `update` function
+-   Split `Character` into `BaseCharacter` and `Character`, nothing changed externally
+
+### Docs Changes
+
+-   Updated `blip` controller docs for typo
+-   Added `useVehicle` documentation
+-   Updated documentation for `useCharacterBinder` that will allow ignoring auto-sync on binding
+-   Updated documentation for `useVehicleBinder` that will allow ignoring auto-sync on binding
+-   Added `useWeapon` documentation
+-   Added `useState` documentation
+-   Changed `update()` references to `sync()`
+-   Updated documentation for `useAudio` composable
+
 ## Version 5
 
 ### Code Changes

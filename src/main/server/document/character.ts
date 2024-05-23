@@ -51,7 +51,9 @@ export function useCharacter(player: alt.Player) {
      * @param {(keyof KnownKeys<Character & T>)} fieldName
      * @return {ReturnType | undefined}
      */
-    function getField<T = {}, ReturnType = any>(fieldName: keyof KnownKeys<Character & T>): ReturnType | undefined {
+    function getField<T = {}, K extends keyof KnownKeys<Character & T> = keyof KnownKeys<Character & T>>(
+        fieldName: K,
+    ): (Character & T)[K] | undefined {
         if (!player.hasMeta(sessionKey)) {
             return undefined;
         }
@@ -290,13 +292,16 @@ export function useCharacter(player: alt.Player) {
     return { get, getField, isValid, getVehicles, permission, set, setBulk };
 }
 
-export function useCharacterBinder(player: alt.Player) {
+export function useCharacterBinder(player: alt.Player, syncPlayer = true) {
     /**
      * Binds a player identifier to a Character document.
      * This document is cleared on disconnected automatically.
      * This should be the first thing you do after having a user authenticate.
      *
+     * Pass `syncPlayer` as false to prevent synchronization of appearance and clothes on binding.
+     *
      * @param {Character & T} document
+     * @param {boolean} syncPlayer
      */
     function bind<T = {}>(document: Character & T): ReturnType<typeof useCharacter> | undefined {
         if (!player.valid) {
@@ -305,6 +310,14 @@ export function useCharacterBinder(player: alt.Player) {
 
         player.setMeta(sessionKey, document);
         Rebar.events.useEvents().invoke('character-bound', player, document);
+
+        if (syncPlayer) {
+            Rebar.player.usePlayerAppearance(player).sync();
+            Rebar.player.useClothing(player).sync();
+            Rebar.player.useWeapon(player).sync();
+            Rebar.player.useState(player).sync();
+        }
+
         return useCharacter(player);
     }
 

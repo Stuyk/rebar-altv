@@ -8,6 +8,18 @@ It automatically saves data to the MongoDB database when any `set` function is u
 
 You should bind character data after fetching call characters owned by an account.
 
+When you bind vehicle data to a vehicle the following is synchronized:
+
+-   Position
+-   Rotation
+-   Model
+-   Mods
+-   Health
+-   Windows
+-   Wheels
+-   Extras
+-   Dimension
+
 ```ts
 import { useRebar } from '@Server/index.js';
 

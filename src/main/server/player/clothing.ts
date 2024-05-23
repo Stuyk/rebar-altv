@@ -79,6 +79,70 @@ async function updateClothing(document: ReturnType<typeof useCharacter>, compone
 }
 
 export function useClothing(player: alt.Player) {
+    function apply(data: Character) {
+        const propComponents = [0, 1, 2, 6, 7];
+        for (let i = 0; i < propComponents.length; i++) {
+            player.clearProp(propComponents[i]);
+        }
+
+        let sex = 1;
+        if (data.appearance && typeof data.appearance.sex !== 'undefined') {
+            sex = data.appearance.sex;
+        }
+
+        if (data.skin === null || typeof data.skin === 'undefined') {
+            const useModel = sex ? mModel : fModel;
+            if (player.model !== useModel) {
+                player.model = useModel;
+            }
+        } else {
+            const customModel = typeof data.skin !== 'number' ? alt.hash(data.skin) : data.skin;
+            if (player.model === customModel) {
+                return;
+            }
+
+            player.model = customModel;
+            return;
+        }
+
+        const dataSet = sex === 0 ? femaleClothes : maleClothes;
+        Object.keys(dataSet).forEach((key) => {
+            player.setDlcClothes(0, parseInt(key), parseInt(dataSet[key]), 0, 0);
+        });
+
+        // Apply Clothing
+        if (Array.isArray(data.clothing)) {
+            for (let i = 0; i < data.clothing.length; i++) {
+                const component = data.clothing[i];
+
+                // We look at the equipped item data sets; and find compatible clothing information in the 'data' field.
+                // Check if the data property is the correct format for the item.
+                if (component.isProp) {
+                    player.setDlcProp(component.dlc, component.id, component.drawable, component.texture);
+                } else {
+                    const palette = typeof component.palette === 'number' ? component.palette : 0;
+                    player.setDlcClothes(component.dlc, component.id, component.drawable, component.texture, palette);
+                }
+            }
+        }
+
+        // Apply Uniform if available
+        if (Array.isArray(data.uniform)) {
+            for (let i = 0; i < data.uniform.length; i++) {
+                const component = data.uniform[i];
+
+                // We look at the equipped item data sets; and find compatible clothing information in the 'data' field.
+                // Check if the data property is the correct format for the item.
+                if (component.isProp) {
+                    player.setDlcProp(component.dlc, component.id, component.drawable, component.texture);
+                } else {
+                    const palette = typeof component.palette === 'number' ? component.palette : 0;
+                    player.setDlcClothes(component.dlc, component.id, component.drawable, component.texture, palette);
+                }
+            }
+        }
+    }
+
     /**
      * This function sets a uniform for a player in game.
      *
@@ -98,7 +162,7 @@ export function useClothing(player: alt.Player) {
         }
 
         await document.set('uniform', components);
-        update();
+        sync();
         return true;
     }
 
@@ -115,7 +179,7 @@ export function useClothing(player: alt.Player) {
         }
 
         await document.set('uniform', undefined);
-        update();
+        sync();
     }
 
     /**
@@ -134,7 +198,7 @@ export function useClothing(player: alt.Player) {
         }
 
         await document.set('clothing', components);
-        update();
+        sync();
         return true;
     }
 
@@ -258,7 +322,7 @@ export function useClothing(player: alt.Player) {
         }
 
         await document.set('clothing', []);
-        update();
+        sync();
     }
 
     /**
@@ -275,7 +339,7 @@ export function useClothing(player: alt.Player) {
         }
 
         await document.set('skin', typeof model === 'string' ? alt.hash(model) : model);
-        update();
+        sync();
         return true;
     }
 
@@ -290,7 +354,7 @@ export function useClothing(player: alt.Player) {
         }
 
         await document.set('skin', undefined);
-        update();
+        sync();
         return true;
     }
 
@@ -305,7 +369,7 @@ export function useClothing(player: alt.Player) {
      * @returns The function does not always return a value. It may return the result of the
      * `Overrides.update` function if it exists and is called, but otherwise it may not return anything.
      */
-    function update(document: Character = undefined) {
+    function sync(document: Character = undefined) {
         if (!player || !player.valid) {
             return;
         }
@@ -322,70 +386,19 @@ export function useClothing(player: alt.Player) {
             return;
         }
 
-        const propComponents = [0, 1, 2, 6, 7];
-        for (let i = 0; i < propComponents.length; i++) {
-            player.clearProp(propComponents[i]);
-        }
+        apply(data);
+    }
 
-        let sex = 1;
-        if (data.appearance && typeof data.appearance.sex !== 'undefined') {
-            sex = data.appearance.sex;
-        }
-
-        if (data.skin === null || typeof data.skin === 'undefined') {
-            const useModel = sex ? mModel : fModel;
-            if (player.model !== useModel) {
-                player.model = useModel;
-            }
-        } else {
-            const customModel = typeof data.skin !== 'number' ? alt.hash(data.skin) : data.skin;
-            if (player.model === customModel) {
-                return;
-            }
-
-            player.model = customModel;
-            return;
-        }
-
-        const dataSet = sex === 0 ? femaleClothes : maleClothes;
-        Object.keys(dataSet).forEach((key) => {
-            player.setDlcClothes(0, parseInt(key), parseInt(dataSet[key]), 0, 0);
-        });
-
-        // Apply Clothing
-        if (Array.isArray(data.clothing)) {
-            for (let i = 0; i < data.clothing.length; i++) {
-                const component = data.clothing[i];
-
-                // We look at the equipped item data sets; and find compatible clothing information in the 'data' field.
-                // Check if the data property is the correct format for the item.
-                if (component.isProp) {
-                    player.setDlcProp(component.dlc, component.id, component.drawable, component.texture);
-                } else {
-                    const palette = typeof component.palette === 'number' ? component.palette : 0;
-                    player.setDlcClothes(component.dlc, component.id, component.drawable, component.texture, palette);
-                }
-            }
-        }
-
-        // Apply Uniform if available
-        if (Array.isArray(data.uniform)) {
-            for (let i = 0; i < data.uniform.length; i++) {
-                const component = data.uniform[i];
-
-                // We look at the equipped item data sets; and find compatible clothing information in the 'data' field.
-                // Check if the data property is the correct format for the item.
-                if (component.isProp) {
-                    player.setDlcProp(component.dlc, component.id, component.drawable, component.texture);
-                } else {
-                    const palette = typeof component.palette === 'number' ? component.palette : 0;
-                    player.setDlcClothes(component.dlc, component.id, component.drawable, component.texture, palette);
-                }
-            }
-        }
+    /**
+     * @deprecated use sync
+     *
+     */
+    function update() {
+        sync();
     }
 
     return {
+        apply,
         clearClothing,
         clearSkin,
         clearUniform,
@@ -396,6 +409,7 @@ export function useClothing(player: alt.Player) {
         setClothingComponent,
         setPropComponent,
         setUniform,
+        sync,
         update,
     };
 }

@@ -14,7 +14,7 @@ export type Command = {
     name: string;
     desc: string;
     options?: CommandOptions;
-    callback: (player: alt.Player, ...args: any[]) => void | boolean;
+    callback: (player: alt.Player, ...args: any[]) => void | boolean | Promise<void> | Promise<boolean>;
 };
 
 const tagOrComment = new RegExp(
@@ -76,7 +76,7 @@ export function useMessenger() {
         return false;
     }
 
-    function invokeCommand(player: alt.Player, cmdName: string, ...args: any[]): boolean {
+    async function invokeCommand(player: alt.Player, cmdName: string, ...args: any[]): Promise<boolean> {
         cmdName = cmdName.replace('/', '');
         cmdName = cmdName.toLowerCase();
 
@@ -91,7 +91,7 @@ export function useMessenger() {
         }
 
         try {
-            command.callback(player, ...args);
+            await command.callback(player, ...args);
             return true;
         } catch (err) {
             return false;
