@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.5.0.769814809963">
+    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.5.0.769815435845">
 
     <!-- See retype.com -->
     <meta name="generator" content="Retype 3.5.0">
 
     <!-- Primary Meta Tags -->
-    <title>Weapon</title>
-    <meta name="title" content="Weapon">
+    <title>Player State</title>
+    <meta name="title" content="Player State">
     <meta name="description" content="Used to synchronize or apply weapons to a player.">
 
     <!-- Canonical -->
@@ -19,23 +19,23 @@
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://rebarv.com/api/server/player/player-state/">
-    <meta property="og:title" content="Weapon">
+    <meta property="og:title" content="Player State">
     <meta property="og:description" content="Used to synchronize or apply weapons to a player.">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://rebarv.com/api/server/player/player-state/">
-    <meta property="twitter:title" content="Weapon">
+    <meta property="twitter:title" content="Player State">
     <meta property="twitter:description" content="Used to synchronize or apply weapons to a player.">
 
     <script data-cfasync="false">(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
-    <link href="../../../../resources/css/retype.css?v=3.5.0.769814809963" rel="stylesheet">
+    <link href="../../../../resources/css/retype.css?v=3.5.0.769815435845" rel="stylesheet">
 
-    <script data-cfasync="false" src="../../../../resources/js/config.js?v=3.5.0.769814809963" data-turbo-eval="false" defer></script>
+    <script data-cfasync="false" src="../../../../resources/js/config.js?v=3.5.0.769815435845" data-turbo-eval="false" defer></script>
     <script data-cfasync="false" src="../../../../resources/js/retype.js?v=3.5.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" data-cfasync="false" src="../../../../resources/js/lunr.js?v=3.5.0.769814809963" data-turbo-eval="false" defer></script>
-    <script id="prism-js" data-cfasync="false" src="../../../../resources/js/prism.js?v=3.5.0.769814809963" defer></script>
+    <script id="lunr-js" data-cfasync="false" src="../../../../resources/js/lunr.js?v=3.5.0.769815435845" data-turbo-eval="false" defer></script>
+    <script id="prism-js" data-cfasync="false" src="../../../../resources/js/prism.js?v=3.5.0.769815435845" defer></script>
 </head>
 <body>
     <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -186,10 +186,10 @@
                                 <!-- Rendered if sidebar right is enabled -->
                                 <div id="docs-sidebar-right-toggle"></div>
                                 <!-- Page content  -->
-<doc-anchor-target id="weapon" class="break-words">
+<doc-anchor-target id="player-state" class="break-words">
     <h1>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#weapon">#</doc-anchor-trigger>
-        <span>Weapon</span>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#player-state">#</doc-anchor-trigger>
+        <span>Player State</span>
     </h1>
 </doc-anchor-target>
 <p>Used to synchronize or apply weapons to a player.</p>
@@ -202,6 +202,9 @@ const playerState = Rebar.player.useState(somePlayer);
 
 // Use character document for weapons
 playerState.sync();
+
+// Save player state
+playerState.save();
 
 // Override and apply some state to a player
 playerWeapons.apply({ pos: alt.Vector3.zero });</code></pre>
@@ -272,6 +275,6 @@ playerWeapons.apply({ pos: alt.Vector3.zero });</code></pre>
 
     <div id="docs-overlay-target"></div>
 
-    <script data-cfasync="false">window.__DOCS__ = { "title": "Weapon", level: 4, icon: "file", hasPrism: true, hasMermaid: false, hasMath: false, tocDepth: 23 }</script>
+    <script data-cfasync="false">window.__DOCS__ = { "title": "Player State", level: 4, icon: "file", hasPrism: true, hasMermaid: false, hasMath: false, tocDepth: 23 }</script>
 </body>
 </html>
