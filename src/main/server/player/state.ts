@@ -11,10 +11,7 @@ export function useState(player: alt.Player) {
      * @param {Partial<BaseCharacter>} document
      */
     function apply(document: Partial<BaseCharacter>) {
-        console.log(document);
-
         if (document.pos) {
-            console.log(document.pos);
             player.pos = new alt.Vector3(document.pos.x, document.pos.y, document.pos.z);
         }
 
