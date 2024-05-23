@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.5.0.769709434799">
+    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.5.0.769802117050">
 
     <!-- See retype.com -->
     <meta name="generator" content="Retype 3.5.0">
@@ -11,7 +11,7 @@
     <!-- Primary Meta Tags -->
     <title>Changelog</title>
     <meta name="title" content="Changelog">
-    <meta name="description" content="Added isValid to character, account, and vehicle documents to check if an entity has a bound document">
+    <meta name="description" content="Added vehicle synchronization when a vehicle document is bound to the vehicle">
 
     <!-- Canonical -->
     <link rel="canonical" href="https://rebarv.com/changelog/">
@@ -20,21 +20,21 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://rebarv.com/changelog/">
     <meta property="og:title" content="Changelog">
-    <meta property="og:description" content="Added isValid to character, account, and vehicle documents to check if an entity has a bound document">
+    <meta property="og:description" content="Added vehicle synchronization when a vehicle document is bound to the vehicle">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://rebarv.com/changelog/">
     <meta property="twitter:title" content="Changelog">
-    <meta property="twitter:description" content="Added isValid to character, account, and vehicle documents to check if an entity has a bound document">
+    <meta property="twitter:description" content="Added vehicle synchronization when a vehicle document is bound to the vehicle">
 
     <script data-cfasync="false">(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
-    <link href="../resources/css/retype.css?v=3.5.0.769709434799" rel="stylesheet">
+    <link href="../resources/css/retype.css?v=3.5.0.769802117050" rel="stylesheet">
 
-    <script data-cfasync="false" src="../resources/js/config.js?v=3.5.0.769709434799" data-turbo-eval="false" defer></script>
+    <script data-cfasync="false" src="../resources/js/config.js?v=3.5.0.769802117050" data-turbo-eval="false" defer></script>
     <script data-cfasync="false" src="../resources/js/retype.js?v=3.5.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" data-cfasync="false" src="../resources/js/lunr.js?v=3.5.0.769709434799" data-turbo-eval="false" defer></script>
+    <script id="lunr-js" data-cfasync="false" src="../resources/js/lunr.js?v=3.5.0.769802117050" data-turbo-eval="false" defer></script>
 </head>
 <body>
     <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -191,15 +191,73 @@
         <span>Changelog</span>
     </h1>
 </doc-anchor-target>
+<doc-anchor-target id="version-6">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#version-6">#</doc-anchor-trigger>
+        <span>Version 6</span>
+    </h2>
+</doc-anchor-target>
+<doc-anchor-target id="code-changes">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes">#</doc-anchor-trigger>
+        <span>Code Changes</span>
+    </h3>
+</doc-anchor-target>
+<ul>
+<li>Added <code v-pre>vehicle</code> synchronization when a vehicle document is bound to the vehicle</li>
+<li>Added <code v-pre>useVehicle</code> function for synchronizing vehicle data, applying data, repairing, and creating new vehicle documents
+<ul>
+<li>Synchronizes damage (not appearance)</li>
+<li>Synchronizes position, and rotation</li>
+<li>Synchronizes window damage</li>
+<li>Synchronizes tire damage</li>
+<li>Synchronizes dirt levels</li>
+<li>Synchronizes mods</li>
+</ul>
+</li>
+<li>Added <code v-pre>character</code> synchronization when a character document is bound to the player
+<ul>
+<li>Synchronizes appearance, and clothing</li>
+<li>Synchronizes weapons, and ammo</li>
+<li>Synchronizes position, and rotation</li>
+<li>Synchronizes health, and armor</li>
+<li>Synchronizes death state</li>
+</ul>
+</li>
+<li>Added ways to disable auto-sync for <code v-pre>vehicle</code> and <code v-pre>character</code> documents in the <code v-pre>binding</code> functions</li>
+<li>Added <code v-pre>onKeyUp</code> to the <code v-pre>Webview Events</code> functionality, allowing an easy way to listen for keybinds</li>
+<li>Added <code v-pre>playFrontendSound</code> to <code v-pre>useAudio</code> composable in the webview</li>
+<li>Added <code v-pre>useWeapon</code> to player pathway. Allows for synchronizing weapons, and ammo for database</li>
+<li>Added ability for commands to be <code v-pre>async</code></li>
+<li>Separated logic for appyling data on <code v-pre>appearance</code> and <code v-pre>clothing</code> so overrides are possible</li>
+<li>Changed all <code v-pre>update()</code> functions to <code v-pre>sync</code> and added backwards compatible <code v-pre>update</code> function</li>
+<li>Split <code v-pre>Character</code> into <code v-pre>BaseCharacter</code> and <code v-pre>Character</code>, nothing changed externally</li>
+</ul>
+<doc-anchor-target id="docs-changes">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#docs-changes">#</doc-anchor-trigger>
+        <span>Docs Changes</span>
+    </h3>
+</doc-anchor-target>
+<ul>
+<li>Updated <code v-pre>blip</code> controller docs for typo</li>
+<li>Added <code v-pre>useVehicle</code> documentation</li>
+<li>Updated documentation for <code v-pre>useCharacterBinder</code> that will allow ignoring auto-sync on binding</li>
+<li>Updated documentation for <code v-pre>useVehicleBinder</code> that will allow ignoring auto-sync on binding</li>
+<li>Added <code v-pre>useWeapon</code> documentation</li>
+<li>Added <code v-pre>useState</code> documentation</li>
+<li>Changed <code v-pre>update()</code> references to <code v-pre>sync()</code></li>
+<li>Updated documentation for <code v-pre>useAudio</code> composable</li>
+</ul>
 <doc-anchor-target id="version-5">
     <h2>
         <doc-anchor-trigger class="header-anchor-trigger" to="#version-5">#</doc-anchor-trigger>
         <span>Version 5</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="code-changes">
+<doc-anchor-target id="code-changes-1">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-1">#</doc-anchor-trigger>
         <span>Code Changes</span>
     </h3>
 </doc-anchor-target>
@@ -217,9 +275,9 @@
 <li>Fixed small bug with case-sensitive commands</li>
 <li>Fixed bug that allowed sending messages when a <code v-pre>character</code> was not bound</li>
 </ul>
-<doc-anchor-target id="docs-changes">
+<doc-anchor-target id="docs-changes-1">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#docs-changes">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#docs-changes-1">#</doc-anchor-trigger>
         <span>Docs Changes</span>
     </h3>
 </doc-anchor-target>
@@ -234,9 +292,9 @@
         <span>Version 4</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="code-changes-1">
+<doc-anchor-target id="code-changes-2">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-1">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-2">#</doc-anchor-trigger>
         <span>Code Changes</span>
     </h3>
 </doc-anchor-target>
@@ -250,9 +308,9 @@
         <span>Version 3</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="code-changes-2">
+<doc-anchor-target id="code-changes-3">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-2">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-3">#</doc-anchor-trigger>
         <span>Code Changes</span>
     </h3>
 </doc-anchor-target>
@@ -265,9 +323,9 @@
         <span>Version 2</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="code-changes-3">
+<doc-anchor-target id="code-changes-4">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-3">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-4">#</doc-anchor-trigger>
         <span>Code Changes</span>
     </h3>
 </doc-anchor-target>
@@ -280,9 +338,9 @@
         <span>Version 1</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="code-changes-4">
+<doc-anchor-target id="code-changes-5">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-4">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-5">#</doc-anchor-trigger>
         <span>Code Changes</span>
     </h3>
 </doc-anchor-target>
@@ -300,9 +358,9 @@
 </li>
 <li>Added <code v-pre>sendMessage</code> to the <code v-pre>useNotify</code> player composable</li>
 </ul>
-<doc-anchor-target id="docs-changes-1">
+<doc-anchor-target id="docs-changes-2">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#docs-changes-1">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#docs-changes-2">#</doc-anchor-trigger>
         <span>Docs Changes</span>
     </h3>
 </doc-anchor-target>
