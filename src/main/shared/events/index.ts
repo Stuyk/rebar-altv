@@ -102,5 +102,6 @@ export const Events = {
         focus: 'webview:emit:focus',
         unfocus: 'webview:emit:unfocus',
         playFrontendSound: 'webview:play:frontend:sound',
+        updateMinimap: 'webview:update:minimap',
     },
 };

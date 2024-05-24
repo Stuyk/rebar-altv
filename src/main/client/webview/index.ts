@@ -7,6 +7,8 @@ type AnyCallback = ((...args: any[]) => void) | ((...args: any[]) => Promise<voi
 
 const ClientEvents: { [eventName: string]: AnyCallback } = {};
 
+let onWebviewReadyCallbacks: (() => void)[] = [];
+let readyCallbackTimeout;
 let webview: alt.WebView;
 let cursorCount: number = 0;
 let isPageOpen = false;
@@ -31,6 +33,14 @@ async function handleFrontendSound(audioName: string, audioRef: string, audioBan
     }
 
     native.playSoundFrontend(-1, audioName, audioRef, true);
+}
+
+function processReadyCallbacks() {
+    for (let cb of onWebviewReadyCallbacks) {
+        cb();
+    }
+
+    onWebviewReadyCallbacks = [];
 }
 
 export function useWebview(path = 'http://assets/webview/index.html') {
@@ -194,6 +204,20 @@ export function useWebview(path = 'http://assets/webview/index.html') {
         return openPages.findIndex((page) => page === vueName) > -1;
     }
 
+    /**
+     * This will only be called once, and the callback will be delayed by roughly 5s
+     *
+     * @param {() => void} callback
+     */
+    function onWebviewReady(callback: () => void) {
+        if (readyCallbackTimeout) {
+            alt.clearTimeout(readyCallbackTimeout);
+        }
+
+        alt.setTimeout(processReadyCallbacks, 2500);
+        onWebviewReadyCallbacks.push(callback);
+    }
+
     if (!isInitialized) {
         alt.onServer(Events.view.focus, focus);
         alt.onServer(Events.view.unfocus, unfocus);
@@ -211,6 +235,7 @@ export function useWebview(path = 'http://assets/webview/index.html') {
         hideAllByType,
         off,
         on,
+        onWebviewReady,
         focus,
         unfocus,
         showCursor,

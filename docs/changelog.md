@@ -4,6 +4,17 @@ order: -5
 
 # Changelog
 
+## Version 7
+
+### Code Changes
+
+-   Added `useMinimap` composable to get minimap positional data in the Webview
+-   Added `custom` message type when emitting messages to prevent formatting
+
+### Docs Changes
+
+-   Documented `useMinimap` composable
+
 ## Version 6
 
 ### Code Changes

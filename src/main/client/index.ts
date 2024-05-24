@@ -14,6 +14,7 @@ import * as math from './utility/math/index.js';
 import * as text from './utility/text/index.js';
 
 import { useWebview } from './webview/index.js';
+import { getMinimap } from './utility/minimap/index.js';
 
 export function useRebarClient() {
     return {
@@ -38,6 +39,7 @@ export function useRebarClient() {
         utility: {
             math,
             text,
+            getMinimap,
         },
         webview: {
             useWebview,
