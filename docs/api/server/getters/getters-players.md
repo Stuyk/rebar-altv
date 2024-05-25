@@ -6,7 +6,7 @@ The players getter gives information about all players.
 import { useRebar } from '@Server/index.js';
 const Rebar = useRebar();
 
-const getter = Rebar.usePlayersGetter();
+const getter = Rebar.get.usePlayersGetter();
 
 // Returns an array of players who are driving
 const playersDriving = getter.driving();

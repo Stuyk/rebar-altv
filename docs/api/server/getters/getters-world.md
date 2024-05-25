@@ -6,7 +6,7 @@ A world getter gives information about the in-game world.
 import { useRebar } from '@Server/index.js';
 const Rebar = useRebar();
 
-const getter = Rebar.useWorldGetter();
+const getter = Rebar.get.useWorldGetter();
 
 // Check if an entity is in ocean water
 const isInWater = getter.isInOceanWater(somePlayerOrVehicle);

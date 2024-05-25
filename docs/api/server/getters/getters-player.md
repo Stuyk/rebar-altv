@@ -6,7 +6,7 @@ The player getter gives information about a single player.
 import { useRebar } from '@Server/index.js';
 const Rebar = useRebar();
 
-const getter = Rebar.usePlayerGetter();
+const getter = Rebar.get.usePlayerGetter();
 
 // Returns a account by account _id
 const somePlayer = getter.byAccount('_id');
