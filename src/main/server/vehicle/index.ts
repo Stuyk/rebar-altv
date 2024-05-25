@@ -71,6 +71,7 @@ export function useVehicle(vehicle: alt.Vehicle) {
 
         // Synchronize dimension
         vehicle.dimension = document.dimension ?? 0;
+        vehicle.numberPlateText = document.numberPlateText ?? 'ALTV';
     }
 
     /**
