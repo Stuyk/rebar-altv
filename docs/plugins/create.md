@@ -49,7 +49,7 @@ alt.log(t('example.hello-from-server'));
 
 ## shared
 
-This is where shared code (constants, events) belongs.
+This is where shared code (constants, events) belongs.<br/>
 Code below is just example. In `shared` folder you can store anything you want, that is used by both, clientside and serverside code. 
 
 ```ts
