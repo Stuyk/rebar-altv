@@ -11,6 +11,7 @@ If you wish to create plugins then you need to understand the basic structure of
     5. `translate`
     6. `webview`
     7. `dependencies`
+    8. `shared`
 
 ## client
 
@@ -44,6 +45,23 @@ import { useTranslate } from '@Shared/translate.js';
 const { t } = useTranslate('en');
 
 alt.log(t('example.hello-from-server'));
+```
+
+## shared
+
+This is where shared code (constants, events) belongs.<br/>
+Code below is just example. In `shared` folder you can store anything you want, that is used by both, clientside and serverside code. 
+
+```ts
+// shared/events.ts
+export const MyPluginEventNames = {
+    ToServer: {
+        FirstToServerEvent: 'myplugin.serverEvent'
+    },
+    ToClient: {
+        FirstToClientEvent: 'myplugin.clientEvent'
+    }
+}
 ```
 
 ## images
