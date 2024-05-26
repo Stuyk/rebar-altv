@@ -9,33 +9,33 @@
     <meta name="generator" content="Retype 3.5.0">
 
     <!-- Primary Meta Tags -->
-    <title>Plugin API</title>
-    <meta name="title" content="Plugin API">
-    <meta name="description" content="API allows for plugins to register their own APIs and make them available globally.">
+    <title>Waypoint</title>
+    <meta name="title" content="Waypoint">
+    <meta name="description" content="Get a waypoint a player may or may not have currently marked on their map.">
 
     <!-- Canonical -->
-    <link rel="canonical" href="https://rebarv.com/api/client/api/">
+    <link rel="canonical" href="https://rebarv.com/api/server/player/player-use-waypoint/">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://rebarv.com/api/client/api/">
-    <meta property="og:title" content="Plugin API">
-    <meta property="og:description" content="API allows for plugins to register their own APIs and make them available globally.">
+    <meta property="og:url" content="https://rebarv.com/api/server/player/player-use-waypoint/">
+    <meta property="og:title" content="Waypoint">
+    <meta property="og:description" content="Get a waypoint a player may or may not have currently marked on their map.">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://rebarv.com/api/client/api/">
-    <meta property="twitter:title" content="Plugin API">
-    <meta property="twitter:description" content="API allows for plugins to register their own APIs and make them available globally.">
+    <meta property="twitter:url" content="https://rebarv.com/api/server/player/player-use-waypoint/">
+    <meta property="twitter:title" content="Waypoint">
+    <meta property="twitter:description" content="Get a waypoint a player may or may not have currently marked on their map.">
 
     <script data-cfasync="false">(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
-    <link href="../../../resources/css/retype.css?v=3.5.0.770013912071" rel="stylesheet">
+    <link href="../../../../resources/css/retype.css?v=3.5.0.770013912071" rel="stylesheet">
 
-    <script data-cfasync="false" src="../../../resources/js/config.js?v=3.5.0.770013912071" data-turbo-eval="false" defer></script>
-    <script data-cfasync="false" src="../../../resources/js/retype.js?v=3.5.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" data-cfasync="false" src="../../../resources/js/lunr.js?v=3.5.0.770013912071" data-turbo-eval="false" defer></script>
-    <script id="prism-js" data-cfasync="false" src="../../../resources/js/prism.js?v=3.5.0.770013912071" defer></script>
+    <script data-cfasync="false" src="../../../../resources/js/config.js?v=3.5.0.770013912071" data-turbo-eval="false" defer></script>
+    <script data-cfasync="false" src="../../../../resources/js/retype.js?v=3.5.0" data-turbo-eval="false" defer></script>
+    <script id="lunr-js" data-cfasync="false" src="../../../../resources/js/lunr.js?v=3.5.0.770013912071" data-turbo-eval="false" defer></script>
+    <script id="prism-js" data-cfasync="false" src="../../../../resources/js/prism.js?v=3.5.0.770013912071" defer></script>
 </head>
 <body>
     <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -50,10 +50,10 @@
                 <!-- Logo -->
                 <div class="flex items-center justify-between h-full py-2 md:w-75">
                     <div class="flex items-center px-2 md:px-6">
-                        <a id="docs-site-logo" href="../../../" class="flex items-center leading-snug text-xl">
+                        <a id="docs-site-logo" href="../../../../" class="flex items-center leading-snug text-xl">
                             <span class="w-10 mr-2 grow-0 shrink-0 overflow-hidden">
-                                <img class="max-h-10 dark:hidden md:inline-block" src="../../../static/logo_dark.svg">
-                                <img class="max-h-10 hidden dark:inline-block" src="../../../static/logo_light.svg">
+                                <img class="max-h-10 dark:hidden md:inline-block" src="../../../../static/logo_dark.svg">
+                                <img class="max-h-10 hidden dark:inline-block" src="../../../../static/logo_light.svg">
                             </span>
                             <span class="dark:text-white font-semibold line-clamp-1 md:line-clamp-2">Rebar for alt:V</span>
                         </a>
@@ -186,158 +186,29 @@
                                 <!-- Rendered if sidebar right is enabled -->
                                 <div id="docs-sidebar-right-toggle"></div>
                                 <!-- Page content  -->
-<doc-anchor-target id="api" class="break-words">
+<doc-anchor-target id="waypoint" class="break-words">
     <h1>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#api">#</doc-anchor-trigger>
-        <span>API</span>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#waypoint">#</doc-anchor-trigger>
+        <span>Waypoint</span>
     </h1>
 </doc-anchor-target>
-<p>API allows for plugins to register their own APIs and make them available globally.</p>
-<p>However, they are limited to either server-side or client-side.</p>
-<p>This reduces the complexity to import functions from other plugins, or export functions for other plugins.</p>
-<doc-anchor-target id="how-to-declare-an-api">
-    <h2>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#how-to-declare-an-api">#</doc-anchor-trigger>
-        <span>How to Declare an API</span>
-    </h2>
-</doc-anchor-target>
-<ol>
-<li>Ensure you have an API setup in your plugin.</li>
-</ol>
+<p>Get a waypoint a player may or may not have currently marked on their map.</p>
+<p>It can sometimes return undefined.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">export function useMyCoolAPI() {
-    function logPlayerName(player: alt.Player) {
-        console.log(player.name);
+<pre class="language-typescript"><code v-pre class="language-typescript">import { useRebar } from '@Server/index.js';
+
+const Rebar = useRebar();
+
+async function doSomething(somePlayer: alt.Player) {
+    const pos = await Rebar.player.useWaypoint(somePlayer).get();
+    if (!pos) {
+        // no waypoint
+        return;
     }
 
-    return {
-        logPlayerName,
-    };
+    // has waypoint
 }</code></pre>
 </doc-codeblock></div>
-<ol start="2">
-<li>Create a global declaration for your API.
-<doc-tabs>
-<doc-tab v-cloak id="without-arguments">
-<template #title>Without arguments</template>
-</doc-tab>
-</li>
-</ol>
-<div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">import { useClientApi } from '@Client/api/index.js';
-
-export function useMyCoolAPI() {
-    function logPlayerName(player: alt.Player) {
-        console.log(player.name);
-    }
-
-    return {
-        logPlayerName,
-    };
-}
-
-// Declare global to TypeScript recognizes the typings
-declare global {
-    export interface ClientPlugin {
-        ['my-cool-api']: ReturnType&lt;typeof useMyCoolAPI&gt;;
-    }
-}
-
-// Really important to execute the return of your function
-useClientApi().register('my-cool-api', useMyCoolAPI());</code></pre>
-</doc-codeblock></div>
-<doc-tabs>
-<doc-tab v-cloak id="with-arguments">
-<template #title>With arguments</template>
-<div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">import { useClientApi } from '@Client/api/index.js';
-
-export function useMyCoolAPI(player: alt.Player) {
-    function logPlayerName() {
-        console.log(player.name);
-    }
-
-    return {
-        logPlayerName,
-    };
-}
-
-// Declare global to TypeScript recognizes the typings
-declare global {
-    export interface ClientPlugin {
-        ['my-cool-api']: typeof useMyCoolAPI;
-    }
-}
-
-// Don't execute a composable here, because it will be executed later.
-useClientApi().register('my-cool-api', useMyCoolAPI);</code></pre>
-</doc-codeblock></div>
-</doc-tab>
-</doc-tabs>
-<ol start="3">
-<li>Done</li>
-</ol>
-<doc-anchor-target id="how-to-get-an-api">
-    <h2>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#how-to-get-an-api">#</doc-anchor-trigger>
-        <span>How to Get an API</span>
-    </h2>
-</doc-anchor-target>
-<p>This is all that&#x27;s necessary to start working with other plugin APIs</p>
-<p>Below is dependent on load order, so your mileage may vary.</p>
-<doc-tabs>
-<doc-tab v-cloak id="without-arguments">
-<template #title>Without arguments</template>
-<div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">import { useClientApi } from '@Client/api/index.js';
-
-const myCoolAPI = useClientApi().get('my-cool-api');
-
-function someFunction(somePlayer: alt.Player) {
-    myCoolAPI.logPlayerName(somePlayer);
-}</code></pre>
-</doc-codeblock></div>
-<p>If you do not want to worry about load order. Consider the following pattern:</p>
-<div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">import { useClientApi } from '@Client/api/index.js';
-
-async function init() {
-   const myCoolAPI = await useClientApi().getAsync('my-cool-api');
-   myCoolAPI.logPlayerName(somePlayer);
-}</code></pre>
-</doc-codeblock></div>
-</doc-tab>
-<doc-tab v-cloak id="with-arguments">
-<template #title>With arguments</template>
-<div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">import { useClientApi } from '@Client/api/index.js';
-
-const useMyCoolAPI = useClientApi().get('my-cool-api');
-
-function someFunction(somePlayer: alt.Player) {
-    useMyCoolAPI(somePlayer).logPlayerName();
-}</code></pre>
-</doc-codeblock></div>
-<p>If you do not want to worry about load order. Consider the following pattern:</p>
-<div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">import * as alt from 'alt-client';
-import { useClientApi } from '@Client/api/index.js';
-
-const api = useClientApi();
-
-async function init() {
-    // Wait for isReady and Get the API
-    const authApi = await api.getAsync('auth-api');
-
-    // Hook in your events
-    authApi.onLogin((player) =&gt; {
-        alt.log('Player Ready!');
-    });
-}
-
-init();</code></pre>
-</doc-codeblock></div>
-</doc-tab>
 
                                 
                                 <!-- Required only on API pages -->
@@ -347,20 +218,20 @@ init();</code></pre>
                             
                                 <nav class="flex mt-14">
                                     <div class="w-1/2">
-                                        <a class="px-5 py-4 h-full flex items-center break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-l-lg transition-colors duration-150 relative hover:z-5" href="../../../api/client/system/notification/">
+                                        <a class="px-5 py-4 h-full flex items-center break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-l-lg transition-colors duration-150 relative hover:z-5" href="../../../../api/server/player/player-state/">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="mr-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19 11H7.41l5.29-5.29a.996.996 0 10-1.41-1.41l-7 7a1 1 0 000 1.42l7 7a1.024 1.024 0 001.42-.01.996.996 0 000-1.41L7.41 13H19c.55 0 1-.45 1-1s-.45-1-1-1z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
                                             <span>
                                                 <span class="block text-xs font-normal text-gray-400 dark:text-dark-400">Previous</span>
-                                                <span class="block mt-1">Notification</span>
+                                                <span class="block mt-1">Player State</span>
                                             </span>
                                         </a>
                                     </div>
                             
                                     <div class="w-1/2">
-                                        <a class="px-5 py-4 -mx-px h-full flex items-center justify-end break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-r-lg transition-colors duration-150 relative hover:z-5" href="../../../api/client/webview/">
+                                        <a class="px-5 py-4 -mx-px h-full flex items-center justify-end break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-r-lg transition-colors duration-150 relative hover:z-5" href="../../../../api/server/player/player-weapon/">
                                             <span>
                                                 <span class="block text-xs font-normal text-right text-gray-400 dark:text-dark-400">Next</span>
-                                                <span class="block mt-1">Webview</span>
+                                                <span class="block mt-1">Weapon</span>
                                             </span>
                                             <svg xmlns="http://www.w3.org/2000/svg" class="ml-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19.92 12.38a1 1 0 00-.22-1.09l-7-7a.996.996 0 10-1.41 1.41l5.3 5.3H5c-.55 0-1 .45-1 1s.45 1 1 1h11.59l-5.29 5.29a.996.996 0 000 1.41c.19.2.44.3.7.3s.51-.1.71-.29l7-7c.09-.09.16-.21.21-.33z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
                                         </a>
@@ -404,6 +275,6 @@ init();</code></pre>
 
     <div id="docs-overlay-target"></div>
 
-    <script data-cfasync="false">window.__DOCS__ = { "title": "Plugin API", level: 3, icon: "file", hasPrism: true, hasMermaid: false, hasMath: false, tocDepth: 23 }</script>
+    <script data-cfasync="false">window.__DOCS__ = { "title": "Waypoint", level: 4, icon: "file", hasPrism: true, hasMermaid: false, hasMath: false, tocDepth: 23 }</script>
 </body>
 </html>
