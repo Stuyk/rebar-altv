@@ -41,6 +41,10 @@ function playSound(type: 'NAVIGATE' | 'ENTER' | 'BACK' | 'NAV_UP_DOWN' | 'OPEN')
     }
 }
 
+export function isNativeMenuOpen() {
+    return typeof menu !== 'undefined';
+}
+
 function updatePages() {
     const hasNextPage = pageIndex < maxPageIndex - 1;
     const hasPrevPage = pageIndex >= 1;

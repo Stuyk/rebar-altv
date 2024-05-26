@@ -3,7 +3,7 @@ import { useClientApi } from './api/index.js';
 
 import { useClientInteraction } from './controllers/interaction.js';
 
-import { getInput } from './menus/native/input.js';
+import { getInput, isInputOpen } from './menus/native/input.js';
 import { useNativeMenu } from './menus/native/index.js';
 
 import { useClonedPed } from './ped/clone.js';
@@ -15,6 +15,7 @@ import * as text from './utility/text/index.js';
 
 import { useWebview } from './webview/index.js';
 import { getMinimap } from './utility/minimap/index.js';
+import { isNativeMenuOpen } from './menus/native/page.js';
 
 export function useRebarClient() {
     return {
@@ -26,8 +27,10 @@ export function useRebarClient() {
         },
         menus: {
             useNativeMenu,
+            isNativeMenuOpen,
             input: {
                 getInput,
+                isInputOpen,
             },
         },
         ped: {

@@ -2,14 +2,14 @@ import * as alt from 'alt-client';
 import * as native from 'natives';
 
 let document: alt.RmlDocument;
-let isInputOpen = false;
+let isInputVisible = false;
 
-export function isInputShowing() {
-    return isInputOpen;
+export function isInputOpen() {
+    return isInputVisible;
 }
 
 export function clearInput() {
-    isInputOpen = false;
+    isInputVisible = false;
     document.destroy();
     document = undefined;
 
@@ -19,7 +19,7 @@ export function clearInput() {
 }
 
 export async function getInput(previousValue: string): Promise<string> {
-    isInputOpen = true;
+    isInputVisible = true;
 
     if (document) {
         document.destroy();

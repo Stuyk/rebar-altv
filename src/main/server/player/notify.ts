@@ -49,7 +49,12 @@ export function useNotify(player: alt.Player) {
         player.emit(Events.player.notify.credits.create, credits);
     }
 
-    function sendMessage(message: Message) {
+    function sendMessage(message: Message | string) {
+        if (typeof message === 'string') {
+            messenger.message.send(player, { content: message, type: 'custom' });
+            return;
+        }
+
         messenger.message.send(player, message);
     }
 

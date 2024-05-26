@@ -87,6 +87,9 @@ export const Events = {
             process: 'systems:messenger:process',
             send: 'systems:messenger:send',
         },
+        waypoint: {
+            get: 'systems:waypoint:get',
+        },
     },
     view: {
         onServer: 'webview:on:server',

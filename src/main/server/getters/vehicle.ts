@@ -2,7 +2,7 @@ import * as alt from 'alt-server';
 import * as players from './players.js';
 import * as Utility from '@Shared/utility/index.js';
 import { useVehicle } from '@Server/document/vehicle.js';
-import { useCharacter } from '@Server/document/character.js';
+import { getClosestEntity } from './shared.js';
 
 export function useVehicleGetter() {
     /**
@@ -59,61 +59,6 @@ export function useVehicleGetter() {
     }
 
     /**
-     * Creates a temporary ColShape in front of the current vehicle or player.
-     * The ColShape is then used to check if a vehicle is present within the ColShape.
-     * It will keep subtract distance until it finds a vehicle near the player that is in the ColShape.
-     * Works best on flat land or very close distances.
-     *
-     * @param {alt.Player} player An alt:V Player Entity
-     * @param {number} [startDistance=2]
-     * @return {(alt.Vehicle | undefined)}
-     */
-    async function inFrontOf(entity: alt.Entity, startDistance = 6): Promise<alt.Vehicle | undefined> {
-        const fwdVector = Utility.vector.getForwardVector(entity.rot);
-        const closestVehicles = [...alt.Vehicle.all].filter((p) => {
-            if (p.id === entity.id) {
-                return false;
-            }
-
-            const dist = Utility.vector.distance2d(entity.pos, p.pos);
-            if (dist > startDistance) {
-                return false;
-            }
-
-            return true;
-        });
-
-        if (closestVehicles.length <= 0) {
-            return undefined;
-        }
-
-        while (startDistance > 1) {
-            for (const target of closestVehicles) {
-                const fwdPos = {
-                    x: entity.pos.x + fwdVector.x * startDistance,
-                    y: entity.pos.y + fwdVector.y * startDistance,
-                    z: entity.pos.z - 1,
-                };
-
-                const colshape = new alt.ColshapeSphere(fwdPos.x, fwdPos.y, fwdPos.z, 2);
-
-                await alt.Utils.wait(10);
-
-                const isInside = colshape.isEntityIn(target);
-                colshape.destroy();
-
-                if (isInside) {
-                    return target;
-                }
-            }
-
-            startDistance -= 0.5;
-        }
-
-        return undefined;
-    }
-
-    /**
      * Checks if a vehicle is within 3 distance of a position.
      *
      * @param {alt.Vehicle} vehicle An alt:V Vehicle Entity
@@ -147,29 +92,16 @@ export function useVehicleGetter() {
     }
 
     /**
-     * The vehicle closest to a player, except the vehicle that the player is driving
+     * Returns the closest vehicle to the player within a given range.
+     *
+     * Starts off 2 distance in front of the player.
      *
      * @param {alt.Player} player An alt:V Player Entity
+     * @param {number} range How far away to look
      * @return {(alt.Vehicle | undefined)}
      */
-    function closestVehicle(player: alt.Player): alt.Vehicle | undefined {
-        const vehicles = [...alt.Vehicle.all].filter((target) => {
-            if (!target || !target.valid) {
-                return false;
-            }
-
-            if (!target.driver) {
-                return true;
-            }
-
-            if (target.driver.id === player.id) {
-                return false;
-            }
-
-            return true;
-        });
-
-        return Utility.vector.getClosestEntity<alt.Vehicle>(player.pos, player.rot, vehicles, 25, true);
+    function closestVehicle(player: alt.Player, range = 25): alt.Vehicle | undefined {
+        return getClosestEntity<alt.Vehicle>(player, [...alt.Vehicle.all], range);
     }
 
     return {
@@ -178,7 +110,6 @@ export function useVehicleGetter() {
         closestVehicle,
         driver,
         isValidModel,
-        inFrontOf,
         isNearPosition,
         passengers,
     };

@@ -4,6 +4,22 @@ order: -5
 
 # Changelog
 
+## Version 8
+
+### Code Changes
+
+-   Fixed various `get closest` functions for `player` and `vehicle` getters
+-   Added `useWaypoint` to get a waypoint a player has on their map if available
+-   Added `usePlayer` function that combines all `useX` functions for player
+-   Added `Rebar.utility.useProtectCallback` which adds permissions to callbacks before they are executed
+    -   A simple way to protect alt:V client event callbacks
+
+### Docs Changes
+
+-   Added `useWaypoint` docs
+-   Added `usePlayer` docs
+-   Added `useProtectCallback` docs
+
 ## Version 7
 
 ### Code Changes

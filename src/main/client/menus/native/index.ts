@@ -80,7 +80,7 @@ function drawOption(offsetY: number, option: Invoke | TextInput | Color | Select
         isActive ? 32 : 0,
         isActive ? 32 : 0,
         200,
-        true
+        true,
     );
 
     if (option.type === 'input') {
@@ -92,7 +92,7 @@ function drawOption(offsetY: number, option: Invoke | TextInput | Color | Select
             boxWidth,
             0.4,
             offsetY,
-            'center'
+            'center',
         );
         return;
     }
@@ -106,7 +106,7 @@ function drawOption(offsetY: number, option: Invoke | TextInput | Color | Select
                 boxWidth,
                 0.5,
                 offsetY,
-                'center'
+                'center',
             );
             drawTextAbsolute('>', new alt.Vector2(anchorX, anchorY), boxWidth, 0.5, offsetY, 'right');
             return;
@@ -118,7 +118,7 @@ function drawOption(offsetY: number, option: Invoke | TextInput | Color | Select
             boxWidth,
             0.5,
             offsetY,
-            option.isPageChanger ? 'center' : 'left'
+            option.isPageChanger ? 'center' : 'left',
         );
     }
 
@@ -152,7 +152,7 @@ function drawOption(offsetY: number, option: Invoke | TextInput | Color | Select
             optionInfo.color.g,
             optionInfo.color.b,
             255,
-            true
+            true,
         );
 
         drawTextAbsolute(option.text, new alt.Vector2(anchorX, anchorY), boxWidth, 0.5, offsetY, 'left');

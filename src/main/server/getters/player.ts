@@ -1,6 +1,7 @@
 import * as alt from 'alt-server';
 import * as Utility from '@Shared/utility/index.js';
 import { useAccount, useCharacter } from '@Server/document/index.js';
+import { getClosestEntity } from './shared.js';
 
 export function usePlayerGetter() {
     /**
@@ -147,61 +148,6 @@ export function usePlayerGetter() {
     }
 
     /**
-     * Creates a temporary ColShape in front of the player.
-     * The ColShape is then used to check if the entity is present within the ColShape.
-     * It will keep subtract distance until it finds a player near the player that is in the ColShape.
-     * Works best on flat land or very close distances.
-     *
-     * @param {alt.Player} player An alt:V Player Entity
-     * @param {number} [startDistance=2]
-     * @return {(alt.Player | undefined)}
-     */
-    async function inFrontOf(player: alt.Player, startDistance = 6): Promise<alt.Player | undefined> {
-        const fwdVector = Utility.vector.getForwardVector(player.rot);
-        const closestPlayers = [...alt.Player.all].filter((p) => {
-            if (p.id === player.id) {
-                return false;
-            }
-
-            const dist = Utility.vector.distance2d(player.pos, p.pos);
-            if (dist > startDistance) {
-                return false;
-            }
-
-            return true;
-        });
-
-        if (closestPlayers.length <= 0) {
-            return undefined;
-        }
-
-        while (startDistance > 1) {
-            for (const target of closestPlayers) {
-                const fwdPos = {
-                    x: player.pos.x + fwdVector.x * startDistance,
-                    y: player.pos.y + fwdVector.y * startDistance,
-                    z: player.pos.z - 1,
-                };
-
-                const colshape = new alt.ColshapeSphere(fwdPos.x, fwdPos.y, fwdPos.z, 2);
-
-                await alt.Utils.wait(10);
-
-                const isInside = colshape.isEntityIn(target);
-                colshape.destroy();
-
-                if (isInside) {
-                    return target;
-                }
-            }
-
-            startDistance -= 0.5;
-        }
-
-        return undefined;
-    }
-
-    /**
      * Checks if a player is within 3 distance of a position.
      *
      * @param {alt.Player} player An alt:V Player Entity
@@ -217,25 +163,8 @@ export function usePlayerGetter() {
      * @param {alt.Player} player An alt:V Player Entity
      * @return {(alt.Player | undefined)}
      */
-    function closestToPlayer(player: alt.Player): alt.Player | undefined {
-        const players = [...alt.Player.all].filter((target) => {
-            if (!target || !target.valid) {
-                return false;
-            }
-
-            const document = useCharacter(target);
-            if (typeof document === 'undefined') {
-                return false;
-            }
-
-            if (target.id === player.id) {
-                return false;
-            }
-
-            return true;
-        });
-
-        return Utility.vector.getClosestOfType<alt.Player>(player.pos, players);
+    function closestToPlayer(player: alt.Player, range = 10): alt.Player | undefined {
+        return getClosestEntity<alt.Player>(player, [...alt.Player.all], range);
     }
 
     // /**
@@ -275,7 +204,6 @@ export function usePlayerGetter() {
     /**
      * Determine if a player is valid, and spawned as a character.
      *
-     *
      * @param {alt.Player} player An alt:V Player Entity
      * @return {boolean}
      */
@@ -299,7 +227,6 @@ export function usePlayerGetter() {
         byPartialName,
         closestToPlayer,
         closestToVehicle,
-        inFrontOf,
         isNearPosition,
         isValid,
     };
