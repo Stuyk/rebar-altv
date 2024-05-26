@@ -58,7 +58,7 @@ export const MyPluginEventNames = {
     ToServer: {
         FirstToServerEvent: 'myplugin.serverEvent'
     },
-    ToClient:{
+    ToClient: {
         FirstToClientEvent: 'myplugin.clientEvent'
     }
 }
