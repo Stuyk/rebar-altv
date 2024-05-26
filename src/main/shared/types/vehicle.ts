@@ -160,4 +160,12 @@ export interface Vehicle {
          */
         daylightOn?: boolean;
     };
+
+    /**
+     * The number plate text for the vehicle
+     *
+     * @type {string}
+     * @memberof Vehicle
+     */
+    numberPlateText?: string;
 }
