@@ -1,4 +1,4 @@
-# Events
+# Rebar Event Usage
 
 These events are unique to the Rebar framework, and help provide information about when something happens.
 

@@ -1,4 +1,4 @@
-# API
+# Plugin API
 
 API allows for plugins to register their own APIs and make them available globally.
 
@@ -78,7 +78,7 @@ const api = Rebar.useApi();
 
 async function init() {
     // Wait for isReady and Get the API
-    const authApi = await api.getAsync("auth-api");
+    const authApi = await api.getAsync('auth-api');
 
     // Hook in your events
     authApi.onLogin((player) => {
