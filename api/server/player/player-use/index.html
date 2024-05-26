@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.5.0.770053580040">
+    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.5.0.770061554435">
 
     <!-- See retype.com -->
     <meta name="generator" content="Retype 3.5.0">
@@ -30,12 +30,12 @@
 
     <script data-cfasync="false">(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
-    <link href="../../../../resources/css/retype.css?v=3.5.0.770053580040" rel="stylesheet">
+    <link href="../../../../resources/css/retype.css?v=3.5.0.770061554435" rel="stylesheet">
 
-    <script data-cfasync="false" src="../../../../resources/js/config.js?v=3.5.0.770053580040" data-turbo-eval="false" defer></script>
+    <script data-cfasync="false" src="../../../../resources/js/config.js?v=3.5.0.770061554435" data-turbo-eval="false" defer></script>
     <script data-cfasync="false" src="../../../../resources/js/retype.js?v=3.5.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" data-cfasync="false" src="../../../../resources/js/lunr.js?v=3.5.0.770053580040" data-turbo-eval="false" defer></script>
-    <script id="prism-js" data-cfasync="false" src="../../../../resources/js/prism.js?v=3.5.0.770053580040" defer></script>
+    <script id="lunr-js" data-cfasync="false" src="../../../../resources/js/lunr.js?v=3.5.0.770061554435" data-turbo-eval="false" defer></script>
+    <script id="prism-js" data-cfasync="false" src="../../../../resources/js/prism.js?v=3.5.0.770061554435" defer></script>
 </head>
 <body>
     <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -199,14 +199,492 @@
 
 const Rebar = useRebar();
 
+// More often than not, you will likely want to use this type of function setup for setting up a rebar player instance
 async function doSomething(player: alt.Player) {
-    const rPlayer = Rebar.usePlayer(player);
+    const rebarPlayer = Rebar.usePlayer(player);
+
+    // Additionally, it's wise to check for document availability if dealing with database data
+    // This also checks `player.valid` and if `player` is valid as well.
+    if (!rebarPlayer.isValid()) {
+        // Invalid player, you decide what to do
+        return;
+    }
 
     // You also have direct access to the `character` document if it's already bound.
-    rPlayer.notify.sendMessage(`{FFFFFF} Bank Balanace: $${rPlayer.character.getField('cash')}`);
-    rPlayer.notify.sendMessage(`{FFFFFF} Cash Balanace: $${rPlayer.character.getField('bank')}`);
-    rPlayer.notify.showNotification(`You checked your account balance!`);
+    rebarPlayer.notify.sendMessage(`{FFFFFF} Bank Balanace: $${rebarPlayer.character.getField('cash')}`);
+    rebarPlayer.notify.sendMessage(`{FFFFFF} Cash Balanace: $${rebarPlayer.character.getField('bank')}`);
+    rebarPlayer.notify.showNotification(`You checked your account balance!`);
 }</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="animation">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#animation">#</doc-anchor-trigger>
+        <span>Animation</span>
+    </h2>
+</doc-anchor-target>
+<p>Play an animation on a player in various ways.</p>
+<p><a href="https://alexguirre.github.io/animations-list/">Animation List</a></p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">import { useRebar } from '@Server/index.js';
+
+const Rebar = useRebar();
+
+// Create animation instance
+const rebarPlayer = Rebar.usePlayer(player);
+
+// Play a handful of animations 2.5s after each one is played
+// Dictionary
+// Animation Name
+// 31 = Flags
+// 2500 = Time in MS
+// Last parameter allows to skip clearing the animation for smoother transitions
+await rebarPlayer.animation.playFinite('amb@world_human_stand_fishing@idle_a', 'idle_a', 31, 2500, true);
+await rebarPlayer.animation.playFinite('amb@world_human_stand_guard@male@base', 'base', 31, 2500, true);
+await rebarPlayer.animation.playFinite('amb@world_human_stand_guard@male@idle_a', 'idle_a', 31, 2500);
+
+// Play an animation for an infinite amount of time, flags don't allow cancelling
+await rebarPlayer.animation.playInfinite('amb@world_human_stand_fishing@idle_a', 'idle_a', 31, 2500);
+
+// Clear animation
+rebarPlayer.animation.clear();</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="appearance">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#appearance">#</doc-anchor-trigger>
+        <span>Appearance</span>
+    </h2>
+</doc-anchor-target>
+<p>Used to set various freeroam character appearance data and store in the database.</p>
+<div class="flex mb-6">
+    <div class="shrink-0 w-1 rounded-tl rounded-bl bg-blue-500 dark:bg-blue-400"></div>
+    <div class="flex w-full py-4 border border-l-0 border-gray-300 rounded-tr rounded-br doc-alert bg-white dark:bg-dark-700 dark:border-dark-700" role="alert">
+        <div class="flex items-center ml-4 h-7">
+            <svg xmlns="http://www.w3.org/2000/svg" class="mb-px text-blue-500 dark:text-blue-400" width="22" height="22" viewBox="0 0 24 24" role="presentation">
+                <g fill="currentColor"><g>
+                    <path d="M12 1C5.93 1 1 5.93 1 12s4.93 11 11 11 11-4.93 11-11S18.07 1 12 1zm0 20c-4.96 0-9-4.04-9-9s4.04-9 9-9 9 4.04 9 9-4.04 9-9 9z"></path>
+                    <path d="M12 11c-.55 0-1 .45-1 1v4c0 .55.45 1 1 1s1-.45 1-1v-4c0-.55-.45-1-1-1zM12.01 7c-.56 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1z"></path>
+                    <path fill="none" d="M0 0h24v24H0z"></path>
+                </g></g>
+            </svg>
+        </div>
+        <div class="pr-5 ml-3 w-full">
+<p>All functions will automatically save to the database, except for <code v-pre>update</code></p>
+        </div>
+    </div>
+</div>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">import { useRebar } from '@Server/index.js';
+
+const Rebar = useRebar();
+
+const rebarPlayer = Rebar.usePlayer(player);
+
+// Get hair decorator for style, and save to database
+const hairDecorator = rebarPlayer.appearance.getHairOverlay(0, 5);
+
+// Set eye color and save to database
+rebarPlayer.appearance.setEyeColor(5);
+
+// Set eyebrow style and save to database
+rebarPlayer.appearance.setEyebrows({ style: 1, color: 5, opacity: 1 });
+
+// Set facial hair style and save to database
+rebarPlayer.appearance.setFacialHair({ style: 5, color: 2, opacity: 1 });
+
+// Set a hair style and save to database
+rebarPlayer.appearance.setHairStyle({ hair: 5, color1: 25, color2: 25, decorator: hairDecorator });
+
+// Set face appearance data
+rebarPlayer.appearance.setHeadBlendData({
+    faceFather: 0,
+    faceMother: 0,
+    skinFather: 5,
+    skinMother: 45,
+    faceMix: 0.5,
+    skinMix: 0.5,
+});
+
+// Set to true to have a more feminine body
+rebarPlayer.appearance.setModel(true);
+
+// Set tattoos on the player and save to database
+rebarPlayer.appearance.setTattoos([{ collection: 'mpairraces_overlays', overlay: 'MP_Airraces_Tattoo_000_M' }]);
+
+// Called automatically, but resynchronizes freeroam player appearance
+rebarPlayer.appearance.sync();</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="audio">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#audio">#</doc-anchor-trigger>
+        <span>Audio</span>
+    </h2>
+</doc-anchor-target>
+<p>Play audio from frontend or using custom <code v-pre>.ogg</code> sound files.</p>
+<div class="flex mb-6">
+    <div class="shrink-0 w-1 rounded-tl rounded-bl bg-blue-500 dark:bg-blue-400"></div>
+    <div class="flex w-full py-4 border border-l-0 border-gray-300 rounded-tr rounded-br doc-alert bg-white dark:bg-dark-700 dark:border-dark-700" role="alert">
+        <div class="flex items-center ml-4 h-7">
+            <svg xmlns="http://www.w3.org/2000/svg" class="mb-px text-blue-500 dark:text-blue-400" width="22" height="22" viewBox="0 0 24 24" role="presentation">
+                <g fill="currentColor"><g>
+                    <path d="M12 1C5.93 1 1 5.93 1 12s4.93 11 11 11 11-4.93 11-11S18.07 1 12 1zm0 20c-4.96 0-9-4.04-9-9s4.04-9 9-9 9 4.04 9 9-4.04 9-9 9z"></path>
+                    <path d="M12 11c-.55 0-1 .45-1 1v4c0 .55.45 1 1 1s1-.45 1-1v-4c0-.55-.45-1-1-1zM12.01 7c-.56 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1z"></path>
+                    <path fill="none" d="M0 0h24v24H0z"></path>
+                </g></g>
+            </svg>
+        </div>
+        <div class="pr-5 ml-3 w-full">
+<p>If you want to use custom sound files, put them in the <code v-pre>webview/public/sounds</code> folder.</p>
+        </div>
+    </div>
+</div>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">import { useRebar } from '@Server/index.js';
+
+const Rebar = useRebar();
+
+// Create audio instance for player
+const rebarPlayer = Rebar.usePlayer(player);
+
+// Play a custom sound from the public folder
+rebarPlayer.audio.playSound('sounds/positive.ogg');
+
+// Play a frontend sound that is native to GTA:V
+rebarPlayer.audio.playFrontendSound('TIMER_STOP', 'HUD_MINI_GAME_SOUNDSET');</code></pre>
+</doc-codeblock></div>
+<p><a href="https://altv.stuyk.com/docs/articles/tables/frontend-sounds.html">Frontend Sound List</a></p>
+<doc-anchor-target id="clothing">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#clothing">#</doc-anchor-trigger>
+        <span>Clothing</span>
+    </h2>
+</doc-anchor-target>
+<p>All of these functions can be used to adjust character clothing, skins, and uniforms.</p>
+<p>Keep in mind that the render order is as follows.</p>
+<ol>
+<li>If a skin is present we set the skin, and do nothing else.</li>
+<li>If a skin is not present, we apply the clothes to the freeroam model</li>
+<li>If a uniform is present, we apply the uniform to the freeroam model</li>
+</ol>
+<p>Uniform will always be rendered last and will override clothing pieces.</p>
+<div class="flex mb-6">
+    <div class="shrink-0 w-1 rounded-tl rounded-bl bg-blue-500 dark:bg-blue-400"></div>
+    <div class="flex w-full py-4 border border-l-0 border-gray-300 rounded-tr rounded-br doc-alert bg-white dark:bg-dark-700 dark:border-dark-700" role="alert">
+        <div class="flex items-center ml-4 h-7">
+            <svg xmlns="http://www.w3.org/2000/svg" class="mb-px text-blue-500 dark:text-blue-400" width="22" height="22" viewBox="0 0 24 24" role="presentation">
+                <g fill="currentColor"><g>
+                    <path d="M12 1C5.93 1 1 5.93 1 12s4.93 11 11 11 11-4.93 11-11S18.07 1 12 1zm0 20c-4.96 0-9-4.04-9-9s4.04-9 9-9 9 4.04 9 9-4.04 9-9 9z"></path>
+                    <path d="M12 11c-.55 0-1 .45-1 1v4c0 .55.45 1 1 1s1-.45 1-1v-4c0-.55-.45-1-1-1zM12.01 7c-.56 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1z"></path>
+                    <path fill="none" d="M0 0h24v24H0z"></path>
+                </g></g>
+            </svg>
+        </div>
+        <div class="pr-5 ml-3 w-full">
+<p>All functions will automatically save to the database, except for <code v-pre>update</code></p>
+        </div>
+    </div>
+</div>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">import { useRebar } from '@Server/index.js';
+
+const Rebar = useRebar();
+
+const rebarPlayer = Rebar.usePlayer(player);
+
+// Set skin to something other than a freemode ped
+rebarPlayer.clothing.setSkin('u_f_y_bikerchic');
+
+// Clear skin, and reset to default freemode ped
+rebarPlayer.clothing.clearSkin();
+
+// Set uniform applies clothing to a character after their clothing is set, essentially overriding what they are wearing
+rebarPlayer.clothing.setUniform([
+    { dlc: alt.hash('some_dlc'), drawable: 0, id: 5, texture: 0 },
+    { dlc: alt.hash('some_dlc'), drawable: 1, id: 6, texture: 0 },
+    { dlc: alt.hash('some_dlc'), drawable: 7, id: 2, texture: 0 },
+]);
+
+// Clear uniform, this should be obvious
+rebarPlayer.clothing.clearUniform();
+
+// Set clothing and prop components and override everything
+rebarPlayer.clothing.setClothing([
+    { dlc: alt.hash('some_dlc'), drawable: 0, id: 5, texture: 0 },
+    { dlc: alt.hash('some_dlc'), drawable: 1, id: 6, texture: 0 },
+    { dlc: alt.hash('some_dlc'), drawable: 7, id: 2, texture: 0 },
+]);
+
+// Clear clothing removes all clothing and resets to default clothing values
+rebarPlayer.clothing.clearClothing();
+
+// This will remove a specific clothing component
+rebarPlayer.clothing.removeClothingComponent('shoes');
+rebarPlayer.clothing.removeClothingComponent('mask');
+
+// This will use a dlc hash for the clothing component
+rebarPlayer.clothing.setClothingComponent('mask', alt.hash('some_dlc'), 5, 0, 0);
+rebarPlayer.clothing.setPropComponent('glasses', alt.hash('some_dlc'), 5, 0);
+
+// Forces character clothing to update, and rerenders everything
+rebarPlayer.clothing.sync();</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="native">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#native">#</doc-anchor-trigger>
+        <span>Native</span>
+    </h2>
+</doc-anchor-target>
+<p>Invoke client natives from server side.</p>
+<p>Rebar is adding this because sometimes you don&#x27;t want to create a whole file to invoke one native on client-side.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">import * as alt from 'alt-server';
+import { useRebar } from '@Server/index.js';
+
+const Rebar = useRebar();
+const rebarPlayer = Rebar.usePlayer(player);
+
+// This example sets persistent weather over time
+// This function is already built-in to the framework, but serves as a good example of usage
+function setWeather(player: alt.Player, weather: string, timeInSeconds: number) {
+    rebarPlayer.native.invoke('setWeatherTypeOvertimePersist', weather, timeInSeconds);
+}
+
+function setManyWeathers(player: alt.Player) {
+    // Don't actually do this, just shows how to call many natives at once
+    rebarPlayer.native.invokeMany([
+        { native: 'setWeatherTypeOvertimePersist', args: ['BLIZZARD', 10000] },
+        { native: 'setWeatherTypeOvertimePersist', args: ['CLEAR', 10000] },
+        { native: 'setWeatherTypeOvertimePersist', args: ['THUNDER', 10000] },
+    ]);
+}</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="notify">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#notify">#</doc-anchor-trigger>
+        <span>Notify</span>
+    </h2>
+</doc-anchor-target>
+<p>Notify allows you to send different text and messages to the player screen.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">import { useRebar } from '@Server/index.js';
+
+const Rebar = useRebar();
+const rebarPlayer = Rebar.usePlayer(player);
+
+// Show text credits on the left side of the screen
+rebarPlayer.notify.showCredits({ largeText: 'Hello', smallText: 'World', duration: 5000 });
+
+// Show a 'wasted-like' text to the player
+rebarPlayer.notify.showShard({ title: 'Hello', subtitle: 'World!', duration: 5000 });
+
+// Show a spinner in the bottom right corner of the screen with text
+rebarPlayer.notify.showSpinner({ text: 'Spinning!', duration: 5000, type: SpinnerType.CLOCKWISE_WHITE_0 });
+
+// Show text in the bottom center of the screen, just like in the GTA:V missions
+rebarPlayer.notify.showMissionText('Hello Mission Text!', 5000);
+
+// Show a notification above the minimap.
+// Additionally, if a notification is being intercepted on client-side. The notification will not show.
+// Thus by default it uses GTA:V built-in native notifications until it does not.
+rebarPlayer.notify.showNotification('Hello there');
+
+// Send a message to the player
+rebarPlayer.notify.sendMessage({ type: 'info', content: 'Hello there!' });
+rebarPlayer.notify.sendMessage({ type: 'player', content: 'Hello there!', author: 'Some Other Player' });</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="player-state">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#player-state">#</doc-anchor-trigger>
+        <span>Player State</span>
+    </h2>
+</doc-anchor-target>
+<p>Used to synchronize or apply weapons to a player.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">import { useRebar } from '@Server/index.js';
+
+const Rebar = useRebar();
+const rebarPlayer = Rebar.usePlayer(player);
+
+// Use character document for weapons
+rebarPlayer.state.sync();
+
+// Save player state
+rebarPlayer.state.save();
+
+// Override and apply some state to a player
+// This is likely never gonna be used outside core functionality
+rebarPlayer.state.apply({ pos: alt.Vector3.zero });</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="status">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#status">#</doc-anchor-trigger>
+        <span>Status</span>
+    </h2>
+</doc-anchor-target>
+<p>Check if a player has an account bound, or character bound.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">import { useRebar } from '@Server/index.js';
+
+const Rebar = useRebar();
+const rebarPlayer = Rebar.usePlayer(player);
+
+rebarPlayer.status.hasCharacter(); // Returns true / false
+rebarPlayer.status.hasAccount(); // Returns true / false</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="waypoint">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#waypoint">#</doc-anchor-trigger>
+        <span>Waypoint</span>
+    </h2>
+</doc-anchor-target>
+<p>Get a waypoint a player may or may not have currently marked on their map.</p>
+<p>It can sometimes return undefined.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">import { useRebar } from '@Server/index.js';
+
+const Rebar = useRebar();
+const rebarPlayer = Rebar.usePlayer(player);
+
+async function doSomething(somePlayer: alt.Player) {
+    const pos = await rebarPlayer.waypoint.get();
+    if (!pos) {
+        // no waypoint
+        return;
+    }
+
+    // has waypoint
+}</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="weapon">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#weapon">#</doc-anchor-trigger>
+        <span>Weapon</span>
+    </h2>
+</doc-anchor-target>
+<p>Used to synchronize or apply weapons to a player.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">import { useRebar } from '@Server/index.js';
+
+const Rebar = useRebar();
+const rebarPlayer = Rebar.usePlayer(player);
+
+// Use character document for weapons
+rebarPlayer.weapon.sync();
+
+// Save weapons &amp; ammo
+await rebarPlayer.weapon.save();
+
+// Save just ammo
+await rebarPlayer.weapon.saveAmmo();
+
+// Add a weapon, and save to the database, and re-apply weapons
+await rebarPlayer.weapon.add('WEAPON_MINIGUN', 100);
+
+// Add ammo for specific gun
+await rebarPlayer.weapon.addAmmo('WEAPON_MINIGUN', 100);
+
+// Clear all weapons &amp; ammo
+await rebarPlayer.weapon.clear();
+
+// Remove a weapon and all ammo for the weapon
+await rebarPlayer.weapon.clearWeapon('WEAPON_MINIGUN');
+
+// Override and apply weapons to a player
+const weapons = [
+    { hash: alt.hash('WEAPON_MINIGUN'), components: [], tintIndex: 0 },
+    { hash: alt.hash('WEAPON_RPG'), components: [], tintIndex: 0 },
+];
+const ammo = {
+    [alt.hash('WEAPON_MINIGUN')]: 999,
+    [alt.hash('WEAPON_RPG')]: 5,
+};
+
+rebarPlayer.weapon.apply(weapons, ammo);</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="webview">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#webview">#</doc-anchor-trigger>
+        <span>Webview</span>
+    </h2>
+</doc-anchor-target>
+<p>This specific controller allows controlling the client-side webview instance for a given player.</p>
+<p>You can focus the webview, hide pages, or show pages with ease.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">import { useRebar } from '@Server/index.js';
+
+const Rebar = useRebar();
+
+async function someWebviewThing(player: alt.Player, attempts = 0) {
+    const rebarPlayer = Rebar.usePlayer(player);
+
+    // Show the cursor and focus the webview instance
+    rebarPlayer.webview.focus();
+
+    // Hide the cursor and unfocus the webview instance
+    rebarPlayer.webview.unfocus();
+
+    // Hide a specific page
+    rebarPlayer.webview.hide('Example');
+
+    // Show a specific page
+    rebarPlayer.webview.show('Example', 'page');
+
+    if (attempts &gt;= 5) {
+        player.kick('something went wrong');
+        return;
+    }
+
+    // Wait for a page to be ready / shown before emitting events
+    const result = await rebarPlayer.webview.isReady('Example', 'page');
+    if (!result) {
+        attempts++;
+
+        showSelection(player, attempts);
+        return;
+    }
+
+    // Emit directly into the webview, and recieve the event
+    // in the webview with the 'useEvents' composable
+    rebarPlayer.webview.emit('someevent', 'hello world!');
+}</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="world">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#world">#</doc-anchor-trigger>
+        <span>World</span>
+    </h2>
+</doc-anchor-target>
+<p>These functions change what the player will see, or doesn&#x27;t see.</p>
+<p>Often used for <code v-pre>drunk effects</code>, <code v-pre>changing weather</code>, <code v-pre>changing time</code>, or <code v-pre>fading a screen to black</code>.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">import { useRebar } from '@Server/index.js';
+import { TimecycleTypes } from '@Shared/data/timecycleTypes.js';
+import { ScreenEffects } from '@Shared/data/screenEffects.js';
+import { Weathers } from '@Shared/data/weathers.js';
+
+const Rebar = useRebar();
+const rebarPlayer = Rebar.usePlayer(player);
+
+// Blur the screen over 5 seconds, and keep it blurred
+rebarPlayer.world.setScreenBlur(5000);
+rebarPlayer.world.clearScreenBlur(5000);
+
+// Show a screen effect to the player like 'Trevors Rage' when using his special ability
+rebarPlayer.world.setScreenEffect(ScreenEffects.RAMPAGE, 10000, true);
+rebarPlayer.world.clearScreenEffect(ScreenEffects.RAMPAGE);
+rebarPlayer.world.clearAllScreenEffects();
+
+// Fade the screen to black over 5 seconds, and leave it black
+rebarPlayer.world.setScreenFade(5000);
+rebarPlayer.world.clearScreenFade(5000);
+
+// Set the in-game GTA:V world time to 9 AM
+rebarPlayer.world.setTime(9, 0, 0);
+
+// Apply colors to the screen, best paired with screen effects as well
+rebarPlayer.world.setTimecycle('stoned', 5000);
+
+// Change the weather to Thunder over 5 seconds
+rebarPlayer.world.setWeather('THUNDER', 5);</code></pre>
 </doc-codeblock></div>
 
                                 
@@ -217,7 +695,7 @@ async function doSomething(player: alt.Player) {
                             
                                 <nav class="flex mt-14">
                                     <div class="w-1/2">
-                                        <a class="px-5 py-4 h-full flex items-center break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-l-lg transition-colors duration-150 relative hover:z-5" href="../../../../api/server/player/player-world/">
+                                        <a class="px-5 py-4 h-full flex items-center break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-l-lg transition-colors duration-150 relative hover:z-5" href="../../../../api/server/getters/getters-world/">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="mr-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19 11H7.41l5.29-5.29a.996.996 0 10-1.41-1.41l-7 7a1 1 0 000 1.42l7 7a1.024 1.024 0 001.42-.01.996.996 0 000-1.41L7.41 13H19c.55 0 1-.45 1-1s-.45-1-1-1z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
                                             <span>
                                                 <span class="block text-xs font-normal text-gray-400 dark:text-dark-400">Previous</span>
@@ -227,10 +705,10 @@ async function doSomething(player: alt.Player) {
                                     </div>
                             
                                     <div class="w-1/2">
-                                        <a class="px-5 py-4 -mx-px h-full flex items-center justify-end break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-r-lg transition-colors duration-150 relative hover:z-5" href="../../../../api/server/systems/messenger/">
+                                        <a class="px-5 py-4 -mx-px h-full flex items-center justify-end break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-r-lg transition-colors duration-150 relative hover:z-5" href="../../../../api/server/api/plugin-api/">
                                             <span>
                                                 <span class="block text-xs font-normal text-right text-gray-400 dark:text-dark-400">Next</span>
-                                                <span class="block mt-1">Messenger</span>
+                                                <span class="block mt-1">Plugin API</span>
                                             </span>
                                             <svg xmlns="http://www.w3.org/2000/svg" class="ml-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19.92 12.38a1 1 0 00-.22-1.09l-7-7a.996.996 0 10-1.41 1.41l5.3 5.3H5c-.55 0-1 .45-1 1s.45 1 1 1h11.59l-5.29 5.29a.996.996 0 000 1.41c.19.2.44.3.7.3s.51-.1.71-.29l7-7c.09-.09.16-.21.21-.33z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
                                         </a>
