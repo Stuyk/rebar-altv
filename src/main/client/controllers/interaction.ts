@@ -1,8 +1,10 @@
 import * as alt from 'alt-client';
 import { Events } from '@Shared/events/index.js';
+import { useMessenger } from '../system/messenger.js';
 
 type InteractionCallback = (uid: string, pos: alt.Vector3) => void;
 
+const messenger = useMessenger();
 const DEFAULT_COOLDOWN = 1000;
 const DEFAULT_KEY = 69; // E
 const onEnterCallbacks: InteractionCallback[] = [];
@@ -23,6 +25,10 @@ function handleKeyPress(key: alt.KeyCode) {
     }
 
     if (timeout > Date.now()) {
+        return;
+    }
+
+    if (messenger.isChatFocused()) {
         return;
     }
 

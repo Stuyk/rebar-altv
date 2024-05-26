@@ -4,6 +4,14 @@ order: -5
 
 # Changelog
 
+## Version 9
+
+### Code Changes
+
+-   Added client-side `messenger` for handling chat focus states
+-   Patched issue where pressing `E` while chat is focused invoked interactions
+-   Patched issue where pressing native menu buttons while chatting invoked native menu functions
+
 ## Version 8
 
 ### Code Changes

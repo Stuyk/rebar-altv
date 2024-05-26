@@ -16,6 +16,7 @@ import * as text from './utility/text/index.js';
 import { useWebview } from './webview/index.js';
 import { getMinimap } from './utility/minimap/index.js';
 import { isNativeMenuOpen } from './menus/native/page.js';
+import { useMessenger } from './system/messenger.js';
 
 export function useRebarClient() {
     return {
@@ -24,6 +25,9 @@ export function useRebarClient() {
             interaction: {
                 useClientInteraction,
             },
+        },
+        messenger: {
+            useMessenger,
         },
         menus: {
             useNativeMenu,

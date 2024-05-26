@@ -3,6 +3,9 @@ import * as native from 'natives';
 import * as page from './page.js';
 import { drawTextAbsolute } from '../../utility/text/index.js';
 import { Color, Invoke, NativeMenu, Selection, TextInput } from '@Shared/types/nativeMenu.js';
+import { useMessenger } from '../../system/messenger.js';
+
+const messenger = useMessenger();
 
 // Menu Display
 let interval: number;
@@ -26,6 +29,10 @@ const CONTROLS = {
 
 function handleControls() {
     if (Date.now() < controlCooldown) {
+        return;
+    }
+
+    if (messenger.isChatFocused()) {
         return;
     }
 

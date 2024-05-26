@@ -243,10 +243,6 @@ export function setMenu(_menu: NativeMenu, _onDestroy: Function) {
     updatePages();
 
     instructionalButtons.create([
-        { text: ' ', input: '' },
-        { text: ' ', input: '' },
-        { text: ' ', input: '' },
-        { text: ' ', input: '' },
         { text: 'Back / Exit', input: '~INPUT_FRONTEND_RRIGHT~' },
         { text: 'Enter', input: '~INPUT_FRONTEND_RDOWN~' },
         { text: 'Change', input: '~INPUTGROUP_CELLPHONE_NAVIGATE_LR~' },
