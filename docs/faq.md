@@ -56,3 +56,7 @@ Doing both of these will increase load time, and allow you to focus on writing y
 Absolutely, however Rebar does not provide any resources to secure your code. You are fully responsible for updating your plugin as well as maintaining compatability with future updates.
 
 _Keep in mind there is no way to properly secure code._
+
+# Server Console Commands don't work?
+
+Unfortunately there's some kind of stdinput issue in the console and unsure what causes it.

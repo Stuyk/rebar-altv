@@ -31,7 +31,9 @@
         "@altv/types-server": "^16.2.1",
         "@altv/types-shared": "^16.2.1",
         "@altv/types-webview": "^16.2.1",
+        "@types/jsonwebtoken": "^9.0.6",
         "@types/node": "^20.12.12",
+        "@types/sjcl": "^1.0.34",
         "altv-pkg": "^2.7.5",
         "autoprefixer": "^10.4.19",
         "fast-glob": "^3.3.2",
@@ -48,6 +50,7 @@
     "dependencies": {
         "@vitejs/plugin-vue": "^5.0.4",
         "dotenv": "^16.4.5",
+        "jsonwebtoken": "^9.0.2",
         "mongodb": "^6.6.2",
         "sjcl": "^1.0.8",
         "typescript": "^5.4.5",

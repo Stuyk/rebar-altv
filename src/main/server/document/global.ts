@@ -6,14 +6,14 @@ const data: { [key: string]: { [key: string]: any } } = {};
 
 export async function useGlobal(identifier: string) {
     if (!data[identifier]) {
-        let data = await db.get<{ _id: string; identifier: string }>({ identifier }, CollectionNames.Global);
+        let pulledData = await db.get<{ _id: string; identifier: string }>({ identifier }, CollectionNames.Global);
 
-        if (!data) {
+        if (!pulledData) {
             const _id = await db.create({ identifier }, CollectionNames.Global);
-            data = await db.get<{ _id: string; identifier: string }>({ _id }, CollectionNames.Global);
+            pulledData = await db.get<{ _id: string; identifier: string }>({ _id }, CollectionNames.Global);
         }
 
-        data[identifier] = data;
+        data[identifier] = pulledData;
     }
 
     function get<T = Object>(): T {
@@ -21,6 +21,7 @@ export async function useGlobal(identifier: string) {
     }
 
     function getField<T = any>(fieldName: string): T {
+        console.log(data[identifier]);
         return data[identifier][fieldName];
     }
 
@@ -29,9 +30,9 @@ export async function useGlobal(identifier: string) {
         return await db.update({ _id: data[identifier]._id, [fieldName]: value }, CollectionNames.Global);
     }
 
-    async function setBulk<T = Object>(data: Partial<T>): Promise<boolean> {
-        data[identifier] = Object.assign(data[identifier], data);
-        return await db.update({ _id: data[identifier]._id, ...data }, CollectionNames.Global);
+    async function setBulk<T = Object>(newData: Partial<T>): Promise<boolean> {
+        data[identifier] = Object.assign(data[identifier], newData);
+        return await db.update({ _id: data[identifier]._id, ...newData }, CollectionNames.Global);
     }
 
     return {

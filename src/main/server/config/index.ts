@@ -2,6 +2,7 @@ import dotenv from 'dotenv';
 
 export interface Config {
     mongodb: string;
+    serverControlPort: number;
 }
 
 export interface ConfigInit<T extends keyof Config> {
@@ -18,7 +19,7 @@ export function useConfig() {
 
     /**
      * Casts value to specific type.
-     * 
+     *
      * @param {string | undefined} value Value to be casted.
      * @param {string | undefined} type Type for value to be casted to.
      * @returns {T | undefined} Casted value, string if type isn't provided.
@@ -30,7 +31,7 @@ export function useConfig() {
 
         if (type === 'number') {
             const parsedValue = parseFloat(value) as unknown as T;
-            if (isNaN(parsedValue as number)) throw new Error(`Can't parse '${value}', it is not a valid number`)
+            if (isNaN(parsedValue as number)) throw new Error(`Can't parse '${value}', it is not a valid number`);
             return parsedValue;
         } else if (type === 'boolean') {
             return value.toLowerCase() === 'true' ? (true as unknown as T) : (false as unknown as T);
@@ -43,20 +44,17 @@ export function useConfig() {
     /**
      * Inits a variable in config using env variable.
      * Supports type cast for number/boolean, default value and check for mandatory.
-     * 
+     *
      * @param {keyof Config} key Config variable name.
      * @param {ConfigInit[keyof Config]} options Options for config variable initialization.
      */
-    function initFromEnv<T extends keyof Config>(
-        key: T,
-        options: ConfigInit<T>,
-    ): void {
+    function initFromEnv<T extends keyof Config>(key: T, options: ConfigInit<T>): void {
         const valueFromEnv = process.env[options.env];
         let parsedValue: Config[T];
         try {
             parsedValue = parseValue<Config[T]>(valueFromEnv, options.type);
         } catch (error) {
-            throw new Error(`Can't set ${key}: ${error.message}`)
+            throw new Error(`Can't set ${key}: ${error.message}`);
         }
 
         let value: Config[T] | undefined = parsedValue;
@@ -74,11 +72,11 @@ export function useConfig() {
 
     /**
      * Sets/overrides a variable in runtime.
-     * 
-     * Warning: 
-     * This function doesn't check a type programmatically, 
+     *
+     * Warning:
+     * This function doesn't check a type programmatically,
      * you will only get a lint issue in your IDE.
-     * 
+     *
      * @param {keyof Config} key Name of config variable.
      * @param {Config[keyof Config]} value New value
      */
@@ -96,7 +94,7 @@ export function useConfig() {
 
     /**
      * Gets a specific field value from config.
-     * 
+     *
      * @param {keyof Config} key Key of config variable.
      * @returns {Config[keyof Config]} Config variable value.
      */
@@ -114,5 +112,11 @@ export function useConfig() {
 
 useConfig().initFromEnv('mongodb', {
     env: 'MONGODB',
-    default: 'mongodb://127.0.0.1:27017'
+    default: 'mongodb://127.0.0.1:27017',
+});
+
+useConfig().initFromEnv('serverControlPort', {
+    env: 'SERVER_CONTROL_PORT',
+    default: 8950,
+    type: 'number',
 });

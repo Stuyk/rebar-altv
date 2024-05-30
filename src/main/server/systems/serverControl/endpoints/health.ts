@@ -1,7 +1,6 @@
-import { ServerResponse } from 'http';
+import { IncomingMessage, ServerResponse } from 'http';
 import { sendServerControlResponse } from '../index.js';
 
-// http://localhost:3000/health
-export function health(res: ServerResponse) {
+export function health(req: IncomingMessage, res: ServerResponse) {
     sendServerControlResponse(res, 200, { message: 'ok' });
 }

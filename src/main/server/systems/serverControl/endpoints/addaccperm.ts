@@ -1,5 +1,5 @@
 import * as alt from 'alt-server';
-import { ServerResponse } from 'http';
+import { IncomingMessage, ServerResponse } from 'http';
 import { sendServerControlResponse } from '../index.js';
 import { Account } from '../../../../shared/types/account.js';
 import { useRebar } from '../../../index.js';
@@ -7,7 +7,7 @@ import { useRebar } from '../../../index.js';
 const Rebar = useRebar();
 const db = Rebar.database.useDatabase();
 
-export async function addAccPerm(res: ServerResponse, data: { _id: string; permission: string }) {
+export async function addAccPerm(req: IncomingMessage, res: ServerResponse, data: { _id: string; permission: string }) {
     if (!data._id || !data.permission) {
         return sendServerControlResponse(res, 400, {
             message: '_id or permission was not provided as url parameters',

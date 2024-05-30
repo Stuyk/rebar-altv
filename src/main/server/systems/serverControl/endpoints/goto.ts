@@ -1,18 +1,13 @@
 import * as alt from 'alt-server';
-import { ServerResponse } from 'http';
+import { IncomingMessage, ServerResponse } from 'http';
 import { sendServerControlResponse } from '../index.js';
-import { useRebar } from '../../../index.js';
 
-const Rebar = useRebar();
-
-// http://localhost:3000/teleport?altvid=1&pos=-777,-106,38
-export async function teleport(res: ServerResponse, data: { altvid: string; pos: string }) {
+export async function goto(req: IncomingMessage, res: ServerResponse, data: { altvid: string; pos: alt.IVector3 }) {
     if (!data.pos || !data.altvid) {
         return sendServerControlResponse(res, 400, { message: `Invalid pos, or altvid provided` });
     }
 
-    const [x, y, z] = data.pos.split(',');
-    const pos = new alt.Vector3(parseFloat(x) ?? 0, parseFloat(y) ?? 0, parseFloat(z) ?? 0);
+    const pos = new alt.Vector3(data.pos.x, data.pos.y, data.pos.z);
     if (pos === alt.Vector3.zero) {
         return sendServerControlResponse(res, 400, { message: `Invalid coordinates` });
     }
