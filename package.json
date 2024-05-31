@@ -4,7 +4,7 @@
     "version": "9",
     "scripts": {
         "clean": "shx rm -rf resources/core",
-        "dev": "nodemon -V -x pnpm start",
+        "dev": "nodemon -x pnpm start",
         "start": "pnpm dependencies && pnpm build && altv-server",
         "binaries": "pnpm altv-pkg",
         "[-] Build": "",
