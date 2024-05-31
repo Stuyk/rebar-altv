@@ -75,7 +75,8 @@
             "webview/pages/*",
             "webview/vite.config.*",
             "*/package.json",
-            "*.mjs"
+            "*.mjs",
+            "ignore*.ts"
         ]
     }
 }
