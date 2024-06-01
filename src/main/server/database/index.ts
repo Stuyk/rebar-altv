@@ -125,7 +125,7 @@ export function useDatabase() {
      */
     async function get<T extends { [key: string]: any; _id?: string | ObjectId }>(
         dataToMatch: Partial<T>,
-        collection: string
+        collection: string,
     ): Promise<T | undefined> {
         const client = await getClient();
 
@@ -159,7 +159,7 @@ export function useDatabase() {
      */
     async function getMany<T extends { [key: string]: any }>(
         dataToMatch: Partial<T>,
-        collection: string
+        collection: string,
     ): Promise<T[]> {
         const client = await getClient();
 
@@ -190,9 +190,7 @@ export function useDatabase() {
      * @param {string} collection
      * @return {(Promise<(T & { _id: string })[] | undefined>)}
      */
-    async function getAll<T extends { _id: ObjectId }>(
-        collection: string
-    ): Promise<(T & { _id: string })[] | undefined> {
+    async function getAll<T extends { _id: string }>(collection: string): Promise<(T & { _id: string })[] | undefined> {
         const client = await getClient();
 
         try {

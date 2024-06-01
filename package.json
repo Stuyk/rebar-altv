@@ -1,7 +1,7 @@
 {
     "author": "stuyk",
     "type": "module",
-    "version": "9",
+    "version": "10",
     "scripts": {
         "clean": "shx rm -rf resources/core",
         "dev": "nodemon -x pnpm start",
@@ -76,7 +76,8 @@
             "webview/vite.config.*",
             "*/package.json",
             "*.mjs",
-            "ignore*.ts"
+            "ignore*.ts",
+            "autogen*.ts"
         ]
     }
 }
