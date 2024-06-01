@@ -4,6 +4,20 @@ order: -5
 
 # Changelog
 
+## Version 10
+
+### Code Changes
+
+-   Added `ignore` and `autogen` as a keyword to ignore file changes when developing
+-   Added `time-changed`, `time-second-changed`, `time-minute-changed`, and `time-hour-changed` events to core events
+-   Added `useServerTime` setters / getters for managing server time more effectively
+    -   Note: This does not auto-sync on players, other plugins can build more complex time systems
+
+### Docs Changes
+
+-   Added `useServerTime` API docs
+-   Added `time-changed`, `time-second-changed`, `time-minute-changed`, and `time-hour-changed` event documentation
+
 ## Version 9
 
 ### Code Changes

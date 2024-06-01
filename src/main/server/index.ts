@@ -57,6 +57,7 @@ import { sha256, sha256Random } from './utility/hash.js';
 import { check, hash } from './utility/password.js';
 import { useVehicle } from './vehicle/index.js';
 import { useProtectCallback } from './utility/protectCallback.js';
+import { useServerTime } from './systems/serverTime.js';
 
 export function useRebar() {
     return {
@@ -133,6 +134,7 @@ export function useRebar() {
             usePermissionGroup,
         },
         usePlayer,
+        useServerTime,
         utility: {
             sha256,
             sha256Random,

@@ -4,6 +4,10 @@ import { Character } from '@Shared/types/character.js';
 import { Vehicle } from '@Shared/types/vehicle.js';
 
 type RebarEvents = {
+    'time-changed': (hour: number, minute: number, second: number) => void;
+    'time-second-changed': (minute: number) => void;
+    'time-minute-changed': (minute: number) => void;
+    'time-hour-changed': (hour: number) => void;
     'account-bound': (player: alt.Player, document: Account) => void;
     'character-bound': (player: alt.Player, document: Character) => void;
     'vehicle-bound': (vehicle: alt.Vehicle, document: Vehicle) => void;
@@ -13,6 +17,10 @@ type RebarEvents = {
 type EventCallbacks<K extends keyof RebarEvents> = { [key in K]: RebarEvents[K][] };
 
 const eventCallbacks: EventCallbacks<keyof RebarEvents> = {
+    'time-changed': [],
+    'time-second-changed': [],
+    'time-hour-changed': [],
+    'time-minute-changed': [],
     'account-bound': [],
     'character-bound': [],
     'vehicle-bound': [],

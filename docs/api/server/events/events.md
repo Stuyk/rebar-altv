@@ -29,4 +29,24 @@ RebarEvents.on('vehicle-bound', (vehicle, document) => {
 RebarEvents.on('message', (player, msg) => {
     console.log(msg);
 });
+
+// Called whenever the time changes
+RebarEvents.on('time-changed', (hour, minute, second) => {
+    console.log(hour, minute, second);
+});
+
+// Called whenever the hour increments by 1
+RebarEvents.on('time-hour-changed', (hour) => {
+    console.log(hour);
+});
+
+// Called whenever the minute increments by 1
+RebarEvents.on('time-minute-changed', (minute) => {
+    console.log(minute);
+});
+
+// Called whenever the second increments by 1
+RebarEvents.on('time-second-changed', (second) => {
+    console.log(second);
+});
 ```
