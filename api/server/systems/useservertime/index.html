@@ -9,24 +9,24 @@
     <meta name="generator" content="Retype 3.5.0">
 
     <!-- Primary Meta Tags -->
-    <title>Protect Callback</title>
-    <meta name="title" content="Protect Callback">
-    <meta name="description" content="When you're using events, or you need callbacks to be fully protected and permissioned this utility functions provides a simple wrapper to check for...">
+    <title>useServerTime</title>
+    <meta name="title" content="useServerTime">
+    <meta name="description" content="This stores server time during runtime, and allows for time to be shared to other plugins.">
 
     <!-- Canonical -->
-    <link rel="canonical" href="https://rebarv.com/api/server/utility/protect-callback/">
+    <link rel="canonical" href="https://rebarv.com/api/server/systems/useservertime/">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://rebarv.com/api/server/utility/protect-callback/">
-    <meta property="og:title" content="Protect Callback">
-    <meta property="og:description" content="When you're using events, or you need callbacks to be fully protected and permissioned this utility functions provides a simple wrapper to check for...">
+    <meta property="og:url" content="https://rebarv.com/api/server/systems/useservertime/">
+    <meta property="og:title" content="useServerTime">
+    <meta property="og:description" content="This stores server time during runtime, and allows for time to be shared to other plugins.">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://rebarv.com/api/server/utility/protect-callback/">
-    <meta property="twitter:title" content="Protect Callback">
-    <meta property="twitter:description" content="When you're using events, or you need callbacks to be fully protected and permissioned this utility functions provides a simple wrapper to check for...">
+    <meta property="twitter:url" content="https://rebarv.com/api/server/systems/useservertime/">
+    <meta property="twitter:title" content="useServerTime">
+    <meta property="twitter:description" content="This stores server time during runtime, and allows for time to be shared to other plugins.">
 
     <script data-cfasync="false">(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
@@ -186,26 +186,31 @@
                                 <!-- Rendered if sidebar right is enabled -->
                                 <div id="docs-sidebar-right-toggle"></div>
                                 <!-- Page content  -->
-<doc-anchor-target id="protect-callback" class="break-words">
+<doc-anchor-target id="useservertime" class="break-words">
     <h1>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#protect-callback">#</doc-anchor-trigger>
-        <span>Protect Callback</span>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#useservertime">#</doc-anchor-trigger>
+        <span>useServerTime</span>
     </h1>
 </doc-anchor-target>
-<p>When you&#x27;re using events, or you need callbacks to be fully protected and permissioned this utility functions provides a simple wrapper to check for permissions before the callback is executed.</p>
-<p>This prevents unauthorized users from executing callbacks at the event level.</p>
-<p>A simple, but easy way to add permissions when recieving client-side events, or other callbacks.</p>
+<p>This stores server time during runtime, and allows for time to be shared to other plugins.</p>
+<p>Additionally, when these functions are used the internal RebarEvents for time changes are invoked.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">// Functions like a normal alt:V on-client callback, or normal function.
-// Only requirement is that the first argument is a player.
-function handleEvent(player: alt.Player, arg1: string, arg2: string) {
-    //
-}
+<pre class="language-typescript"><code v-pre class="language-typescript">import * as alt from 'alt-server';
+import { useRebar } from '@Server/index.js';
 
-alt.onClient(
-    'protected-event',
-    Rebar.utility.useProtectCallback(handleEvent, { account: ['admin'], character: ['police'] }),
-);</code></pre>
+const Rebar = useRebar();
+const ServerTime = Rebar.useServerTime();
+
+function whatever() {
+    // Returns { hour, minute, second }
+    const { hour, minute, second } = ServerTime.getTime();
+
+    // Get current time
+    const currentTime = new Date(Date.now());
+    ServerTime.setHour(currentTime.getHours());
+    ServerTime.setMinute(currentTime.getMinutes());
+    ServerTime.setSecond(currentTime.getSeconds());
+}</code></pre>
 </doc-codeblock></div>
 
                                 
@@ -216,20 +221,20 @@ alt.onClient(
                             
                                 <nav class="flex mt-14">
                                     <div class="w-1/2">
-                                        <a class="px-5 py-4 h-full flex items-center break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-l-lg transition-colors duration-150 relative hover:z-5" href="../../../../api/server/systems/useservertime/">
+                                        <a class="px-5 py-4 h-full flex items-center break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-l-lg transition-colors duration-150 relative hover:z-5" href="../../../../api/server/systems/messenger/">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="mr-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19 11H7.41l5.29-5.29a.996.996 0 10-1.41-1.41l-7 7a1 1 0 000 1.42l7 7a1.024 1.024 0 001.42-.01.996.996 0 000-1.41L7.41 13H19c.55 0 1-.45 1-1s-.45-1-1-1z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
                                             <span>
                                                 <span class="block text-xs font-normal text-gray-400 dark:text-dark-400">Previous</span>
-                                                <span class="block mt-1">use​Server​Time</span>
+                                                <span class="block mt-1">Messenger</span>
                                             </span>
                                         </a>
                                     </div>
                             
                                     <div class="w-1/2">
-                                        <a class="px-5 py-4 -mx-px h-full flex items-center justify-end break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-r-lg transition-colors duration-150 relative hover:z-5" href="../../../../api/server/vehicle/vehicle-use/">
+                                        <a class="px-5 py-4 -mx-px h-full flex items-center justify-end break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-r-lg transition-colors duration-150 relative hover:z-5" href="../../../../api/server/utility/protect-callback/">
                                             <span>
                                                 <span class="block text-xs font-normal text-right text-gray-400 dark:text-dark-400">Next</span>
-                                                <span class="block mt-1">use​Vehicle</span>
+                                                <span class="block mt-1">Protect Callback</span>
                                             </span>
                                             <svg xmlns="http://www.w3.org/2000/svg" class="ml-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19.92 12.38a1 1 0 00-.22-1.09l-7-7a.996.996 0 10-1.41 1.41l5.3 5.3H5c-.55 0-1 .45-1 1s.45 1 1 1h11.59l-5.29 5.29a.996.996 0 000 1.41c.19.2.44.3.7.3s.51-.1.71-.29l7-7c.09-.09.16-.21.21-.33z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
                                         </a>
@@ -273,6 +278,6 @@ alt.onClient(
 
     <div id="docs-overlay-target"></div>
 
-    <script data-cfasync="false">window.__DOCS__ = { "title": "Protect Callback", level: 4, icon: "file", hasPrism: true, hasMermaid: false, hasMath: false, tocDepth: 23 }</script>
+    <script data-cfasync="false">window.__DOCS__ = { "title": "useServerTime", level: 4, icon: "file", hasPrism: true, hasMermaid: false, hasMath: false, tocDepth: 23 }</script>
 </body>
 </html>
