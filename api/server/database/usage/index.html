@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.5.0.770586384622">
+    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.5.0.770603490091">
 
     <!-- See retype.com -->
     <meta name="generator" content="Retype 3.5.0">
@@ -30,12 +30,12 @@
 
     <script data-cfasync="false">(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
-    <link href="../../../../resources/css/retype.css?v=3.5.0.770586384622" rel="stylesheet">
+    <link href="../../../../resources/css/retype.css?v=3.5.0.770603490091" rel="stylesheet">
 
-    <script data-cfasync="false" src="../../../../resources/js/config.js?v=3.5.0.770586384622" data-turbo-eval="false" defer></script>
+    <script data-cfasync="false" src="../../../../resources/js/config.js?v=3.5.0.770603490091" data-turbo-eval="false" defer></script>
     <script data-cfasync="false" src="../../../../resources/js/retype.js?v=3.5.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" data-cfasync="false" src="../../../../resources/js/lunr.js?v=3.5.0.770586384622" data-turbo-eval="false" defer></script>
-    <script id="prism-js" data-cfasync="false" src="../../../../resources/js/prism.js?v=3.5.0.770586384622" defer></script>
+    <script id="lunr-js" data-cfasync="false" src="../../../../resources/js/lunr.js?v=3.5.0.770603490091" data-turbo-eval="false" defer></script>
+    <script id="prism-js" data-cfasync="false" src="../../../../resources/js/prism.js?v=3.5.0.770603490091" defer></script>
 </head>
 <body>
     <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -223,7 +223,22 @@
 
 const Rebar = useRebar();
 
-const { get, create, getAll, getMany, update, deleteDocument } = Rebar.database.useDatabase();</code></pre>
+const { get, create, getAll, getMany, update, deleteDocument, createCollection } = Rebar.database.useDatabase();</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="create-collection">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#create-collection">#</doc-anchor-trigger>
+        <span>Create Collection</span>
+    </h3>
+</doc-anchor-target>
+<p>A collection is where documents are stored.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">const db = Rebar.database.useDatabase();
+
+async function createCollections() {
+    await db.createCollection('Person');
+    await db.createCollection('PhoneData');
+}</code></pre>
 </doc-codeblock></div>
 <doc-anchor-target id="create-data">
     <h3>
@@ -234,7 +249,7 @@ const { get, create, getAll, getMany, update, deleteDocument } = Rebar.database.
 <p>Creating data uses the <code v-pre>create</code> function and returns an <code v-pre>_id</code> to obtain the data.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-typescript"><code v-pre class="language-typescript">async function test() {
-    const _id = await create({ name: 'Stuyk', age: 30 }, 'person');
+    const _id = await create({ name: 'Stuyk', age: 30 }, 'Person');
 }</code></pre>
 </doc-codeblock></div>
 <doc-anchor-target id="get-data">
@@ -246,7 +261,7 @@ const { get, create, getAll, getMany, update, deleteDocument } = Rebar.database.
 <p>If you want to get a document by an <code v-pre>_id</code>, you can use this:</p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-typescript"><code v-pre class="language-typescript">async function test() {
-    const _id = await create({ name: 'Stuyk', age: 30 }, 'person');
+    const _id = await create({ name: 'Stuyk', age: 30 }, 'Person');
     const user = await get&lt;{ name: string }&gt;(_id);
     if (!user) {
         console.warn('Could not find the data!');
@@ -265,7 +280,7 @@ const { get, create, getAll, getMany, update, deleteDocument } = Rebar.database.
 <p>After creating data, if you don&#x27;t have an <code v-pre>_id</code> and you want to find it. You can use <code v-pre>getMany</code>.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-typescript"><code v-pre class="language-typescript">async function test() {
-    const results = await getMany&lt;{ name: string }&gt;({ name: 'Stuyk' }, 'person');
+    const results = await getMany&lt;{ name: string }&gt;({ name: 'Stuyk' }, 'Person');
     if (results.length &lt;= 0) {
         console.warn('Could not find the data!');
         return;
@@ -285,7 +300,7 @@ const { get, create, getAll, getMany, update, deleteDocument } = Rebar.database.
 <p>In any case, you can use this to fetch a whole collection of data.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-typescript"><code v-pre class="language-typescript">async function test() {
-    const results = await getAll&lt;{ name: string }&gt;('person');
+    const results = await getAll&lt;{ name: string }&gt;('Person');
 }</code></pre>
 </doc-codeblock></div>
 <doc-anchor-target id="update">
@@ -297,8 +312,8 @@ const { get, create, getAll, getMany, update, deleteDocument } = Rebar.database.
 <p>If you want to update a document, or simply append new data to the document.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-typescript"><code v-pre class="language-typescript">async function test() {
-    const _id = await create({ name: 'Stuyk', age: 30 }, 'person');
-    const didUpdate = await update({ _id, name: 'NotStuyk' }, 'person');
+    const _id = await create({ name: 'Stuyk', age: 30 }, 'Person');
+    const didUpdate = await update({ _id, name: 'NotStuyk' }, 'Person');
     if (!didUpdate) {
         return;
     }
