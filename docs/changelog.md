@@ -4,6 +4,20 @@ order: -5
 
 # Changelog
 
+## Version 11
+
+### Code Changes
+
+-   Added `createCollection` to database functions
+-   Automatically create default collections on startup
+
+### Docs Changes
+
+-   Added `createCollection` function to the database functions
+-   Clarified how no spawner exists outright for Rebar
+
+---
+
 ## Version 10
 
 ### Code Changes
@@ -18,6 +32,8 @@ order: -5
 -   Added `useServerTime` API docs
 -   Added `time-changed`, `time-second-changed`, `time-minute-changed`, and `time-hour-changed` event documentation
 
+---
+
 ## Version 9
 
 ### Code Changes
@@ -25,6 +41,8 @@ order: -5
 -   Added client-side `messenger` for handling chat focus states
 -   Patched issue where pressing `E` while chat is focused invoked interactions
 -   Patched issue where pressing native menu buttons while chatting invoked native menu functions
+
+---
 
 ## Version 8
 
@@ -42,6 +60,8 @@ order: -5
 -   Added `usePlayer` docs
 -   Added `useProtectCallback` docs
 
+---
+
 ## Version 7
 
 ### Code Changes
@@ -52,6 +72,8 @@ order: -5
 ### Docs Changes
 
 -   Documented `useMinimap` composable
+
+---
 
 ## Version 6
 
@@ -91,6 +113,8 @@ order: -5
 -   Changed `update()` references to `sync()`
 -   Updated documentation for `useAudio` composable
 
+---
+
 ## Version 5
 
 ### Code Changes
@@ -111,6 +135,8 @@ order: -5
 -   Added `useStatus` to `player` section
 -   Added `events` section to Server API
 
+---
+
 ## Version 4
 
 ### Code Changes
@@ -118,17 +144,23 @@ order: -5
 -   Added `getCommands` to the `messenger` system
 -   Added `formatTimestamp` to the shared utilities
 
+---
+
 ## Version 3
 
 ### Code Changes
 
 -   Added `focus` and `unfocus` support to client-side webviews
 
+---
+
 ## Version 2
 
 ### Code Changes
 
 -   Fixed issue with disabling plugins
+
+---
 
 ## Version 1
 

@@ -1,6 +1,7 @@
 import * as alt from 'alt-server';
 import { MongoClient, Db, InsertOneResult, ObjectId } from 'mongodb';
 import * as Utility from '@Shared/utility/index.js';
+import { CollectionNames } from '../document/shared.js';
 
 const DatabaseName = 'Rebar';
 
@@ -26,10 +27,19 @@ export function useDatabase() {
             return false;
         }
 
-        alt.log('Connected to MongoDB Successfully');
         database = client.db(DatabaseName);
         isInit = false;
         isConnected = true;
+        alt.log('Connected to MongoDB Successfully');
+
+        const promises: Promise<any>[] = [];
+
+        promises.push(createCollection(CollectionNames.Accounts));
+        promises.push(createCollection(CollectionNames.Characters));
+        promises.push(createCollection(CollectionNames.Global));
+        promises.push(createCollection(CollectionNames.Vehicles));
+
+        await Promise.all(promises);
         return true;
     }
 
@@ -57,6 +67,24 @@ export function useDatabase() {
         } catch (err) {
             return undefined;
         }
+    }
+
+    /**
+     * Create a collection if it does not exist
+     *
+     * @param {string} name
+     */
+    async function createCollection(name: string) {
+        const client = await getClient();
+        const collections = await client.listCollections().toArray();
+        const index = collections.findIndex((x) => x.name === name);
+        if (index >= 0) {
+            return;
+        }
+
+        try {
+            await client.createCollection(name);
+        } catch (err) {}
     }
 
     /**
@@ -227,6 +255,7 @@ export function useDatabase() {
 
     return {
         create,
+        createCollection,
         deleteDocument,
         destroy,
         get,

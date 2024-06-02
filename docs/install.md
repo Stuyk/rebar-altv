@@ -4,7 +4,15 @@ order: 99
 
 # Installation
 
-Ensure you are on a **Windows Machine**.
+Ensure you are on a **Windows Machine**
+
+!!!
+Hey listen! When you run Rebar for the first time, you won't be able to spawn.
+
+This is simply for server setup, and getting started.
+
+Check out some [Plugins](<https://forge.plebmasters.de/hub?targetFrameworks=Rebar+(alt:V)&contentType=Script>) to get everything working!
+!!!
 
 ## Programs to Install
 
