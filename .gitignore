@@ -26,6 +26,8 @@ libnode.dll
 server.log
 webview/pages/plugins.ts
 .env
+test/
+tmp/
 
 src/plugins/sandbox-*
 

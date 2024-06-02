@@ -23,7 +23,7 @@ async function init() {
             alt.logWarning(
                 `Version ${packageContent.version} of Rebar is now available! You are on version ${data.version}.`,
             );
-            alt.logWarning(`Check https://rebarv.com/upgrade for more information.`);
+            alt.logWarning(`Check https://rebarv.com/upgrade for instructions.`);
         }, 3000);
     }
 }
