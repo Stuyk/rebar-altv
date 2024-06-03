@@ -5,7 +5,9 @@ import path from 'path';
 const repoUrl = 'https://github.com/Stuyk/rebar-altv';
 const tmpPath = path.resolve(process.cwd(), 'tmp');
 const srcMainPath = path.resolve(process.cwd(), 'src/main');
-const webviewPath = path.resolve(process.cwd(), 'webview');
+const webviewComposablesPath = path.resolve(process.cwd(), 'webview/composables');
+const webviewSrcPath = path.resolve(process.cwd(), 'webview/src');
+const webviewPublicPath = path.resolve(process.cwd(), 'webview/public');
 const docsPath = path.resolve(process.cwd(), 'docs');
 const packagePath = path.resolve(process.cwd(), 'package.json');
 
@@ -25,7 +27,9 @@ function moveDirectory(src, dest, makeDirectory = true) {
 try {
     cloneRepository(repoUrl, tmpPath);
     moveDirectory(path.join(tmpPath, 'src/main'), srcMainPath);
-    moveDirectory(path.join(tmpPath, 'webview'), webviewPath);
+    moveDirectory(path.join(tmpPath, 'webview/composables'), webviewComposablesPath);
+    moveDirectory(path.join(tmpPath, 'webview/src'), webviewSrcPath);
+    moveDirectory(path.join(tmpPath, 'webview/public'), webviewPublicPath);
     moveDirectory(path.join(tmpPath, 'docs'), docsPath);
     moveDirectory(path.join(tmpPath, 'package.json'), packagePath, false);
     execSync(`pnpm upgrade`, { stdio: 'inherit' });
