@@ -28,7 +28,7 @@ export function useMarkerGlobal(marker: Marker, maxDistance: number = 50) {
         marker.dimension = 0;
     }
 
-    let entity = new alt.VirtualEntity(markerGroup, new alt.Vector3(marker.pos), MAX_STREAM_DISTANCE, {
+    let entity = new alt.VirtualEntity(markerGroup, new alt.Vector3(marker.pos), maxDistance, {
         type: GroupType,
         marker,
     });
@@ -45,7 +45,7 @@ export function useMarkerGlobal(marker: Marker, maxDistance: number = 50) {
             entity.destroy();
         } catch (err) {}
 
-        entity = new alt.VirtualEntity(markerGroup, new alt.Vector3(marker.pos), MAX_STREAM_DISTANCE, {
+        entity = new alt.VirtualEntity(markerGroup, new alt.Vector3(marker.pos), maxDistance, {
             type: GroupType,
             marker,
         });
