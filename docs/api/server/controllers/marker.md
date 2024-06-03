@@ -22,7 +22,7 @@ const globalMarker = Rebar.controllers.useMarkerGlobal(
         scale: new alt.Vector3(1, 1, 1),
         type: MarkerType.CYLINDER,
     },
-    20, //streaming distance
+    20, // streaming distance, completely optional
 );
 
 // Change the position of the marker
