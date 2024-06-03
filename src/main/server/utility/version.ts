@@ -21,7 +21,7 @@ async function init() {
     if (data.version != packageContent.version) {
         alt.setTimeout(() => {
             alt.logWarning(
-                `Version ${packageContent.version} of Rebar is now available! You are on version ${data.version}.`,
+                `Version ${data.version} of Rebar is now available! You are on version ${packageContent.version}.`,
             );
             alt.logWarning(`Check https://rebarv.com/upgrade for instructions.`);
         }, 3000);
