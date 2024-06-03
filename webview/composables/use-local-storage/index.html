@@ -9,33 +9,33 @@
     <meta name="generator" content="Retype 3.5.0">
 
     <!-- Primary Meta Tags -->
-    <title>Players</title>
-    <meta name="title" content="Players">
-    <meta name="description" content="The players getter gives information about all players.">
+    <title>useLocalStorage</title>
+    <meta name="title" content="useLocalStorage">
+    <meta name="description" content="A way to store local data to the alt:V Client.">
 
     <!-- Canonical -->
-    <link rel="canonical" href="https://rebarv.com/api/server/getters/getters-players/">
+    <link rel="canonical" href="https://rebarv.com/webview/composables/use-local-storage/">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://rebarv.com/api/server/getters/getters-players/">
-    <meta property="og:title" content="Players">
-    <meta property="og:description" content="The players getter gives information about all players.">
+    <meta property="og:url" content="https://rebarv.com/webview/composables/use-local-storage/">
+    <meta property="og:title" content="useLocalStorage">
+    <meta property="og:description" content="A way to store local data to the alt:V Client.">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://rebarv.com/api/server/getters/getters-players/">
-    <meta property="twitter:title" content="Players">
-    <meta property="twitter:description" content="The players getter gives information about all players.">
+    <meta property="twitter:url" content="https://rebarv.com/webview/composables/use-local-storage/">
+    <meta property="twitter:title" content="useLocalStorage">
+    <meta property="twitter:description" content="A way to store local data to the alt:V Client.">
 
     <script data-cfasync="false">(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
-    <link href="../../../../resources/css/retype.css?v=3.5.0.770698122047" rel="stylesheet">
+    <link href="../../../resources/css/retype.css?v=3.5.0.770698122047" rel="stylesheet">
 
-    <script data-cfasync="false" src="../../../../resources/js/config.js?v=3.5.0.770698122047" data-turbo-eval="false" defer></script>
-    <script data-cfasync="false" src="../../../../resources/js/retype.js?v=3.5.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" data-cfasync="false" src="../../../../resources/js/lunr.js?v=3.5.0.770698122047" data-turbo-eval="false" defer></script>
-    <script id="prism-js" data-cfasync="false" src="../../../../resources/js/prism.js?v=3.5.0.770698122047" defer></script>
+    <script data-cfasync="false" src="../../../resources/js/config.js?v=3.5.0.770698122047" data-turbo-eval="false" defer></script>
+    <script data-cfasync="false" src="../../../resources/js/retype.js?v=3.5.0" data-turbo-eval="false" defer></script>
+    <script id="lunr-js" data-cfasync="false" src="../../../resources/js/lunr.js?v=3.5.0.770698122047" data-turbo-eval="false" defer></script>
+    <script id="prism-js" data-cfasync="false" src="../../../resources/js/prism.js?v=3.5.0.770698122047" defer></script>
 </head>
 <body>
     <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -50,10 +50,10 @@
                 <!-- Logo -->
                 <div class="flex items-center justify-between h-full py-2 md:w-75">
                     <div class="flex items-center px-2 md:px-6">
-                        <a id="docs-site-logo" href="../../../../" class="flex items-center leading-snug text-xl">
+                        <a id="docs-site-logo" href="../../../" class="flex items-center leading-snug text-xl">
                             <span class="w-10 mr-2 grow-0 shrink-0 overflow-hidden">
-                                <img class="max-h-10 dark:hidden md:inline-block" src="../../../../static/logo_dark.svg">
-                                <img class="max-h-10 hidden dark:inline-block" src="../../../../static/logo_light.svg">
+                                <img class="max-h-10 dark:hidden md:inline-block" src="../../../static/logo_dark.svg">
+                                <img class="max-h-10 hidden dark:inline-block" src="../../../static/logo_light.svg">
                             </span>
                             <span class="dark:text-white font-semibold line-clamp-1 md:line-clamp-2">Rebar for alt:V</span>
                         </a>
@@ -186,42 +186,29 @@
                                 <!-- Rendered if sidebar right is enabled -->
                                 <div id="docs-sidebar-right-toggle"></div>
                                 <!-- Page content  -->
-<doc-anchor-target id="players" class="break-words">
+<doc-anchor-target id="uselocalstorage" class="break-words">
     <h1>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#players">#</doc-anchor-trigger>
-        <span>Players</span>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#uselocalstorage">#</doc-anchor-trigger>
+        <span>useLocalStorage</span>
     </h1>
 </doc-anchor-target>
-<p>The players getter gives information about all players.</p>
+<p>A way to store local data to the alt:V Client.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">import { useRebar } from '@Server/index.js';
-const Rebar = useRebar();
+<pre class="language-typescript"><code v-pre class="language-typescript">import { useLocalStorage } from '../../../../webview/composables/useLocalStorage'
 
-const getter = Rebar.get.usePlayersGetter();
+async function example() {
+    const localStorage = useLocalStorage();
+    
+    // Set something into the local storage
+    localStorage.set('myKey', 'someValue')
 
-// Returns an array of players who are driving
-const playersDriving = getter.driving();
+    // Get something from the local storage
+    const result = await localStorage.get('myKey');
+    console.log(`Local test result: ${result}`); // This will return `someValue`
 
-// Returns an array of players in range of a position
-const playersInRange = getter.inRange(new alt.Vector3(0, 0, 0), 5);
-
-// Returns an array with players who are close, and the distance they are from the position
-const playersInRangeWithDist = getter.inRangeWithDistance(new alt.Vector3(0, 0, 0), 5);
-
-// Returns all players in a vehicle
-const playersInVehicle = getter.inVehicle(someVehicle);
-
-// Returns all players who are currently using a character, and playing
-const playersOnline = getter.online();
-
-// Returns all players who are currently using a character, playing, and have a weapon out
-const playersOnlineWithWeapon = getter.onlineWithWeapons();
-
-// Returns all players who are currently walking around
-const playersWalking = getter.walking();
-
-// Returns all players who have a certain name
-const playersWithName = getter.withName('john_doe');</code></pre>
+    // Remove the data based on key
+    await localStorage.remove('myKey');
+}</code></pre>
 </doc-codeblock></div>
 
                                 
@@ -232,20 +219,20 @@ const playersWithName = getter.withName('john_doe');</code></pre>
                             
                                 <nav class="flex mt-14">
                                     <div class="w-1/2">
-                                        <a class="px-5 py-4 h-full flex items-center break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-l-lg transition-colors duration-150 relative hover:z-5" href="../../../../api/server/getters/getters-player/">
+                                        <a class="px-5 py-4 h-full flex items-center break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-l-lg transition-colors duration-150 relative hover:z-5" href="../../../webview/composables/use-events/">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="mr-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19 11H7.41l5.29-5.29a.996.996 0 10-1.41-1.41l-7 7a1 1 0 000 1.42l7 7a1.024 1.024 0 001.42-.01.996.996 0 000-1.41L7.41 13H19c.55 0 1-.45 1-1s-.45-1-1-1z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
                                             <span>
                                                 <span class="block text-xs font-normal text-gray-400 dark:text-dark-400">Previous</span>
-                                                <span class="block mt-1">Player</span>
+                                                <span class="block mt-1">use​Events</span>
                                             </span>
                                         </a>
                                     </div>
                             
                                     <div class="w-1/2">
-                                        <a class="px-5 py-4 -mx-px h-full flex items-center justify-end break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-r-lg transition-colors duration-150 relative hover:z-5" href="../../../../api/server/getters/getters-vehicle/">
+                                        <a class="px-5 py-4 -mx-px h-full flex items-center justify-end break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-r-lg transition-colors duration-150 relative hover:z-5" href="../../../webview/composables/use-messenger/">
                                             <span>
                                                 <span class="block text-xs font-normal text-right text-gray-400 dark:text-dark-400">Next</span>
-                                                <span class="block mt-1">Vehicle</span>
+                                                <span class="block mt-1">use​Messenger</span>
                                             </span>
                                             <svg xmlns="http://www.w3.org/2000/svg" class="ml-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19.92 12.38a1 1 0 00-.22-1.09l-7-7a.996.996 0 10-1.41 1.41l5.3 5.3H5c-.55 0-1 .45-1 1s.45 1 1 1h11.59l-5.29 5.29a.996.996 0 000 1.41c.19.2.44.3.7.3s.51-.1.71-.29l7-7c.09-.09.16-.21.21-.33z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
                                         </a>
@@ -289,6 +276,6 @@ const playersWithName = getter.withName('john_doe');</code></pre>
 
     <div id="docs-overlay-target"></div>
 
-    <script data-cfasync="false">window.__DOCS__ = { "title": "Players", level: 4, icon: "file", hasPrism: true, hasMermaid: false, hasMath: false, tocDepth: 23 }</script>
+    <script data-cfasync="false">window.__DOCS__ = { "title": "useLocalStorage", level: 3, icon: "file", hasPrism: true, hasMermaid: false, hasMath: false, tocDepth: 23 }</script>
 </body>
 </html>
