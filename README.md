@@ -27,37 +27,9 @@ If you're looking for plugins for Rebar, check out these two websites.
 -   https://github.com/Stuyk/awesome-rebar
 -   https://forge.plebmasters.de/hub/Script
 
-## Requirements
+## Requirements & Usage
 
-This is not optional, install these programs.
-
--   [Node.js](https://nodejs.org/en/download)
--   [pnpm](https://pnpm.io/installation)
--   [MongoDB Server](https://www.mongodb.com/try/download/community)
-    -   Ensure that if you are running it locally, do not set a database password.
-    -   When you move your server to production use something like [MongoDB Atlas](https://www.mongodb.com/atlas/database)
-
-## Usage
-
-```sh
-git clone https://github.com/Stuyk/rebar-altv
-```
-
-```sh
-cd rebar-altv
-```
-
-```sh
-pnpm i
-```
-
-```sh
-pnpm binaries
-```
-
-```sh
-pnpm start
-```
+See [Install Instructions](https://rebarv.com/install/) for quick installation
 
 ## Structure
 
@@ -83,7 +55,7 @@ A folder structure that is simple to read, and simple to write.
 
 ## Documentation
 
-[https://stuyk.github.io/rebar-altv](https://stuyk.github.io/rebar-altv)
+[https://rebarv.com](https://rebarv.com)
 
 If you wish to run documentation locally, you can do the following:
 
