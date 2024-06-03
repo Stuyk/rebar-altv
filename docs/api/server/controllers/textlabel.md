@@ -15,7 +15,7 @@ const Rebar = useRebar();
 // you can specify streaming distance from 1 to 50, it will reset to 50 if not specified or if it is greater than 50.
 const label = Rebar.controllers.useTextLabelGlobal(
     { text: '~r~Hello World', pos: new alt.Vector3(0, 0, 0) },
-    20, //streaming distance
+    20, //streaming distance, completely optional
 );
 
 // Update text to say something else
