@@ -15,7 +15,7 @@ const markerGroup = new alt.VirtualEntityGroup(MAX_MARKERS);
  * @param {Marker} marker
  * @return
  */
-export function useMarkerGlobal(marker: Marker, maxDistance?: number) {
+export function useMarkerGlobal(marker: Marker, maxDistance?: number = 50) {
     const MAX_STREAM_DISTANCE = maxDistance === undefined || maxDistance > 50 ? 50 : maxDistance;
 
     if (!marker.uid) {
