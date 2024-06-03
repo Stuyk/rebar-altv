@@ -18,7 +18,7 @@
         "@altv/types-server": "^16.2.1",
         "@altv/types-shared": "^16.2.1",
         "@altv/types-webview": "^16.2.1",
-        "@types/node": "^20.13.0",
+        "@types/node": "^20.14.0",
         "altv-pkg": "^2.7.5",
         "autoprefixer": "^10.4.19",
         "fast-glob": "^3.3.2",
@@ -33,6 +33,7 @@
         "tailwindcss": "^3.4.3"
     },
     "dependencies": {
+        "@altv/types-worker": "^16.2.0",
         "@vitejs/plugin-vue": "^5.0.5",
         "dotenv": "^16.4.5",
         "mongodb": "^6.7.0",
