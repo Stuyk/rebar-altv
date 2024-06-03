@@ -45,4 +45,9 @@ useWebview().showCursor(true);
 
 // Hide cursor
 useWebview().showCursor(false);
+
+// Handles RPC calls from the webview on the client-side
+useWebview().onRpc('some-event', () => {
+    return 'hello there'
+});
 ```

@@ -6,6 +6,7 @@ import { PageNames, PageType } from '@Shared/webview/index.js';
 type AnyCallback = ((...args: any[]) => void) | ((...args: any[]) => Promise<void>) | Function;
 
 const ClientEvents: { [eventName: string]: AnyCallback } = {};
+const ClientRpcEvents: { [eventName: string]: (...args: any[]) => Promise<any> | any } = {}
 
 let onWebviewReadyCallbacks: (() => void)[] = [];
 let readyCallbackTimeout;
@@ -249,6 +250,39 @@ export function useWebview(path = 'http://assets/webview/index.html') {
         alt.LocalStorage.save();
     }
 
+    async function handleServerRpcEvent(event: string, ...args: any[]) {
+        const result = await alt.emitRpc(event, ...args);
+        webview.emit(Events.view.emitServerRpc, event, result);
+    }
+
+    /**
+     * Handles client RPC events, and returns results
+     *
+     * @param {string} event 
+     * @param {...any[]} args 
+     * @return 
+     */
+    async function handleClientRpcEvent(event: string, ...args: any[]) {
+        if (!ClientRpcEvents[event]) {
+            alt.logWarning(`No Client RPC Event for ${event}`)
+            webview.emit(Events.view.emitClientRpc, event, undefined);
+            return;
+        }
+
+        const result = await ClientRpcEvents[event](...args);
+        webview.emit(Events.view.emitClientRpc, event, result);
+    }
+
+    /**
+     * Listen for an event from the webview, and return a result to the RPC
+     *
+     * @param {string} event 
+     * @param {(...args: any[]) => void} callback 
+     */
+    function onRpc(event: string, callback: (...args: any[]) => void) {
+        ClientRpcEvents[event] = callback;
+    }
+
     if (!isInitialized) {
         alt.onServer(Events.view.focus, focus);
         alt.onServer(Events.view.unfocus, unfocus);
@@ -260,6 +294,8 @@ export function useWebview(path = 'http://assets/webview/index.html') {
         webview.on(Events.view.localStorageDelete, deleteLocalStorage);
         webview.on(Events.view.emitClient, handleClientEvent);
         webview.on(Events.view.emitServer, handleServerEvent);
+        webview.on(Events.view.emitServerRpc, handleServerRpcEvent);
+        webview.on(Events.view.emitClientRpc, handleClientRpcEvent);
     }
 
     return {
@@ -269,6 +305,7 @@ export function useWebview(path = 'http://assets/webview/index.html') {
         hideAllByType,
         off,
         on,
+        onRpc,
         onWebviewReady,
         focus,
         unfocus,

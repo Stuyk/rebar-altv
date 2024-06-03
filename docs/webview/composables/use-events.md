@@ -19,5 +19,41 @@ This is an event wrapper that allows for communication directly to the server, o
 
     // Can be recieved with the alt.onClient event
     events.emitServer('emit-to-server-event', myVariable);
+
+    // Emit to the server-side RPC and get a result from the server
+    const result = await events.emitServerRpc('get-something', 'hello');
+    console.log(`Webview Result: ${result}`);
+
+    // Emit to the client-side, but only works with useWebview().onRpc('get-something', () => {})
+    const result = await events.emitClientRpc('get-something', 'hello');
 </script>
+```
+
+## Server Side RPC Handling
+
+If you use the event `emitServerRpc` you can use the normal `alt.onRpc` to handle the request.
+
+A simple but seamless integration with existing alt:V APIs.
+
+```ts
+import * as alt from 'alt-server';
+
+alt.onRpc('get-something', (player, arg1: string) => {
+    const result = arg1 + ' world';
+    return result;
+});
+```
+
+## Client Side RPC Handling
+
+This one works differently on client-side, so you'll have to access the `useWebview` function, and then add your listener callback.
+
+```ts
+import { useWebview } from '@Client/webview/index.js';
+
+const view = useWebview();
+
+view.onRpc('get-something', (arg1: string) => {
+    return arg1 + ' world';
+});
 ```

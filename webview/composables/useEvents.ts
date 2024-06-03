@@ -2,6 +2,8 @@ import { Events } from '../../src/main/shared/events/index.js';
 
 const OnEvents: { [key: string]: (...args: any[]) => void } = {};
 const OnKeybind: { [identifier: string]: { key: number; callback: (...args: any[]) => void } } = {};
+const rpcServerCallbacks: { [key: string]: Function } = {};
+const rpcClientCallbacks: { [key: string]: Function } = {};
 
 let isInitialized = false;
 
@@ -28,11 +30,29 @@ function handleKeypress(keycode: number) {
     }
 }
 
+function handleServerRpcCallback(event: string, result: any) {
+    if (!rpcServerCallbacks[event]) {
+        return;
+    }
+
+    rpcServerCallbacks[event](result);
+}
+
+function handleClientRpcCallback(event: string, result: any) {
+    if (!rpcClientCallbacks[event]) {
+        return;
+    }
+
+    rpcClientCallbacks[event](result);
+}
+
 export function useEvents() {
     if (!isInitialized && 'alt' in window) {
         isInitialized = true;
         alt.on(Events.view.onEmit, handleEmits);
         alt.on(Events.view.onKeypress, handleKeypress);
+        alt.on(Events.view.emitServerRpc, handleServerRpcCallback);
+        alt.on(Events.view.emitClientRpc, handleClientRpcCallback);
     }
 
     /**
@@ -51,6 +71,52 @@ export function useEvents() {
         }
 
         alt.emit(Events.view.emitServer, eventName, ...args);
+    }
+
+    /**
+     * Emit an event that will return a result from the server
+     *
+     * @template ReturnType 
+     * @param {string} eventName 
+     * @param {...any[]} args 
+     * @return {Promise<ReturnType>} 
+     */
+    async function emitServerRpc<ReturnType = any>(eventName: string, ...args: any[]): Promise<ReturnType> {
+        if (!('alt' in window)) {
+            return undefined;
+        }
+        
+        return new Promise((resolve) => {
+            const callback = (result: any) => {
+                return resolve(result);
+            };
+
+            rpcServerCallbacks[eventName] = callback;
+            alt.emit(Events.view. emitServerRpc, eventName, ...args);
+        });
+    }
+
+    /**
+     * Emit an event that will return a result from the client
+     *
+     * @template ReturnType 
+     * @param {string} eventName 
+     * @param {...any[]} args 
+     * @return {Promise<ReturnType>} 
+     */
+    async function emitClientRpc<ReturnType = any>(eventName: string, ...args: any[]): Promise<ReturnType> {
+        if (!('alt' in window)) {
+            return undefined;
+        }
+
+        return new Promise((resolve) => {
+            const callback = (result: any) => {
+                return resolve(result);
+            };
+
+            rpcClientCallbacks[eventName] = callback;
+            alt.emit(Events.view.emitClientRpc, eventName, ...args);
+        });
     }
 
     /**
@@ -103,7 +169,9 @@ export function useEvents() {
 
     return {
         emitClient,
+        emitClientRpc,
         emitServer,
+        emitServerRpc,
         on,
         onKeyUp,
     };

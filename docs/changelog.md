@@ -4,6 +4,20 @@ order: -5
 
 # Changelog
 
+## Version 14
+
+### Code Changes
+
+- Added `emitServerRpc` to Webview to retrieve data from server-side using normal `alt.onRpc` events.
+  - Yes, this means you don't have to do weird event bindings to get data now.
+- Added `emitClientRpc` to Webview to retrieve data from client-side.
+
+### Docs Changes
+
+- Added `emitServerRpc` and `emitClientRpc` to docs
+
+---
+
 ## Version 13
 
 ### Code Changes

@@ -2,6 +2,8 @@ import { Events } from '../../src/main/shared/events/index.js';
 
 const requests: { [key: string]: Function } = {};
 
+let isInit = false;
+
 function handleLocalStorage(key: string, value: any) {
     if (!requests[key]) {
         return;
@@ -12,6 +14,13 @@ function handleLocalStorage(key: string, value: any) {
 }
 
 export function useLocalStorage() {
+    if (!isInit) {
+        isInit = true;
+        if ('alt' in window) {
+            alt.on(Events.view.localStorageGet, handleLocalStorage)
+        }
+    }
+
     function set(key: string, value: any) {
         if (!('alt' in window)) {
             return;
@@ -50,8 +59,4 @@ export function useLocalStorage() {
         remove,
         set,
     }
-}
-
-if ('alt' in window) {
-    alt.on(Events.view.localStorageGet, handleLocalStorage)
 }
