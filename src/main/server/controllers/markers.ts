@@ -4,7 +4,6 @@ import { Marker } from '@Shared/types/marker.js';
 import { Events } from '@Shared/events/index.js';
 
 const GroupType = 'marker';
-const MAX_STREAM_DISTANCE = 100;
 const MAX_MARKERS = 10;
 
 const markerGroup = new alt.VirtualEntityGroup(MAX_MARKERS);
@@ -16,7 +15,11 @@ const markerGroup = new alt.VirtualEntityGroup(MAX_MARKERS);
  * @param {Marker} marker
  * @return
  */
-export function useMarkerGlobal(marker: Marker) {
+export function useMarkerGlobal(marker: Marker, maxDistance: number = 50) {
+    if (maxDistance > 50) {
+        maxDistance = 50;
+    }
+
     if (!marker.uid) {
         marker.uid = Utility.uid.generate();
     }
@@ -25,7 +28,7 @@ export function useMarkerGlobal(marker: Marker) {
         marker.dimension = 0;
     }
 
-    let entity = new alt.VirtualEntity(markerGroup, new alt.Vector3(marker.pos), MAX_STREAM_DISTANCE, {
+    let entity = new alt.VirtualEntity(markerGroup, new alt.Vector3(marker.pos), maxDistance, {
         type: GroupType,
         marker,
     });
@@ -42,7 +45,7 @@ export function useMarkerGlobal(marker: Marker) {
             entity.destroy();
         } catch (err) {}
 
-        entity = new alt.VirtualEntity(markerGroup, new alt.Vector3(marker.pos), MAX_STREAM_DISTANCE, {
+        entity = new alt.VirtualEntity(markerGroup, new alt.Vector3(marker.pos), maxDistance, {
             type: GroupType,
             marker,
         });

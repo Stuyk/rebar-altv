@@ -4,7 +4,6 @@ import { TextLabel } from '@Shared/types/textLabel.js';
 import { Events } from '@Shared/events/index.js';
 
 const GroupType = 'textlabel';
-const MAX_STREAM_DISTANCE = 50;
 const MAX_LABELS = 10;
 
 const labelGroup = new alt.VirtualEntityGroup(MAX_LABELS);
@@ -16,12 +15,16 @@ const labelGroup = new alt.VirtualEntityGroup(MAX_LABELS);
  * @param {TextLabel} label
  * @return
  */
-export function useTextLabelGlobal(label: TextLabel) {
+export function useTextLabelGlobal(label: TextLabel, maxDistance: number = 50) {
+    if (maxDistance > 50) {
+        maxDistance = 50;
+    }
+
     if (!label.uid) {
         label.uid = Utility.uid.generate();
     }
 
-    let entity = new alt.VirtualEntity(labelGroup, new alt.Vector3(label.pos), MAX_STREAM_DISTANCE, {
+    let entity = new alt.VirtualEntity(labelGroup, new alt.Vector3(label.pos), maxDistance, {
         type: GroupType,
         textlabel: label,
     });
@@ -38,7 +41,7 @@ export function useTextLabelGlobal(label: TextLabel) {
             entity.destroy();
         } catch (err) {}
 
-        entity = new alt.VirtualEntity(labelGroup, new alt.Vector3(label.pos), MAX_STREAM_DISTANCE, {
+        entity = new alt.VirtualEntity(labelGroup, new alt.Vector3(label.pos), maxDistance, {
             type: GroupType,
             textlabel: label,
         });
