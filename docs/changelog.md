@@ -4,6 +4,19 @@ order: -5
 
 # Changelog
 
+## Version 13
+
+### Code Changes
+
+- Updated `upgrade` script to prevent overwriting tailwind config, or vite config
+- Added `useLocalStorage` composable for getting / storing data
+
+### Docs Changes
+
+- Added `useLocalStorage` composable docs
+
+---
+
 ## Version 12
 
 ### Code Changes
@@ -16,6 +29,8 @@ order: -5
 
 - Added install instructions for Linux
 - Added install instructions for Docker
+
+---
 
 ## Version 11
 

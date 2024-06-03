@@ -218,12 +218,46 @@ export function useWebview(path = 'http://assets/webview/index.html') {
         onWebviewReadyCallbacks.push(callback);
     }
 
+    /**
+     * Get something from the local alt storage
+     *
+     * @param {string} key 
+     */
+    function getLocalStorage(key: string) {
+        const data = alt.LocalStorage.get(key);
+        webview.emit(Events.view.localStorageGet, key, data)
+    }
+
+    /**
+     * Set data to the local alt storage
+     *
+     * @param {string} key 
+     * @param {*} value 
+     */
+    function setLocalStorage(key: string, value: any) {
+        alt.LocalStorage.set(key, value);
+        alt.LocalStorage.save();
+    }
+
+    /**
+     * Delete something from local storage
+     *
+     * @param {string} key 
+     */
+    function deleteLocalStorage(key: string) {
+        alt.LocalStorage.delete(key);
+        alt.LocalStorage.save();
+    }
+
     if (!isInitialized) {
         alt.onServer(Events.view.focus, focus);
         alt.onServer(Events.view.unfocus, unfocus);
         alt.onServer(Events.view.hide, hide);
         alt.onServer(Events.view.show, show);
         alt.onServer(Events.view.onServer, emit);
+        webview.on(Events.view.localStorageGet, getLocalStorage);
+        webview.on(Events.view.localStorageSet, setLocalStorage);
+        webview.on(Events.view.localStorageDelete, deleteLocalStorage);
         webview.on(Events.view.emitClient, handleClientEvent);
         webview.on(Events.view.emitServer, handleServerEvent);
     }

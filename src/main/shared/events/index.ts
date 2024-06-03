@@ -106,5 +106,8 @@ export const Events = {
         unfocus: 'webview:emit:unfocus',
         playFrontendSound: 'webview:play:frontend:sound',
         updateMinimap: 'webview:update:minimap',
+        localStorageSet: 'webview:localstorage:set',
+        localStorageGet: 'webview:localstorage:get',
+        localStorageDelete: 'webview:localstorage:delete'
     },
 };
