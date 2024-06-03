@@ -4,17 +4,32 @@ order: -5
 
 # Changelog
 
+## Version 12
+
+### Code Changes
+
+- Completely redid the compile pipeline
+- Improved compile times, and added docker build support to package.json scripts
+- Fixed linux based errors
+
+### Docs Changes
+
+- Added install instructions for Linux
+- Added install instructions for Docker
+
 ## Version 11
 
 ### Code Changes
 
 -   Added `createCollection` to database functions
 -   Automatically create default collections on startup
+-   Added `rebar:upgrade` script to get the latest code changes for Rebar
 
 ### Docs Changes
 
 -   Added `createCollection` function to the database functions
 -   Clarified how no spawner exists outright for Rebar
+-   Added documentation about upgrading
 
 ---
 

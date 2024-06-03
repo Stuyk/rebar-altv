@@ -9,6 +9,9 @@ function start() {
 
     for (const pluginName of plugins) {
         const pluginPath = path.join(process.cwd(), 'src/plugins', pluginName);
+        if (pluginPath.includes('.gitkeep')) {
+            continue;
+        }
 
         const files = glob.sync(sanitizePath(path.join(pluginPath, 'webview/*.vue')));
 
