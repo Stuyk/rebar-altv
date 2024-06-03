@@ -24,7 +24,7 @@ export function useTextLabelGlobal(label: TextLabel, maxDistance: number = 50) {
         label.uid = Utility.uid.generate();
     }
 
-    let entity = new alt.VirtualEntity(labelGroup, new alt.Vector3(label.pos), MAX_STREAM_DISTANCE, {
+    let entity = new alt.VirtualEntity(labelGroup, new alt.Vector3(label.pos), maxDistance, {
         type: GroupType,
         textlabel: label,
     });
@@ -41,7 +41,7 @@ export function useTextLabelGlobal(label: TextLabel, maxDistance: number = 50) {
             entity.destroy();
         } catch (err) {}
 
-        entity = new alt.VirtualEntity(labelGroup, new alt.Vector3(label.pos), MAX_STREAM_DISTANCE, {
+        entity = new alt.VirtualEntity(labelGroup, new alt.Vector3(label.pos), maxDistance, {
             type: GroupType,
             textlabel: label,
         });
