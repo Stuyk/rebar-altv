@@ -110,7 +110,7 @@ export function useDatabase() {
         try {
             const result = await client
                 .collection(collection)
-                .findOneAndUpdate({ _id: new ObjectId(data._id) }, { $set: dataClone });
+                .findOneAndUpdate({ _id: ObjectId.createFromHexString(data._id) }, { $set: dataClone });
             return result.ok ? true : false;
         } catch (err) {
             return false;
@@ -131,7 +131,7 @@ export function useDatabase() {
         const client = await getClient();
 
         try {
-            const result = await client.collection(collection).deleteOne({ _id: new ObjectId(_id) });
+            const result = await client.collection(collection).deleteOne({ _id: ObjectId.createFromHexString(_id) });
             return result.deletedCount >= 1;
         } catch (err) {
             return false;
@@ -151,7 +151,7 @@ export function useDatabase() {
      * @param {string} collection
      * @return {(Promise<T | undefined>)}
      */
-    async function get<T extends { [key: string]: any; _id?: string | ObjectId }>(
+    async function get<T extends { [key: string]: any; _id?: string }>(
         dataToMatch: Partial<T>,
         collection: string,
     ): Promise<T | undefined> {
@@ -161,7 +161,7 @@ export function useDatabase() {
             const dataLookup: any = { ...dataToMatch };
 
             if (dataToMatch._id) {
-                dataLookup._id = new ObjectId(dataToMatch._id);
+                dataLookup._id = ObjectId.createFromHexString(dataToMatch._id)
             }
 
             const document = await client.collection(collection).findOne<T>(dataLookup);
@@ -195,7 +195,7 @@ export function useDatabase() {
             const dataLookup: any = { ...dataToMatch };
 
             if (dataToMatch._id) {
-                dataLookup._id = new ObjectId(dataToMatch._id);
+                dataLookup._id = ObjectId.createFromHexString(dataToMatch._id);
             }
 
             const cursor = await client.collection(collection).find<T>(dataLookup);
@@ -246,7 +246,7 @@ export function useDatabase() {
         const client = await getClient();
 
         try {
-            const result = await client.collection(collection).deleteOne({ _id: new ObjectId(_id) });
+            const result = await client.collection(collection).deleteOne({ _id: ObjectId.createFromHexString(_id) });
             return result.acknowledged;
         } catch (err) {
             return false;

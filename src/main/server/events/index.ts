@@ -2,8 +2,11 @@ import * as alt from 'alt-server';
 import { Account } from '@Shared/types/account.js';
 import { Character } from '@Shared/types/character.js';
 import { Vehicle } from '@Shared/types/vehicle.js';
+import { Weathers } from '@Shared/data/weathers.js';
 
 type RebarEvents = {
+    'weather-forecast-changed': (weather: Weathers[])=> void;
+    'weather-changed': (weather: Weathers) => void;
     'time-changed': (hour: number, minute: number, second: number) => void;
     'time-second-changed': (minute: number) => void;
     'time-minute-changed': (minute: number) => void;
@@ -17,6 +20,8 @@ type RebarEvents = {
 type EventCallbacks<K extends keyof RebarEvents> = { [key in K]: RebarEvents[K][] };
 
 const eventCallbacks: EventCallbacks<keyof RebarEvents> = {
+    'weather-forecast-changed': [],
+    'weather-changed': [],
     'time-changed': [],
     'time-second-changed': [],
     'time-hour-changed': [],
