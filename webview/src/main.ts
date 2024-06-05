@@ -1,4 +1,3 @@
-// DO NOT MODIFY, AUTOMATICALLY USED
 import { createApp } from 'vue';
 import './style.css';
 import './index.css';
@@ -15,4 +14,4 @@ for (let key of Object.keys(PLUGIN_IMPORTS)) {
 }
 
 app.mount('#app');
- init();
+init();
