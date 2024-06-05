@@ -4,7 +4,7 @@ This is an event wrapper that allows for communication directly to the server, o
 
 ```html
 <script lang="ts" setup>
-    import { useEvents } from '../../../../webview/composables/useEvents';
+    import { useEvents } from '@Composables/useEvents';
 
     const events = useEvents();
 

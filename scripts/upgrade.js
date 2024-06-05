@@ -8,8 +8,10 @@ const srcMainPath = path.resolve(process.cwd(), 'src/main');
 const webviewComposablesPath = path.resolve(process.cwd(), 'webview/composables');
 const webviewSrcPath = path.resolve(process.cwd(), 'webview/src');
 const webviewPublicPath = path.resolve(process.cwd(), 'webview/public');
+const viteConfigPath = path.resolve(process.cwd(), 'webview/vite.config.ts');
 const docsPath = path.resolve(process.cwd(), 'docs');
 const packagePath = path.resolve(process.cwd(), 'package.json');
+const tsConfigPath = path.resolve(process.cwd(), 'tsconfig.json');
 
 function cloneRepository(repoUrl, clonePath) {
     console.log(`Cloning repository from ${repoUrl} to ${clonePath}...`);
@@ -30,8 +32,10 @@ try {
     moveDirectory(path.join(tmpPath, 'webview/composables'), webviewComposablesPath);
     moveDirectory(path.join(tmpPath, 'webview/src'), webviewSrcPath);
     moveDirectory(path.join(tmpPath, 'webview/public'), webviewPublicPath);
+    moveDirectory(path.join(tmpPath, 'webview/vite.config.ts'), viteConfigPath);
     moveDirectory(path.join(tmpPath, 'docs'), docsPath);
     moveDirectory(path.join(tmpPath, 'package.json'), packagePath, false);
+    moveDirectory(path.join(tmpPath, 'tsconfig.json'), tsConfigPath, false);
     execSync(`pnpm upgrade`, { stdio: 'inherit' });
     execSync(`pnpm install`, { stdio: 'inherit' });
     fs.rmSync(tmpPath, { force: true, recursive: true });

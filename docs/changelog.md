@@ -4,6 +4,18 @@ order: -5
 
 # Changelog
 
+## Version 16
+
+### Code Changes
+
+- Added `@Composables` path alias
+- Added `@Plugins` path alias
+
+### Docs Changes
+
+- Updated composables with `@Composables`
+- Updated `what is a plugin` with information about component / composable only plugins
+
 ## Version 15
 
 ### Code Changes

@@ -6,7 +6,7 @@ If you wish to play frontend sounds check out the [Frontend Sound List](../../da
 
 ```html
 <script lang="ts" setup>
-    import { useAudio } from '../../../../webview/composables/useAudio';
+    import { useAudio } from '@Composables/useAudio';
 
     const audio = useAudio();
 

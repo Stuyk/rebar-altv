@@ -9,7 +9,7 @@ It will automatically update the minimap positional data when resolution is chan
 ```html
 <script lang="ts" setup>
     import { computed } from 'vue';
-    import { useMinimap } from '../../../../webview/composables/useMinimap';
+    import { useMinimap } from '@Composables/useMinimap';
 
     const { minimap } = useMinimap();
 
