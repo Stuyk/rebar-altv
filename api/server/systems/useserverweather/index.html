@@ -9,24 +9,24 @@
     <meta name="generator" content="Retype 3.5.0">
 
     <!-- Primary Meta Tags -->
-    <title>useVehicle</title>
-    <meta name="title" content="useVehicle">
-    <meta name="description" content="Used to create a new vehicle document, repair vehicles, apply vehicle documents, etc.">
+    <title>useServerWeather</title>
+    <meta name="title" content="useServerWeather">
+    <meta name="description" content="This stores server weather during runtime, and allows for weather to be shared to other plugins.">
 
     <!-- Canonical -->
-    <link rel="canonical" href="https://rebarv.com/api/server/vehicle/vehicle-use/">
+    <link rel="canonical" href="https://rebarv.com/api/server/systems/useserverweather/">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://rebarv.com/api/server/vehicle/vehicle-use/">
-    <meta property="og:title" content="useVehicle">
-    <meta property="og:description" content="Used to create a new vehicle document, repair vehicles, apply vehicle documents, etc.">
+    <meta property="og:url" content="https://rebarv.com/api/server/systems/useserverweather/">
+    <meta property="og:title" content="useServerWeather">
+    <meta property="og:description" content="This stores server weather during runtime, and allows for weather to be shared to other plugins.">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://rebarv.com/api/server/vehicle/vehicle-use/">
-    <meta property="twitter:title" content="useVehicle">
-    <meta property="twitter:description" content="Used to create a new vehicle document, repair vehicles, apply vehicle documents, etc.">
+    <meta property="twitter:url" content="https://rebarv.com/api/server/systems/useserverweather/">
+    <meta property="twitter:title" content="useServerWeather">
+    <meta property="twitter:description" content="This stores server weather during runtime, and allows for weather to be shared to other plugins.">
 
     <script data-cfasync="false">(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
@@ -186,35 +186,32 @@
                                 <!-- Rendered if sidebar right is enabled -->
                                 <div id="docs-sidebar-right-toggle"></div>
                                 <!-- Page content  -->
-<doc-anchor-target id="usevehicle" class="break-words">
+<doc-anchor-target id="useserverweather" class="break-words">
     <h1>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#usevehicle">#</doc-anchor-trigger>
-        <span>useVehicle</span>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#useserverweather">#</doc-anchor-trigger>
+        <span>useServerWeather</span>
     </h1>
 </doc-anchor-target>
-<p>Used to create a new vehicle document, repair vehicles, apply vehicle documents, etc.</p>
+<p>This stores server weather during runtime, and allows for weather to be shared to other plugins.</p>
+<p>Additionally, when these functions are used the internal RebarEvents for weather changes are invoked.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">import { useRebar } from '@Server/index.js';
+<pre class="language-typescript"><code v-pre class="language-typescript">import * as alt from 'alt-server';
+import { useRebar } from '@Server/index.js';
 
 const Rebar = useRebar();
+const serverWeather = Rebar.useServerWeather();
 
-// Used to apply mods, health, etc. to a vehicle if it has a document bound
-Rebar.vehicle.useVehicle(vehicle).sync();
+function whatever() {
+    // Used as a way to store the current weather on server-side for other plugins
+    serverWeather.set('CLEARING');
 
-// Use a document template to any given vehicle, does not save data
-Rebar.vehicle.useVehicle(vehicle).apply({ pos: new alt.Vector3(0, 0, 0) });
+    // Used as a way to show a weather forecast for the upcoming weather events
+    serverWeather.setForecast(['CLEAR', 'CLOUDS', 'RAIN', 'THUNDER', 'FOGGY', 'CLOUDS', 'CLEARING', 'EXTRASUNNY'])
 
-// Save all current damage, position, rotation etc.
-// This does not create a new document for the given vehicle
-Rebar.vehicle.useVehicle(vehicle).save();
+    const currentWeather = serverWeather.get();
 
-// Correctly repairs the vehicle and returns the new vehicle instance
-// Players will be removed from the vehicle on repair
-await Rebar.vehicle.useVehicle(vehicle).repair();
-
-// Creating a vehicle and assigning it to a character id, or some other identifier
-const newVehicle = new alt.Vehicle('infernus', alt.Vector3.zero, alt.Vector3.zero);
-const document = await Rebar.vehicle.useVehicle(newVehicle).create(someCharacterIdOrSomethingElse);</code></pre>
+    const currentForecast = serverWeather.getForecast();
+}</code></pre>
 </doc-codeblock></div>
 
                                 
@@ -225,20 +222,20 @@ const document = await Rebar.vehicle.useVehicle(newVehicle).create(someCharacter
                             
                                 <nav class="flex mt-14">
                                     <div class="w-1/2">
-                                        <a class="px-5 py-4 h-full flex items-center break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-l-lg transition-colors duration-150 relative hover:z-5" href="../../../../api/server/utility/protect-callback/">
+                                        <a class="px-5 py-4 h-full flex items-center break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-l-lg transition-colors duration-150 relative hover:z-5" href="../../../../api/server/systems/useservertime/">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="mr-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19 11H7.41l5.29-5.29a.996.996 0 10-1.41-1.41l-7 7a1 1 0 000 1.42l7 7a1.024 1.024 0 001.42-.01.996.996 0 000-1.41L7.41 13H19c.55 0 1-.45 1-1s-.45-1-1-1z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
                                             <span>
                                                 <span class="block text-xs font-normal text-gray-400 dark:text-dark-400">Previous</span>
-                                                <span class="block mt-1">Protect Callback</span>
+                                                <span class="block mt-1">use​Server​Time</span>
                                             </span>
                                         </a>
                                     </div>
                             
                                     <div class="w-1/2">
-                                        <a class="px-5 py-4 -mx-px h-full flex items-center justify-end break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-r-lg transition-colors duration-150 relative hover:z-5" href="../../../../api/server/config/">
+                                        <a class="px-5 py-4 -mx-px h-full flex items-center justify-end break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-r-lg transition-colors duration-150 relative hover:z-5" href="../../../../api/server/utility/protect-callback/">
                                             <span>
                                                 <span class="block text-xs font-normal text-right text-gray-400 dark:text-dark-400">Next</span>
-                                                <span class="block mt-1">Configuration Usage</span>
+                                                <span class="block mt-1">Protect Callback</span>
                                             </span>
                                             <svg xmlns="http://www.w3.org/2000/svg" class="ml-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19.92 12.38a1 1 0 00-.22-1.09l-7-7a.996.996 0 10-1.41 1.41l5.3 5.3H5c-.55 0-1 .45-1 1s.45 1 1 1h11.59l-5.29 5.29a.996.996 0 000 1.41c.19.2.44.3.7.3s.51-.1.71-.29l7-7c.09-.09.16-.21.21-.33z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
                                         </a>
@@ -282,6 +279,6 @@ const document = await Rebar.vehicle.useVehicle(newVehicle).create(someCharacter
 
     <div id="docs-overlay-target"></div>
 
-    <script data-cfasync="false">window.__DOCS__ = { "title": "useVehicle", level: 4, icon: "file", hasPrism: true, hasMermaid: false, hasMath: false, tocDepth: 23 }</script>
+    <script data-cfasync="false">window.__DOCS__ = { "title": "useServerWeather", level: 4, icon: "file", hasPrism: true, hasMermaid: false, hasMath: false, tocDepth: 23 }</script>
 </body>
 </html>
