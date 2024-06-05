@@ -45,6 +45,10 @@ function isValid(entity: alt.Entity, interaction: InteractionInternal) {
         valid = true;
     }
 
+    if (interaction.type === 'any') {
+        valid = true;
+    }
+
     return valid;
 }
 
