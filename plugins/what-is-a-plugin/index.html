@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.5.0.770869460414">
+    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.5.0.770943378027">
 
     <!-- See retype.com -->
     <meta name="generator" content="Retype 3.5.0">
@@ -30,12 +30,12 @@
 
     <script data-cfasync="false">(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
-    <link href="../../resources/css/retype.css?v=3.5.0.770869460414" rel="stylesheet">
+    <link href="../../resources/css/retype.css?v=3.5.0.770943378027" rel="stylesheet">
 
-    <script data-cfasync="false" src="../../resources/js/config.js?v=3.5.0.770869460414" data-turbo-eval="false" defer></script>
+    <script data-cfasync="false" src="../../resources/js/config.js?v=3.5.0.770943378027" data-turbo-eval="false" defer></script>
     <script data-cfasync="false" src="../../resources/js/retype.js?v=3.5.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" data-cfasync="false" src="../../resources/js/lunr.js?v=3.5.0.770869460414" data-turbo-eval="false" defer></script>
-    <script id="prism-js" data-cfasync="false" src="../../resources/js/prism.js?v=3.5.0.770869460414" defer></script>
+    <script id="lunr-js" data-cfasync="false" src="../../resources/js/lunr.js?v=3.5.0.770943378027" data-turbo-eval="false" defer></script>
+    <script id="prism-js" data-cfasync="false" src="../../resources/js/prism.js?v=3.5.0.770943378027" defer></script>
 </head>
 <body>
     <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -206,6 +206,7 @@
         <span>Example Plugin Structure</span>
     </h2>
 </doc-anchor-target>
+<p>This plugin structure is used purely as a full featured plugin.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-none"><code v-pre class="language-none">├───main
 │   ├───client
@@ -231,6 +232,24 @@
             └───MyCustomPage.vue</code></pre>
 </doc-codeblock></div>
 <p>See <a href="../create/">create a plugin</a> for more information.</p>
+<doc-anchor-target id="example-shared-vue-components--composables-plugin">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#example-shared-vue-components--composables-plugin">#</doc-anchor-trigger>
+        <span>Example Shared Vue Components / Composables Plugin</span>
+    </h2>
+</doc-anchor-target>
+<p>It is recommended to prefix your plugin with <code v-pre>ui</code> when it&#x27;s components and composables</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">├───main
+│   ├───client
+│   ├───server
+│   ├───shared
+│   └───translate
+└───plugins
+    └───ui-your-plugin
+        └───UiInput.vue
+        └───UiButton.vue</code></pre>
+</doc-codeblock></div>
 <doc-anchor-target id="disabling-plugins">
     <h2>
         <doc-anchor-trigger class="header-anchor-trigger" to="#disabling-plugins">#</doc-anchor-trigger>
