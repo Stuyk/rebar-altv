@@ -6,7 +6,7 @@ Here's an example of how to use it.
 
 ```html
 <script lang="ts" setup>
-    import { usePlayerStats } from '../../../../webview/composables/usePlayerStats';
+    import { usePlayerStats } from '@Composables/usePlayerStats';
 
     const {
         health,

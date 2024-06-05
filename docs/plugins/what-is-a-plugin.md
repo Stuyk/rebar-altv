@@ -12,6 +12,8 @@ Plugins can be found in the `src/plugins` directory, and each plugin should have
 
 ## Example Plugin Structure
 
+This plugin structure is used purely as a full featured plugin.
+
 ```
 ├───main
 │   ├───client
@@ -38,6 +40,22 @@ Plugins can be found in the `src/plugins` directory, and each plugin should have
 ```
 
 See [create a plugin](./create.md) for more information.
+
+## Example Shared Vue Components / Composables Plugin
+
+It is recommended to prefix your plugin with `ui` when it's components and composables
+
+```
+├───main
+│   ├───client
+│   ├───server
+│   ├───shared
+│   └───translate
+└───plugins
+    └───ui-your-plugin
+        └───UiInput.vue
+        └───UiButton.vue
+```
 
 ## Disabling Plugins
 

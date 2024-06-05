@@ -1,7 +1,7 @@
 {
     "author": "stuyk",
     "type": "module",
-    "version": "15",
+    "version": "16",
     "scripts": {
         "dev": "nodemon -x pnpm start",
         "dev:linux": "nodemon -x pnpm start:linux",
@@ -65,7 +65,8 @@
             "*/package.json",
             "*.mjs",
             "ignore*.ts",
-            "autogen*.ts"
+            "autogen*.ts",
+            "webview/src/main.ts"
         ]
     }
 }

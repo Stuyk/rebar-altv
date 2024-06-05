@@ -4,7 +4,7 @@ Gives the ability to get `messages` from the messenger system as well as `emit m
 
 ```html
 <script lang="ts" setup>
-    import { useMessenger } from '../../../../webview/composables/useMessenger';
+    import { useMessenger } from '@Composables/useMessenger';
 
     const messenger = useMessenger();
 

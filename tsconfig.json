@@ -4,7 +4,9 @@
         "paths": {
             "@Server/*": ["main/server/*"],
             "@Client/*": ["main/client/*"],
-            "@Shared/*": ["main/shared/*"]
+            "@Shared/*": ["main/shared/*"],
+            "@Plugins/*": ["plugins/*"],
+            "@Composables/*": ["../webview/composables/*"]
         },
         "typeRoots": ["./node_modules/@types", "./node_modules/@altv"],
         "removeComments": true,
@@ -30,15 +32,10 @@
     },
     "include": [
         "src/**/*.ts",
-        "src-webviews/**/*.ts",
-        "src-webviews/**/*.d.ts",
         "src/**/*.ts",
         "src/**/*.d.ts",
         "src/**/*.tsx",
         "src/**/*.vue",
-        "src/main/plugins/**/webview/**.ts",
-        "src/main/plugins/**/webview/**.vue",
-        "src/main/plugins/**/components/**.vue"
     ],
     "exclude": [
         "resources",
