@@ -14,10 +14,13 @@ function destroy() {
         alt.clearInterval(interval);
     } catch(err) {}
 
-    interval = undefined;
+    try {
+        native.setCamActive(camera, false);
+    } catch(err) {}
+
     native.destroyAllCams(true);
-    native.setCamActive(camera, false);
     native.renderScriptCams(false, false, 0, false, false, 0);
+    interval = undefined;
     camera = undefined;
 }
 

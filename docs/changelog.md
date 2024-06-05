@@ -4,6 +4,21 @@ order: -5
 
 # Changelog
 
+## Version 15
+
+### Code Changes
+
+- Update dependencies
+- Update `_id` in database functions to use a non-deprecated ObjectId handler
+- Added `useServerWeather` function to allow setting weather and weather forecast
+  - This does not automatically sync for players, it's just a global way to set the data
+
+### Docs Changes
+
+- Added `useServerWeather` docs
+
+---
+
 ## Version 14
 
 ### Code Changes
