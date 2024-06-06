@@ -4,6 +4,20 @@ order: -5
 
 # Changelog
 
+## Version 17
+
+### Code Changes
+
+- Added locker system for loading asset based resources into the main resource
+  - This will allow for obfuscated plugins to exist inside of Rebar during runtime
+  - This is incredibly tricky, and I'll be writing a resource builder to do this
+
+### Docs Changes
+
+- N/A
+
+---
+
 ## Version 16
 
 ### Code Changes
@@ -15,6 +29,8 @@ order: -5
 
 - Updated composables with `@Composables`
 - Updated `what is a plugin` with information about component / composable only plugins
+
+---
 
 ## Version 15
 

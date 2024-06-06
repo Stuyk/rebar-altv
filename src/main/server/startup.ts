@@ -4,6 +4,7 @@ import '../translate/index.js';
 import { useTranslate } from '@Shared/translate.js';
 import { useConfig } from './config/index.js';
 import { useDatabase } from './database/index.js';
+import { initLockerPlugins } from './locker.js';
 
 const config = useConfig();
 const database = useDatabase();
@@ -15,9 +16,12 @@ async function handleStart() {
     await database.init(config.get().mongodb);
 
     // Handle plugin loading
-    alt.log(':: Loading Plugins');
+    alt.log('~g~:: Loading Plugins');
     await import('./plugins.js');
-    alt.log(':: Plugins Loaded');
+    alt.log('~g~:: Plugins Loaded');
+
+    // Handle loading locker plugins
+    await initLockerPlugins();
 
     // Handle local client reconnection, should always be called last...
     if (alt.debug) {

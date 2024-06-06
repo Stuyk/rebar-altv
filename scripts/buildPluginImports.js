@@ -44,7 +44,7 @@ async function start() {
 
         const folderSlice = serverFolder.split('/');
         const folderName = folderSlice[folderSlice.length - 2];
-        fs.appendFileSync(serverImportsPath, `alt.log('::: Plugin: ${folderName}');` + '\r\n');
+        fs.appendFileSync(serverImportsPath, `alt.log('~g~> ${folderName}');` + '\r\n');
         const importLine = `import '${path}';`;
         fs.appendFileSync(serverImportsPath, importLine + '\r\n');
     }

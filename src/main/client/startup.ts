@@ -16,6 +16,9 @@ async function start() {
     alt.log(':: Loading Client Plugins');
     import('./plugins.js');
     alt.log(':: Loaded Client Plugins');
+
+    // Load Locker Plugins
+    import('./locker.js');
 }
 
 start();

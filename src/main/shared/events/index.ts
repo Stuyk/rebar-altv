@@ -82,6 +82,9 @@ export const Events = {
             },
         },
     },
+    locker: {
+        inject: 'plugin:locker:inject'
+    },
     systems: {
         messenger: {
             process: 'systems:messenger:process',
