@@ -1,3 +1,4 @@
+import * as alt from 'alt-server';
 import './startup.js';
 
 import { useApi } from './api/index.js';
@@ -151,3 +152,12 @@ export function useRebar() {
         },
     };
 }
+
+declare module "alt-shared" {
+    // extending interface by interface merging
+    export interface ICustomGlobalMeta {
+        Rebar: ReturnType<typeof useRebar>
+    }
+}
+
+alt.setMeta('Rebar', useRebar());

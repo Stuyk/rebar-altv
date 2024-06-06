@@ -1,3 +1,4 @@
+import * as alt from 'alt-client';
 import './startup.js';
 import { useClientApi } from './api/index.js';
 
@@ -53,3 +54,12 @@ export function useRebarClient() {
         },
     };
 }
+
+declare module "alt-shared" {
+    // extending interface by interface merging
+    export interface ICustomGlobalMeta {
+        RebarClient: ReturnType<typeof useRebarClient>
+    }
+}
+
+alt.setMeta('RebarClient', useRebarClient());

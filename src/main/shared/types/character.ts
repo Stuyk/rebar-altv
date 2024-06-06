@@ -2,7 +2,7 @@ import * as alt from 'alt-shared';
 import { Appearance } from './appearance.js';
 import { ClothingComponent } from './clothingComponent.js';
 
-export type BaseCharacter = {
+export interface BaseCharacter {
     /**
      * The current dimension of the player. When they spawn
      * they are automatically moved into this dimension.
@@ -56,7 +56,7 @@ export type BaseCharacter = {
  *
  * @interface Character
  */
-export type Character = {
+export interface Character extends BaseCharacter {
     /**
      * The character identifier in the database.
      * @type {*}
@@ -185,4 +185,4 @@ export type Character = {
      * @type {{ [weaponHash: string]: number }}
      */
     ammo?: { [weaponHash: string]: number };
-} & BaseCharacter;
+};

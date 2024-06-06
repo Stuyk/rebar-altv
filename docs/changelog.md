@@ -4,6 +4,21 @@ order: -5
 
 # Changelog
 
+## Version 17
+
+### Code Changes
+
+- Added `alt.getMeta('Rebar')` to get Server API with one-less import
+- Added `alt.getMeta('RebarClient')` to get Client API with one-less import
+- Fixed character interface not being extended correctly
+- Added `preinstall` script to download binaries, and build codebase once
+  
+### Docs Changes
+
+- Covered alternative API import methods in docs
+
+---
+
 ## Version 16
 
 ### Code Changes
