@@ -61,3 +61,10 @@ export async function getInput(previousValue: string): Promise<string> {
         alt.on('keyup', handleKeyPress);
     });
 }
+
+alt.on('disconnect', () => {
+    if (document && document.valid) {
+        document.destroy();
+        document = undefined;
+    }
+})

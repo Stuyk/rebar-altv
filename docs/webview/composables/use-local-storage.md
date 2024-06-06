@@ -3,7 +3,7 @@
 A way to store local data to the alt:V Client.
 
 ```ts
-import { useLocalStorage } from '../../../../webview/composables/useLocalStorage'
+import { useLocalStorage } from '@Composables/useLocalStorage'
 
 async function example() {
     const localStorage = useLocalStorage();
