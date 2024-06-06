@@ -8,6 +8,7 @@
         "start": "node ./scripts/compile.js && altv-server",
         "start:linux": "node ./scripts/compile.js && ./altv-server",
         "build:docker": "node ./scripts/compile.js -- docker",
+        "build:locker": "node ./scripts/compile.js -- docker no-path-fixes",
         "binaries": "pnpm altv-pkg",
         "rebar:upgrade": "node ./scripts/upgrade.js",
         "webview:dev": "node ./scripts/buildPluginDependencies.js && node ./scripts/copyFiles.js && node ./scripts/webview.js && pnpm -C webview run dev"

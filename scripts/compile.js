@@ -25,7 +25,6 @@ const initialCommands = [
 
 const finalCommands = [
     `node ./scripts/buildPluginImports.js`,
-    `node ./scripts/pathResolver.js`,
 ]
 
 function formatTimestamp(time) {
@@ -106,6 +105,11 @@ async function compile() {
 
     await runCommands(initialCommands); // Transpile code, webview, copy files, etc.
     copyResourceFile(); // Copy resource file for core
+
+    if (!process.argv.includes('no-path-fixes')) {
+        finalCommands.push(`node ./scripts/pathResolver.js`);
+    }
+
     await runCommands(finalCommands); // Update file pathing
 
     logMessage(`Compile Time - ${Date.now() - start}ms`);
