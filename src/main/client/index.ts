@@ -18,6 +18,8 @@ import { useWebview } from './webview/index.js';
 import { getMinimap } from './utility/minimap/index.js';
 import { isNativeMenuOpen } from './menus/native/page.js';
 import { useMessenger } from './system/messenger.js';
+import { useProxyFetch } from './system/proxyFetch.js';
+import { useRaycast } from './system/raycasts.js';
 
 export function useRebarClient() {
     return {
@@ -43,7 +45,9 @@ export function useRebarClient() {
         },
         player: {
             useCamera,
+            useRaycast,
         },
+        useProxyFetch,
         utility: {
             math,
             text,
@@ -55,10 +59,10 @@ export function useRebarClient() {
     };
 }
 
-declare module "alt-shared" {
+declare module 'alt-shared' {
     // extending interface by interface merging
     export interface ICustomGlobalMeta {
-        RebarClient: ReturnType<typeof useRebarClient>
+        RebarClient: ReturnType<typeof useRebarClient>;
     }
 }
 

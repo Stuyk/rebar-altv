@@ -1,7 +1,7 @@
 {
     "author": "stuyk",
     "type": "module",
-    "version": "17",
+    "version": "18",
     "scripts": {
         "dev": "nodemon -x pnpm start",
         "dev:linux": "nodemon -x pnpm start:linux",
@@ -40,7 +40,7 @@
         "mongodb": "^6.7.0",
         "sjcl": "^1.0.8",
         "typescript": "^5.4.5",
-        "vite": "^5.2.12",
+        "vite": "^5.2.13",
         "vue": "^3.4.27",
         "vue-tsc": "^2.0.19"
     },

@@ -90,6 +90,14 @@ export const Events = {
         waypoint: {
             get: 'systems:waypoint:get',
         },
+        proxyFetch: {
+            fetch: 'systems:proxy:fetch',
+        },
+        raycast: {
+            getFocusedEntity: 'systems:raycast:get:focused:entity',
+            getFocusedPosition: 'systems:raycast:get:focused:position',
+            getFocusedObject: 'systems:raycast:get:focused:object',
+        },
     },
     view: {
         onServer: 'webview:on:server',
@@ -110,6 +118,6 @@ export const Events = {
         updateMinimap: 'webview:update:minimap',
         localStorageSet: 'webview:localstorage:set',
         localStorageGet: 'webview:localstorage:get',
-        localStorageDelete: 'webview:localstorage:delete'
+        localStorageDelete: 'webview:localstorage:delete',
     },
 };

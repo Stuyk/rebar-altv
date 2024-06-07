@@ -4,18 +4,53 @@ order: -5
 
 # Changelog
 
+## Version 18
+
+### Code Changes
+
+-   Fixed a bug where closest entity and target ids matched, when they were different types
+-   Fixed passing `message` on client-side for interaction onEnter callbacks
+-   Fixed character permission issues when using protected callbacks
+-   Added group permissions for protected callbacks
+-   Added `useProxyFetch` which allows for you to register safe endpoints on server-side which can be called client-side.
+    -   This effectively allows you to make requests from the server to safely get results.
+    -   Meaning that if you have an API which only allows your server to make requests, this is a way to invoke it safely.
+-   Added `useRaycast` to get entity aimed at from client-side and return it to the server
+    -   Can obtain position looking at
+    -   Can obtain player, vehicle, or alt.Object looked at
+    -   Can obtain model & position of world object looked at
+-   Added `useVehicle` enhancements
+    -   Functions that toggled asPlayer verify ownership of keys, permission, or owner itself of the vehicle
+    -   bind
+    -   toggleDoor
+    -   toggleDoorAsPlayer
+    -   toggleEngine
+    -   toggleEngineAsPlayer
+    -   toggleLock
+    -   toggleLockAsPlayer
+    -   keys: add, remove, clear
+    -   isBound
+        -   Check if the vehicle is already bound
+    -   verifyOwner
+        -   Check if the player is an 'owner' of the vehicle
+        -   Additionally, optional section to check if they are the sole owner of the vehicle
+
+### Docs Changes
+
+---
+
 ## Version 17
 
 ### Code Changes
 
-- Added `alt.getMeta('Rebar')` to get Server API with one-less import
-- Added `alt.getMeta('RebarClient')` to get Client API with one-less import
-- Fixed character interface not being extended correctly
-- Added `preinstall` script to download binaries, and build codebase once
-  
+-   Added `alt.getMeta('Rebar')` to get Server API with one-less import
+-   Added `alt.getMeta('RebarClient')` to get Client API with one-less import
+-   Fixed character interface not being extended correctly
+-   Added `preinstall` script to download binaries, and build codebase once
+
 ### Docs Changes
 
-- Covered alternative API import methods in docs
+-   Covered alternative API import methods in docs
 
 ---
 
@@ -23,26 +58,26 @@ order: -5
 
 ### Code Changes
 
-- Added `@Composables` path alias
-- Added `@Plugins` path alias
+-   Added `@Composables` path alias
+-   Added `@Plugins` path alias
 
 ### Docs Changes
 
-- Updated composables with `@Composables`
-- Updated `what is a plugin` with information about component / composable only plugins
+-   Updated composables with `@Composables`
+-   Updated `what is a plugin` with information about component / composable only plugins
 
 ## Version 15
 
 ### Code Changes
 
-- Update dependencies
-- Update `_id` in database functions to use a non-deprecated ObjectId handler
-- Added `useServerWeather` function to allow setting weather and weather forecast
-  - This does not automatically sync for players, it's just a global way to set the data
+-   Update dependencies
+-   Update `_id` in database functions to use a non-deprecated ObjectId handler
+-   Added `useServerWeather` function to allow setting weather and weather forecast
+    -   This does not automatically sync for players, it's just a global way to set the data
 
 ### Docs Changes
 
-- Added `useServerWeather` docs
+-   Added `useServerWeather` docs
 
 ---
 
@@ -50,13 +85,13 @@ order: -5
 
 ### Code Changes
 
-- Added `emitServerRpc` to Webview to retrieve data from server-side using normal `alt.onRpc` events.
-  - Yes, this means you don't have to do weird event bindings to get data now.
-- Added `emitClientRpc` to Webview to retrieve data from client-side.
+-   Added `emitServerRpc` to Webview to retrieve data from server-side using normal `alt.onRpc` events.
+    -   Yes, this means you don't have to do weird event bindings to get data now.
+-   Added `emitClientRpc` to Webview to retrieve data from client-side.
 
 ### Docs Changes
 
-- Added `emitServerRpc` and `emitClientRpc` to docs
+-   Added `emitServerRpc` and `emitClientRpc` to docs
 
 ---
 
@@ -64,12 +99,12 @@ order: -5
 
 ### Code Changes
 
-- Updated `upgrade` script to prevent overwriting tailwind config, or vite config
-- Added `useLocalStorage` composable for getting / storing data
+-   Updated `upgrade` script to prevent overwriting tailwind config, or vite config
+-   Added `useLocalStorage` composable for getting / storing data
 
 ### Docs Changes
 
-- Added `useLocalStorage` composable docs
+-   Added `useLocalStorage` composable docs
 
 ---
 
@@ -77,14 +112,14 @@ order: -5
 
 ### Code Changes
 
-- Completely redid the compile pipeline
-- Improved compile times, and added docker build support to package.json scripts
-- Fixed linux based errors
+-   Completely redid the compile pipeline
+-   Improved compile times, and added docker build support to package.json scripts
+-   Fixed linux based errors
 
 ### Docs Changes
 
-- Added install instructions for Linux
-- Added install instructions for Docker
+-   Added install instructions for Linux
+-   Added install instructions for Docker
 
 ---
 

@@ -60,6 +60,7 @@ import { useVehicle } from './vehicle/index.js';
 import { useProtectCallback } from './utility/protectCallback.js';
 import { useServerTime } from './systems/serverTime.js';
 import { useServerWeather } from './systems/serverWeather.js';
+import { useProxyFetch } from './systems/proxyFetch.js';
 
 export function useRebar() {
     return {
@@ -136,6 +137,7 @@ export function useRebar() {
             usePermissionGroup,
         },
         usePlayer,
+        useProxyFetch,
         useServerTime,
         useServerWeather,
         utility: {
