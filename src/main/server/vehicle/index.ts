@@ -45,7 +45,6 @@ export function useVehicle(vehicle: alt.Vehicle) {
                     }
                     
                     vehicle.setMod(id, document.mods[key]);
-                    vehicle.setMod(id, document.mods[key]);
                 } catch (err) {}
             }
         }
