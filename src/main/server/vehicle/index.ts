@@ -40,6 +40,16 @@ export function useVehicle(vehicle: alt.Vehicle) {
             for (let key of Object.keys(document.mods)) {
                 const id = parseInt(key);
                 try {
+                    if(id === 23) {
+                        vehicle.setWheels(23, document.mods[key]);
+                        continue;
+                    }
+
+                    if(id === 24) {
+                        vehicle.setRearWheels(document.mods[key]);
+                        continue;
+                    }
+                    
                     vehicle.setMod(id, document.mods[key]);
                 } catch (err) {}
             }
