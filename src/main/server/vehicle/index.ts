@@ -1,6 +1,7 @@
 import * as alt from 'alt-server';
 import { useRebar } from '../index.js';
 import { Vehicle, WheelState } from '../../shared/types/vehicle.js';
+import * as Utility from '@Shared/utility/index.js';
 
 const Rebar = useRebar();
 const db = Rebar.database.useDatabase();
@@ -52,6 +53,15 @@ export function useVehicle(vehicle: alt.Vehicle) {
                     vehicle.setMod(id, document.mods[key]);
                 } catch (err) {}
             }
+        }
+
+        // Synchronize neon
+        if (document.neonPlacement && document.neonColor) {
+            for (let key of Object.keys(document.neonPlacement)) {
+                vehicle.neon[key] = document.neonPlacement[key];
+            }
+
+            vehicle.neonColor = document.neonColor;
         }
 
         // Synchronize vehicle extras
@@ -450,10 +460,20 @@ export function useVehicle(vehicle: alt.Vehicle) {
         apply(data);
     }
 
+    /**
+     * Get the model name of the vehicle
+     *
+     * @return
+     */
+    function getVehicleModelName() {
+        return Utility.vehicleHashes.getNameFromHash(vehicle.model);
+    }
+
     return {
         apply,
         bind,
         create,
+        getVehicleModelName,
         hasOwner,
         isBound,
         keys: {
