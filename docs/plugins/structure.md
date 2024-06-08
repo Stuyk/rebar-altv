@@ -1,4 +1,4 @@
-# Create a Plugin
+# Plugin Structure
 
 If you wish to create plugins then you need to understand the basic structure of a plugin.
 
@@ -12,6 +12,8 @@ If you wish to create plugins then you need to understand the basic structure of
     6. `webview`
     7. `dependencies`
     8. `shared`
+
+[!embed](https://www.youtube.com/watch?v=_bnf-duy3mI)
 
 ## client
 
@@ -50,18 +52,18 @@ alt.log(t('example.hello-from-server'));
 ## shared
 
 This is where shared code (constants, events) belongs.<br/>
-Code below is just example. In `shared` folder you can store anything you want, that is used by both, clientside and serverside code. 
+Code below is just example. In `shared` folder you can store anything you want, that is used by both, clientside and serverside code.
 
 ```ts
 // shared/events.ts
 export const MyPluginEventNames = {
     ToServer: {
-        FirstToServerEvent: 'myplugin.serverEvent'
+        FirstToServerEvent: 'myplugin.serverEvent',
     },
     ToClient: {
-        FirstToClientEvent: 'myplugin.clientEvent'
-    }
-}
+        FirstToClientEvent: 'myplugin.clientEvent',
+    },
+};
 ```
 
 ## images

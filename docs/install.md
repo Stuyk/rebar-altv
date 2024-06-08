@@ -1,8 +1,8 @@
 ---
-order: 99
+order: 1
 ---
 
-# Installation
+# Install & Upgrade
 
 !!!
 Hey listen! When you run Rebar for the first time, you won't be able to spawn.
@@ -71,6 +71,12 @@ pnpm binaries
 pnpm start
 ```
 
+Alternatively, development mode can be started with
+
+```
+pnpm dev
+```
+
 ---
 
 ## 3b. Linux
@@ -80,7 +86,7 @@ Last installation was tested on Ubuntu 22.04+
 ### Install libatomic
 
 ```
-sudo apt-get update 
+sudo apt-get update
 sudo apt-get install libatomic1
 ```
 
@@ -102,6 +108,12 @@ pnpm binaries
 pnpm start:linux
 ```
 
+Alternatively, development mode can be started with
+
+```
+pnpm dev:linux
+```
+
 ---
 
 ## 3c. Docker
@@ -109,3 +121,31 @@ pnpm start:linux
 Follow all of the instructions above.
 
 Build with `pnpm build:docker` and then run `./altv-server`.
+
+## Upgrading
+
+### Auto Upgrade
+
+If you already have Rebar installed simply run the following command:
+
+```
+pnpm rebar:upgrade
+```
+
+### Manual Upgrade
+
+Download the latest version `Rebar` into another folder.
+
+Copy the folders `src/main`, `webview`, and `docs` folder into the main folder of Rebar.
+
+Copy the file `package.json` to the main folder of Rebar.
+
+Run `pnpm upgrade` and `pnpm install`.
+
+[Click To Download Latest Source Code](https://github.com/Stuyk/rebar-altv/archive/refs/heads/main.zip)
+
+That's it.
+
+## Webview Development
+
+If you need to develop an interface out of game, you can use `pnpm:webview`

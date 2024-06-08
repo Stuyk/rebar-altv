@@ -1,4 +1,4 @@
-# Console Commands
+# Client Console Commands
 
 Console commands are commands that can be ran by opening your client-side `F8` console menu and typing a command.
 
