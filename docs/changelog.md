@@ -40,6 +40,11 @@ order: -5
 
 ### Docs Changes
 
+-   Added `useProxyFetch` doc
+-   Added `useRaycast` doc
+-   Added `useVehicle` updates
+-   Added `usePed` controller docs
+
 ---
 
 ## Version 17
