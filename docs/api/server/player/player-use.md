@@ -259,6 +259,26 @@ rebarPlayer.notify.sendMessage({ type: 'info', content: 'Hello there!' });
 rebarPlayer.notify.sendMessage({ type: 'player', content: 'Hello there!', author: 'Some Other Player' });
 ```
 
+## Raycast
+
+Used to get what the player is looking at, or find out other information
+
+```ts
+const rPlayer = Rebar.usePlayer(player);
+
+// Commonly used raycast functions
+const someVeh = await rPlayer.raycast.getFocusedEntity('vehicle');
+const somePlayer = await rPlayer.raycast.getFocusedEntity('player');
+const someAltvObject = await rPlayer.raycast.getFocusedEntity('object');
+
+// Get a world object and its position if available
+const someWorldObject = await rPlayer.raycast.getFocusedObject();
+console.log(someWorldObject.model, someWorldObject.pos, someWorldObject.scriptId);
+
+// Position where the player is looking, intersects with everything
+const somePos = await rPlayer.raycast.getFocusedPosition();
+```
+
 ## Player State
 
 Used to synchronize or apply weapons to a player.

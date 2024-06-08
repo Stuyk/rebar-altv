@@ -10,14 +10,16 @@ const interaction = useClientInteraction();
 // Listen for when the player enters a interaction
 interaction.onEnter(onEnter);
 
-function onEnter(uid: string, pos: alt.Vector3) {
+function onEnter(message: string, uid: string, pos: alt.Vector3) {
+    alt.log(message);
     alt.log(`UID: ${uid} | Pos: ${JSON.stringify(pos)}`);
 }
 
 // Listen for when the player leaves a interaction
 interaction.onLeave(onLeave);
 
-function onLeave(uid: string, pos: alt.Vector3) {
+function onLeave(message: string, uid: string, pos: alt.Vector3) {
+    alt.log(message);
     alt.log(`UID: ${uid} | Pos: ${JSON.stringify(pos)}`);
 }
 ```

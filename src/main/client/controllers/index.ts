@@ -4,6 +4,7 @@ import './blip.js';
 import './interaction.js';
 import './marker.js';
 import './object.js';
+import './ped.js';
 import './textlabel.js';
 
 alt.log('Loaded Controllers');

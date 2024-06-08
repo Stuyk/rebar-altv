@@ -63,7 +63,7 @@ export function useWebview(player: alt.Player) {
         try {
             await alt.Utils.waitFor(() => {
                 const pages = player.getMeta(
-                    type === 'persistent' ? SessionKeys.WebviewPersistent : SessionKeys.WebviewOverlays
+                    type === 'persistent' ? SessionKeys.WebviewPersistent : SessionKeys.WebviewOverlays,
                 ) as PageInfo[];
 
                 const index = pages.findIndex((x) => x.name == pageName);
@@ -90,13 +90,13 @@ export function useWebview(player: alt.Player) {
 }
 
 alt.onClient(Events.player.webview.set.page, (player, pageName: string) =>
-    player.setMeta(SessionKeys.WebviewPage, pageName)
+    player.setMeta(SessionKeys.WebviewPage, pageName),
 );
 
 alt.onClient(Events.player.webview.set.overlays, (player, pageName: PageInfo[]) =>
-    player.setMeta(SessionKeys.WebviewOverlays, pageName)
+    player.setMeta(SessionKeys.WebviewOverlays, pageName),
 );
 
 alt.onClient(Events.player.webview.set.persistent, (player, pageName: PageInfo[]) =>
-    player.setMeta(SessionKeys.WebviewPersistent, pageName)
+    player.setMeta(SessionKeys.WebviewPersistent, pageName),
 );
