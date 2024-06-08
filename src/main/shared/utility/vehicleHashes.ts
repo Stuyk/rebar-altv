@@ -820,7 +820,7 @@ export function getNameFromHash(hash: number): string | undefined {
             continue;
         }
 
-        return vehicleHashes[key];
+        return key;
     }
 
     return undefined;
