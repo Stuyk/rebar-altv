@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.5.0.771175616903">
+    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.5.0.771176481493">
 
     <!-- See retype.com -->
     <meta name="generator" content="Retype 3.5.0">
 
     <!-- Primary Meta Tags -->
-    <title>Installation</title>
-    <meta name="title" content="Installation">
+    <title>Install &amp; Upgrade</title>
+    <meta name="title" content="Install & Upgrade">
     <meta name="description" content="Hey listen! When you run Rebar for the first time, you won't be able to spawn.">
 
     <!-- Canonical -->
@@ -19,22 +19,22 @@
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://rebarv.com/install/">
-    <meta property="og:title" content="Installation">
+    <meta property="og:title" content="Install & Upgrade">
     <meta property="og:description" content="Hey listen! When you run Rebar for the first time, you won't be able to spawn.">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://rebarv.com/install/">
-    <meta property="twitter:title" content="Installation">
+    <meta property="twitter:title" content="Install & Upgrade">
     <meta property="twitter:description" content="Hey listen! When you run Rebar for the first time, you won't be able to spawn.">
 
     <script data-cfasync="false">(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
-    <link href="../resources/css/retype.css?v=3.5.0.771175616903" rel="stylesheet">
+    <link href="../resources/css/retype.css?v=3.5.0.771176481493" rel="stylesheet">
 
-    <script data-cfasync="false" src="../resources/js/config.js?v=3.5.0.771175616903" data-turbo-eval="false" defer></script>
+    <script data-cfasync="false" src="../resources/js/config.js?v=3.5.0.771176481493" data-turbo-eval="false" defer></script>
     <script data-cfasync="false" src="../resources/js/retype.js?v=3.5.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" data-cfasync="false" src="../resources/js/lunr.js?v=3.5.0.771175616903" data-turbo-eval="false" defer></script>
+    <script id="lunr-js" data-cfasync="false" src="../resources/js/lunr.js?v=3.5.0.771176481493" data-turbo-eval="false" defer></script>
 </head>
 <body>
     <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -185,10 +185,10 @@
                                 <!-- Rendered if sidebar right is enabled -->
                                 <div id="docs-sidebar-right-toggle"></div>
                                 <!-- Page content  -->
-<doc-anchor-target id="installation" class="break-words">
+<doc-anchor-target id="install--upgrade" class="break-words">
     <h1>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#installation">#</doc-anchor-trigger>
-        <span>Installation</span>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#install--upgrade">#</doc-anchor-trigger>
+        <span>Install &amp; Upgrade</span>
     </h1>
 </doc-anchor-target>
 <div class="flex mb-6">
@@ -290,6 +290,10 @@
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-none"><code v-pre class="language-none">pnpm start</code></pre>
 </doc-codeblock></div>
+<p>Alternatively, development mode can be started with</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">pnpm dev</code></pre>
+</doc-codeblock></div>
 <hr>
 <doc-anchor-target id="3b-linux">
     <h2>
@@ -305,7 +309,7 @@
     </h3>
 </doc-anchor-target>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-none"><code v-pre class="language-none">sudo apt-get update 
+<pre class="language-none"><code v-pre class="language-none">sudo apt-get update
 sudo apt-get install libatomic1</code></pre>
 </doc-codeblock></div>
 <doc-anchor-target id="install-1">
@@ -335,6 +339,10 @@ sudo apt-get install libatomic1</code></pre>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-none"><code v-pre class="language-none">pnpm start:linux</code></pre>
 </doc-codeblock></div>
+<p>Alternatively, development mode can be started with</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">pnpm dev:linux</code></pre>
+</doc-codeblock></div>
 <hr>
 <doc-anchor-target id="3c-docker">
     <h2>
@@ -344,6 +352,41 @@ sudo apt-get install libatomic1</code></pre>
 </doc-anchor-target>
 <p>Follow all of the instructions above.</p>
 <p>Build with <code v-pre>pnpm build:docker</code> and then run <code v-pre>./altv-server</code>.</p>
+<doc-anchor-target id="upgrading">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#upgrading">#</doc-anchor-trigger>
+        <span>Upgrading</span>
+    </h2>
+</doc-anchor-target>
+<doc-anchor-target id="auto-upgrade">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#auto-upgrade">#</doc-anchor-trigger>
+        <span>Auto Upgrade</span>
+    </h3>
+</doc-anchor-target>
+<p>If you already have Rebar installed simply run the following command:</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">pnpm rebar:upgrade</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="manual-upgrade">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#manual-upgrade">#</doc-anchor-trigger>
+        <span>Manual Upgrade</span>
+    </h3>
+</doc-anchor-target>
+<p>Download the latest version <code v-pre>Rebar</code> into another folder.</p>
+<p>Copy the folders <code v-pre>src/main</code>, <code v-pre>webview</code>, and <code v-pre>docs</code> folder into the main folder of Rebar.</p>
+<p>Copy the file <code v-pre>package.json</code> to the main folder of Rebar.</p>
+<p>Run <code v-pre>pnpm upgrade</code> and <code v-pre>pnpm install</code>.</p>
+<p><a href="https://github.com/Stuyk/rebar-altv/archive/refs/heads/main.zip">Click To Download Latest Source Code</a></p>
+<p>That&#x27;s it.</p>
+<doc-anchor-target id="webview-development">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#webview-development">#</doc-anchor-trigger>
+        <span>Webview Development</span>
+    </h2>
+</doc-anchor-target>
+<p>If you need to develop an interface out of game, you can use <code v-pre>pnpm:webview</code></p>
 
                                 
                                 <!-- Required only on API pages -->
@@ -363,10 +406,10 @@ sudo apt-get install libatomic1</code></pre>
                                     </div>
                             
                                     <div class="w-1/2">
-                                        <a class="px-5 py-4 -mx-px h-full flex items-center justify-end break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-r-lg transition-colors duration-150 relative hover:z-5" href="../upgrade/">
+                                        <a class="px-5 py-4 -mx-px h-full flex items-center justify-end break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-r-lg transition-colors duration-150 relative hover:z-5" href="../changelog/">
                                             <span>
                                                 <span class="block text-xs font-normal text-right text-gray-400 dark:text-dark-400">Next</span>
-                                                <span class="block mt-1">Upgrading</span>
+                                                <span class="block mt-1">Changelog</span>
                                             </span>
                                             <svg xmlns="http://www.w3.org/2000/svg" class="ml-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19.92 12.38a1 1 0 00-.22-1.09l-7-7a.996.996 0 10-1.41 1.41l5.3 5.3H5c-.55 0-1 .45-1 1s.45 1 1 1h11.59l-5.29 5.29a.996.996 0 000 1.41c.19.2.44.3.7.3s.51-.1.71-.29l7-7c.09-.09.16-.21.21-.33z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
                                         </a>
@@ -410,6 +453,6 @@ sudo apt-get install libatomic1</code></pre>
 
     <div id="docs-overlay-target"></div>
 
-    <script data-cfasync="false">window.__DOCS__ = { "title": "Installation", level: 1, icon: "file", hasPrism: false, hasMermaid: false, hasMath: false, tocDepth: 23 }</script>
+    <script data-cfasync="false">window.__DOCS__ = { "title": "Install & Upgrade", level: 1, icon: "file", hasPrism: false, hasMermaid: false, hasMath: false, tocDepth: 23 }</script>
 </body>
 </html>
