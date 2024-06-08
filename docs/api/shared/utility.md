@@ -82,3 +82,18 @@ const distLong = Utility.vector.distance(new alt.Vector3(0, 0, 0), new alt.Vecto
 // Returns a position in front of a given player, vehicle, etc.
 const posInFrontOf = Utility.vector.getVectorInFrontOfPlayer(somePlayerOrVehicle, 5);
 ```
+
+### Vehicle Hash Map
+
+When you need vehicle names from hash values or need a large list of vehicles. This is it.
+
+```ts
+// will return 'infernus'
+const model = Utility.vehicleHashes.getNameFromHash(418536135);
+
+// Adding vehicles like this needs to be done from webview, server, and shared to be accurate
+Utility.vehicleHashes.addVehicle('infernus');
+
+// Returns a string array of vehicle model names
+const vehicleModels = Utility.vehicleHashes.getVehicles();
+```

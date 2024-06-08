@@ -102,6 +102,32 @@ export interface Vehicle {
      */
     windows?: { [key: string]: number };
 
+    /**
+     * Neon color for the vehicle
+     *
+     * @type {alt.RGBA}
+     * @memberof Vehicle
+     */
+    neonColor?: alt.RGBA;
+
+    /**
+     * Where the placement of the neon is
+     *
+     * @type {{
+     *         front: boolean,
+     *         back: boolean,
+     *         left: boolean,
+     *         right: boolean
+     *     }}
+     * @memberof Vehicle
+     */
+    neonPlacement?: {
+        front: boolean;
+        back: boolean;
+        left: boolean;
+        right: boolean;
+    };
+
     stateProps?: {
         /**
          * Dirt level of the vehicle
