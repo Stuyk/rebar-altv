@@ -123,6 +123,35 @@ export function useVehicle(vehicle: alt.Vehicle) {
     }
 
     /**
+     * Bind a document to this vehicle
+     *
+     * Returns `true` if bound successfully
+     *
+     * @param {Vehicle} document
+     */
+    function bind(document: Vehicle) {
+        if (vehicle.model !== document.model) {
+            return false;
+        }
+
+        if (Rebar.document.vehicle.useVehicle(vehicle).get()) {
+            return false;
+        }
+
+        Rebar.document.vehicle.useVehicleBinder(vehicle).bind(document);
+        return true;
+    }
+
+    /**
+     * Check if the vehicle already has a bound document
+     *
+     * @return
+     */
+    function isBound() {
+        return Rebar.document.vehicle.useVehicle(vehicle).get() ? true : false;
+    }
+
+    /**
      * Despawns current vehicle, grabs existing document on the vehicle.
      * Recreates the vehicle, saves health, and then re-applies the document.
      *
@@ -212,6 +241,202 @@ export function useVehicle(vehicle: alt.Vehicle) {
     }
 
     /**
+     * Determine if this vehicle has an owner
+     *
+     * @return
+     */
+    function hasOwner() {
+        const document = Rebar.document.vehicle.useVehicle(vehicle);
+        return document.get() ? true : false;
+    }
+
+    /**
+     * Toggle door state for the given vehicle
+     *
+     * 0 - Driver
+     * 1 - Passenger
+     * 2 - Back Left
+     * 3 - Back Right
+     * 4 - Hood
+     * 5 - Trunk
+     *
+     * @param {number} door
+     */
+    function toggleDoor(door: number) {
+        vehicle.setDoorState(door, vehicle.getDoorState(door) === 0 ? 7 : 0);
+    }
+
+    /**
+     * Toggle the door as a player, check ownership
+     *
+     * @param {alt.Player} player
+     * @param {number} door
+     * @return
+     */
+    function toggleDoorAsPlayer(player: alt.Player, door: number) {
+        if (!verifyOwner(player, true)) {
+            return;
+        }
+
+        toggleDoor(door);
+    }
+
+    /**
+     * Toggle the engine on and off
+     */
+    function toggleEngine() {
+        vehicle.engineOn = !vehicle.engineOn;
+    }
+
+    /**
+     * Toggle the engine as a player, check ownership
+     *
+     * @param {alt.Player} player
+     * @return
+     */
+    function toggleEngineAsPlayer(player: alt.Player) {
+        if (!verifyOwner(player, true)) {
+            return;
+        }
+
+        toggleEngine();
+    }
+
+    /**
+     * Toggle the vehicle lock from locked to unlocked
+     */
+    function toggleLock() {
+        const LOCKED = 2;
+        const UNLOCKED = 1;
+        vehicle.lockState = vehicle.lockState === LOCKED ? UNLOCKED : LOCKED;
+    }
+
+    /**
+     * Toggle the door locks as a player, check ownership
+     *
+     * @param {alt.Player} player
+     * @return
+     */
+    function toggleLockAsPlayer(player: alt.Player) {
+        if (!verifyOwner(player, true)) {
+            return;
+        }
+
+        toggleLock();
+    }
+
+    /**
+     * Add a player who has keys to this vehicle
+     *
+     * @param {string} owner_document_id
+     * @return
+     */
+    async function addKey(owner_document_id: string) {
+        const document = Rebar.document.vehicle.useVehicle(vehicle);
+        if (!document.get()) {
+            return false;
+        }
+
+        const keys: string[] = document.getField('keys') ?? [];
+        const index = keys.findIndex((x) => x === owner_document_id);
+        if (index >= 0) {
+            return false;
+        }
+
+        keys.push(owner_document_id);
+        await document.set('keys', keys);
+        return true;
+    }
+
+    /**
+     * Remove a player who has keys to this vehicle
+     *
+     * @param {string} owner_document_id
+     * @return
+     */
+    async function removeKey(owner_document_id: string) {
+        const document = Rebar.document.vehicle.useVehicle(vehicle);
+        if (!document.get()) {
+            return false;
+        }
+
+        const keys: string[] = document.getField('keys') ?? [];
+        const index = keys.findIndex((x) => x === owner_document_id);
+        if (index <= -1) {
+            return false;
+        }
+
+        keys.splice(index, 1);
+        await document.set('keys', keys);
+        return true;
+    }
+
+    /**
+     * Clear all keys for this vehicle
+     *
+     * @return
+     */
+    async function clearKeys() {
+        const document = Rebar.document.vehicle.useVehicle(vehicle);
+        if (!document.get()) {
+            return false;
+        }
+
+        await document.set('keys', []);
+        return true;
+    }
+
+    /**
+     * Verify ownership of the vehicle by checking the owner identifier, or keys.
+     *
+     * If `requireOwnership` is set to true, then a non-owned vehicle will return false.
+     *
+     * Otherwise it will return `true`.
+     *
+     * @param {alt.Player} player
+     */
+    function verifyOwner(player: alt.Player, requireOwnership: boolean, ownerOnly = false) {
+        const document = Rebar.document.vehicle.useVehicle(vehicle);
+        if (!document.get()) {
+            return requireOwnership ? false : true;
+        }
+
+        const rPlayer = Rebar.usePlayer(player);
+        const _id = rPlayer.character.getField('_id');
+        if (!_id) {
+            return false;
+        }
+
+        // Verify ownership directly
+        const owner: string = document.getField('owner');
+        if (owner && owner === _id) {
+            return true;
+        }
+
+        if (ownerOnly) {
+            return false;
+        }
+
+        // Verify any matching keys
+        const keys: string[] = document.getField('keys') ?? [];
+        if (keys && keys.includes(_id)) {
+            return true;
+        }
+
+        // Verify any matching permissions
+        if (owner) {
+            const permissions: string[] = rPlayer.character.getField('permissions') ?? [];
+            for (let perm of permissions) {
+                if (owner === perm) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    /**
      * If the vehicle has a `document` bound to it, it will apply the appearance.
      */
     function sync() {
@@ -225,5 +450,26 @@ export function useVehicle(vehicle: alt.Vehicle) {
         apply(data);
     }
 
-    return { apply, create, repair, save, sync };
+    return {
+        apply,
+        bind,
+        create,
+        hasOwner,
+        isBound,
+        keys: {
+            add: addKey,
+            remove: removeKey,
+            clear: clearKeys,
+        },
+        repair,
+        save,
+        sync,
+        toggleDoor,
+        toggleDoorAsPlayer,
+        toggleEngine,
+        toggleEngineAsPlayer,
+        toggleLock,
+        toggleLockAsPlayer,
+        verifyOwner,
+    };
 }

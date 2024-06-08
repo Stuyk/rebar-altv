@@ -3,27 +3,62 @@ import { useRebar } from '../index.js';
 
 const Rebar = useRebar();
 
-function hasPermission(player: alt.Player, accountPermissions: string[], characterPermissions: string[]) {
+function hasPermission(
+    player: alt.Player,
+    accountPermissions: string[],
+    characterPermissions: string[],
+    groupPermissions: { [key: string]: string[] },
+) {
     const rPlayer = Rebar.usePlayer(player);
     if (!rPlayer.isValid()) {
         return false;
     }
 
-    const permissions = Rebar.permission.usePermission(player);
-    if (permissions.hasOne('account', accountPermissions)) {
+    const accPerms = rPlayer.character.getField('permissions') ?? [];
+    const charPerms = rPlayer.character.getField('permissions') ?? [];
+    const groupPerms = rPlayer.character.getField('groups') ?? {};
+
+    for (let perm of accountPermissions) {
+        if (!accPerms.includes(perm)) {
+            continue;
+        }
+
         return true;
     }
 
-    if (permissions.hasOne('character', characterPermissions)) {
+    for (let perm of characterPermissions) {
+        if (!charPerms.includes(perm)) {
+            continue;
+        }
+
         return true;
+    }
+
+    for (let key of Object.keys(groupPermissions)) {
+        // Does not belong to group
+        if (!groupPerms[key]) {
+            continue;
+        }
+
+        // Belongs to group
+        for (let perm of groupPermissions[key]) {
+            if (!groupPerms[key].includes(perm)) {
+                continue;
+            }
+
+            return true;
+        }
     }
 
     return false;
 }
 
-export function useProtectCallback(callback: Function, permission: { character?: string[]; account?: string[] }) {
+export function useProtectCallback(
+    callback: Function,
+    permission: { character?: string[]; account?: string[]; group?: { [key: string]: string[] } },
+) {
     return (player: alt.Player, ...args: any[]) => {
-        if (!hasPermission(player, permission.account ?? [], permission.character ?? [])) {
+        if (!hasPermission(player, permission.account ?? [], permission.character ?? [], permission.group ?? {})) {
             return;
         }
 

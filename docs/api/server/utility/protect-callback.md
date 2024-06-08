@@ -15,6 +15,17 @@ function handleEvent(player: alt.Player, arg1: string, arg2: string) {
 
 alt.onClient(
     'protected-event',
-    Rebar.utility.useProtectCallback(handleEvent, { account: ['admin'], character: ['police'] }),
+    Rebar.utility.useProtectCallback(handleEvent, {
+        // This checks if the account has a permission
+        account: ['admin'],
+
+        // This checks if a character has some other permission
+        character: ['do-something'],
+
+        // This checks if a player has a group permission
+        group: {
+            police: ['cadet'],
+        },
+    }),
 );
 ```

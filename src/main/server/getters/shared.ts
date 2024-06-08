@@ -18,7 +18,8 @@ export function getClosestEntity<T extends alt.Entity>(entity: alt.Entity, entit
             continue;
         }
 
-        if (target.id === entity.id) {
+        // Ignore same types, with same ids
+        if (entity.type === target.type && target.id === entity.id) {
             continue;
         }
 

@@ -14,6 +14,7 @@ import { useWorld } from './world.js';
 import { useCharacter } from '../document/character.js';
 import { usePlayerGetter } from '../getters/player.js';
 import { useVehicleGetter } from '../getters/vehicle.js';
+import { useRaycast } from './raycast.js';
 
 const playerGetter = usePlayerGetter();
 const vehicleGetter = useVehicleGetter();
@@ -27,9 +28,17 @@ export function usePlayer(player: alt.Player) {
         character: useCharacter(player),
         get: {
             closestPlayer: () => {
+                if (!player || !player.valid) {
+                    return undefined;
+                }
+
                 return playerGetter.closestToPlayer(player);
             },
             closestVehicle: () => {
+                if (!player || !player.valid) {
+                    return undefined;
+                }
+
                 return vehicleGetter.closestVehicle(player);
             },
         },
@@ -38,6 +47,7 @@ export function usePlayer(player: alt.Player) {
         },
         native: useNative(player),
         notify: useNotify(player),
+        raycast: useRaycast(player),
         state: useState(player),
         status: useStatus(player),
         waypoint: useWaypoint(player),

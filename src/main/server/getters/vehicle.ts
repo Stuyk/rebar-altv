@@ -59,6 +59,15 @@ export function useVehicleGetter() {
     }
 
     /**
+     * Check if a vehicle with a given _id is already spawned
+     *
+     * @param {string} _id
+     */
+    function isSpawned(_id: string) {
+        return byDatabaseID(_id) ? true : false;
+    }
+
+    /**
      * Checks if a vehicle is within 3 distance of a position.
      *
      * @param {alt.Vehicle} vehicle An alt:V Vehicle Entity
@@ -111,6 +120,7 @@ export function useVehicleGetter() {
         driver,
         isValidModel,
         isNearPosition,
+        isSpawned,
         passengers,
     };
 }
