@@ -4,6 +4,20 @@ order: -5
 
 # Changelog
 
+## Version 19
+
+### Code Changes
+
+-   Added reverse map for vehicle model hash to vehicle model name
+-   Added function to add named models to list at runtime as well
+-   Added neon synchronization to vehicle document sync
+
+### Docs Changes
+
+-   Added vehicleHashes utility doc info
+
+---
+
 ## Version 18
 
 ### Code Changes
