@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.5.0.771099987929">
+    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.5.0.771133688668">
 
     <!-- See retype.com -->
     <meta name="generator" content="Retype 3.5.0">
@@ -30,12 +30,12 @@
 
     <script data-cfasync="false">(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
-    <link href="../../../../resources/css/retype.css?v=3.5.0.771099987929" rel="stylesheet">
+    <link href="../../../../resources/css/retype.css?v=3.5.0.771133688668" rel="stylesheet">
 
-    <script data-cfasync="false" src="../../../../resources/js/config.js?v=3.5.0.771099987929" data-turbo-eval="false" defer></script>
+    <script data-cfasync="false" src="../../../../resources/js/config.js?v=3.5.0.771133688668" data-turbo-eval="false" defer></script>
     <script data-cfasync="false" src="../../../../resources/js/retype.js?v=3.5.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" data-cfasync="false" src="../../../../resources/js/lunr.js?v=3.5.0.771099987929" data-turbo-eval="false" defer></script>
-    <script id="prism-js" data-cfasync="false" src="../../../../resources/js/prism.js?v=3.5.0.771099987929" defer></script>
+    <script id="lunr-js" data-cfasync="false" src="../../../../resources/js/lunr.js?v=3.5.0.771133688668" data-turbo-eval="false" defer></script>
+    <script id="prism-js" data-cfasync="false" src="../../../../resources/js/prism.js?v=3.5.0.771133688668" defer></script>
 </head>
 <body>
     <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -490,6 +490,28 @@ rebarPlayer.notify.showNotification('Hello there');
 // Send a message to the player
 rebarPlayer.notify.sendMessage({ type: 'info', content: 'Hello there!' });
 rebarPlayer.notify.sendMessage({ type: 'player', content: 'Hello there!', author: 'Some Other Player' });</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="raycast">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#raycast">#</doc-anchor-trigger>
+        <span>Raycast</span>
+    </h2>
+</doc-anchor-target>
+<p>Used to get what the player is looking at, or find out other information</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">const rPlayer = Rebar.usePlayer(player);
+
+// Commonly used raycast functions
+const someVeh = await rPlayer.raycast.getFocusedEntity('vehicle');
+const somePlayer = await rPlayer.raycast.getFocusedEntity('player');
+const someAltvObject = await rPlayer.raycast.getFocusedEntity('object');
+
+// Get a world object and its position if available
+const someWorldObject = await rPlayer.raycast.getFocusedObject();
+console.log(someWorldObject.model, someWorldObject.pos, someWorldObject.scriptId);
+
+// Position where the player is looking, intersects with everything
+const somePos = await rPlayer.raycast.getFocusedPosition();</code></pre>
 </doc-codeblock></div>
 <doc-anchor-target id="player-state">
     <h2>
