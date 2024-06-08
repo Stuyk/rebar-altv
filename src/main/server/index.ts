@@ -61,6 +61,7 @@ import { useProtectCallback } from './utility/protectCallback.js';
 import { useServerTime } from './systems/serverTime.js';
 import { useServerWeather } from './systems/serverWeather.js';
 import { useProxyFetch } from './systems/proxyFetch.js';
+import { usePed } from './controllers/ped.js';
 
 export function useRebar() {
     return {
@@ -77,6 +78,7 @@ export function useRebar() {
             useTextLabelGlobal,
             useTextLabelLocal,
             usePickupGlobal,
+            usePed,
         },
         database: {
             useDatabase,
@@ -155,10 +157,10 @@ export function useRebar() {
     };
 }
 
-declare module "alt-shared" {
+declare module 'alt-shared' {
     // extending interface by interface merging
     export interface ICustomGlobalMeta {
-        Rebar: ReturnType<typeof useRebar>
+        Rebar: ReturnType<typeof useRebar>;
     }
 }
 

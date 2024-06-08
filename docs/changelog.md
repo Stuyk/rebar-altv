@@ -34,6 +34,9 @@ order: -5
     -   verifyOwner
         -   Check if the player is an 'owner' of the vehicle
         -   Additionally, optional section to check if they are the sole owner of the vehicle
+-   Added new controller `usePed` which creates a global pedestrian which can have synced natives invoked on it
+    -   It's recommended not to spawn more than 32 given peds around a single player.
+    -   Can even easily listen to when the specific ped spawned dies
 
 ### Docs Changes
 

@@ -17,6 +17,10 @@ export const Events = {
             create: 'object:create',
             destroy: 'object:destroy',
         },
+        ped: {
+            invoke: 'ped:invoke',
+            invokeRpc: 'ped:invoke:rpc',
+        },
         textlabel: {
             create: 'textlabel:create',
             destroy: 'textlabel:destroy',

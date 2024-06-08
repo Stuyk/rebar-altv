@@ -36,5 +36,7 @@ export function useRaycast(player: alt.Player) {
 
     return {
         getFocusedEntity,
+        getFocusedObject,
+        getFocusedPosition,
     };
 }
