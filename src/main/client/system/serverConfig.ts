@@ -8,8 +8,6 @@ let config: ServerConfig = {};
 let lastRadarState = true;
 
 function tick() {
-    console.log(config);
-
     if (config.hideHealthArmour) {
         alt.beginScaleformMovieMethodMinimap('SETUP_HEALTH_ARMOUR');
         native.scaleformMovieMethodAddParamInt(3);
