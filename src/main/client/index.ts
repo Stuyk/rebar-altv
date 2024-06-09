@@ -84,3 +84,5 @@ declare module 'alt-shared' {
 
 alt.setMeta('RebarClient', useRebarClient());
 alt.setMeta('RebarClientPluginAPI', useRebarClient().useClientApi());
+
+alt.getMeta('');

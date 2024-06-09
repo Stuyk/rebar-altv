@@ -8,11 +8,13 @@
 -   Clearly warn users using `api.get` for obtaining an API, and recommend async instead
 -   Added new `getMeta` API for getting plugin API as single import
 -   Added `debug` option to `raycast` functions to draw lines when a raycast is invoked
+-   Added `useServerConfig` to change what HUD elements, and other on screen elements a player sees
 
 ### Docs Changes
 
 -   Added `debug` to raycast docs
 -   Removed `get` from Plugin API examples, to let users focus on `async` instead
+-   Added `useServerConfig` to docs
 
 ---
 
