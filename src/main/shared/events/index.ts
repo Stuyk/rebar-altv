@@ -34,6 +34,7 @@ export const Events = {
             weapon: 'localplayer:stats:weapon',
             stamina: 'localplayer:stats:stamina',
             engineOn: 'localplayer:stats:engineon',
+            locked: 'localplayer:stats:locked',
             inVehicle: 'localplayer:stats:invehicle',
             inWater: 'localplayer:stats:inwater',
             gear: 'localplayer:stats:gear',
@@ -101,6 +102,9 @@ export const Events = {
             getFocusedEntity: 'systems:raycast:get:focused:entity',
             getFocusedPosition: 'systems:raycast:get:focused:position',
             getFocusedObject: 'systems:raycast:get:focused:object',
+        },
+        serverConfig: {
+            set: 'systems:server:config:set',
         },
     },
     view: {

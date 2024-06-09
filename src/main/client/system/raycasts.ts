@@ -9,14 +9,30 @@ type ReturnTypes = {
     object: alt.Object;
 };
 
-function performRaycast(flags: number = -1) {
-    const start = alt.getCamPos();
+let everyTick;
+let start: alt.Vector3;
+let end: alt.Vector3;
+
+function drawDebugLines() {
+    if (!start || !end) {
+        return;
+    }
+
+    native.drawLine(start.x, start.y, start.z, end.x, end.y, end.z, 255, 0, 0, 255);
+}
+
+function performRaycast(flags: number = -1, debug = false) {
+    start = alt.getCamPos();
     const forwardVector = getDirectionFromRotation(native.getFinalRenderedCamRot(2));
-    const end = new alt.Vector3(
+    end = new alt.Vector3(
         start.x + forwardVector.x * 500,
         start.y + forwardVector.y * 500,
         start.z + forwardVector.z * 500,
     );
+
+    if (debug && typeof everyTick === 'undefined') {
+        everyTick = alt.everyTick(drawDebugLines);
+    }
 
     const raycast = native.startExpensiveSynchronousShapeTestLosProbe(
         start.x,
@@ -42,8 +58,8 @@ export function useRaycast() {
      * @param {K} type
      * @return {ReturnTypes[K]}
      */
-    function getFocusedEntity<K extends keyof ReturnTypes>(type: K): ReturnTypes[K] {
-        const results = performRaycast();
+    function getFocusedEntity<K extends keyof ReturnTypes>(type: K, debug = false): ReturnTypes[K] {
+        const results = performRaycast(-1, debug);
         if (!results.result || !results.didHit) {
             return undefined;
         }
@@ -66,15 +82,26 @@ export function useRaycast() {
     /**
      * Get the object the player is looking at
      *
-     * @return {{ pos: alt.Vector3; id: number; model: number }}
+     * @return {{ pos: alt.Vector3; id: number; model: number, entityPos: alt.Vector3 }}
      */
-    function getFocusedObject(): { pos: alt.Vector3; scriptId: number; model: number } {
-        const results = performRaycast(16);
+    function getFocusedObject(debug = false): {
+        pos: alt.Vector3;
+        scriptId: number;
+        model: number;
+        entityPos: alt.Vector3;
+    } {
+        const results = performRaycast(16, debug);
         if (!results.result || !results.didHit) {
             return undefined;
         }
 
-        return { pos: results.coords, scriptId: results.entity, model: native.getEntityModel(results.entity) };
+        const entityPos = native.getEntityCoords(results.entity, false);
+        return {
+            pos: results.coords,
+            scriptId: results.entity,
+            model: native.getEntityModel(results.entity),
+            entityPos,
+        };
     }
 
     /**
@@ -82,8 +109,8 @@ export function useRaycast() {
      *
      * @return {alt.Vector3}
      */
-    function getFocusedPosition(): alt.Vector3 {
-        const results = performRaycast(-1);
+    function getFocusedPosition(debug = false): alt.Vector3 {
+        const results = performRaycast(-1, debug);
         if (!results.result || !results.didHit) {
             return undefined;
         }

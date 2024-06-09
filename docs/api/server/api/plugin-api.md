@@ -54,19 +54,6 @@ useApi().register('my-cool-api', useMyCoolAPI());
 
 This is all that's necessary to start working with other plugin APIs.
 
-Below is dependent on load order, so your mileage may vary.
-
-```ts
-import { useRebar } from '@Server/index.js';
-
-const Rebar = useRebar();
-const myCoolAPI = Rebar.useApi().get('my-cool-api');
-
-function someFunction(somePlayer: alt.Player) {
-    myCoolAPI.logPlayerName(somePlayer);
-}
-```
-
 If you do not want to worry about load order. Consider the following pattern:
 
 ```ts

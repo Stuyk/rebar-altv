@@ -62,6 +62,7 @@ import { useServerTime } from './systems/serverTime.js';
 import { useServerWeather } from './systems/serverWeather.js';
 import { useProxyFetch } from './systems/proxyFetch.js';
 import { usePed } from './controllers/ped.js';
+import { useServerConfig } from './systems/serverConfig.js';
 
 export function useRebar() {
     return {
@@ -140,6 +141,7 @@ export function useRebar() {
         },
         usePlayer,
         useProxyFetch,
+        useServerConfig,
         useServerTime,
         useServerWeather,
         utility: {
@@ -157,11 +159,28 @@ export function useRebar() {
     };
 }
 
-declare module 'alt-shared' {
+declare module 'alt-server' {
     // extending interface by interface merging
     export interface ICustomGlobalMeta {
+        /**
+         * Used for getting plugin APIs
+         *
+         * Only available on server-side, server folder
+         *
+         * @type {ReturnType<typeof useRebar>}
+         * @memberof ICustomGlobalMeta
+         */
         Rebar: ReturnType<typeof useRebar>;
+
+        /**
+         * Only available on server-side, server folder
+         *
+         * @type {ReturnType<typeof useApi>}
+         * @memberof ICustomGlobalMeta
+         */
+        RebarAPI: ReturnType<typeof useApi>;
     }
 }
 
 alt.setMeta('Rebar', useRebar());
+alt.setMeta('RebarPluginAPI', useRebar().useApi());

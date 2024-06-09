@@ -18,6 +18,7 @@ type Stats = {
     inVehicle: boolean;
     inWater: boolean;
     engineOn: boolean;
+    locked: boolean;
     gear: number;
     maxGear: number;
     vehicleHealth: number;
@@ -43,6 +44,7 @@ const data = ref<Stats>({
     gear: 0,
     maxGear: 0,
     engineOn: false,
+    locked: false,
     vehicleHealth: 0,
     fps: 0,
     ping: 0,
@@ -77,6 +79,7 @@ export function usePlayerStats() {
         events.on(Events.localPlayer.stats.gear, (gear: number) => (data.value.gear = gear));
         events.on(Events.localPlayer.stats.maxGear, (maxGear: number) => (data.value.maxGear = maxGear));
         events.on(Events.localPlayer.stats.engineOn, (engineOn: boolean) => (data.value.engineOn = engineOn));
+        events.on(Events.localPlayer.stats.locked, (locked: boolean) => (data.value.locked = locked));
         events.on(Events.localPlayer.stats.lights, (lights: [boolean, boolean]) => (data.value.lights = lights));
         events.on(
             Events.localPlayer.stats.indicatorLights,
