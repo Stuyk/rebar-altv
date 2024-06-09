@@ -34,6 +34,10 @@ function update() {
     view.emit(Events.localPlayer.stats.maxGear, alt.Player.local.vehicle ? alt.Player.local.vehicle.maxGear : 0);
     view.emit(Events.localPlayer.stats.engineOn, alt.Player.local.vehicle ? alt.Player.local.vehicle.engineOn : false);
     view.emit(
+        Events.localPlayer.stats.locked,
+        alt.Player.local.vehicle ? alt.Player.local.vehicle.lockState === 2 : false,
+    );
+    view.emit(
         Events.localPlayer.stats.indicatorLights,
         alt.Player.local.vehicle ? alt.Player.local.vehicle.indicatorLights : 0,
     );
