@@ -103,6 +103,9 @@ export const Events = {
             getFocusedPosition: 'systems:raycast:get:focused:position',
             getFocusedObject: 'systems:raycast:get:focused:object',
         },
+        serverConfig: {
+            set: 'systems:server:config:set',
+        },
     },
     view: {
         onServer: 'webview:on:server',

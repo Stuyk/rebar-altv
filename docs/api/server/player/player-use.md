@@ -269,14 +269,14 @@ const rPlayer = Rebar.usePlayer(player);
 // Commonly used raycast functions
 const someVeh = await rPlayer.raycast.getFocusedEntity('vehicle');
 const somePlayer = await rPlayer.raycast.getFocusedEntity('player');
-const someAltvObject = await rPlayer.raycast.getFocusedEntity('object');
+const someAltvObject = await rPlayer.raycast.getFocusedEntity('object', true); // Adding true draws a debug line in-game
 
-// Get a world object and its position if available
-const someWorldObject = await rPlayer.raycast.getFocusedObject();
-console.log(someWorldObject.model, someWorldObject.pos, someWorldObject.scriptId);
+// Get a world object, the raycast hit position, and the entity position
+const someWorldObject = await rPlayer.raycast.getFocusedObject(false); // Passing `true` draws a debug line in-game
+console.log(someWorldObject.model, someWorldObject.pos, someWorldObject.scriptId, someWorldObject.entityPos);
 
 // Position where the player is looking, intersects with everything
-const somePos = await rPlayer.raycast.getFocusedPosition();
+const somePos = await rPlayer.raycast.getFocusedPosition(false); // Passing `true` draws a debug line in-game
 ```
 
 ## Player State

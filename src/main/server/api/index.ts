@@ -16,11 +16,17 @@ export function useApi() {
     }
 
     function get<K extends keyof ServerPlugin>(apiName: K): ServerPlugin[K] {
+        if (!registeredApis[apiName]) {
+            alt.logWarning(`The API, ${apiName} is undefined. Use 'getAsync' for obtaining the API instead.`);
+            alt.logWarning(`Example: const result = await api.getAsync('${apiName}');`);
+            alt.logWarning(`This could also be a missing plugin, make sure the plugin for ${apiName} is installed`);
+        }
+
         return registeredApis[apiName] as ServerPlugin[K];
     }
 
     async function getAsync<K extends keyof ServerPlugin>(apiName: K, timeout = 30000): Promise<ServerPlugin[K]> {
-        await alt.Utils.waitFor( () => isReady(apiName), timeout);
+        await alt.Utils.waitFor(() => isReady(apiName), timeout);
         return get(apiName);
     }
 
