@@ -15,8 +15,11 @@ export function useRaycast(player: alt.Player) {
      * @param {K} type
      * @return {Promise<ReturnTypes[K]>}
      */
-    async function getFocusedEntity<K extends keyof ReturnTypes>(type: K): Promise<ReturnTypes[K] | undefined> {
-        return await player.emitRpc(Events.systems.raycast.getFocusedEntity, type);
+    async function getFocusedEntity<K extends keyof ReturnTypes>(
+        type: K,
+        debug = false,
+    ): Promise<ReturnTypes[K] | undefined> {
+        return await player.emitRpc(Events.systems.raycast.getFocusedEntity, type, debug);
     }
 
     /**
@@ -24,14 +27,16 @@ export function useRaycast(player: alt.Player) {
      *
      * **Keep in mind that `scriptId` is not the same for every player**
      *
-     * @return {Promise<{ pos: alt.Vector3; scriptId: number; model: number }>}
+     * @return {Promise<{ pos: alt.Vector3; scriptId: number; model: number, entityPos: alt.Vector3 }>}
      */
-    async function getFocusedObject(): Promise<{ pos: alt.Vector3; scriptId: number; model: number } | undefined> {
-        return await player.emitRpc(Events.systems.raycast.getFocusedObject);
+    async function getFocusedObject(
+        debug = false,
+    ): Promise<{ pos: alt.Vector3; scriptId: number; model: number; entityPos: alt.Vector3 } | undefined> {
+        return await player.emitRpc(Events.systems.raycast.getFocusedObject, debug);
     }
 
-    async function getFocusedPosition(): Promise<alt.Vector3 | undefined> {
-        return await player.emitRpc(Events.systems.raycast.getFocusedPosition);
+    async function getFocusedPosition(debug = false): Promise<alt.Vector3 | undefined> {
+        return await player.emitRpc(Events.systems.raycast.getFocusedPosition, debug);
     }
 
     return {

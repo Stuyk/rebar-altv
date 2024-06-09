@@ -160,8 +160,25 @@ export function useRebar() {
 declare module 'alt-shared' {
     // extending interface by interface merging
     export interface ICustomGlobalMeta {
+        /**
+         * Used for getting plugin APIs
+         *
+         * Only available on server-side, server folder
+         *
+         * @type {ReturnType<typeof useRebar>}
+         * @memberof ICustomGlobalMeta
+         */
         Rebar: ReturnType<typeof useRebar>;
+
+        /**
+         * Only available on server-side, server folder
+         *
+         * @type {ReturnType<typeof useApi>}
+         * @memberof ICustomGlobalMeta
+         */
+        RebarAPI: ReturnType<typeof useApi>;
     }
 }
 
 alt.setMeta('Rebar', useRebar());
+alt.setMeta('RebarPluginAPI', useRebar().useApi());

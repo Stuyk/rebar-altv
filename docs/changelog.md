@@ -1,5 +1,21 @@
 # Changelog
 
+## Version 20
+
+### Code Changes
+
+-   Made `raycast.getFocusedObject()` return `entityPos`
+-   Clearly warn users using `api.get` for obtaining an API, and recommend async instead
+-   Added new `getMeta` API for getting plugin API as single import
+-   Added `debug` option to `raycast` functions to draw lines when a raycast is invoked
+
+### Docs Changes
+
+-   Added `debug` to raycast docs
+-   Removed `get` from Plugin API examples, to let users focus on `async` instead
+
+---
+
 ## Version 19
 
 ### Code Changes
