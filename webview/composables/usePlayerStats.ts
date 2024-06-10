@@ -137,6 +137,9 @@ export function usePlayerStats() {
         engineOn: computed(() => {
             return data.value.engineOn;
         }),
+        locked: computed(() => {
+            return data.value.locked;
+        }),
         vehicleHealth: computed(() => {
             return data.value.vehicleHealth;
         }),
