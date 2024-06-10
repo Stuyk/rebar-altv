@@ -1,5 +1,21 @@
 # Changelog
 
+## Version 21
+
+### Code Changes
+
+-   Added `useRateLimitCallback`
+-   Added `onEnter` and `onLeave` to interaction callbacks
+-   Added `disablePistolWhip` to `useServerConfig` that prevents pistol whipping one-hits
+
+### Docs Changes
+
+-   Created `useRateLimitCallback` docs
+-   Added `onEnter` and `onLeave` to interaction docs
+-   Added `disablePistolWhip` to `useServerConfig` docs
+
+---
+
 ## Version 20
 
 ### Code Changes
