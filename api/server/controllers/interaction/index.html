@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.5.0.771361716661">
+    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.5.0.771365611466">
 
     <!-- See retype.com -->
     <meta name="generator" content="Retype 3.5.0">
@@ -30,12 +30,12 @@
 
     <script data-cfasync="false">(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
-    <link href="../../../../resources/css/retype.css?v=3.5.0.771361716661" rel="stylesheet">
+    <link href="../../../../resources/css/retype.css?v=3.5.0.771365611466" rel="stylesheet">
 
-    <script data-cfasync="false" src="../../../../resources/js/config.js?v=3.5.0.771361716661" data-turbo-eval="false" defer></script>
+    <script data-cfasync="false" src="../../../../resources/js/config.js?v=3.5.0.771365611466" data-turbo-eval="false" defer></script>
     <script data-cfasync="false" src="../../../../resources/js/retype.js?v=3.5.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" data-cfasync="false" src="../../../../resources/js/lunr.js?v=3.5.0.771361716661" data-turbo-eval="false" defer></script>
-    <script id="prism-js" data-cfasync="false" src="../../../../resources/js/prism.js?v=3.5.0.771361716661" defer></script>
+    <script id="lunr-js" data-cfasync="false" src="../../../../resources/js/lunr.js?v=3.5.0.771365611466" data-turbo-eval="false" defer></script>
+    <script id="prism-js" data-cfasync="false" src="../../../../resources/js/prism.js?v=3.5.0.771365611466" defer></script>
 </head>
 <body>
     <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -216,11 +216,7 @@
 const Rebar = useRebar();
 
 // Create an interaction
-const interaction = Rebar.controllers.useInteraction(
-    new alt.ColshapeCylinder(0, 0, 0, 5, 2),
-    'player',
-    'something-unique'
-);
+const interaction = Rebar.controllers.useInteraction(new alt.ColshapeCylinder(0, 0, 0, 5, 2), 'player');
 
 // Listen for the player to hit 'E' to interact
 interaction.on(handleInteraction);
@@ -235,7 +231,17 @@ interaction.setMessage('enter', &quot;Press 'E' to Interact&quot;);
 interaction.setMessage('leave', 'You left the interaction...');
 
 // Removing the interaction also destroys the colshape
-interaction.destroy();</code></pre>
+interaction.destroy();
+
+// Do something when the player enters the interaction
+interaction.onEnter((player: alt.Player, colshape: alt.Colshape, uid: string) =&gt; {
+    // someone entered
+});
+
+// Do something when the player leaves the interaction
+interaction.onLeave((player: alt.Player, colshape: alt.Colshape, uid: string) =&gt; {
+    // someone left
+});</code></pre>
 </doc-codeblock></div>
 
                                 
