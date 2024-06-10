@@ -2,24 +2,9 @@ import * as alt from 'alt-client';
 import * as native from 'natives';
 import { useWebview } from '../webview/index.js';
 import { Events } from '@Shared/events/index.js';
+import { getPreviousWeatherType, getStreetInfo, getDirection } from '../utility/world/index.js';
 
 const view = useWebview();
-
-const WeatherHashes = {
-    '669657108': 'BLIZZARD',
-    '916995460': 'CLEAR',
-    '1840358669': 'CLEARING',
-    '821931868': 'CLOUDS',
-    '-1750463879': 'EXTRASUNNY',
-    '-1368164796': 'FOGGY',
-    '-921030142': 'HALLOWEEN',
-    '-1148613331': 'OVERCAST',
-    '1420204096': 'RAIN',
-    '282916021': 'SMOG',
-    '603685163': 'SNOWLIGHT',
-    '-1233681761': 'THUNDER',
-    '-1429616491': 'XMAS',
-};
 
 function update() {
     view.emit(Events.localPlayer.stats.health, alt.Player.local.health);
@@ -37,6 +22,7 @@ function update() {
         Events.localPlayer.stats.locked,
         alt.Player.local.vehicle ? alt.Player.local.vehicle.lockState === 2 : false,
     );
+    view.emit(Events.localPlayer.stats.seat, alt.Player.local.vehicle ? alt.Player.local.seat : 0);
     view.emit(
         Events.localPlayer.stats.indicatorLights,
         alt.Player.local.vehicle ? alt.Player.local.vehicle.indicatorLights : 0,
@@ -61,17 +47,9 @@ function update() {
     view.emit(Events.localPlayer.stats.fps, alt.getFps());
     view.emit(Events.localPlayer.stats.ping, alt.getPing());
     view.emit(Events.localPlayer.stats.time, native.getUtcTime());
-    view.emit(Events.localPlayer.stats.weather, WeatherHashes[native.getPrevWeatherTypeHashName()]);
-
-    const [_, streetNameHash, crossingRoadHash] = native.getStreetNameAtCoord(
-        alt.Player.local.pos.x,
-        alt.Player.local.pos.y,
-        alt.Player.local.pos.z,
-    );
-
-    const streetName = native.getStreetNameFromHashKey(streetNameHash);
-    const crossingRoad = native.getStreetNameFromHashKey(crossingRoadHash);
-    view.emit(Events.localPlayer.stats.street, [streetName, crossingRoad]);
+    view.emit(Events.localPlayer.stats.weather, getPreviousWeatherType());
+    view.emit(Events.localPlayer.stats.street, getStreetInfo(alt.Player.local));
+    view.emit(Events.localPlayer.stats.direction, getDirection(alt.Player.local));
 }
 
 alt.setInterval(update, 50);
