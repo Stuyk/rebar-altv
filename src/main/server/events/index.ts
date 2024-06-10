@@ -5,7 +5,7 @@ import { Vehicle } from '@Shared/types/vehicle.js';
 import { Weathers } from '@Shared/data/weathers.js';
 
 type RebarEvents = {
-    'weather-forecast-changed': (weather: Weathers[])=> void;
+    'weather-forecast-changed': (weather: Weathers[]) => void;
     'weather-changed': (weather: Weathers) => void;
     'time-changed': (hour: number, minute: number, second: number) => void;
     'time-second-changed': (minute: number) => void;

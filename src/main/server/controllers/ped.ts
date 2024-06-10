@@ -222,6 +222,31 @@ export function usePed(ped: alt.Ped, uid?: string) {
      */
     function kill() {
         ped.health = 0;
+        invokeDeath(undefined, undefined);
+    }
+
+    /**
+     * Fade out a pedestrian, and then destroy it
+     */
+    function fadeOutAndDestroy() {
+        if (!ped.valid) {
+            return;
+        }
+
+        updateNetOwner();
+
+        if (!ped.netOwner || !ped.netOwner.valid) {
+            return;
+        }
+
+        ped.netOwner.emit(Events.controllers.ped.fadeOut, ped);
+        alt.setTimeout(() => {
+            if (!ped || !ped.valid) {
+                return;
+            }
+
+            ped.destroy();
+        }, 5000);
     }
 
     /**
@@ -249,6 +274,7 @@ export function usePed(ped: alt.Ped, uid?: string) {
     }
 
     peds.set(uid, {
+        fadeOutAndDestroy,
         getClosestPlayer,
         invoke,
         invokeDeath,
@@ -262,6 +288,7 @@ export function usePed(ped: alt.Ped, uid?: string) {
     });
 
     return {
+        fadeOutAndDestroy,
         getClosestPlayer,
         invoke,
         invokeRpc,

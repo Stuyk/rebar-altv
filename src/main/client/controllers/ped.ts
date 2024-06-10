@@ -54,5 +54,26 @@ async function invokeRpc(nativeName: string, ...args: any[]) {
     return native[nativeName](...args);
 }
 
+async function fadeOut(ped: alt.Ped) {
+    let alphaValue = 255;
+
+    while (alphaValue > 0) {
+        if (!ped || !ped.valid) {
+            return;
+        }
+
+        alt.log(alphaValue);
+        alphaValue -= 7;
+        if (alphaValue <= 25) {
+            native.setEntityAlpha(ped, 0, false);
+            break;
+        }
+
+        native.setEntityAlpha(ped, alphaValue, false);
+        await alt.Utils.wait(100);
+    }
+}
+
+alt.onServer(Events.controllers.ped.fadeOut, fadeOut);
 alt.onServer(Events.controllers.ped.invoke, invoke);
 alt.onRpc(Events.controllers.ped.invokeRpc, invokeRpc);
