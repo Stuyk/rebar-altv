@@ -19,6 +19,7 @@ type Stats = {
     inWater: boolean;
     engineOn: boolean;
     locked: boolean;
+    seat: number;
     gear: number;
     maxGear: number;
     vehicleHealth: number;
@@ -27,6 +28,7 @@ type Stats = {
     isTalking: boolean;
     time: [void, number, number, number, number, number, number];
     street: [StreetName, CrossingRoad];
+    direction: string;
     weather: string;
     indicatorLights: VehicleIndicatorLights;
     lights: [boolean, boolean];
@@ -45,12 +47,14 @@ const data = ref<Stats>({
     maxGear: 0,
     engineOn: false,
     locked: false,
+    seat: 0,
     vehicleHealth: 0,
     fps: 0,
     ping: 0,
     isTalking: false,
     time: [null, 0, 0, 0, 0, 0, 0],
     street: ['', ''],
+    direction: '',
     weather: '',
     indicatorLights: 0,
     lights: [false, false],
@@ -80,6 +84,7 @@ export function usePlayerStats() {
         events.on(Events.localPlayer.stats.maxGear, (maxGear: number) => (data.value.maxGear = maxGear));
         events.on(Events.localPlayer.stats.engineOn, (engineOn: boolean) => (data.value.engineOn = engineOn));
         events.on(Events.localPlayer.stats.locked, (locked: boolean) => (data.value.locked = locked));
+        events.on(Events.localPlayer.stats.seat, (seat: number) => (data.value.seat = seat));
         events.on(Events.localPlayer.stats.lights, (lights: [boolean, boolean]) => (data.value.lights = lights));
         events.on(
             Events.localPlayer.stats.indicatorLights,
@@ -100,6 +105,8 @@ export function usePlayerStats() {
             Events.localPlayer.stats.street,
             (street: [StreetName, CrossingRoad]) => (data.value.street = street),
         );
+
+        events.on(Events.localPlayer.stats.direction, (direction: string) => (data.value.direction = direction));
 
         events.on(Events.localPlayer.stats.weather, (weather: string) => (data.value.weather = weather));
 
@@ -140,6 +147,9 @@ export function usePlayerStats() {
         locked: computed(() => {
             return data.value.locked;
         }),
+        seat: computed(() => {
+            return data.value.seat;
+        }),
         vehicleHealth: computed(() => {
             return data.value.vehicleHealth;
         }),
@@ -157,6 +167,9 @@ export function usePlayerStats() {
         }),
         street: computed(() => {
             return data.value.street[0];
+        }),
+        direction: computed(() => {
+            return data.value.direction;
         }),
         crossingRoad: computed(() => {
             return data.value.street[1];
