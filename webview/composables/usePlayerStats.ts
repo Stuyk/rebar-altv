@@ -5,8 +5,10 @@ import { VehicleIndicatorLights } from 'alt-client';
 
 const events = useEvents();
 
-type StreetName = string;
-type CrossingRoad = string;
+type StreetData = {
+    streetName: string;
+    crossingRoad: string;
+};
 
 type Stats = {
     health: number;
@@ -27,7 +29,7 @@ type Stats = {
     ping: number;
     isTalking: boolean;
     time: [void, number, number, number, number, number, number];
-    street: [StreetName, CrossingRoad];
+    street: StreetData;
     direction: string;
     weather: string;
     indicatorLights: VehicleIndicatorLights;
@@ -53,7 +55,7 @@ const data = ref<Stats>({
     ping: 0,
     isTalking: false,
     time: [null, 0, 0, 0, 0, 0, 0],
-    street: ['', ''],
+    street: { streetName: '', crossingRoad: '' },
     direction: '',
     weather: '',
     indicatorLights: 0,
@@ -101,10 +103,7 @@ export function usePlayerStats() {
             (time: [void, number, number, number, number, number, number]) => (data.value.time = time),
         );
 
-        events.on(
-            Events.localPlayer.stats.street,
-            (street: [StreetName, CrossingRoad]) => (data.value.street = street),
-        );
+        events.on(Events.localPlayer.stats.street, (street: StreetData) => (data.value.street = street));
 
         events.on(Events.localPlayer.stats.direction, (direction: string) => (data.value.direction = direction));
 
@@ -166,13 +165,13 @@ export function usePlayerStats() {
             return data.value.time;
         }),
         street: computed(() => {
-            return data.value.street[0];
+            return data.value.street.streetName;
+        }),
+        crossingRoad: computed(() => {
+            return data.value.street.crossingRoad;
         }),
         direction: computed(() => {
             return data.value.direction;
-        }),
-        crossingRoad: computed(() => {
-            return data.value.street[1];
         }),
         weather: computed(() => {
             return data.value.weather;
