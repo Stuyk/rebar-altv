@@ -20,10 +20,16 @@ export const Events = {
         ped: {
             invoke: 'ped:invoke',
             invokeRpc: 'ped:invoke:rpc',
+            fadeOut: 'ped:fade:out',
         },
         textlabel: {
             create: 'textlabel:create',
             destroy: 'textlabel:destroy',
+        },
+    },
+    events: {
+        clientEvents: {
+            handle: 'events:client:event:handle',
         },
     },
     localPlayer: {

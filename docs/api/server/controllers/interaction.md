@@ -12,11 +12,7 @@ import { useRebar } from '@Server/index.js';
 const Rebar = useRebar();
 
 // Create an interaction
-const interaction = Rebar.controllers.useInteraction(
-    new alt.ColshapeCylinder(0, 0, 0, 5, 2),
-    'player',
-    'something-unique'
-);
+const interaction = Rebar.controllers.useInteraction(new alt.ColshapeCylinder(0, 0, 0, 5, 2), 'player');
 
 // Listen for the player to hit 'E' to interact
 interaction.on(handleInteraction);
@@ -32,4 +28,14 @@ interaction.setMessage('leave', 'You left the interaction...');
 
 // Removing the interaction also destroys the colshape
 interaction.destroy();
+
+// Do something when the player enters the interaction
+interaction.onEnter((player: alt.Player, colshape: alt.Colshape, uid: string) => {
+    // someone entered
+});
+
+// Do something when the player leaves the interaction
+interaction.onLeave((player: alt.Player, colshape: alt.Colshape, uid: string) => {
+    // someone left
+});
 ```

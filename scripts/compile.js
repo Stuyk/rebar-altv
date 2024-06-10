@@ -1,18 +1,11 @@
 import * as fs from 'fs';
 import { exec } from 'child_process';
 
-const assetPackContent = `type = 'asset-pack'\r\nclient-files = [ '*' ]`
+const assetPackContent = `type = 'asset-pack'\r\nclient-files = [ '*' ]`;
 
-const assetPacks = [
-    `./resources/images`,
-    `./resources/sounds`,
-]
+const assetPacks = [`./resources/images`, `./resources/sounds`];
 
-const foldersToClean = [
-    `./resources/core`,
-    `./resources/webview`,
-    ...assetPacks
-]
+const foldersToClean = [`./resources/core`, `./resources/webview`, ...assetPacks];
 
 const initialCommands = [
     `node ./scripts/buildPluginDependencies.js`,
@@ -23,10 +16,7 @@ const initialCommands = [
     `node ./scripts/copyFiles.js`,
 ];
 
-const finalCommands = [
-    `node ./scripts/buildPluginImports.js`,
-    `node ./scripts/pathResolver.js`,
-]
+const finalCommands = [`node ./scripts/buildPluginImports.js`, `node ./scripts/pathResolver.js`];
 
 function formatTimestamp(time) {
     const date = new Date(time);
@@ -43,40 +33,40 @@ function formatTimestamp(time) {
 
 function execPromise(command) {
     return new Promise((resolve, reject) => {
-      exec(command, (error, stdout, stderr) => {
-        if (error) {
-          reject({error, stderr});
-          return;
-        }
-        resolve(stdout);
-      });
+        exec(command, (error, stdout, stderr) => {
+            if (error) {
+                reject({ error, stderr });
+                return;
+            }
+            resolve(stdout);
+        });
     });
-  }
+}
 
 function copyResourceFile() {
     fs.cpSync(`./src/resource.toml`, `./resources/core/resource.toml`, { force: true });
 }
 
 function createAssetPackTomls() {
-    for(let path of assetPacks) {
+    for (let path of assetPacks) {
         const fullPath = path + '/resource.toml';
         if (!fs.existsSync(path)) {
             fs.mkdirSync(path, { recursive: true });
         }
 
-        fs.writeFileSync(fullPath, assetPackContent)
+        fs.writeFileSync(fullPath, assetPackContent);
     }
 }
 
 async function runCommands(commandList) {
     const promises = [];
-    for(let cmd of commandList) {
+    for (let cmd of commandList) {
         promises.push(execPromise(cmd));
     }
 
-    const result = await Promise.all(promises).catch(err => {
+    const result = await Promise.all(promises).catch((err) => {
         console.error('Error executing commands:', err);
-    })
+    });
 
     if (!result) {
         process.exit(1);
@@ -84,16 +74,18 @@ async function runCommands(commandList) {
 }
 
 function logMessage(msg) {
-    const timestamp = formatTimestamp(Date.now())
-    console.log(`[${timestamp.hour}:${timestamp.minute}:${timestamp.second}] ${msg}`)
+    const timestamp = formatTimestamp(Date.now());
+    console.log(`[${timestamp.hour}:${timestamp.minute}:${timestamp.second}] ${msg}`);
 }
 
 async function compile() {
     const start = Date.now();
-    logMessage(`Compile Started`)
-   
-    for(let pathsToClean of foldersToClean) {
-        fs.rmSync(pathsToClean, { force: true, recursive: true });
+    logMessage(`Compile Started`);
+
+    for (let pathsToClean of foldersToClean) {
+        try {
+            fs.rmSync(pathsToClean, { force: true, recursive: true });
+        } catch (err) {}
     }
 
     createAssetPackTomls();

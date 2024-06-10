@@ -47,8 +47,11 @@ ped.setFrozen();
 // Freeze ped in place, and disable collision entirely
 ped.setNoCollision();
 
-// Straight up just kill the ped
+// Straight up just kill the ped, and make it disappear after 5 seconds
 ped.kill();
+
+// Fades out the ped over 5 seconds, and then destroys the ped
+ped.fadeOutAndDestroy();
 ```
 
 ## Native List
