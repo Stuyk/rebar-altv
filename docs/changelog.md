@@ -1,6 +1,6 @@
 # Changelog
 
-## Version 21
+## Version 22
 
 ### Code Changes
 
@@ -13,6 +13,12 @@
 -   Created `useRateLimitCallback` docs
 -   Added `onEnter` and `onLeave` to interaction docs
 -   Added `disablePistolWhip` to `useServerConfig` docs
+
+---
+
+## Version 21
+
+-   I forgot to write the changelogs. lmao
 
 ---
 
