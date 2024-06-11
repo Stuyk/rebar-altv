@@ -6,7 +6,8 @@
             "@Client/*": ["main/client/*"],
             "@Shared/*": ["main/shared/*"],
             "@Plugins/*": ["plugins/*"],
-            "@Composables/*": ["../webview/composables/*"]
+            "@Composables/*": ["../webview/composables/*"],
+            "@Components/*": ["../webview/components/*"]
         },
         "typeRoots": ["./node_modules/@types", "./node_modules/@altv"],
         "removeComments": true,
@@ -30,13 +31,7 @@
         "declaration": true,
         "emitDeclarationOnly": false
     },
-    "include": [
-        "src/**/*.ts",
-        "src/**/*.ts",
-        "src/**/*.d.ts",
-        "src/**/*.tsx",
-        "src/**/*.vue",
-    ],
+    "include": ["src/**/*.ts", "src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
     "exclude": [
         "resources",
         "scripts",

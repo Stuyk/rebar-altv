@@ -8,7 +8,6 @@ async function init() {
     const packageContent: { version: number } = JSON.parse(packageJSON);
 
     const req = await fetch(MainVersionPath).catch((err) => {
-        console.log(err);
         return undefined;
     });
 

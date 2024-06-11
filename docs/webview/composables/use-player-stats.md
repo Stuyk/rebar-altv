@@ -9,32 +9,34 @@ Here's an example of how to use it.
     import { usePlayerStats } from '@Composables/usePlayerStats';
 
     const {
-        health,
         armour,
-        speed,
-        weather,
-        crossingRoad,
-        street,
         engineOn,
         fps,
         gear,
         headlights,
+        health,
         highbeams,
+        indicatorLights,
         inVehicle,
         inWater,
-        indicatorLights,
         isTalking,
+        locked,
+        lights,
         maxGear,
         ping,
+        seatk,
+        speed,
         stamina,
+        street,
         time,
         vehicleHealth,
         weapon,
+        weather,
     } = usePlayerStats();
 </script>
 
 <template>
-    <div class="flex flex-col text-white text-lg font-bold w-32">
+    <div class="flex w-32 flex-col text-lg font-bold text-white">
         <span>Health: {{ health }}</span>
         <span>Armour: {{ armour }}</span>
         <span>Speed: {{ speed }}</span>
