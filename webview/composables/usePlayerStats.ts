@@ -6,34 +6,34 @@ import { VehicleIndicatorLights } from 'alt-client';
 const events = useEvents();
 
 type StreetData = {
-    streetName: string;
     crossingRoad: string;
+    streetName: string;
 };
 
 type Stats = {
-    health: number;
-    armour: number;
-    speed: number;
-    weapon: number;
     ammo: number;
-    stamina: number;
+    armour: number;
+    direction: string;
+    engineOn: boolean;
+    fps: number;
+    gear: number;
+    health: number;
+    indicatorLights: VehicleIndicatorLights;
     inVehicle: boolean;
     inWater: boolean;
-    engineOn: boolean;
-    locked: boolean;
-    seat: number;
-    gear: number;
-    maxGear: number;
-    vehicleHealth: number;
-    fps: number;
-    ping: number;
     isTalking: boolean;
-    time: [void, number, number, number, number, number, number];
-    street: StreetData;
-    direction: string;
-    weather: string;
-    indicatorLights: VehicleIndicatorLights;
     lights: [boolean, boolean];
+    locked: boolean;
+    maxGear: number;
+    ping: number;
+    seat: number;
+    speed: number;
+    stamina: number;
+    street: StreetData;
+    time: [void, number, number, number, number, number, number];
+    vehicleHealth: number;
+    weapon: number;
+    weather: string;
 };
 
 const data = ref<Stats>({

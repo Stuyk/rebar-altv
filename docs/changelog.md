@@ -1,5 +1,17 @@
 # Changelog
 
+## Version 23
+
+### Code Changes
+
+-   Added `Draggable` Component to WebView
+
+### Docs Changes
+
+-   Added `Draggable` to `webview/components` section with an example on making draggables
+
+---
+
 ## Version 22
 
 ### Code Changes

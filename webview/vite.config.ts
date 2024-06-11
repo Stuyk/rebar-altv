@@ -16,7 +16,8 @@ export default defineConfig({
             '@Server': path.resolve(__dirname, '../src/main/server'),
             '@Shared': path.resolve(__dirname, '../src/main/shared'),
             '@Plugins': path.resolve(__dirname, '../src/plugins'),
-            '@Composables': path.resolve(__dirname, './composables')
+            '@Composables': path.resolve(__dirname, './composables'),
+            '@Components': path.resolve(__dirname, './components'),
         },
     },
     plugins: [vue()],
