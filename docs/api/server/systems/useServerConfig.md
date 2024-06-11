@@ -25,4 +25,7 @@ serverConfig.set('hideVehicleClass', true);
 
 // Hide vehicle name when entering a vehicle
 serverConfig.set('hideVehicleName', true);
+
+// Disable pistol whipping
+serverConfig.set('disablePistolWhip', true);
 ```

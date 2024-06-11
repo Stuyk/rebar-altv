@@ -8,8 +8,6 @@ let config: ServerConfig = {};
 let lastRadarState = true;
 
 function tick() {
-    console.log(config);
-
     if (config.hideHealthArmour) {
         alt.beginScaleformMovieMethodMinimap('SETUP_HEALTH_ARMOUR');
         native.scaleformMovieMethodAddParamInt(3);
@@ -32,17 +30,25 @@ function tick() {
         native.hideHudComponentThisFrame(7);
     }
 
+    if (config.disablePistolWhip) {
+        native.setPedResetFlag(alt.Player.local.scriptID, 187, true);
+    }
+
     let finalRadarState = true;
 
     if (config.hideMinimapOnFoot) {
         finalRadarState = alt.Player.local.vehicle ? true : false;
     }
 
+    if (config.hideMinimapInVehicle && alt.Player.local.vehicle) {
+        finalRadarState = false;
+    }
+
     if (config.hideMinimapInPage && useWebview().isAnyPageOpen()) {
         finalRadarState = false;
     }
 
-    if (lastRadarState === finalRadarState) {
+    if (lastRadarState === finalRadarState && lastRadarState === !native.isRadarHidden()) {
         return;
     }
 

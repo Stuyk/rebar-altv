@@ -63,6 +63,7 @@ import { useServerWeather } from './systems/serverWeather.js';
 import { useProxyFetch } from './systems/proxyFetch.js';
 import { usePed } from './controllers/ped.js';
 import { useServerConfig } from './systems/serverConfig.js';
+import { useRateLimitCallback } from './utility/rateLimitCallback.js';
 
 export function useRebar() {
     return {
@@ -152,6 +153,7 @@ export function useRebar() {
                 hash,
             },
             useProtectCallback,
+            useRateLimitCallback,
         },
         vehicle: {
             useVehicle,

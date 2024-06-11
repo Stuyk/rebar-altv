@@ -3,15 +3,20 @@ import * as fs from 'fs';
 import path from 'path';
 
 const repoUrl = 'https://github.com/Stuyk/rebar-altv';
+
 const tmpPath = path.resolve(process.cwd(), 'tmp');
-const srcMainPath = path.resolve(process.cwd(), 'src/main');
-const webviewComposablesPath = path.resolve(process.cwd(), 'webview/composables');
-const webviewSrcPath = path.resolve(process.cwd(), 'webview/src');
-const webviewPublicPath = path.resolve(process.cwd(), 'webview/public');
-const viteConfigPath = path.resolve(process.cwd(), 'webview/vite.config.ts');
-const docsPath = path.resolve(process.cwd(), 'docs');
-const packagePath = path.resolve(process.cwd(), 'package.json');
-const tsConfigPath = path.resolve(process.cwd(), 'tsconfig.json');
+
+const foldersToCopy = [
+    'src/main',
+    'webview/composables',
+    'webview/src',
+    'webview/public',
+    'webview/vite.config.ts',
+    'docs',
+    'scripts',
+    'package.json',
+    'tsconfig.json',
+];
 
 function cloneRepository(repoUrl, clonePath) {
     console.log(`Cloning repository from ${repoUrl} to ${clonePath}...`);
@@ -28,14 +33,12 @@ function moveDirectory(src, dest, makeDirectory = true) {
 
 try {
     cloneRepository(repoUrl, tmpPath);
-    moveDirectory(path.join(tmpPath, 'src/main'), srcMainPath);
-    moveDirectory(path.join(tmpPath, 'webview/composables'), webviewComposablesPath);
-    moveDirectory(path.join(tmpPath, 'webview/src'), webviewSrcPath);
-    moveDirectory(path.join(tmpPath, 'webview/public'), webviewPublicPath);
-    moveDirectory(path.join(tmpPath, 'webview/vite.config.ts'), viteConfigPath);
-    moveDirectory(path.join(tmpPath, 'docs'), docsPath);
-    moveDirectory(path.join(tmpPath, 'package.json'), packagePath, false);
-    moveDirectory(path.join(tmpPath, 'tsconfig.json'), tsConfigPath, false);
+    for (let file of foldersToCopy) {
+        const from = path.join(tmpPath, file);
+        const to = path.resolve(process.cwd(), file);
+        moveDirectory(from, to, file.includes('.') ? false : true);
+    }
+
     execSync(`pnpm upgrade`, { stdio: 'inherit' });
     execSync(`pnpm install`, { stdio: 'inherit' });
     fs.rmSync(tmpPath, { force: true, recursive: true });

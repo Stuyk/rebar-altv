@@ -20,10 +20,16 @@ export const Events = {
         ped: {
             invoke: 'ped:invoke',
             invokeRpc: 'ped:invoke:rpc',
+            fadeOut: 'ped:fade:out',
         },
         textlabel: {
             create: 'textlabel:create',
             destroy: 'textlabel:destroy',
+        },
+    },
+    events: {
+        clientEvents: {
+            handle: 'events:client:event:handle',
         },
     },
     localPlayer: {
@@ -35,6 +41,7 @@ export const Events = {
             stamina: 'localplayer:stats:stamina',
             engineOn: 'localplayer:stats:engineon',
             locked: 'localplayer:stats:locked',
+            seat: 'localplayer:stats:seat',
             inVehicle: 'localplayer:stats:invehicle',
             inWater: 'localplayer:stats:inwater',
             gear: 'localplayer:stats:gear',
@@ -47,6 +54,7 @@ export const Events = {
             isTalking: 'localplayer:stats:isTalking',
             time: 'localplayer:stats:time',
             street: 'localplayer:stats:street',
+            direction: 'localplayer:stats:direction',
             weather: 'localplayer:stats:weather',
             lights: 'localplayer:stats:lights',
         },
