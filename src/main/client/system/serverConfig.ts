@@ -56,5 +56,27 @@ function tick() {
     native.displayRadar(finalRadarState);
 }
 
+function onEnteringVehicle(vehicle: alt.Vehicle, seat: number, player: alt.Player) {
+    if (player.scriptID !== alt.Player.local.scriptID) {
+        return;
+    }
+
+    // Disable seat swap
+    if (config.disableVehicleSeatSwap) {
+        native.setPedConfigFlag(alt.Player.local, 184, true);
+    }
+
+    // Disable engine auto start
+    if (config.disableVehicleEngineAutoStart) {
+        native.setPedConfigFlag(alt.Player.local, 429, true);
+    }
+
+    // Disable engine auto stop
+    if (config.disableVehicleEngineAutoStop) {
+        native.setPedConfigFlag(alt.Player.local, 249, true);
+    }
+}
+
 alt.everyTick(tick);
 alt.onServer(Events.systems.serverConfig.set, (newConfig: ServerConfig) => (config = newConfig));
+alt.on('startEnteringVehicle', onEnteringVehicle);
