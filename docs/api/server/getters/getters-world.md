@@ -12,5 +12,5 @@ const getter = Rebar.get.useWorldGetter();
 const isInWater = getter.isInOceanWater(somePlayerOrVehicle);
 
 // Check if a position is completely clear
-const isClear = getter.positionIsClear(new alt.Vector3(0, 0, 0), 'all');
+const isClear = await getter.positionIsClear(new alt.Vector3(0, 0, 0), 'all');
 ```

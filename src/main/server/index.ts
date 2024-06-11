@@ -1,4 +1,5 @@
 import * as alt from 'alt-server';
+import * as Utility from '@Shared/utility/index.js';
 import './startup.js';
 
 import { useApi } from './api/index.js';
@@ -64,6 +65,7 @@ import { useProxyFetch } from './systems/proxyFetch.js';
 import { usePed } from './controllers/ped.js';
 import { useServerConfig } from './systems/serverConfig.js';
 import { useRateLimitCallback } from './utility/rateLimitCallback.js';
+import { useKeybinder } from './systems/serverKeybinds.js';
 
 export function useRebar() {
     return {
@@ -140,6 +142,7 @@ export function useRebar() {
             usePermission,
             usePermissionGroup,
         },
+        useKeybinder,
         usePlayer,
         useProxyFetch,
         useServerConfig,
@@ -154,6 +157,7 @@ export function useRebar() {
             },
             useProtectCallback,
             useRateLimitCallback,
+            ...Utility,
         },
         vehicle: {
             useVehicle,

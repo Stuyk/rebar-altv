@@ -28,4 +28,15 @@ serverConfig.set('hideVehicleName', true);
 
 // Disable pistol whipping
 serverConfig.set('disablePistolWhip', true);
+
+// Disable Engine from automatically starting when entered
+serverConfig.set('disableVehicleEngineAutoStart', true);
+
+// Disable Engine from automatically turning off when left
+serverConfig.set('disableVehicleEngineAutoStop', true);
+
+// When a passenger is in a vehicle with a driver,
+// and the driver leaves. This prevents the passenger
+// from sliding over to the next seat
+serverConfig.set('disableVehicleSeatSwap', true);
 ```

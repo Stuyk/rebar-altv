@@ -69,4 +69,28 @@ export interface ServerConfig {
      * @memberof ServerConfig
      */
     disablePistolWhip?: boolean;
+
+    /**
+     * Disable starting vehicle engine when entering vehicle
+     *
+     * @type {boolean}
+     * @memberof ServerConfig
+     */
+    disableVehicleEngineAutoStart?: boolean;
+
+    /**
+     * Disable stopping vehicle engine when leaving a vehicle
+     *
+     * @type {boolean}
+     * @memberof ServerConfig
+     */
+    disableVehicleEngineAutoStop?: boolean;
+
+    /**
+     * Disable swapping seats in a vehicle
+     *
+     * @type {boolean}
+     * @memberof ServerConfig
+     */
+    disableVehicleSeatSwap?: boolean;
 }

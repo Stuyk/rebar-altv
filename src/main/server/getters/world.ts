@@ -10,7 +10,7 @@ export function useWorldGetter() {
      */
     async function positionIsClear(pos: alt.IVector3, lookFor: 'vehicle' | 'player' | 'all'): Promise<boolean> {
         const colshape = new alt.ColshapeCylinder(pos.x, pos.y, pos.z - 1, 2, 2);
-        await alt.Utils.wait(10);
+        await alt.Utils.wait(100);
 
         let entity: alt.Entity;
         if (lookFor === 'vehicle' || lookFor === 'all') {

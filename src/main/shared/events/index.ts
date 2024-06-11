@@ -96,6 +96,10 @@ export const Events = {
         },
     },
     systems: {
+        keybinds: {
+            update: 'systems:keybinds:update',
+            invoke: 'systems:keybinds:invoke',
+        },
         messenger: {
             process: 'systems:messenger:process',
             send: 'systems:messenger:send',
