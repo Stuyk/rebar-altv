@@ -9,33 +9,33 @@
     <meta name="generator" content="Retype 3.5.0">
 
     <!-- Primary Meta Tags -->
-    <title>Usage</title>
-    <meta name="title" content="Usage">
-    <meta name="description" content="When using the database in Rebar it can be accessed from any plugin.">
+    <title>Draggable Component</title>
+    <meta name="title" content="Draggable Component">
+    <meta name="description" content="The draggable component is a built-in component that allows you to wrap up any code to make it draggable.">
 
     <!-- Canonical -->
-    <link rel="canonical" href="https://rebarv.com/api/server/database/usage/">
+    <link rel="canonical" href="https://rebarv.com/webview/components/draggable/">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://rebarv.com/api/server/database/usage/">
-    <meta property="og:title" content="Usage">
-    <meta property="og:description" content="When using the database in Rebar it can be accessed from any plugin.">
+    <meta property="og:url" content="https://rebarv.com/webview/components/draggable/">
+    <meta property="og:title" content="Draggable Component">
+    <meta property="og:description" content="The draggable component is a built-in component that allows you to wrap up any code to make it draggable.">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://rebarv.com/api/server/database/usage/">
-    <meta property="twitter:title" content="Usage">
-    <meta property="twitter:description" content="When using the database in Rebar it can be accessed from any plugin.">
+    <meta property="twitter:url" content="https://rebarv.com/webview/components/draggable/">
+    <meta property="twitter:title" content="Draggable Component">
+    <meta property="twitter:description" content="The draggable component is a built-in component that allows you to wrap up any code to make it draggable.">
 
     <script data-cfasync="false">(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
-    <link href="../../../../resources/css/retype.css?v=3.5.0.771434120113" rel="stylesheet">
+    <link href="../../../resources/css/retype.css?v=3.5.0.771434120113" rel="stylesheet">
 
-    <script data-cfasync="false" src="../../../../resources/js/config.js?v=3.5.0.771434120113" data-turbo-eval="false" defer></script>
-    <script data-cfasync="false" src="../../../../resources/js/retype.js?v=3.5.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" data-cfasync="false" src="../../../../resources/js/lunr.js?v=3.5.0.771434120113" data-turbo-eval="false" defer></script>
-    <script id="prism-js" data-cfasync="false" src="../../../../resources/js/prism.js?v=3.5.0.771434120113" defer></script>
+    <script data-cfasync="false" src="../../../resources/js/config.js?v=3.5.0.771434120113" data-turbo-eval="false" defer></script>
+    <script data-cfasync="false" src="../../../resources/js/retype.js?v=3.5.0" data-turbo-eval="false" defer></script>
+    <script id="lunr-js" data-cfasync="false" src="../../../resources/js/lunr.js?v=3.5.0.771434120113" data-turbo-eval="false" defer></script>
+    <script id="prism-js" data-cfasync="false" src="../../../resources/js/prism.js?v=3.5.0.771434120113" defer></script>
 </head>
 <body>
     <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -50,10 +50,10 @@
                 <!-- Logo -->
                 <div class="flex items-center justify-between h-full py-2 md:w-75">
                     <div class="flex items-center px-2 md:px-6">
-                        <a id="docs-site-logo" href="../../../../" class="flex items-center leading-snug text-xl">
+                        <a id="docs-site-logo" href="../../../" class="flex items-center leading-snug text-xl">
                             <span class="w-10 mr-2 grow-0 shrink-0 overflow-hidden">
-                                <img class="max-h-10 dark:hidden md:inline-block" src="../../../../static/logo_dark.svg">
-                                <img class="max-h-10 hidden dark:inline-block" src="../../../../static/logo_light.svg">
+                                <img class="max-h-10 dark:hidden md:inline-block" src="../../../static/logo_dark.svg">
+                                <img class="max-h-10 hidden dark:inline-block" src="../../../static/logo_light.svg">
                             </span>
                             <span class="dark:text-white font-semibold line-clamp-1 md:line-clamp-2">Rebar for alt:V</span>
                         </a>
@@ -186,14 +186,27 @@
                                 <!-- Rendered if sidebar right is enabled -->
                                 <div id="docs-sidebar-right-toggle"></div>
                                 <!-- Page content  -->
-<doc-anchor-target id="usage" class="break-words">
+<doc-anchor-target id="draggable-component" class="break-words">
     <h1>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#usage">#</doc-anchor-trigger>
-        <span>Usage</span>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#draggable-component">#</doc-anchor-trigger>
+        <span>Draggable Component</span>
     </h1>
 </doc-anchor-target>
-<p>When using the database in Rebar it can be accessed from any plugin.</p>
-<p>However, the database may only be accessed on <strong>server-side</strong>.</p>
+<p>The draggable component is a built-in component that allows you to wrap up any code to make it draggable.</p>
+<p>This is a one-stop solution for building moveable inventories, and drag &amp; drop interfaces.</p>
+<p>The most important part of a draggable component is that it contains an <code v-pre>id</code>.</p>
+<p>This is what helps the draggable element decide what to send back.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-markup"><code v-pre class="language-markup">&lt;Draggable
+    @onDrag=&quot;handleDrag&quot;
+    @onLeftClick=&quot;handleClick&quot;
+    @onDblClick=&quot;handleDoubleClick&quot;
+    @onMiddleClick=&quot;handleMiddleClick&quot;
+    @onRightClick=&quot;handleRightClick&quot;
+&gt;
+    &lt;div class=&quot;size-32 bg-red-500&quot; id=&quot;item-a&quot;&gt;Item A&lt;/div&gt;
+&lt;/Draggable&gt;</code></pre>
+</doc-codeblock></div>
 <div class="flex mb-6">
     <div class="shrink-0 w-1 rounded-tl rounded-bl bg-blue-500 dark:bg-blue-400"></div>
     <div class="flex w-full py-4 border border-l-0 border-gray-300 rounded-tr rounded-br doc-alert bg-white dark:bg-dark-700 dark:border-dark-700" role="alert">
@@ -207,117 +220,65 @@
             </svg>
         </div>
         <div class="pr-5 ml-3 w-full">
-<p>Use the Document system if you are updating characters, accounts, or vehicles.</p>
+<p>Did you know that in alt:V we don&#x27;t have access to HTML5 Drag APIs, that&#x27;s why this exists.</p>
         </div>
     </div>
 </div>
-<doc-anchor-target id="usage-1">
+<doc-anchor-target id="example-page">
     <h2>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#usage-1">#</doc-anchor-trigger>
-        <span>Usage</span>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#example-page">#</doc-anchor-trigger>
+        <span>Example Page</span>
     </h2>
 </doc-anchor-target>
-<p>Import the database into your plugin file, and begin using it.</p>
+<p>This is an example page showing 2 draggable divs that can be dragged over each other.</p>
+<p>They print their status into the console.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">import { useRebar } from '@Server/index.js';
+<pre class="language-markup"><code v-pre class="language-markup">&lt;script lang=&quot;ts&quot; setup&gt;
+    import Draggable from '../../../../webview/src/components/Draggable.vue';
 
-const Rebar = useRebar();
-
-const { get, create, getAll, getMany, update, deleteDocument, createCollection } = Rebar.database.useDatabase();</code></pre>
-</doc-codeblock></div>
-<doc-anchor-target id="create-collection">
-    <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#create-collection">#</doc-anchor-trigger>
-        <span>Create Collection</span>
-    </h3>
-</doc-anchor-target>
-<p>A collection is where documents are stored.</p>
-<div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">const db = Rebar.database.useDatabase();
-
-async function createCollections() {
-    await db.createCollection('Person');
-    await db.createCollection('PhoneData');
-}</code></pre>
-</doc-codeblock></div>
-<doc-anchor-target id="create-data">
-    <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#create-data">#</doc-anchor-trigger>
-        <span>Create Data</span>
-    </h3>
-</doc-anchor-target>
-<p>Creating data uses the <code v-pre>create</code> function and returns an <code v-pre>_id</code> to obtain the data.</p>
-<div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">async function test() {
-    const _id = await create({ name: 'Stuyk', age: 30 }, 'Person');
-}</code></pre>
-</doc-codeblock></div>
-<doc-anchor-target id="get-data">
-    <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#get-data">#</doc-anchor-trigger>
-        <span>Get Data</span>
-    </h3>
-</doc-anchor-target>
-<p>If you want to get a document by an <code v-pre>_id</code>, you can use this:</p>
-<div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">async function test() {
-    const _id = await create({ name: 'Stuyk', age: 30 }, 'Person');
-    const user = await get&lt;{ name: string }&gt;(_id);
-    if (!user) {
-        console.warn('Could not find the data!');
-        return;
+    function handleDrag(from_id: string, to_id: string) {
+        console.log(`drag: `, from_id, to_id);
     }
 
-    console.warn(`Found ${user.name}`);
-}</code></pre>
-</doc-codeblock></div>
-<doc-anchor-target id="find-data">
-    <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#find-data">#</doc-anchor-trigger>
-        <span>Find Data</span>
-    </h3>
-</doc-anchor-target>
-<p>After creating data, if you don&#x27;t have an <code v-pre>_id</code> and you want to find it. You can use <code v-pre>getMany</code>.</p>
-<div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">async function test() {
-    const results = await getMany&lt;{ name: string }&gt;({ name: 'Stuyk' }, 'Person');
-    if (results.length &lt;= 0) {
-        console.warn('Could not find the data!');
-        return;
+    function handleClick(id: string) {
+        console.log('left-click: ', id);
     }
 
-    const user = results[0];
-    console.warn(`Found ${user.name}`);
-}</code></pre>
-</doc-codeblock></div>
-<doc-anchor-target id="get-all-data">
-    <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#get-all-data">#</doc-anchor-trigger>
-        <span>Get All Data</span>
-    </h3>
-</doc-anchor-target>
-<p>It is not recommended to fetch a whole collection unless it&#x27;s a smaller collection.</p>
-<p>In any case, you can use this to fetch a whole collection of data.</p>
-<div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">async function test() {
-    const results = await getAll&lt;{ name: string }&gt;('Person');
-}</code></pre>
-</doc-codeblock></div>
-<doc-anchor-target id="update">
-    <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#update">#</doc-anchor-trigger>
-        <span>Update</span>
-    </h3>
-</doc-anchor-target>
-<p>If you want to update a document, or simply append new data to the document.</p>
-<div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">async function test() {
-    const _id = await create({ name: 'Stuyk', age: 30 }, 'Person');
-    const didUpdate = await update({ _id, name: 'NotStuyk' }, 'Person');
-    if (!didUpdate) {
-        return;
+    function handleDoubleClick(id: string) {
+        console.log('dbl-click: ', id);
     }
-}</code></pre>
+
+    function handleMiddleClick(id: string) {
+        console.log('middle-click: ', id);
+    }
+
+    function handleRightClick(id: string) {
+        console.log('right-click: ', id);
+    }
+&lt;/script&gt;
+
+&lt;template&gt;
+    &lt;div class=&quot;flex flex-row gap-2&quot;&gt;
+        &lt;Draggable
+            @onDrag=&quot;handleDrag&quot;
+            @onLeftClick=&quot;handleClick&quot;
+            @onDblClick=&quot;handleDoubleClick&quot;
+            @onMiddleClick=&quot;handleMiddleClick&quot;
+            @onRightClick=&quot;handleRightClick&quot;
+        &gt;
+            &lt;div class=&quot;size-32 bg-red-500&quot; id=&quot;item-a&quot;&gt;Item A&lt;/div&gt;
+        &lt;/Draggable&gt;
+        &lt;Draggable
+            @onDrag=&quot;handleDrag&quot;
+            @onLeftClick=&quot;handleClick&quot;
+            @onDblClick=&quot;handleDoubleClick&quot;
+            @onMiddleClick=&quot;handleMiddleClick&quot;
+            @onRightClick=&quot;handleRightClick&quot;
+        &gt;
+            &lt;div class=&quot;size-32 bg-red-500&quot; id=&quot;item-b&quot;&gt;Item B&lt;/div&gt;
+        &lt;/Draggable&gt;
+    &lt;/div&gt;
+&lt;/template&gt;</code></pre>
 </doc-codeblock></div>
 
                                 
@@ -328,20 +289,20 @@ async function createCollections() {
                             
                                 <nav class="flex mt-14">
                                     <div class="w-1/2">
-                                        <a class="px-5 py-4 h-full flex items-center break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-l-lg transition-colors duration-150 relative hover:z-5" href="../../../../api/server/controllers/peds/">
+                                        <a class="px-5 py-4 h-full flex items-center break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-l-lg transition-colors duration-150 relative hover:z-5" href="../../../webview/create/">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="mr-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19 11H7.41l5.29-5.29a.996.996 0 10-1.41-1.41l-7 7a1 1 0 000 1.42l7 7a1.024 1.024 0 001.42-.01.996.996 0 000-1.41L7.41 13H19c.55 0 1-.45 1-1s-.45-1-1-1z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
                                             <span>
                                                 <span class="block text-xs font-normal text-gray-400 dark:text-dark-400">Previous</span>
-                                                <span class="block mt-1">use​Ped</span>
+                                                <span class="block mt-1">Create a Webview</span>
                                             </span>
                                         </a>
                                     </div>
                             
                                     <div class="w-1/2">
-                                        <a class="px-5 py-4 -mx-px h-full flex items-center justify-end break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-r-lg transition-colors duration-150 relative hover:z-5" href="../../../../api/server/document/what-are-documents/">
+                                        <a class="px-5 py-4 -mx-px h-full flex items-center justify-end break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-r-lg transition-colors duration-150 relative hover:z-5" href="../../../webview/composables/use-audio/">
                                             <span>
                                                 <span class="block text-xs font-normal text-right text-gray-400 dark:text-dark-400">Next</span>
-                                                <span class="block mt-1">What are Documents?</span>
+                                                <span class="block mt-1">use​Audio</span>
                                             </span>
                                             <svg xmlns="http://www.w3.org/2000/svg" class="ml-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19.92 12.38a1 1 0 00-.22-1.09l-7-7a.996.996 0 10-1.41 1.41l5.3 5.3H5c-.55 0-1 .45-1 1s.45 1 1 1h11.59l-5.29 5.29a.996.996 0 000 1.41c.19.2.44.3.7.3s.51-.1.71-.29l7-7c.09-.09.16-.21.21-.33z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
                                         </a>
@@ -385,6 +346,6 @@ async function createCollections() {
 
     <div id="docs-overlay-target"></div>
 
-    <script data-cfasync="false">window.__DOCS__ = { "title": "Usage", level: 4, icon: "file", hasPrism: true, hasMermaid: false, hasMath: false, tocDepth: 23 }</script>
+    <script data-cfasync="false">window.__DOCS__ = { "title": "Draggable Component", level: 3, icon: "file", hasPrism: true, hasMermaid: false, hasMath: false, tocDepth: 23 }</script>
 </body>
 </html>
