@@ -24,6 +24,11 @@
 ### Docs Changes
 
 -   Added `Draggable` to `webview/components` section with an example on making draggables
+-   Added `Draggable` Component to WebView
+
+### Docs Changes
+
+-   Added `Draggable` to `webview/components` section with an example on making draggables
 
 ---
 
