@@ -26,7 +26,7 @@ const InternalFunctions = {
     async add<CustomPerms = ''>(
         player: alt.Player,
         perm: DefaultPerms | CustomPerms,
-        dataName: SupportedDocuments
+        dataName: SupportedDocuments,
     ): Promise<boolean> {
         if (typeof documentType[dataName] === 'undefined') {
             alt.logWarning(`Athena.document.${dataName} is not a supported document type.`);
@@ -63,7 +63,7 @@ const InternalFunctions = {
     async remove<CustomPerms = ''>(
         player: alt.Player,
         perm: DefaultPerms | CustomPerms,
-        dataName: SupportedDocuments
+        dataName: SupportedDocuments,
     ): Promise<boolean> {
         if (typeof documentType[dataName] === 'undefined') {
             alt.logWarning(`Athena.document.${dataName} is not a supported document type.`);
@@ -149,10 +149,14 @@ const InternalFunctions = {
     hasOne<CustomPerms = ''>(
         player: alt.Player,
         perms: Array<DefaultPerms | CustomPerms>,
-        dataName: SupportedDocuments
+        dataName: SupportedDocuments,
     ): boolean {
         if (typeof documentType[dataName] === 'undefined') {
             alt.logWarning(`Athena.document.${dataName} is not a supported document type.`);
+            return false;
+        }
+
+        if (perms.length <= 0) {
             return false;
         }
 
@@ -194,7 +198,7 @@ const InternalFunctions = {
     hasAll<CustomPerms = ''>(
         player: alt.Player,
         perms: Array<DefaultPerms | CustomPerms>,
-        dataName: SupportedDocuments
+        dataName: SupportedDocuments,
     ): boolean {
         if (typeof documentType[dataName] === 'undefined') {
             alt.logWarning(`Athena.document.${dataName} is not a supported document type.`);
@@ -243,7 +247,7 @@ export function usePermission(player: alt.Player) {
      */
     async function add<CustomPerms = ''>(
         type: 'character' | 'account',
-        perm: DefaultPerms | CustomPerms
+        perm: DefaultPerms | CustomPerms,
     ): Promise<boolean> {
         return await InternalFunctions.add(player, perm, type);
     }
@@ -260,7 +264,7 @@ export function usePermission(player: alt.Player) {
      */
     async function remove<CustomPerms = ''>(
         type: 'character' | 'account',
-        perm: DefaultPerms | CustomPerms
+        perm: DefaultPerms | CustomPerms,
     ): Promise<boolean> {
         return await InternalFunctions.remove(player, perm, type);
     }
@@ -300,7 +304,7 @@ export function usePermission(player: alt.Player) {
      */
     function hasOne<CustomPerms = ''>(
         type: 'character' | 'account',
-        perms: Array<DefaultPerms | CustomPerms>
+        perms: Array<DefaultPerms | CustomPerms>,
     ): boolean {
         return InternalFunctions.hasOne(player, perms, type);
     }
@@ -315,7 +319,7 @@ export function usePermission(player: alt.Player) {
      */
     function hasAll<CustomPerms = ''>(
         type: 'character' | 'account',
-        perms: Array<DefaultPerms | CustomPerms>
+        perms: Array<DefaultPerms | CustomPerms>,
     ): boolean {
         return InternalFunctions.hasAll(player, perms, type);
     }
@@ -340,7 +344,7 @@ export function usePermission(player: alt.Player) {
  */
 export async function getAll<CustomPerms = ''>(
     type: 'character' | 'account',
-    perm: DefaultPerms | CustomPerms
+    perm: DefaultPerms | CustomPerms,
 ): Promise<Array<Account> | Array<Character>> {
     const collectionName = type === 'character' ? CollectionNames.Characters : CollectionNames.Accounts;
     const results = await getMany<Character | Account>({ permissions: [String(perm)] }, collectionName);

@@ -442,6 +442,10 @@ import { Weathers } from '@Shared/data/weathers.js';
 const Rebar = useRebar();
 const rebarPlayer = Rebar.usePlayer(player);
 
+// Toggle Game Controls
+rebarPlayer.world.enableControls();
+rebarPlayer.world.disableControls();
+
 // Blur the screen over 5 seconds, and keep it blurred
 rebarPlayer.world.setScreenBlur(5000);
 rebarPlayer.world.clearScreenBlur(5000);
