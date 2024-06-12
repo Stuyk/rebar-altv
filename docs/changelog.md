@@ -1,5 +1,23 @@
 # Changelog
 
+## Version 25
+
+### Code Changes
+
+-   Added `account` document to `usePlayer`
+-   Fixed small permission `hasOne` error
+-   Added various shared `Utility` functions to Rebar.utility to lower import counts
+-   Added toggle controls to `usePlayer().world` to control controls state
+-   Fixed small bug where hotkeys could be invoked when game controls are disabled
+
+### Docs Changes
+
+-   Added code examples page
+-   Added troubleshooting page
+-   Updated player world api for toggling controls
+
+---
+
 ## Version 24
 
 ### Code Changes

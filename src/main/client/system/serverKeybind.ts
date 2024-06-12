@@ -17,6 +17,10 @@ function handleUpdate(keys: string[]) {
 }
 
 function handleKeyup(key: number) {
+    if (!alt.gameControlsEnabled()) {
+        return;
+    }
+
     if (!validKeys.has(key)) {
         return;
     }
