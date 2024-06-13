@@ -1,4 +1,4 @@
-# usePed
+# Peds
 
 Peds use the internal alt:V Peds that can be synchronized by invoking a set of hand-picked natives on them.
 

@@ -3,6 +3,7 @@ import '../translate/index.js';
 
 // Load all other files after translate
 import './controllers/index.js';
+import './menus/world/index.js';
 import './player/controls.js';
 import './rmlui/index.js';
 import './screen/index.js';

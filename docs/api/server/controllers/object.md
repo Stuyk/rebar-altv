@@ -2,6 +2,8 @@
 
 Objects are well... objects. They're things on the map like ATMs, Boxes, etc.
 
+![](../../../static/controllers/object.png)
+
 ## Global Object
 
 Global objects can be seen by all players.

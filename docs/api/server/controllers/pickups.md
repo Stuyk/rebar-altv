@@ -4,6 +4,8 @@ Pickups are collisions you can run over with a specific weapon model.
 
 They're traditionally seen in GTA:Online, but this is a more server-side implementation of the pickups.
 
+![](../../../static/controllers/pickup.png)
+
 ```ts
 import * as alt from 'alt-server';
 import { useRebar } from '@Server/index.js';
