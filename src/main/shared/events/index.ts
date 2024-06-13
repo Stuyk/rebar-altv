@@ -151,5 +151,7 @@ export const Events = {
         localStorageSet: 'webview:localstorage:set',
         localStorageGet: 'webview:localstorage:get',
         localStorageDelete: 'webview:localstorage:delete',
+        onPageClose: 'webview:page:close',
+        onPageOpen: 'webview:page:open',
     },
 };
