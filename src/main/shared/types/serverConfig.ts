@@ -69,4 +69,68 @@ export interface ServerConfig {
      * @memberof ServerConfig
      */
     disablePistolWhip?: boolean;
+
+    /**
+     * Disable starting vehicle engine when entering vehicle
+     *
+     * @type {boolean}
+     * @memberof ServerConfig
+     */
+    disableVehicleEngineAutoStart?: boolean;
+
+    /**
+     * Disable stopping vehicle engine when leaving a vehicle
+     *
+     * @type {boolean}
+     * @memberof ServerConfig
+     */
+    disableVehicleEngineAutoStop?: boolean;
+
+    /**
+     * Disable swapping seats in a vehicle
+     *
+     * @type {boolean}
+     * @memberof ServerConfig
+     */
+    disableVehicleSeatSwap?: boolean;
+
+    /**
+     * Disables headshot damage
+     *
+     * @type {boolean}
+     * @memberof ServerConfig
+     */
+    disableCriticalHits?: boolean;
+
+    /**
+     * Disables props from being knocked off
+     *
+     * @type {boolean}
+     * @memberof ServerConfig
+     */
+    disablePropKnockoff?: boolean;
+
+    /**
+     * Disable scuba gear from being automatically taken off
+     *
+     * @type {boolean}
+     * @memberof ServerConfig
+     */
+    disableScubaGearRemoval?: boolean;
+
+    /**
+     * Disable shooting from a vehicle
+     *
+     * @type {boolean}
+     * @memberof ServerConfig
+     */
+    disableDriveBys?: boolean;
+
+    /**
+     * Prevents players from going into cover
+     *
+     * @type {boolean}
+     * @memberof ServerConfig
+     */
+    disableCover?: boolean;
 }

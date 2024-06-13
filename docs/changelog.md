@@ -1,5 +1,111 @@
 # Changelog
 
+## Version 28
+
+### Code Changes
+
+-   Made interaction `setMessage` show a GTA:V notification by default when `entering`.
+-   Synchronize vehicle `customPrimaryColor`, `customSecondaryColor`, `primaryColor`, and `secondaryColor`
+-   Added `offKeyUp` to key listeners for webview composable
+-   Added `disableCriticalHits` to server configuration settings
+-   Added Rebar Event for `on-command` that lets you listen to what commands successfully executed
+-   Improve performance of player stats by making it a single event for setting stats
+-   Added `zone`, `isAiming`, and `isFlying` to player stats
+-   Fix vehicle stop server config bug, flag was incorrect
+-   Added server configs for disabling prop knockoff, cover, drivebys, and scuba gear removal
+
+### Docs Changes
+
+-   Added `onKeyUp` and `offKeyUp` to webview event composable
+-   Updated `useServerConfig` docs
+-   Updated playerStats doc
+
+---
+
+## Version 27
+
+### Code Changes
+
+-   Added `onClose` function for webview
+-   Added `escapeToClosePage` to `show` function for webviews
+    -   Keep in mind this only works for `page` types
+-   Added `RebarEvent` for page open and page close on server-side
+
+## Docs Changes
+
+-   Updated `playerUse` webview section for `show` function to include info about escape to close
+-   Added `RebarEvent` onClose and onOpen docs
+
+---
+
+## Version 26
+
+### Code Changes
+
+-   Added `useProgressbar` controller
+-   Fixed permission length bug
+-   Fixed some misnamed functions in other controllers
+-   Added `useWorldMenu` controller for building quick selection menus
+-   Fixed bug where keybinds could be invoked if certain menus were open
+
+### Docs Changes
+
+-   Added images for controllers
+-   Added `useProgressbar` doc
+-   Added `useWorldMenu` doc
+
+---
+
+## Version 25
+
+### Code Changes
+
+-   Added `account` document to `usePlayer`
+-   Fixed small permission `hasOne` error
+-   Added various shared `Utility` functions to Rebar.utility to lower import counts
+-   Added toggle controls to `usePlayer().world` to control controls state
+-   Fixed small bug where hotkeys could be invoked when game controls are disabled
+
+### Docs Changes
+
+-   Added code examples page
+-   Added troubleshooting page
+-   Updated player world api for toggling controls
+
+---
+
+## Version 24
+
+### Code Changes
+
+-   Added server configs for auto; starting engine, stopping engine, and seat swapping in vehicles
+-   Added `useKeybinder` to bind hotkeys from server-side, enabling users to call from their client
+-   Adjusted world space checker to delay by 100ms before checking, fixing colshape creation times
+
+### Docs Changes
+
+-   Updated server config doc
+-   Added `useKeybinder` page
+
+---
+
+## Version 23
+
+### Code Changes
+
+-   Added `Draggable` Component to WebView
+
+### Docs Changes
+
+-   Added `Draggable` to `webview/components` section with an example on making draggables
+-   Added `Draggable` Component to WebView
+
+### Docs Changes
+
+-   Added `Draggable` to `webview/components` section with an example on making draggables
+
+---
+
 ## Version 22
 
 ### Code Changes

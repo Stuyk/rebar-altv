@@ -407,6 +407,9 @@ async function someWebviewThing(player: alt.Player, attempts = 0) {
     // Show a specific page
     rebarPlayer.webview.show('Example', 'page');
 
+    // Show a specific page, but allow them to leave by pressing escape
+    rebarPlayer.webview.show('Example', 'page', true);
+
     if (attempts >= 5) {
         player.kick('something went wrong');
         return;
@@ -441,6 +444,10 @@ import { Weathers } from '@Shared/data/weathers.js';
 
 const Rebar = useRebar();
 const rebarPlayer = Rebar.usePlayer(player);
+
+// Toggle Game Controls
+rebarPlayer.world.enableControls();
+rebarPlayer.world.disableControls();
 
 // Blur the screen over 5 seconds, and keep it blurred
 rebarPlayer.world.setScreenBlur(5000);

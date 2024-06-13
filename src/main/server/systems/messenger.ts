@@ -36,6 +36,7 @@ const tagOrComment = new RegExp(
 );
 
 const Rebar = useRebar();
+const RebarEvents = Rebar.events.useEvents();
 
 const commands: Command[] = [];
 const callbacks: PlayerMessageCallback[] = [];
@@ -92,6 +93,7 @@ export function useMessenger() {
 
         try {
             await command.callback(player, ...args);
+            RebarEvents.invoke('on-command', player, cmdName);
             return true;
         } catch (err) {
             return false;

@@ -2,6 +2,8 @@
 
 Text labels are floating pieces of text that can be seen in-game in a 3D space.
 
+![](../../../static/controllers/textlabel.png)
+
 ## Global Text Labels
 
 Global text labels can be seen by all players.

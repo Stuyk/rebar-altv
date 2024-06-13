@@ -57,3 +57,28 @@ view.onRpc('get-something', (arg1: string) => {
     return arg1 + ' world';
 });
 ```
+
+## Key Presses
+
+If you're trying to listen for certain keypresses regardless of focus you can use `onKeyUp` and `offKeyUp`.
+
+Generally you want to bind `onKeyUp` with the `onMounted` event, and turn off the key listener with `offKeyUp` when `unmounting`.
+
+```ts
+import { onMounted, onUnmounted } from 'vue';
+import { useEvents } from '../../../../webview/composables/useEvents';
+
+const Events = useEvents();
+
+function doSomething() {
+    console.log('hello world');
+}
+
+onUnmounted(() => {
+    Events.offKeyUp('inventory');
+});
+
+onMounted(() => {
+    Events.onKeyUp('inventory', 73, doSomething);
+});
+```

@@ -76,33 +76,33 @@ export function useEvents() {
     /**
      * Emit an event that will return a result from the server
      *
-     * @template ReturnType 
-     * @param {string} eventName 
-     * @param {...any[]} args 
-     * @return {Promise<ReturnType>} 
+     * @template ReturnType
+     * @param {string} eventName
+     * @param {...any[]} args
+     * @return {Promise<ReturnType>}
      */
     async function emitServerRpc<ReturnType = any>(eventName: string, ...args: any[]): Promise<ReturnType> {
         if (!('alt' in window)) {
             return undefined;
         }
-        
+
         return new Promise((resolve) => {
             const callback = (result: any) => {
                 return resolve(result);
             };
 
             rpcServerCallbacks[eventName] = callback;
-            alt.emit(Events.view. emitServerRpc, eventName, ...args);
+            alt.emit(Events.view.emitServerRpc, eventName, ...args);
         });
     }
 
     /**
      * Emit an event that will return a result from the client
      *
-     * @template ReturnType 
-     * @param {string} eventName 
-     * @param {...any[]} args 
-     * @return {Promise<ReturnType>} 
+     * @template ReturnType
+     * @param {string} eventName
+     * @param {...any[]} args
+     * @return {Promise<ReturnType>}
      */
     async function emitClientRpc<ReturnType = any>(eventName: string, ...args: any[]): Promise<ReturnType> {
         if (!('alt' in window)) {
@@ -167,6 +167,15 @@ export function useEvents() {
         };
     }
 
+    /**
+     * Remove a callback that sends when a key bind is pressed
+     *
+     * @param {string} identifier
+     */
+    function offKeyUp(identifier: string) {
+        delete OnKeybind[identifier];
+    }
+
     return {
         emitClient,
         emitClientRpc,
@@ -174,5 +183,6 @@ export function useEvents() {
         emitServerRpc,
         on,
         onKeyUp,
+        offKeyUp,
     };
 }

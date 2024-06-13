@@ -3,6 +3,7 @@ import { useNative } from './native.js';
 import { TimecycleTypes } from '@Shared/data/timecycleTypes.js';
 import { ScreenEffects } from '@Shared/data/screenEffects.js';
 import { Weathers } from '@Shared/data/weathers.js';
+import { Events } from '../../shared/events/index.js';
 
 export function useWorld(player: alt.Player) {
     const native = useNative(player);
@@ -109,12 +110,30 @@ export function useWorld(player: alt.Player) {
         native.invoke('pauseClock', true);
     }
 
+    function enableControls() {
+        if (!player || !player.valid) {
+            return;
+        }
+
+        player.emit(Events.player.controls.set, true);
+    }
+
+    function disableControls() {
+        if (!player || !player.valid) {
+            return;
+        }
+
+        player.emit(Events.player.controls.set, false);
+    }
+
     return {
         clearAllScreenEffects,
         clearScreenBlur,
         clearScreenEffect,
         clearScreenFade,
         clearTimecycle,
+        disableControls,
+        enableControls,
         setScreenBlur,
         setScreenEffect,
         setScreenFade,

@@ -157,7 +157,7 @@ export function useAccount(player: alt.Player) {
      * @param {string} permission
      * @return {*}
      */
-    async function addPermission(player: alt.Player, permission: string) {
+    async function addPermission(permission: string) {
         if (!player.valid) {
             return false;
         }

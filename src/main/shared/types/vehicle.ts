@@ -188,6 +188,38 @@ export interface Vehicle {
     };
 
     /**
+     * Set a primary color based on GTAV colors
+     *
+     * @type {number}
+     * @memberof Vehicle
+     */
+    primaryColor?: number;
+
+    /**
+     * Set a secondary color based on GTAV colors
+     *
+     * @type {number}
+     * @memberof Vehicle
+     */
+    secondaryColor?: number;
+
+    /**
+     * The custom primary color to set on the vehicle
+     *
+     * @type {alt.RGBA}
+     * @memberof Vehicle
+     */
+    customPrimaryColor?: alt.RGBA;
+
+    /**
+     * The custom secondary color to set on the vehicle
+     *
+     * @type {alt.RGBA}
+     * @memberof Vehicle
+     */
+    customSecondaryColor?: alt.RGBA;
+
+    /**
      * The number plate text for the vehicle
      *
      * @type {string}

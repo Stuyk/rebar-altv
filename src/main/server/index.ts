@@ -1,4 +1,5 @@
 import * as alt from 'alt-server';
+import * as Utility from '@Shared/utility/index.js';
 import './startup.js';
 
 import { useApi } from './api/index.js';
@@ -64,6 +65,9 @@ import { useProxyFetch } from './systems/proxyFetch.js';
 import { usePed } from './controllers/ped.js';
 import { useServerConfig } from './systems/serverConfig.js';
 import { useRateLimitCallback } from './utility/rateLimitCallback.js';
+import { useKeybinder } from './systems/serverKeybinds.js';
+import { useProgressbarGlobal, useProgressbarLocal } from './controllers/progressbar.js';
+import { useWorldMenu } from './controllers/worldMenu.js';
 
 export function useRebar() {
     return {
@@ -77,10 +81,13 @@ export function useRebar() {
             useMarkerLocal,
             useObjectGlobal,
             useObjectLocal,
+            usePed,
+            usePickupGlobal,
+            useProgressbarGlobal,
+            useProgressbarLocal,
             useTextLabelGlobal,
             useTextLabelLocal,
-            usePickupGlobal,
-            usePed,
+            useWorldMenu,
         },
         database: {
             useDatabase,
@@ -121,13 +128,13 @@ export function useRebar() {
         },
         player: {
             useAnimation,
-            useStatus,
-            usePlayerAppearance,
             useAudio,
             useClothing,
             useNative,
             useNotify,
+            usePlayerAppearance,
             useState,
+            useStatus,
             useWaypoint,
             useWeapon,
             useWebview,
@@ -140,6 +147,7 @@ export function useRebar() {
             usePermission,
             usePermissionGroup,
         },
+        useKeybinder,
         usePlayer,
         useProxyFetch,
         useServerConfig,
@@ -154,6 +162,7 @@ export function useRebar() {
             },
             useProtectCallback,
             useRateLimitCallback,
+            ...Utility,
         },
         vehicle: {
             useVehicle,

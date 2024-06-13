@@ -16,7 +16,7 @@ export function useObjectGlobal(objectData: iObject) {
         objectData.uid = Utility.uid.generate();
     }
 
-    const newObject = new alt.Object(objectData.model, objectData.pos, objectData.rot ?? alt.Vector3.zero, 255);
+    let newObject = new alt.Object(objectData.model, objectData.pos, objectData.rot ?? alt.Vector3.zero, 255);
     newObject.dimension = objectData.dimension ?? 0;
     newObject.setStreamSyncedMeta('data', objectData.data);
 
@@ -37,6 +37,30 @@ export function useObjectGlobal(objectData: iObject) {
         }
     }
 
+    async function updateModel(model: number) {
+        objectData.model = model;
+        const newObjectInstance = new alt.Object(
+            objectData.model,
+            objectData.pos,
+            objectData.rot ?? alt.Vector3.zero,
+            255,
+        );
+        newObjectInstance.dimension = objectData.dimension ?? 0;
+        newObjectInstance.setStreamSyncedMeta('data', objectData.data);
+
+        await alt.Utils.wait(1000);
+
+        try {
+            newObject.destroy();
+        } catch (err) {}
+
+        newObject = newObjectInstance;
+    }
+
+    function updatePosition(pos: alt.Vector3) {
+        newObject.pos = pos;
+    }
+
     return {
         destroy,
         getData() {
@@ -46,6 +70,8 @@ export function useObjectGlobal(objectData: iObject) {
             return newObject;
         },
         update,
+        updateModel,
+        updatePosition,
     };
 }
 

@@ -22,6 +22,10 @@ export const Events = {
             invokeRpc: 'ped:invoke:rpc',
             fadeOut: 'ped:fade:out',
         },
+        progressbar: {
+            create: 'progressbar:create',
+            destroy: 'progressbar:destroy',
+        },
         textlabel: {
             create: 'textlabel:create',
             destroy: 'textlabel:destroy',
@@ -34,29 +38,12 @@ export const Events = {
     },
     localPlayer: {
         stats: {
-            health: 'localplayer:stats:health',
-            armour: 'localplayer:stats:armour',
-            speed: 'localplayer:stats:speed',
-            weapon: 'localplayer:stats:weapon',
-            stamina: 'localplayer:stats:stamina',
-            engineOn: 'localplayer:stats:engineon',
-            locked: 'localplayer:stats:locked',
-            seat: 'localplayer:stats:seat',
-            inVehicle: 'localplayer:stats:invehicle',
-            inWater: 'localplayer:stats:inwater',
-            gear: 'localplayer:stats:gear',
-            maxGear: 'localplayer:stats:maxgear',
-            vehicleHealth: 'localplayer:stats:vehiclehealth',
-            indicatorLights: 'localplayer:stats.indicatorLights',
-            ammo: 'localplayer:stats:ammo',
-            fps: 'localplayer:stats:fps',
-            ping: 'localplayer:stats:ping',
-            isTalking: 'localplayer:stats:isTalking',
-            time: 'localplayer:stats:time',
-            street: 'localplayer:stats:street',
-            direction: 'localplayer:stats:direction',
-            weather: 'localplayer:stats:weather',
-            lights: 'localplayer:stats:lights',
+            set: 'localplayer:stats:set',
+        },
+    },
+    menus: {
+        worldmenu: {
+            show: 'worldmenu:show',
         },
     },
     player: {
@@ -64,6 +51,9 @@ export const Events = {
             play: {
                 local: 'audio:player:sound:2d',
             },
+        },
+        controls: {
+            set: 'player:controls:set',
         },
         native: {
             invoke: 'player:native:invoke',
@@ -96,6 +86,10 @@ export const Events = {
         },
     },
     systems: {
+        keybinds: {
+            update: 'systems:keybinds:update',
+            invoke: 'systems:keybinds:invoke',
+        },
         messenger: {
             process: 'systems:messenger:process',
             send: 'systems:messenger:send',
@@ -135,5 +129,7 @@ export const Events = {
         localStorageSet: 'webview:localstorage:set',
         localStorageGet: 'webview:localstorage:get',
         localStorageDelete: 'webview:localstorage:delete',
+        onPageClose: 'webview:page:close',
+        onPageOpen: 'webview:page:open',
     },
 };

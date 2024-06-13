@@ -15,12 +15,14 @@ import { useCharacter } from '../document/character.js';
 import { usePlayerGetter } from '../getters/player.js';
 import { useVehicleGetter } from '../getters/vehicle.js';
 import { useRaycast } from './raycast.js';
+import { useAccount } from '../document/account.js';
 
 const playerGetter = usePlayerGetter();
 const vehicleGetter = useVehicleGetter();
 
 export function usePlayer(player: alt.Player) {
     return {
+        account: useAccount(player),
         animation: useAnimation(player),
         appearance: usePlayerAppearance(player),
         audio: useAudio(player),

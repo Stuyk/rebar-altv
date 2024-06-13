@@ -72,12 +72,12 @@ Images are any images with the following extensions: `jpg, jpeg, png, bmp, svg, 
 
 Additionally, the images are loaded as an `asset-pack` and copied to the `webview/public/images` folder as well.
 
-Image paths are absolute so if you put an image in the `images` folder then your `html` path will be `/images/myplugin-myimage.png`.
+Image paths are absolute so if you put an image in the `images` folder then your `html` path will be `./images/myplugin-myimage.png`.
 
 If you need the image for rmlui then your path will be `http://assets/images/myplugin-myimage.png`.
 
 ```jsx
-<img src="/images/myplugin-myimage.png" />
+<img src="./images/myplugin-myimage.png" />
 
 // OR
 
@@ -108,7 +108,7 @@ alt.on('playerConnect', async (player) => {
     Rebar.player.useAudio(player).playSound('http://assets/sounds/myplugin-test.ogg');
 
     // Alternatively
-    Rebar.player.useAudio(player).playSound('/sounds/myplugin-test.ogg');
+    Rebar.player.useAudio(player).playSound('./sounds/myplugin-test.ogg');
 });
 ```
 
@@ -121,7 +121,7 @@ import { useAudio } from '../../../../webview/composables/useAudio';
 const audio = useAudio();
 
 function playSound() {
-    audio.play('/sounds/myplugin-test.ogg');
+    audio.play('./sounds/myplugin-test.ogg');
 }
 </script>
 

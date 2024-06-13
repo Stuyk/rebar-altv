@@ -5,10 +5,10 @@ import * as ScreenText from '../screen/textlabel.js';
 const GroupType = 'textlabel';
 
 let interval: number;
-let markers: (TextLabel & { entity: alt.Entity })[] = [];
+let labels: (TextLabel & { entity: alt.Entity })[] = [];
 
 function draw() {
-    for (let label of markers) {
+    for (let label of labels) {
         ScreenText.drawText3D(label.text, label.pos, 0.4, new alt.RGBA(255, 255, 255, 255));
     }
 }
@@ -27,11 +27,11 @@ function onStreamEnter(entity: alt.Object) {
         return;
     }
 
-    const index = markers.findIndex((x) => x.uid === data.uid);
+    const index = labels.findIndex((x) => x.uid === data.uid);
     if (index !== -1) {
-        markers[index] = { ...data, entity };
+        labels[index] = { ...data, entity };
     } else {
-        markers.push({ ...data, entity });
+        labels.push({ ...data, entity });
     }
 }
 
@@ -45,15 +45,15 @@ function onStreamExit(entity: alt.Object) {
         return;
     }
 
-    for (let i = markers.length - 1; i >= 0; i--) {
-        if (markers[i].uid !== data.uid) {
+    for (let i = labels.length - 1; i >= 0; i--) {
+        if (labels[i].uid !== data.uid) {
             continue;
         }
 
-        markers.splice(i, 1);
+        labels.splice(i, 1);
     }
 
-    if (markers.length <= 0) {
+    if (labels.length <= 0) {
         alt.clearInterval(interval);
         interval = undefined;
     }
@@ -69,12 +69,12 @@ function onStreamSyncedMetaChanged(entity: alt.Object, key: string, value: any) 
         return;
     }
 
-    const index = markers.findIndex((x) => x.uid === data.uid);
+    const index = labels.findIndex((x) => x.uid === data.uid);
     if (index <= -1) {
         return;
     }
 
-    markers[index] = { ...data, entity };
+    labels[index] = { ...data, entity };
 }
 
 function getData(object: alt.Object) {

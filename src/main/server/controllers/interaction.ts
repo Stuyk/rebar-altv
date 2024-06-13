@@ -1,6 +1,5 @@
 import * as alt from 'alt-server';
 import { Events } from '@Shared/events/index.js';
-import { useTranslate } from '@Shared/translate.js';
 import * as Utility from '@Shared/utility/index.js';
 
 export type InteractionCallback = (entity: alt.Player, colshape: alt.Colshape, uid: string) => void;
@@ -15,7 +14,6 @@ type InteractionInternal = {
 
 const SessionKey = 'colshape:uid';
 const interactions: Array<InteractionInternal> = [];
-const { t } = useTranslate('en');
 
 function getIndex(colshape: alt.Colshape): number {
     if (!colshape.valid) {
@@ -101,7 +99,7 @@ export function useInteraction(colshape: alt.Colshape, type: 'vehicle' | 'player
     shape.playersOnly = false;
     shape.setMeta(SessionKey, uid);
 
-    let msgEnter = t('controller.interaction.message');
+    let msgEnter = undefined;
     let msgLeave = undefined;
 
     function handleEnter(player: alt.Player) {

@@ -28,4 +28,30 @@ serverConfig.set('hideVehicleName', true);
 
 // Disable pistol whipping
 serverConfig.set('disablePistolWhip', true);
+
+// Disable Engine from automatically starting when entered
+serverConfig.set('disableVehicleEngineAutoStart', true);
+
+// Disable Engine from automatically turning off when left
+serverConfig.set('disableVehicleEngineAutoStop', true);
+
+// When a passenger is in a vehicle with a driver,
+// and the driver leaves. This prevents the passenger
+// from sliding over to the next seat
+serverConfig.set('disableVehicleSeatSwap', true);
+
+// Disables headshot damage server wide
+serverConfig.set('disableCriticalHits', true);
+
+// Disables scuba gear from being removed once it's equipped
+serverConfig.set('disableScubaGearRemoval', true);
+
+// Disables prop knock off of hats, and such
+serverConfig.set('disablePropKnockoff', true);
+
+// Disables moving into cover for all players
+serverConfig.set('disableCover', true);
+
+// Disables performing drive bys for all players
+serverConfig.set('disableDriveBys', true);
 ```

@@ -39,6 +39,7 @@ try {
         moveDirectory(from, to, file.includes('.') ? false : true);
     }
 
+    execSync(`node ./scripts/buildPluginDependencies.js`, { stdio: 'inherit' });
     execSync(`pnpm upgrade`, { stdio: 'inherit' });
     execSync(`pnpm install`, { stdio: 'inherit' });
     fs.rmSync(tmpPath, { force: true, recursive: true });

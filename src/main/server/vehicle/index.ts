@@ -40,16 +40,16 @@ export function useVehicle(vehicle: alt.Vehicle) {
             for (let key of Object.keys(document.mods)) {
                 const id = parseInt(key);
                 try {
-                    if(id === 23) {
+                    if (id === 23) {
                         vehicle.setWheels(23, document.mods[key]);
                         continue;
                     }
 
-                    if(id === 24) {
+                    if (id === 24) {
                         vehicle.setRearWheels(document.mods[key]);
                         continue;
                     }
-                    
+
                     vehicle.setMod(id, document.mods[key]);
                 } catch (err) {}
             }
@@ -57,11 +57,26 @@ export function useVehicle(vehicle: alt.Vehicle) {
 
         // Synchronize neon
         if (document.neonPlacement && document.neonColor) {
-            for (let key of Object.keys(document.neonPlacement)) {
-                vehicle.neon[key] = document.neonPlacement[key];
-            }
-
+            vehicle.neon = document.neonPlacement;
             vehicle.neonColor = document.neonColor;
+        }
+
+        // Synchronize primary paint job
+        if (typeof document.customPrimaryColor !== 'undefined') {
+            vehicle.customPrimaryColor = document.customPrimaryColor;
+        }
+
+        // Synchronize secondary paint job
+        if (typeof document.customSecondaryColor !== 'undefined') {
+            vehicle.customSecondaryColor = document.customSecondaryColor;
+        }
+
+        if (typeof document.primaryColor !== 'undefined') {
+            vehicle.primaryColor = document.primaryColor;
+        }
+
+        if (typeof document.secondaryColor !== 'undefined') {
+            vehicle.secondaryColor = document.secondaryColor;
         }
 
         // Synchronize vehicle extras

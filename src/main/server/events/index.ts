@@ -3,6 +3,8 @@ import { Account } from '@Shared/types/account.js';
 import { Character } from '@Shared/types/character.js';
 import { Vehicle } from '@Shared/types/vehicle.js';
 import { Weathers } from '@Shared/data/weathers.js';
+import { PageNames } from '../../shared/webview/index.js';
+import { Events } from '../../shared/events/index.js';
 
 type RebarEvents = {
     'weather-forecast-changed': (weather: Weathers[]) => void;
@@ -14,6 +16,9 @@ type RebarEvents = {
     'account-bound': (player: alt.Player, document: Account) => void;
     'character-bound': (player: alt.Player, document: Character) => void;
     'vehicle-bound': (vehicle: alt.Vehicle, document: Vehicle) => void;
+    'page-closed': (player: alt.Player, page: PageNames) => void;
+    'page-opened': (player: alt.Player, page: PageNames) => void;
+    'on-command': (player: alt.Player, commandName: string) => void;
     message: (player: alt.Player, message: string) => void;
 };
 
@@ -29,6 +34,9 @@ const eventCallbacks: EventCallbacks<keyof RebarEvents> = {
     'account-bound': [],
     'character-bound': [],
     'vehicle-bound': [],
+    'page-closed': [],
+    'page-opened': [],
+    'on-command': [],
     message: [],
 };
 
@@ -50,3 +58,13 @@ export function useEvents() {
         on,
     };
 }
+
+// Listens for when a page is opened
+alt.onClient(Events.view.onPageOpen, (player: alt.Player, pageName: PageNames) =>
+    useEvents().invoke('page-opened', player, pageName),
+);
+
+// Listens for when a page is closed
+alt.onClient(Events.view.onPageClose, (player: alt.Player, pageName: PageNames) =>
+    useEvents().invoke('page-closed', player, pageName),
+);
