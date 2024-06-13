@@ -19,6 +19,8 @@ Here's an example of how to use it.
         indicatorLights,
         inVehicle,
         inWater,
+        isAiming,
+        isFlying,
         isTalking,
         locked,
         lights,
@@ -32,6 +34,7 @@ Here's an example of how to use it.
         vehicleHealth,
         weapon,
         weather,
+        zone,
     } = usePlayerStats();
 </script>
 

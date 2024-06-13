@@ -1,5 +1,27 @@
 # Changelog
 
+## Version 28
+
+### Code Changes
+
+-   Made interaction `setMessage` show a GTA:V notification by default when `entering`.
+-   Synchronize vehicle `customPrimaryColor`, `customSecondaryColor`, `primaryColor`, and `secondaryColor`
+-   Added `offKeyUp` to key listeners for webview composable
+-   Added `disableCriticalHits` to server configuration settings
+-   Added Rebar Event for `on-command` that lets you listen to what commands successfully executed
+-   Improve performance of player stats by making it a single event for setting stats
+-   Added `zone`, `isAiming`, and `isFlying` to player stats
+-   Fix vehicle stop server config bug, flag was incorrect
+-   Added server configs for disabling prop knockoff, cover, drivebys, and scuba gear removal
+
+### Docs Changes
+
+-   Added `onKeyUp` and `offKeyUp` to webview event composable
+-   Updated `useServerConfig` docs
+-   Updated playerStats doc
+
+---
+
 ## Version 27
 
 ### Code Changes

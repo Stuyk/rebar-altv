@@ -1,6 +1,7 @@
 import * as alt from 'alt-client';
 import { Events } from '@Shared/events/index.js';
 import { useMessenger } from '../system/messenger.js';
+import { createNotification } from '../screen/notification.js';
 
 type InteractionCallback = (message: string, uid: string, pos: alt.Vector3) => void;
 
@@ -49,8 +50,12 @@ function handleClear() {
 }
 
 function handleSet(_uid: string, _message: string | undefined, _pos: alt.Vector3) {
-    for (let cb of onEnterCallbacks) {
-        cb(message, uid, pos);
+    if (onEnterCallbacks.length <= 0) {
+        createNotification(_message);
+    } else {
+        for (let cb of onEnterCallbacks) {
+            cb(message, uid, pos);
+        }
     }
 
     uid = _uid;
