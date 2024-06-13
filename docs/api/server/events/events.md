@@ -49,4 +49,16 @@ RebarEvents.on('time-minute-changed', (minute) => {
 RebarEvents.on('time-second-changed', (second) => {
     console.log(second);
 });
+
+// Called when a page is opened
+RebarEvents.on('page-opened', (player, pageName) => {
+    console.log('page opened');
+    console.log(pageName);
+});
+
+// Called when a page is closed
+RebarEvents.on('page-closed', (player, pageName) => {
+    console.log('page closed');
+    console.log(pageName);
+});
 ```

@@ -1,5 +1,21 @@
 # Changelog
 
+## Version 27
+
+### Code Changes
+
+-   Added `onClose` function for webview
+-   Added `escapeToClosePage` to `show` function for webviews
+    -   Keep in mind this only works for `page` types
+-   Added `RebarEvent` for page open and page close on server-side
+
+## Docs Changes
+
+-   Updated `playerUse` webview section for `show` function to include info about escape to close
+-   Added `RebarEvent` onClose and onOpen docs
+
+---
+
 ## Version 26
 
 ### Code Changes

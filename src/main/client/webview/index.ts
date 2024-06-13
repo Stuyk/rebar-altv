@@ -6,7 +6,8 @@ import { PageNames, PageType } from '@Shared/webview/index.js';
 type AnyCallback = ((...args: any[]) => void) | ((...args: any[]) => Promise<void>) | Function;
 
 const ClientEvents: { [eventName: string]: AnyCallback } = {};
-const ClientRpcEvents: { [eventName: string]: (...args: any[]) => Promise<any> | any } = {}
+const ClientRpcEvents: { [eventName: string]: (...args: any[]) => Promise<any> | any } = {};
+const onCloseEvents: { [pageName: string]: Array<Function> } = {};
 
 let onWebviewReadyCallbacks: (() => void)[] = [];
 let readyCallbackTimeout;
@@ -14,6 +15,7 @@ let webview: alt.WebView;
 let cursorCount: number = 0;
 let isPageOpen = false;
 let openPages: PageNames[] = [];
+let escapeToClosePage: PageNames;
 
 function handleServerEvent(event: string, ...args: any[]) {
     alt.emitServer(event, ...args);
@@ -61,6 +63,14 @@ export function useWebview(path = 'http://assets/webview/index.html') {
      * @param {number} key
      */
     function emitKeypress(key: number) {
+        // Handle escape
+        if (key === 27 && escapeToClosePage) {
+            native.disableControlAction(0, 199, true);
+            native.disableControlAction(0, 200, true);
+            hide(escapeToClosePage);
+            return;
+        }
+
         webview.emit(Events.view.onKeypress, key);
     }
 
@@ -134,13 +144,18 @@ export function useWebview(path = 'http://assets/webview/index.html') {
      * @param {PageNames} vueName
      * @param {PageType} type
      */
-    function show(vueName: PageNames, type: PageType) {
+    function show(vueName: PageNames, type: PageType, escapeToClose = false) {
         webview.emit(Events.view.show, vueName, type);
 
         if (type === 'page') {
             focus();
             isPageOpen = true;
             openPages.push(vueName);
+            if (escapeToClose) {
+                escapeToClosePage = vueName;
+            }
+
+            alt.emitServer(Events.view.onPageOpen, vueName);
         }
     }
 
@@ -169,12 +184,24 @@ export function useWebview(path = 'http://assets/webview/index.html') {
         webview.emit(Events.view.hide, vueName);
         unfocus();
 
+        if (escapeToClosePage === vueName) {
+            escapeToClosePage = undefined;
+        }
+
+        if (onCloseEvents[vueName]) {
+            for (let cb of onCloseEvents[vueName]) {
+                cb();
+            }
+        }
+
         // Only remove 'page' types
         const index = openPages.findIndex((page) => page === vueName);
         if (index > -1) {
             isPageOpen = false;
             openPages.splice(index, 1);
         }
+
+        alt.emitServer(Events.view.onPageClose, vueName);
     }
 
     /**
@@ -222,18 +249,18 @@ export function useWebview(path = 'http://assets/webview/index.html') {
     /**
      * Get something from the local alt storage
      *
-     * @param {string} key 
+     * @param {string} key
      */
     function getLocalStorage(key: string) {
         const data = alt.LocalStorage.get(key);
-        webview.emit(Events.view.localStorageGet, key, data)
+        webview.emit(Events.view.localStorageGet, key, data);
     }
 
     /**
      * Set data to the local alt storage
      *
-     * @param {string} key 
-     * @param {*} value 
+     * @param {string} key
+     * @param {*} value
      */
     function setLocalStorage(key: string, value: any) {
         alt.LocalStorage.set(key, value);
@@ -243,7 +270,7 @@ export function useWebview(path = 'http://assets/webview/index.html') {
     /**
      * Delete something from local storage
      *
-     * @param {string} key 
+     * @param {string} key
      */
     function deleteLocalStorage(key: string) {
         alt.LocalStorage.delete(key);
@@ -258,13 +285,13 @@ export function useWebview(path = 'http://assets/webview/index.html') {
     /**
      * Handles client RPC events, and returns results
      *
-     * @param {string} event 
-     * @param {...any[]} args 
-     * @return 
+     * @param {string} event
+     * @param {...any[]} args
+     * @return
      */
     async function handleClientRpcEvent(event: string, ...args: any[]) {
         if (!ClientRpcEvents[event]) {
-            alt.logWarning(`No Client RPC Event for ${event}`)
+            alt.logWarning(`No Client RPC Event for ${event}`);
             webview.emit(Events.view.emitClientRpc, event, undefined);
             return;
         }
@@ -276,11 +303,25 @@ export function useWebview(path = 'http://assets/webview/index.html') {
     /**
      * Listen for an event from the webview, and return a result to the RPC
      *
-     * @param {string} event 
-     * @param {(...args: any[]) => void} callback 
+     * @param {string} event
+     * @param {(...args: any[]) => void} callback
      */
     function onRpc(event: string, callback: (...args: any[]) => void) {
         ClientRpcEvents[event] = callback;
+    }
+
+    /**
+     * Listen for when a specific page is closed
+     *
+     * @param {PageNames} pageName
+     * @param {Function} callback
+     */
+    function onClose(pageName: PageNames, callback: Function) {
+        if (!onCloseEvents[pageName]) {
+            onCloseEvents[pageName] = [];
+        }
+
+        onCloseEvents[pageName].push(callback);
     }
 
     if (!isInitialized) {
@@ -306,6 +347,7 @@ export function useWebview(path = 'http://assets/webview/index.html') {
         off,
         on,
         onRpc,
+        onClose,
         onWebviewReady,
         focus,
         unfocus,
