@@ -1,5 +1,6 @@
 import * as alt from 'alt-client';
 import * as native from 'natives';
+import { ZoneNames } from '../../../shared/data/zoneNames.js';
 
 const WeatherHashes = {
     '669657108': 'BLIZZARD',
@@ -35,4 +36,8 @@ export function getDirection(entity: alt.Player | alt.Vehicle) {
     const directions = ['N', 'NW', 'W', 'SW', 'S', 'SE', 'E', 'NE'];
     const index = Math.round(((angle %= 360) < 0 ? angle + 360 : angle) / 45) % 8;
     return directions[index];
+}
+
+export function getZone() {
+    return ZoneNames[native.getNameOfZone(alt.Player.local.pos.x, alt.Player.local.pos.y, alt.Player.local.pos.z)];
 }

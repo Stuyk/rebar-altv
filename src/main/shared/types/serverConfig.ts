@@ -93,4 +93,44 @@ export interface ServerConfig {
      * @memberof ServerConfig
      */
     disableVehicleSeatSwap?: boolean;
+
+    /**
+     * Disables headshot damage
+     *
+     * @type {boolean}
+     * @memberof ServerConfig
+     */
+    disableCriticalHits?: boolean;
+
+    /**
+     * Disables props from being knocked off
+     *
+     * @type {boolean}
+     * @memberof ServerConfig
+     */
+    disablePropKnockoff?: boolean;
+
+    /**
+     * Disable scuba gear from being automatically taken off
+     *
+     * @type {boolean}
+     * @memberof ServerConfig
+     */
+    disableScubaGearRemoval?: boolean;
+
+    /**
+     * Disable shooting from a vehicle
+     *
+     * @type {boolean}
+     * @memberof ServerConfig
+     */
+    disableDriveBys?: boolean;
+
+    /**
+     * Prevents players from going into cover
+     *
+     * @type {boolean}
+     * @memberof ServerConfig
+     */
+    disableCover?: boolean;
 }

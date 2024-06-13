@@ -18,6 +18,7 @@ type RebarEvents = {
     'vehicle-bound': (vehicle: alt.Vehicle, document: Vehicle) => void;
     'page-closed': (player: alt.Player, page: PageNames) => void;
     'page-opened': (player: alt.Player, page: PageNames) => void;
+    'on-command': (player: alt.Player, commandName: string) => void;
     message: (player: alt.Player, message: string) => void;
 };
 
@@ -35,6 +36,7 @@ const eventCallbacks: EventCallbacks<keyof RebarEvents> = {
     'vehicle-bound': [],
     'page-closed': [],
     'page-opened': [],
+    'on-command': [],
     message: [],
 };
 
