@@ -9,24 +9,26 @@
     <meta name="generator" content="Retype 3.5.0">
 
     <!-- Primary Meta Tags -->
-    <title>Global</title>
-    <meta name="title" content="Global">
-    <meta name="description" content="Global documents work a bit different than the other documents.">
+    <title>Progress Bars</title>
+    <meta name="title" content="Progress Bars">
+    <meta name="description" content="These are seen by a single player.">
 
     <!-- Canonical -->
-    <link rel="canonical" href="https://rebarv.com/api/server/document/document-global/">
+    <link rel="canonical" href="https://rebarv.com/api/server/controllers/progressbar/">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://rebarv.com/api/server/document/document-global/">
-    <meta property="og:title" content="Global">
-    <meta property="og:description" content="Global documents work a bit different than the other documents.">
+    <meta property="og:url" content="https://rebarv.com/api/server/controllers/progressbar/">
+    <meta property="og:title" content="Progress Bars">
+    <meta property="og:description" content="These are seen by a single player.">
+    <meta property="og:image" content="https://rebarv.com/static/controllers/progressbar.png">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://rebarv.com/api/server/document/document-global/">
-    <meta property="twitter:title" content="Global">
-    <meta property="twitter:description" content="Global documents work a bit different than the other documents.">
+    <meta property="twitter:url" content="https://rebarv.com/api/server/controllers/progressbar/">
+    <meta property="twitter:title" content="Progress Bars">
+    <meta property="twitter:description" content="These are seen by a single player.">
+    <meta property="twitter:image" content="https://rebarv.com/static/controllers/progressbar.png">
 
     <script data-cfasync="false">(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
@@ -186,81 +188,133 @@
                                 <!-- Rendered if sidebar right is enabled -->
                                 <div id="docs-sidebar-right-toggle"></div>
                                 <!-- Page content  -->
-<doc-anchor-target id="global" class="break-words">
+<doc-anchor-target id="progress-bars" class="break-words">
     <h1>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#global">#</doc-anchor-trigger>
-        <span>Global</span>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#progress-bars">#</doc-anchor-trigger>
+        <span>Progress Bars</span>
     </h1>
 </doc-anchor-target>
-<p>Global documents work a bit different than the other documents.</p>
-<p>They are the only <code v-pre>async</code> document, and for good reason.</p>
-<doc-anchor-target id="create-a-document">
+<p><figure class="content-center">
+    <img src="../../../../static/controllers/progressbar.png" alt="">
+    <figcaption class="caption"></figcaption>
+</figure>
+</p>
+<doc-anchor-target id="local-progress-bars">
     <h2>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#create-a-document">#</doc-anchor-trigger>
-        <span>Create a Document</span>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#local-progress-bars">#</doc-anchor-trigger>
+        <span>Local Progress Bars</span>
     </h2>
 </doc-anchor-target>
-<p>When creating a global document, it will always come with an identifier.</p>
+<p>These are seen by a single player.</p>
+<doc-anchor-target id="timed-progress-bar">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#timed-progress-bar">#</doc-anchor-trigger>
+        <span>Timed Progress Bar</span>
+    </h3>
+</doc-anchor-target>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">import { useRebar } from '@Server/index.js';
+<pre class="language-typescript"><code v-pre class="language-typescript">const bar = Rebar.controllers.useProgressbarLocal(
+    somePlayer,
+    {
+        label: 'hi',
+        value: 0,
+        maxValue: 100,
+        pos: player.pos,
+    },
+    true, // This makes the bar timed
+);
 
-const Rebar = useRebar();
+bar.onFinish(() =&gt; {
+    console.log('bar complete, with a callback');
+});
 
-// Automatically creates the document, and stores it into the database
-async function doSomething() {
-    const document = await Rebar.document.global.useGlobal('my-identifier-goes-here-for-my-document');
-}</code></pre>
+await bar.waitForFinish();
+console.log('bar complete via async');</code></pre>
 </doc-codeblock></div>
-<doc-anchor-target id="getting-data">
-    <h2>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#getting-data">#</doc-anchor-trigger>
-        <span>Getting Data</span>
-    </h2>
+<doc-anchor-target id="manual-control-progress-bar">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#manual-control-progress-bar">#</doc-anchor-trigger>
+        <span>Manual Control Progress Bar</span>
+    </h3>
 </doc-anchor-target>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">type MyDataType = {
-    _id: string;
-    identifier: string;
-    totalMoneyCreated: number;
-    totalMoneyDestroyed: number;
-};
+<pre class="language-typescript"><code v-pre class="language-typescript">const bar = Rebar.controllers.useProgressbarGlobal(somePlayer, {
+    label: 'hi',
+    value: 0,
+    maxValue: 100,
+    pos: player.pos,
+});
 
-async function doSomething() {
-    const document = await Rebar.document.global.useGlobal('my-identifier-goes-here-for-my-document');
+// Increments the bar by 1 every 2 seconds until it hits 100
+alt.setInterval(() =&gt; {
+    bar.updateProgress(bar.getValue() + 1);
+    bar.updateLabel(`${bar.getValue()}/${bar.Value()}`);
+}, 2000);
 
-    // Get the entire document
-    const data = document.get&lt;MyDataType&gt;();
-    console.log(data.totalMoneyCreated);
+bar.onFinish(() =&gt; {
+    console.log('bar complete, with a callback');
+});
 
-    // Get a single field
-    const totalMoneyCreated = document.getField('totalMoneyCreated');
-}</code></pre>
+await bar.waitForFinish();
+console.log('bar complete via async');</code></pre>
 </doc-codeblock></div>
-<doc-anchor-target id="storing-data">
+<doc-anchor-target id="global-progress-bars">
     <h2>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#storing-data">#</doc-anchor-trigger>
-        <span>Storing Data</span>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#global-progress-bars">#</doc-anchor-trigger>
+        <span>Global Progress Bars</span>
     </h2>
 </doc-anchor-target>
-<p>Storing data can take any data type and store it for you.</p>
-<p>Below is just a simple numerical example.</p>
+<p>These are seen by all players, and are can be seen when they are in range of the progress bar.</p>
+<doc-anchor-target id="timed-progress-bar-1">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#timed-progress-bar-1">#</doc-anchor-trigger>
+        <span>Timed Progress Bar</span>
+    </h3>
+</doc-anchor-target>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">type MyDataType = {
-    _id: string;
-    identifier: string;
-    totalMoneyCreated: number;
-    totalMoneyDestroyed: number;
-};
+<pre class="language-typescript"><code v-pre class="language-typescript">const bar = Rebar.controllers.useProgressbarGlobal(
+    {
+        label: 'hi',
+        value: 0,
+        maxValue: 100,
+        pos: player.pos,
+    },
+    true, // This makes the bar timed
+);
 
-async function doSomething() {
-    const document = await Rebar.document.global.useGlobal('my-identifier-goes-here-for-my-document');
+bar.onFinish(() =&gt; {
+    console.log('bar complete, with a callback');
+});
 
-    // Overwrite or set a single field
-    document.setField&lt;MyDataType&gt;('totalMoneyCreated', 200);
+await bar.waitForFinish();
+console.log('bar complete via async');</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="manual-control-progress-bar-1">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#manual-control-progress-bar-1">#</doc-anchor-trigger>
+        <span>Manual Control Progress Bar</span>
+    </h3>
+</doc-anchor-target>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">const bar = Rebar.controllers.useProgressbarGlobal({
+    label: 'hi',
+    value: 0,
+    maxValue: 100,
+    pos: player.pos,
+});
 
-    // Overwrite multiple fields
-    document.setField&lt;MyDataType&gt;({ totalMoneyCreated: 200, totalMoneyDestroyed: 200 });
-}</code></pre>
+// Increments the bar by 1 every 2 seconds until it hits 100
+alt.setInterval(() =&gt; {
+    bar.updateProgress(bar.getValue() + 1);
+    bar.updateLabel(`${bar.getValue()}/${bar.Value()}`);
+}, 2000);
+
+bar.onFinish(() =&gt; {
+    console.log('bar complete, with a callback');
+});
+
+await bar.waitForFinish();
+console.log('bar complete via async');</code></pre>
 </doc-codeblock></div>
 
                                 
@@ -271,20 +325,20 @@ async function doSomething() {
                             
                                 <nav class="flex mt-14">
                                     <div class="w-1/2">
-                                        <a class="px-5 py-4 h-full flex items-center break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-l-lg transition-colors duration-150 relative hover:z-5" href="../../../../api/server/document/document-character/">
+                                        <a class="px-5 py-4 h-full flex items-center break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-l-lg transition-colors duration-150 relative hover:z-5" href="../../../../api/server/controllers/pickups/">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="mr-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19 11H7.41l5.29-5.29a.996.996 0 10-1.41-1.41l-7 7a1 1 0 000 1.42l7 7a1.024 1.024 0 001.42-.01.996.996 0 000-1.41L7.41 13H19c.55 0 1-.45 1-1s-.45-1-1-1z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
                                             <span>
                                                 <span class="block text-xs font-normal text-gray-400 dark:text-dark-400">Previous</span>
-                                                <span class="block mt-1">Character</span>
+                                                <span class="block mt-1">Pickups</span>
                                             </span>
                                         </a>
                                     </div>
                             
                                     <div class="w-1/2">
-                                        <a class="px-5 py-4 -mx-px h-full flex items-center justify-end break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-r-lg transition-colors duration-150 relative hover:z-5" href="../../../../api/server/document/document-vehicle/">
+                                        <a class="px-5 py-4 -mx-px h-full flex items-center justify-end break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-r-lg transition-colors duration-150 relative hover:z-5" href="../../../../api/server/controllers/textlabel/">
                                             <span>
                                                 <span class="block text-xs font-normal text-right text-gray-400 dark:text-dark-400">Next</span>
-                                                <span class="block mt-1">Vehicle</span>
+                                                <span class="block mt-1">Text Labels</span>
                                             </span>
                                             <svg xmlns="http://www.w3.org/2000/svg" class="ml-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19.92 12.38a1 1 0 00-.22-1.09l-7-7a.996.996 0 10-1.41 1.41l5.3 5.3H5c-.55 0-1 .45-1 1s.45 1 1 1h11.59l-5.29 5.29a.996.996 0 000 1.41c.19.2.44.3.7.3s.51-.1.71-.29l7-7c.09-.09.16-.21.21-.33z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
                                         </a>
@@ -328,6 +382,6 @@ async function doSomething() {
 
     <div id="docs-overlay-target"></div>
 
-    <script data-cfasync="false">window.__DOCS__ = { "title": "Global", level: 4, icon: "file", hasPrism: true, hasMermaid: false, hasMath: false, tocDepth: 23 }</script>
+    <script data-cfasync="false">window.__DOCS__ = { "title": "Progress Bars", level: 4, icon: "file", hasPrism: true, hasMermaid: false, hasMath: false, tocDepth: 23 }</script>
 </body>
 </html>
