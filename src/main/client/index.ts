@@ -21,6 +21,8 @@ import { useMessenger } from './system/messenger.js';
 import { useProxyFetch } from './system/proxyFetch.js';
 import { useRaycast } from './system/raycasts.js';
 import { isWorldMenuOpen, useWorldMenu } from './menus/world/index.js';
+import { drawText2D, drawText3D } from './screen/textlabel.js';
+import { draw, drawSimple } from './screen/marker.js';
 
 export function useRebarClient() {
     return {
@@ -49,6 +51,16 @@ export function useRebarClient() {
         player: {
             useCamera,
             useRaycast,
+        },
+        screen: {
+            text: {
+                drawText2D,
+                drawText3D,
+            },
+            marker: {
+                draw,
+                drawSimple,
+            },
         },
         useProxyFetch,
         utility: {
