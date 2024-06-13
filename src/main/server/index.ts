@@ -66,6 +66,8 @@ import { usePed } from './controllers/ped.js';
 import { useServerConfig } from './systems/serverConfig.js';
 import { useRateLimitCallback } from './utility/rateLimitCallback.js';
 import { useKeybinder } from './systems/serverKeybinds.js';
+import { useProgressbarGlobal, useProgressbarLocal } from './controllers/progressbar.js';
+import { useWorldMenu } from './controllers/worldMenu.js';
 
 export function useRebar() {
     return {
@@ -79,10 +81,13 @@ export function useRebar() {
             useMarkerLocal,
             useObjectGlobal,
             useObjectLocal,
+            usePed,
+            usePickupGlobal,
+            useProgressbarGlobal,
+            useProgressbarLocal,
             useTextLabelGlobal,
             useTextLabelLocal,
-            usePickupGlobal,
-            usePed,
+            useWorldMenu,
         },
         database: {
             useDatabase,
@@ -123,13 +128,13 @@ export function useRebar() {
         },
         player: {
             useAnimation,
-            useStatus,
-            usePlayerAppearance,
             useAudio,
             useClothing,
             useNative,
             useNotify,
+            usePlayerAppearance,
             useState,
+            useStatus,
             useWaypoint,
             useWeapon,
             useWebview,

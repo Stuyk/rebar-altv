@@ -22,6 +22,10 @@ export const Events = {
             invokeRpc: 'ped:invoke:rpc',
             fadeOut: 'ped:fade:out',
         },
+        progressbar: {
+            create: 'progressbar:create',
+            destroy: 'progressbar:destroy',
+        },
         textlabel: {
             create: 'textlabel:create',
             destroy: 'textlabel:destroy',
@@ -57,6 +61,11 @@ export const Events = {
             direction: 'localplayer:stats:direction',
             weather: 'localplayer:stats:weather',
             lights: 'localplayer:stats:lights',
+        },
+    },
+    menus: {
+        worldmenu: {
+            show: 'worldmenu:show',
         },
     },
     player: {

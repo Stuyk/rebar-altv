@@ -2,6 +2,8 @@ import * as alt from 'alt-client';
 import { Events } from '../../shared/events/index.js';
 import { useWebview } from '../webview/index.js';
 import { useMessenger } from './messenger.js';
+import { isWorldMenuOpen } from '../menus/world/index.js';
+import { isNativeMenuOpen } from '../menus/native/page.js';
 
 const webview = useWebview();
 const messenger = useMessenger();
@@ -30,6 +32,18 @@ function handleKeyup(key: number) {
     }
 
     if (messenger.isChatFocused()) {
+        return;
+    }
+
+    if (isWorldMenuOpen()) {
+        return;
+    }
+
+    if (isNativeMenuOpen()) {
+        return;
+    }
+
+    if (alt.isConsoleOpen()) {
         return;
     }
 

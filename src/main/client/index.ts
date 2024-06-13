@@ -20,6 +20,7 @@ import { isNativeMenuOpen } from './menus/native/page.js';
 import { useMessenger } from './system/messenger.js';
 import { useProxyFetch } from './system/proxyFetch.js';
 import { useRaycast } from './system/raycasts.js';
+import { isWorldMenuOpen, useWorldMenu } from './menus/world/index.js';
 
 export function useRebarClient() {
     return {
@@ -39,6 +40,8 @@ export function useRebarClient() {
                 getInput,
                 isInputOpen,
             },
+            isWorldMenuOpen,
+            useWorldMenu,
         },
         ped: {
             useClonedPed,

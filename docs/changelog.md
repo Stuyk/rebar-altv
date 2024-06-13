@@ -1,5 +1,23 @@
 # Changelog
 
+## Version 26
+
+### Code Changes
+
+-   Added `useProgressbar` controller
+-   Fixed permission length bug
+-   Fixed some misnamed functions in other controllers
+-   Added `useWorldMenu` controller for building quick selection menus
+-   Fixed bug where keybinds could be invoked if certain menus were open
+
+### Docs Changes
+
+-   Added images for controllers
+-   Added `useProgressbar` doc
+-   Added `useWorldMenu` doc
+
+---
+
 ## Version 25
 
 ### Code Changes

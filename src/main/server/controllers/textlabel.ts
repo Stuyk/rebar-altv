@@ -52,7 +52,7 @@ export function useTextLabelGlobal(label: TextLabel, maxDistance: number = 50) {
         getEntity() {
             return entity;
         },
-        getMarker() {
+        getLabel() {
             return label;
         },
         update,
@@ -87,7 +87,7 @@ export function useTextLabelLocal(player: alt.Player, label: TextLabel) {
 
     return {
         destroy,
-        getMarker() {
+        getLabel() {
             return label;
         },
         update,

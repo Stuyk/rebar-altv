@@ -6,6 +6,8 @@ Create a map marker that displays an icon, and text on the map.
 These are general purpose blips, if you need more robust functionality use the blip directly.
 !!!
 
+![](../../../static/controllers/blip.png)
+
 ## Global Markers
 
 A global blip can be seen by all players.

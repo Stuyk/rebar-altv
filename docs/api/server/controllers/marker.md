@@ -2,6 +2,8 @@
 
 Create a physical in-world marker that can be walked through.
 
+![](../../../static/controllers/marker.png)
+
 ## Global Markers
 
 A global marker can be seen by all players.

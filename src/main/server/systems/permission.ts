@@ -156,7 +156,7 @@ const InternalFunctions = {
             return false;
         }
 
-        if (perms.length <= 0) {
+        if (!perms || perms.length <= 0) {
             return false;
         }
 
@@ -202,6 +202,10 @@ const InternalFunctions = {
     ): boolean {
         if (typeof documentType[dataName] === 'undefined') {
             alt.logWarning(`Athena.document.${dataName} is not a supported document type.`);
+            return false;
+        }
+
+        if (!perms || perms.length <= 0) {
             return false;
         }
 
