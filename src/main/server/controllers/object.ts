@@ -37,15 +37,24 @@ export function useObjectGlobal(objectData: iObject) {
         }
     }
 
-    function updateModel(model: number) {
+    async function updateModel(model: number) {
+        objectData.model = model;
+        const newObjectInstance = new alt.Object(
+            objectData.model,
+            objectData.pos,
+            objectData.rot ?? alt.Vector3.zero,
+            255,
+        );
+        newObjectInstance.dimension = objectData.dimension ?? 0;
+        newObjectInstance.setStreamSyncedMeta('data', objectData.data);
+
+        await alt.Utils.wait(1000);
+
         try {
             newObject.destroy();
         } catch (err) {}
 
-        objectData.model = model;
-        newObject = new alt.Object(objectData.model, objectData.pos, objectData.rot ?? alt.Vector3.zero, 255);
-        newObject.dimension = objectData.dimension ?? 0;
-        newObject.setStreamSyncedMeta('data', objectData.data);
+        newObject = newObjectInstance;
     }
 
     function updatePosition(pos: alt.Vector3) {
