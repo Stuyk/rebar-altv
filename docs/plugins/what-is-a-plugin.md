@@ -28,6 +28,9 @@ This plugin structure is used purely as a full featured plugin.
         ├───images
         │   ├───somelogo.png
         │   └───bg.jpg
+        ├───rmlui
+        │   └───index.html (yes this actually html)
+        │   └───font.ttf
         ├───server
         │   └───index.ts
         ├───sounds
@@ -39,7 +42,7 @@ This plugin structure is used purely as a full featured plugin.
             └───MyCustomPage.vue
 ```
 
-See [create a plugin](./create.md) for more information.
+See [plugin structure](./structure.md) for more information.
 
 ## Example Shared Vue Components / Composables Plugin
 

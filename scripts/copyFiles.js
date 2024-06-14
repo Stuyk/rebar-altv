@@ -12,6 +12,59 @@ const filesToCopy = {
     },
 };
 
+/**
+ * Changes html tags to rml tags
+ *
+ * @param {string} content
+ * @return
+ */
+function fixRmluiFile(content) {
+    return content.replaceAll(/html>/gm, 'rml>');
+}
+
+/**
+ * Moves rmlui files to resources/rmlui/plugins
+ *
+ * Making all rmlui files accessible under @rmlui/plugins/plugin-name/file.rmlui
+ */
+function moveRmluiFiles() {
+    const pluginPath = 'resources/rmlui/plugins';
+    if (fs.existsSync(pluginPath)) {
+        try {
+            fs.rmSync(pluginPath, { recursive: true, force: true });
+        } catch (err) {}
+    }
+
+    const rmluiFiles = glob.sync(`src/plugins/**/rmlui/**/*.+(html|ttf)`);
+    for (let file of rmluiFiles) {
+        const splitPath = file.split('/');
+        const pluginName = getPluginName(splitPath);
+        const fileName = splitPath[splitPath.length - 1].replace('.html', '.rml');
+        const filePath = `${pluginPath}/${pluginName}`;
+
+        fs.mkdirSync(filePath, { recursive: true });
+
+        if (fileName.includes('.ttf')) {
+            fs.copyFileSync(file, filePath + '/' + fileName);
+            continue;
+        }
+
+        let content = fs.readFileSync(file, 'utf-8');
+        content = fixRmluiFile(content);
+        fs.writeFileSync(filePath + '/' + fileName, content);
+    }
+}
+
+/**
+ * Returns the name of the plugin
+ *
+ * @param {Array<string>} splitPath
+ */
+function getPluginName(splitPath) {
+    let index = splitPath.findIndex((x) => x.includes('plugins'));
+    return splitPath[index + 1];
+}
+
 function copyFiles() {
     const folders = Object.keys(filesToCopy);
     for (let folder of folders) {
@@ -40,6 +93,8 @@ function copyFiles() {
             }
         }
     }
+
+    moveRmluiFiles();
 }
 
 copyFiles();

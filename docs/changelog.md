@@ -1,5 +1,18 @@
 # Changelog
 
+## Version 29
+
+### Code Changes
+
+-   Custom `rmlui` get distributed to `resources/rmlui/plugins` folder
+-   Additionally `html` files act as `rmlui` and are converted into `rmlui` during the compile process
+
+### Docs Changes
+
+-   Added a section in `Plugin Structure` that covers how to work with `rmlui` correctly, and what the paths are to use the resource.
+
+---
+
 ## Version 28
 
 ### Code Changes
