@@ -1,6 +1,6 @@
 # Create a Webview
 
-First, make sure you've created a [plugin](../plugins/create.md).
+First, make sure you've created a [plugin](../plugins/structure.md).
 
 If you are using Visual Studio Code, make sure to install [the Vue extension](https://marketplace.visualstudio.com/items?itemName=Vue.volar)
 

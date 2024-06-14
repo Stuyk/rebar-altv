@@ -3,7 +3,7 @@
 If you wish to create plugins then you need to understand the basic structure of a plugin.
 
 1. Create a folder inside `src/plugins` and name it something unique
-2. Create these additional folders under the new folder you created
+2. Create these additional folders under the new folder you created (not all are necessary)
     1. `client`
     2. `images`
     3. `server`
@@ -12,6 +12,7 @@ If you wish to create plugins then you need to understand the basic structure of
     6. `webview`
     7. `dependencies`
     8. `shared`
+    9. `rmlui`
 
 [!embed](https://www.youtube.com/watch?v=_bnf-duy3mI)
 
@@ -87,6 +88,41 @@ If you need the image for rmlui then your path will be `http://assets/images/myp
 !!!
 Image names need to be unique for your individual plugin, otherwise they will override each other.
 !!!
+
+## rmlui
+
+[RmlUi](https://docs.altv.mp/articles/rmlui/introduction.html) is a way to write HTML pages with css2 support. They're highly performant, but can be hard to work with.
+
+In Rebar we just create normal `html` files but abide by CSS2 support. Confused? Check out these [docs](https://mikke89.github.io/RmlUiDoc/pages/rcss.html).
+
+Rmlui pages and fonts can be loaded with the following paths:
+
+-   `@rmlui/plugins/your-plugin/index.rml`
+-   `@rmlui/plugins/your-plugin/font.ttf`
+
+That being said, create a file under the path `plugins/your-plugin/rmlui/index.html` or whatever you want, and add the following content:
+
+```html
+<html>
+    <head>
+        <title>Input</title>
+        <style>
+            text {
+                color: #ffffff;
+            }
+        </style>
+    </head>
+    <body id="body">
+        <div id="text">Hello World!</div>
+    </body>
+</html>
+```
+
+You can also add custom fonts under `plugins/your-plugin/rmlui` as long as they're in `ttf` format.
+
+If you want live previews of your `html` check out [VSCode Live Server Extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode.live-server). Once it's installed you can `right-click` your `html` file and click `Show Preview` to preview it in VS Code!
+
+![](../static/vscode-rmlui.png)
 
 ## sounds
 
