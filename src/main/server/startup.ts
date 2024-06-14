@@ -4,6 +4,7 @@ import '../translate/index.js';
 import { useTranslate } from '@Shared/translate.js';
 import { useConfig } from './config/index.js';
 import { useDatabase } from './database/index.js';
+import './systems/vscodeTransmitter.js';
 
 const config = useConfig();
 const database = useDatabase();

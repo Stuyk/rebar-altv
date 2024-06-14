@@ -31,7 +31,14 @@
         "declaration": true,
         "emitDeclarationOnly": false
     },
-    "include": ["src/**/*.ts", "src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
+    "include": [
+        "src/**/*.ts",
+        "src/**/*.ts",
+        "src/**/*.d.ts",
+        "src/**/*.tsx",
+        "src/**/*.vue",
+        "src/scratchpad/example.pad"
+    ],
     "exclude": [
         "resources",
         "scripts",
