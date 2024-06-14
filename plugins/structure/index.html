@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.5.0.771619838925">
+    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.5.0.771697120848">
 
     <!-- See retype.com -->
     <meta name="generator" content="Retype 3.5.0">
@@ -21,21 +21,23 @@
     <meta property="og:url" content="https://rebarv.com/plugins/structure/">
     <meta property="og:title" content="Plugin Structure">
     <meta property="og:description" content="If you wish to create plugins then you need to understand the basic structure of a plugin.">
+    <meta property="og:image" content="https://rebarv.com/static/vscode-rmlui.png">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://rebarv.com/plugins/structure/">
     <meta property="twitter:title" content="Plugin Structure">
     <meta property="twitter:description" content="If you wish to create plugins then you need to understand the basic structure of a plugin.">
+    <meta property="twitter:image" content="https://rebarv.com/static/vscode-rmlui.png">
 
     <script data-cfasync="false">(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
-    <link href="../../resources/css/retype.css?v=3.5.0.771619838925" rel="stylesheet">
+    <link href="../../resources/css/retype.css?v=3.5.0.771697120848" rel="stylesheet">
 
-    <script data-cfasync="false" src="../../resources/js/config.js?v=3.5.0.771619838925" data-turbo-eval="false" defer></script>
+    <script data-cfasync="false" src="../../resources/js/config.js?v=3.5.0.771697120848" data-turbo-eval="false" defer></script>
     <script data-cfasync="false" src="../../resources/js/retype.js?v=3.5.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" data-cfasync="false" src="../../resources/js/lunr.js?v=3.5.0.771619838925" data-turbo-eval="false" defer></script>
-    <script id="prism-js" data-cfasync="false" src="../../resources/js/prism.js?v=3.5.0.771619838925" defer></script>
+    <script id="lunr-js" data-cfasync="false" src="../../resources/js/lunr.js?v=3.5.0.771697120848" data-turbo-eval="false" defer></script>
+    <script id="prism-js" data-cfasync="false" src="../../resources/js/prism.js?v=3.5.0.771697120848" defer></script>
 </head>
 <body>
     <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -195,7 +197,7 @@
 <p>If you wish to create plugins then you need to understand the basic structure of a plugin.</p>
 <ol>
 <li>Create a folder inside <code v-pre>src/plugins</code> and name it something unique</li>
-<li>Create these additional folders under the new folder you created
+<li>Create these additional folders under the new folder you created (not all are necessary)
 <ol>
 <li><code v-pre>client</code></li>
 <li><code v-pre>images</code></li>
@@ -205,6 +207,7 @@
 <li><code v-pre>webview</code></li>
 <li><code v-pre>dependencies</code></li>
 <li><code v-pre>shared</code></li>
+<li><code v-pre>rmlui</code></li>
 </ol>
 </li>
 </ol>
@@ -304,6 +307,42 @@ export const MyPluginEventNames = {
         </div>
     </div>
 </div>
+<doc-anchor-target id="rmlui">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#rmlui">#</doc-anchor-trigger>
+        <span>rmlui</span>
+    </h2>
+</doc-anchor-target>
+<p><a href="https://docs.altv.mp/articles/rmlui/introduction.html">RmlUi</a> is a way to write HTML pages with css2 support. They&#x27;re highly performant, but can be hard to work with.</p>
+<p>In Rebar we just create normal <code v-pre>html</code> files but abide by CSS2 support. Confused? Check out these <a href="https://mikke89.github.io/RmlUiDoc/pages/rcss.html">docs</a>.</p>
+<p>Rmlui pages and fonts can be loaded with the following paths:</p>
+<ul>
+<li><code v-pre>@rmlui/plugins/your-plugin/index.rml</code></li>
+<li><code v-pre>@rmlui/plugins/your-plugin/font.ttf</code></li>
+</ul>
+<p>That being said, create a file under the path <code v-pre>plugins/your-plugin/rmlui/index.html</code> or whatever you want, and add the following content:</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-markup"><code v-pre class="language-markup">&lt;html&gt;
+    &lt;head&gt;
+        &lt;title&gt;Input&lt;/title&gt;
+        &lt;style&gt;
+            text {
+                color: #ffffff;
+            }
+        &lt;/style&gt;
+    &lt;/head&gt;
+    &lt;body id=&quot;body&quot;&gt;
+        &lt;div id=&quot;text&quot;&gt;Hello World!&lt;/div&gt;
+    &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+</doc-codeblock></div>
+<p>You can also add custom fonts under <code v-pre>plugins/your-plugin/rmlui</code> as long as they&#x27;re in <code v-pre>ttf</code> format.</p>
+<p>If you want live previews of your <code v-pre>html</code> check out <a href="https://marketplace.visualstudio.com/items?itemName=ms-vscode.live-server">VSCode Live Server Extension</a>. Once it&#x27;s installed you can <code v-pre>right-click</code> your <code v-pre>html</code> file and click <code v-pre>Show Preview</code> to preview it in VS Code!</p>
+<p><figure class="content-center">
+    <img src="../../static/vscode-rmlui.png" alt="">
+    <figcaption class="caption"></figcaption>
+</figure>
+</p>
 <doc-anchor-target id="sounds">
     <h2>
         <doc-anchor-trigger class="header-anchor-trigger" to="#sounds">#</doc-anchor-trigger>
