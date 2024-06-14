@@ -103,7 +103,9 @@ export function useInteraction(colshape: alt.Colshape, type: 'vehicle' | 'player
     let msgLeave = undefined;
 
     function handleEnter(player: alt.Player) {
-        player.emit(Events.controllers.interaction.set, uid, msgEnter, colshape.pos);
+        if (msgEnter) {
+            player.emit(Events.controllers.interaction.set, uid, msgEnter, colshape.pos);
+        }
 
         for (let cb of onEnterCallbacks) {
             cb(player, colshape, uid);
@@ -111,7 +113,9 @@ export function useInteraction(colshape: alt.Colshape, type: 'vehicle' | 'player
     }
 
     function handleLeave(player: alt.Player) {
-        player.emit(Events.controllers.interaction.set, uid, msgLeave, colshape.pos);
+        if (msgLeave) {
+            player.emit(Events.controllers.interaction.set, uid, msgLeave, colshape.pos);
+        }
 
         for (let cb of onLeaveCallbacks) {
             cb(player, colshape, uid);
