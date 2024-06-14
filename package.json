@@ -1,7 +1,7 @@
 {
     "author": "stuyk",
     "type": "module",
-    "version": "29",
+    "version": "30",
     "scripts": {
         "dev": "nodemon -x pnpm start",
         "dev:linux": "nodemon -x pnpm start:linux",
@@ -67,7 +67,8 @@
             "*.mjs",
             "ignore*.ts",
             "autogen*.ts",
-            "webview/src/main.ts"
+            "webview/src/main.ts",
+            "src/scratchpad"
         ]
     }
 }

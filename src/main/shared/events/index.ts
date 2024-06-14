@@ -108,6 +108,9 @@ export const Events = {
         serverConfig: {
             set: 'systems:server:config:set',
         },
+        transmitter: {
+            execute: 'systems:transmitter:execute',
+        },
     },
     view: {
         onServer: 'webview:on:server',

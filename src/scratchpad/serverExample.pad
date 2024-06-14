@@ -1,0 +1,5 @@
+import * as alt from 'alt-server';
+import { useRebar } from '../main/server/index.js';
+
+const Rebar = useRebar();
+// Execute anything below this line
