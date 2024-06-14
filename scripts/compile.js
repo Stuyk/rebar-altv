@@ -11,7 +11,7 @@ const initialCommands = [
     `node ./scripts/buildPluginDependencies.js`,
     `node ./scripts/webview.js`,
     `pnpm -C webview run build`,
-    `npx sucrase ./src -d ./resources/core --transforms typescript -q`,
+    `npx sucrase ./src -d ./resources/core --exclude-dirs ./src/scratchpad --transforms typescript -q`,
     `node ./scripts/env.js`,
     `node ./scripts/copyFiles.js`,
 ];
