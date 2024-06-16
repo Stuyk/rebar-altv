@@ -79,6 +79,12 @@ export function useVehicle(vehicle: alt.Vehicle) {
             vehicle.secondaryColor = document.secondaryColor;
         }
 
+        if(typeof document.wheelColor !== 'undefined') {
+            
+        }
+        if(typeof document.pearlColor !== 'undefined') {
+            
+        }
         // Synchronize vehicle extras
         if (document.extras) {
             for (let key of Object.keys(document.extras)) {
