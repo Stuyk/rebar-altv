@@ -29,6 +29,7 @@ webview/pages/plugins.ts
 .env
 test/
 tmp/
+src/scratchpad/*.ts
 
 src/plugins/sandbox-*
 

@@ -1,5 +1,18 @@
 # Changelog
 
+## Version 30
+
+### Code Changes
+
+-   Added a `vscode transmitter` for debug mode server and client.
+    -   Allows for code to be executed from VSCode using the Rebar Transmitter
+
+### Docs Changes
+
+-   Added vscode transmitter extension page
+
+---
+
 ## Version 29
 
 ### Code Changes
