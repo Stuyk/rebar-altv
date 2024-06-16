@@ -220,6 +220,22 @@ export interface Vehicle {
     customSecondaryColor?: alt.RGBA;
 
     /**
+     * The wheel color to set on the vehicle (0-159)
+     *
+     * @type {alt.RGBA}
+     * @memberof Vehicle
+     */
+    wheelColor?: number;
+
+    /**
+     * The pearl color to set on the vehicle (0-159)
+     * 
+     * @type {number}
+     * @memberof Vehicle
+     */
+    pearlColor?: number;
+
+    /**
      * The number plate text for the vehicle
      *
      * @type {string}
