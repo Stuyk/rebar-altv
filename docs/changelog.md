@@ -1,5 +1,19 @@
 # Changelog
 
+## Version 31
+
+### Code Changes
+
+-   Added `disableAttackControls`, `disableCameraControls`, and `freezeCamera` to player.world pathway
+-   Fixed issue with local progress bars not clearing
+-   Fixed issue with `gif` files not being copied correctly
+
+### Docs Changes
+
+-   Added documentation covering `player.world` new functions
+
+---
+
 ## Version 30
 
 ### Code Changes
