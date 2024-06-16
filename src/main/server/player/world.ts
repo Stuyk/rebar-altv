@@ -126,14 +126,61 @@ export function useWorld(player: alt.Player) {
         player.emit(Events.player.controls.set, false);
     }
 
+    /**
+     * Set to true to freeze the camera in its current place.
+     * It's effectively like dropping a camera on the ground.
+     *
+     * @param {boolean} value
+     * @return
+     */
+    function freezeCamera(value: boolean) {
+        if (!player || !player.valid) {
+            return;
+        }
+
+        player.emit(Events.player.controls.setCameraFrozen, value);
+    }
+
+    /**
+     * Disable camera controls entirely, prevents looking around
+     *
+     * @param {boolean} value
+     * @return
+     */
+    function disableCameraControls(value: boolean) {
+        if (!player || !player.valid) {
+            return;
+        }
+
+        player.emit(Events.player.controls.setCameraControlsDisabled, value);
+    }
+
+    /**
+     * Disable attacking via shooting, punching, etc.
+     * Also disabled weapon swapping.
+     *
+     * @param {boolean} value
+     * @return
+     */
+    function disableAttackControls(value: boolean) {
+        if (!player || !player.valid) {
+            return;
+        }
+
+        player.emit(Events.player.controls.setAttackControlsDisabled, value);
+    }
+
     return {
         clearAllScreenEffects,
         clearScreenBlur,
         clearScreenEffect,
         clearScreenFade,
         clearTimecycle,
+        disableAttackControls,
+        disableCameraControls,
         disableControls,
         enableControls,
+        freezeCamera,
         setScreenBlur,
         setScreenEffect,
         setScreenFade,

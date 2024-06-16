@@ -54,6 +54,9 @@ export const Events = {
         },
         controls: {
             set: 'player:controls:set',
+            setCameraFrozen: 'player:controls:setFrozen',
+            setAttackControlsDisabled: 'player:controls:set:attack:disabled',
+            setCameraControlsDisabled: 'player:controls:set:disabled',
         },
         native: {
             invoke: 'player:native:invoke',
