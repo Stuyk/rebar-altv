@@ -6,7 +6,7 @@ const filesToCopy = {
         destination: ['resources', 'webview/public'],
         keyword: 'sounds',
     },
-    'src/plugins/**/images/**/*.+(jpg|jpeg|png|bmp|svg|webp)': {
+    'src/plugins/**/images/**/*.+(jpg|jpeg|png|bmp|svg|webp|gif)': {
         destination: ['resources', 'webview/public'],
         keyword: 'images',
     },
