@@ -1,5 +1,18 @@
 # Changelog
 
+## Version 32
+
+### Code Changes
+
+-   Added function to attach blips to entities, because alt:V's one is broken
+-   Additionally, when a blip or the entity becomes invalid the blip is automatically destroyed.
+
+### Docs Changes
+
+-   Updated blip documentation to cover attachments
+
+---
+
 ## Version 31
 
 ### Code Changes
