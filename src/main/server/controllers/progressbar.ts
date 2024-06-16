@@ -150,6 +150,7 @@ export type GlobalProgressbar = ReturnType<typeof useProgressbarGlobal>;
 export function useProgressbarLocal(player: alt.Player, progressbar: ProgressBar, isTimer = false) {
     const callbacks: Function[] = [];
     let interval: number;
+    let isDead = false;
 
     if (!progressbar.uid) {
         progressbar.uid = Utility.uid.generate();
@@ -173,13 +174,15 @@ export function useProgressbarLocal(player: alt.Player, progressbar: ProgressBar
     function updateProgress(value: number) {
         progressbar.value = value;
         if (progressbar.value >= progressbar.maxValue) {
-            progressbar.value = progressbar.maxValue;
-            player.emit(Events.controllers.progressbar.destroy, progressbar.uid);
+            isDead = true;
 
             if (interval) {
                 alt.clearInterval(interval);
                 interval = undefined;
             }
+
+            progressbar.value = progressbar.maxValue;
+            player.emit(Events.controllers.progressbar.destroy, progressbar.uid);
 
             for (let cb of callbacks) {
                 cb();
@@ -197,6 +200,10 @@ export function useProgressbarLocal(player: alt.Player, progressbar: ProgressBar
     }
 
     function update() {
+        if (isDead) {
+            return;
+        }
+
         player.emit(Events.controllers.progressbar.create, progressbar);
     }
 
