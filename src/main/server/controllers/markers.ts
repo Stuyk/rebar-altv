@@ -1,6 +1,6 @@
 import * as alt from 'alt-server';
 import * as Utility from '@Shared/utility/index.js';
-import { Marker } from '@Shared/types/marker.js';
+import { Marker, MarkerType } from '@Shared/types/marker.js';
 import { Events } from '@Shared/events/index.js';
 
 const GroupType = 'marker';
@@ -16,6 +16,10 @@ const markerGroup = new alt.VirtualEntityGroup(MAX_MARKERS);
  * @return
  */
 export function useMarkerGlobal(marker: Marker, maxDistance: number = 50) {
+    if (typeof marker.type !== 'number') {
+        marker.type = MarkerType[marker.type];
+    }
+
     if (maxDistance > 50) {
         maxDistance = 50;
     }
