@@ -17,7 +17,7 @@ function update() {
         highbeams = _highbeams;
     }
 
-    const [_voidTime, year, month, day, hour, minute, second] = native.getUtcTime();
+    const [_voidTime, year, month, day, hour, minute, second] = native.getLocalTime();
 
     const stats: PlayerStats = {
         ammo: alt.Player.local.currentAmmo,
