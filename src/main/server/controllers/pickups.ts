@@ -22,7 +22,7 @@ export function usePickupGlobal(pickup: WeaponPickup) {
     const colshape = new alt.ColshapeSphere(pickup.pos.x, pickup.pos.y, pickup.pos.z, 3);
     const objectData = WeaponPickups.find((x) => x.name === pickup.pickup);
 
-    const entity = new alt.Object(alt.hash(objectData.model), pickup.pos, alt.Vector3.zero);
+    const entity = new alt.Object(alt.hash(objectData.model), pickup.pos, alt.Vector3.zero, 255, 0, 15, 25);
     entity.frozen = true;
     entity.collision = false;
 

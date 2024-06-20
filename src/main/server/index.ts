@@ -69,6 +69,8 @@ import { useKeybinder } from './systems/serverKeybinds.js';
 import { useProgressbarGlobal, useProgressbarLocal } from './controllers/progressbar.js';
 import { useWorldMenu } from './controllers/worldMenu.js';
 
+import * as ClothingUtility from '@Shared/data/clothing.js';
+
 export function useRebar() {
     return {
         useApi,
@@ -154,6 +156,7 @@ export function useRebar() {
         useServerTime,
         useServerWeather,
         utility: {
+            clothing: { ...ClothingUtility },
             sha256,
             sha256Random,
             password: {

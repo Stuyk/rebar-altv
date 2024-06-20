@@ -1,5 +1,20 @@
 # Changelog
 
+## Version 33
+
+### Code Changes
+
+-   Fixes issue where pickup sometimes doesn't spawn the object
+-   Added all clothing dlc info, and maximums to a shared data structure
+    -   Added clothing data getters to `Rebar.utility.clothing`
+    -   Added addCategory section to add custom DLC data during runtime
+
+### Docs Changes
+
+-   Added utility clothes section to server API
+
+---
+
 ## Version 32
 
 ### Code Changes
