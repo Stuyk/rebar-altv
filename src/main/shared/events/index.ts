@@ -108,6 +108,10 @@ export const Events = {
             getFocusedPosition: 'systems:raycast:get:focused:position',
             getFocusedObject: 'systems:raycast:get:focused:object',
         },
+        screenshot: {
+            get: 'systems:screenshot:get',
+            take: 'systems:screenshot:take',
+        },
         serverConfig: {
             set: 'systems:server:config:set',
         },

@@ -1,5 +1,5 @@
 // Updated June 19, 2024
-export const ClothingList = {
+const ClothingList = {
     Female_Apt01: {
         clothes: {
             '1': 1,

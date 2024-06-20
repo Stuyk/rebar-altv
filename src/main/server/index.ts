@@ -70,6 +70,7 @@ import { useProgressbarGlobal, useProgressbarLocal } from './controllers/progres
 import { useWorldMenu } from './controllers/worldMenu.js';
 
 import * as ClothingUtility from '@Shared/data/clothing.js';
+import { useScreenshot } from './systems/screenshot.js';
 
 export function useRebar() {
     return {
@@ -135,6 +136,7 @@ export function useRebar() {
             useNative,
             useNotify,
             usePlayerAppearance,
+            useScreenshot,
             useState,
             useStatus,
             useWaypoint,

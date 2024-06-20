@@ -21,6 +21,7 @@ webview/public/images/*.jpeg
 webview/public/images/*.svg
 webview/public/images/*.bmp
 webview/public/images/*.webp
+screenshots/*.jpg
 altv-crash-handler.exe
 altv-server.exe
 libnode.dll
