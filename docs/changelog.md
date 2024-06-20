@@ -1,5 +1,17 @@
 # Changelog
 
+## Version 34
+
+### Code Changes
+
+-   Adds a new ambient sound to the server config
+
+### Docs Changes
+
+-   Modifies the server config to include `disableAmbientNoise`
+
+---
+
 ## Version 33
 
 ### Code Changes

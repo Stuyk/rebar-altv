@@ -133,4 +133,12 @@ export interface ServerConfig {
      * @memberof ServerConfig
      */
     disableCover?: boolean;
+
+    /**
+     * Disable ambient noise throughout the entire server
+     *
+     * @type {boolean}
+     * @memberof ServerConfig
+     */
+    disableAmbientNoise?: boolean;
 }
