@@ -259,6 +259,22 @@ rebarPlayer.notify.sendMessage({ type: 'info', content: 'Hello there!' });
 rebarPlayer.notify.sendMessage({ type: 'player', content: 'Hello there!', author: 'Some Other Player' });
 ```
 
+## Screenshot
+
+Used to get a screenshot of a player's screen.
+
+Mostly used for utility such as getting vehicle screenshots, and such.
+
+```ts
+// Takes a single screenshot of the game, regardless of what is on screen
+// outputs under 'screenshots/my-screenshot-name.jpg'
+await rPlayer.screenshot.take('my-screenshot-name');
+
+// Spawns a vehicle, and creates a camera to take a 'perfect' screenshot of a vehicle
+// outputs under 'screenshots/infernus.jpg'
+await rPlayer.screenshot.takeVehicleScreenshot(player, player.pos, 'infernus', alt.hash('infernus'));
+```
+
 ## Raycast
 
 Used to get what the player is looking at, or find out other information

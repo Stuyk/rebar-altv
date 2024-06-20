@@ -1,5 +1,17 @@
 # Changelog
 
+## Version 35
+
+### Code Changes
+
+-   Added screenshot utility for taking screenshot of vehicle
+
+### Docs Changes
+
+-   Documented screenshot utility
+
+---
+
 ## Version 34
 
 ### Code Changes
