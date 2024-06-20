@@ -5,6 +5,7 @@
 ### Code Changes
 
 -   Adds a new ambient sound to the server config
+-   Fixes an issue where subfolders were not supported for `images`, and `sounds`
 
 ### Docs Changes
 
