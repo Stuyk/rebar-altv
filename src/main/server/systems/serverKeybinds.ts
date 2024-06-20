@@ -70,6 +70,7 @@ export function useKeybinder() {
     return {
         off,
         on,
+        updateKeybindForPlayer,
     };
 }
 

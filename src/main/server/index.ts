@@ -22,6 +22,7 @@ import {
     useCharacter,
     useCharacterBinder,
     useGlobal,
+    useIncrementalId,
     useVehicleBinder,
     useVehicle as useVehicleDocument,
     useVehicleEvents,
@@ -94,6 +95,7 @@ export function useRebar() {
         },
         database: {
             useDatabase,
+            useIncrementalId,
             CollectionNames,
         },
         document: {

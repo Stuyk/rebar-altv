@@ -1,5 +1,28 @@
 # Changelog
 
+## Version 34
+
+### Code Changes
+
+-   Adds a new ambient sound to the server config
+-   Fixes an issue where subfolders were not supported for `images`, and `sounds`
+-   Added `onScreenPed` solution to show a pedestrian in the 2D space, below webview
+    -   Automatically synchronizes ped with ped reference changes, such as clothes
+    -   Thanks to BattleZone for confirming that NVE is problematic with frontend menus
+-   Added manual override for `useKeybinder` to `updateKeybindForPlayer`
+-   Fixed bug where global documents were overwriting global cache
+-   Modify `getByAccount` and `getByCharacter` to also take `numbers` for their `id` getter
+-   Change `vehicle` `getByDatabaseId` to `byId('_id');`
+
+### Docs Changes
+
+-   Modifies the server config to include `disableAmbientNoise`
+-   Added docs for `updateKeybindForPlayer`
+-   Updated vehicle getter docs
+-   Updated character getter docs
+
+---
+
 ## Version 33
 
 ### Code Changes

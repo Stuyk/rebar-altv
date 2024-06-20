@@ -85,10 +85,26 @@ function copyFiles() {
             if (Array.isArray(destination)) {
                 for (let dest of destination) {
                     const finalPath = dest + '/' + splitPath.join('/');
+                    const splitFinalPath = finalPath.split('/');
+                    splitFinalPath.pop();
+
+                    const finalFolderPath = splitFinalPath.join('/');
+                    if (!fs.existsSync(finalFolderPath)) {
+                        fs.mkdirSync(finalFolderPath, { recursive: true });
+                    }
+
                     fs.copyFileSync(file, finalPath);
                 }
             } else {
                 const finalPath = destination + '/' + splitPath.join('/');
+                const splitFinalPath = finalPath.split('/');
+                splitFinalPath.pop();
+
+                const finalFolderPath = splitFinalPath.join('/');
+                if (!fs.existsSync(finalFolderPath)) {
+                    fs.mkdirSync(finalFolderPath, { recursive: true });
+                }
+
                 fs.copyFileSync(file, finalPath);
             }
         }

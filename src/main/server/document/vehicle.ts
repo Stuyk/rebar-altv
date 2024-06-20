@@ -134,7 +134,18 @@ export function useVehicle(vehicle: alt.Vehicle) {
         });
     }
 
-    return { get, getField, isValid, set, setBulk };
+    async function addIdentifier() {
+        if (typeof getField('id') !== 'undefined') {
+            return getField('id');
+        }
+
+        const identifier = await Rebar.database.useIncrementalId(Rebar.database.CollectionNames.Vehicles);
+        const id = await identifier.getNext();
+        await setBulk({ id });
+        return id;
+    }
+
+    return { addIdentifier, get, getField, isValid, set, setBulk };
 }
 
 export function useVehicleBinder(vehicle: alt.Vehicle) {
@@ -157,7 +168,13 @@ export function useVehicleBinder(vehicle: alt.Vehicle) {
             Rebar.vehicle.useVehicle(vehicle).sync();
         }
 
-        return useVehicle(vehicle);
+        const vehicleUse = useVehicle(vehicle);
+
+        try {
+            vehicleUse.addIdentifier();
+        } catch (err) {}
+
+        return vehicleUse;
     }
 
     /**

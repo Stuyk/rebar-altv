@@ -13,6 +13,9 @@ const Keybinder = Rebar.useKeybinder();
 Keybinder.on(75, (player) => {
     console.log('pressed k');
 });
+
+// A manual override for making keybinds available before character select
+Keybinder.updateKeybindForPlayer(somePlayer);
 ```
 
 ## Protecting Keybinds
