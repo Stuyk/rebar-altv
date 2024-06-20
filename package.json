@@ -20,7 +20,7 @@
         "@altv/types-shared": "^16.2.1",
         "@altv/types-webview": "^16.2.1",
         "@altv/types-worker": "^16.2.0",
-        "@types/node": "^20.14.2",
+        "@types/node": "^20.14.6",
         "altv-pkg": "^2.7.5",
         "autoprefixer": "^10.4.19",
         "fast-glob": "^3.3.2",
@@ -40,8 +40,8 @@
         "mongodb": "^6.7.0",
         "sjcl": "^1.0.8",
         "typescript": "^5.4.5",
-        "vite": "^5.3.0",
-        "vue": "^3.4.27",
+        "vite": "^5.3.1",
+        "vue": "^3.4.29",
         "vue-tsc": "^2.0.21"
     },
     "prettier": {
