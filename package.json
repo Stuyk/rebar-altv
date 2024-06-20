@@ -1,7 +1,7 @@
 {
     "author": "stuyk",
     "type": "module",
-    "version": "34",
+    "version": "35",
     "scripts": {
         "dev": "nodemon -x pnpm start",
         "dev:linux": "nodemon -x pnpm start:linux",

@@ -2,7 +2,9 @@ import * as alt from 'alt-server';
 import fs from 'fs';
 import { Events } from '@Shared/events/index.js';
 import { useBuffer } from '@Shared/utility/buffer.js';
+import { useRebar } from '../index.js';
 
+const Rebar = useRebar();
 const BufferHelper = useBuffer();
 
 const cache: { [id: string]: { data: Array<string>; isComplete: boolean } } = {};
@@ -30,7 +32,39 @@ export function useScreenshot(player: alt.Player) {
         fs.writeFileSync(path, buf);
     }
 
-    return { take };
+    async function takeVehicleScreenshot(player: alt.Player, pos: alt.Vector3, name: string, model: number) {
+        const rPlayer = Rebar.usePlayer(player);
+        rPlayer.world.setWeather('EXTRASUNNY', 0);
+        rPlayer.world.setTime(12, 0, 0);
+
+        let veh: alt.Vehicle;
+
+        try {
+            veh = new alt.Vehicle(model, pos, new alt.Vector3(0, 0, 1));
+        } catch (err) {
+            alt.logWarning(`Skipping ${name}, invalid model`);
+            return;
+        }
+
+        veh.customPrimaryColor = new alt.RGBA(200, 200, 200);
+        veh.customSecondaryColor = new alt.RGBA(200, 200, 200);
+        veh.frozen = true;
+
+        const didCreate = await player.emitRpc(Events.systems.screenshot.takeVehicle, veh);
+        if (!didCreate) {
+            alt.logWarning(`Skipping ${name}, invalid model`);
+            return;
+        }
+
+        await take(name);
+
+        veh.visible = false;
+        veh.destroy();
+
+        await alt.Utils.wait(100);
+    }
+
+    return { take, takeVehicleScreenshot };
 }
 
 alt.onClient(
