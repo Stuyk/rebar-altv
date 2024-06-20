@@ -80,6 +80,11 @@ export const Events = {
                 create: 'player:notify:credits:create',
             },
         },
+        screen: {
+            ped: {
+                show: 'player:show:ped:on:screen',
+            },
+        },
         webview: {
             set: {
                 page: 'player:webview:set:page',

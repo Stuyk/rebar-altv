@@ -18,6 +18,14 @@ export interface Vehicle {
     _id?: string;
 
     /**
+     * An easy to use identifier for the vehicle
+     *
+     * @type {number}
+     * @memberof Vehicle
+     */
+    id?: number;
+
+    /**
      * The player who is the owner of this vehicle.
      * Corresponds with character._id or null if it belongs to anything else
      * Obviously permissions and keys should be used if no owner is set.
@@ -229,7 +237,7 @@ export interface Vehicle {
 
     /**
      * The pearl color to set on the vehicle (0-159)
-     * 
+     *
      * @type {number}
      * @memberof Vehicle
      */

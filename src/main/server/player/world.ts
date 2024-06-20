@@ -170,6 +170,22 @@ export function useWorld(player: alt.Player) {
         player.emit(Events.player.controls.setAttackControlsDisabled, value);
     }
 
+    function showPedOnScreen(position: 'left' | 'middle' | 'right') {
+        if (!player || !player.valid) {
+            return;
+        }
+
+        player.emit(Events.player.screen.ped.show, true, position);
+    }
+
+    function hidePedOnScreen() {
+        if (!player || !player.valid) {
+            return;
+        }
+
+        player.emit(Events.player.screen.ped.show, false);
+    }
+
     return {
         clearAllScreenEffects,
         clearScreenBlur,
@@ -181,11 +197,13 @@ export function useWorld(player: alt.Player) {
         disableControls,
         enableControls,
         freezeCamera,
+        hidePedOnScreen,
         setScreenBlur,
         setScreenEffect,
         setScreenFade,
         setTime,
         setTimecycle,
         setWeather,
+        showPedOnScreen,
     };
 }

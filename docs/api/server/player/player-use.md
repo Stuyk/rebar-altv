@@ -480,4 +480,8 @@ rebarPlayer.world.setTimecycle('stoned', 5000);
 
 // Change the weather to Thunder over 5 seconds
 rebarPlayer.world.setWeather('THUNDER', 5);
+
+// Show a preview pedestrian on screen
+rebarPlayer.world.showPedOnScreen('right');
+rebarPlayer.world.hidePedOnScreen();
 ```

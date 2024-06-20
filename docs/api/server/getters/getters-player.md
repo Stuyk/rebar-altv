@@ -8,11 +8,13 @@ const Rebar = useRebar();
 
 const getter = Rebar.get.usePlayerGetter();
 
-// Returns a account by account _id
+// Returns a account by account _id, or id
 const somePlayer = getter.byAccount('_id');
+const somePlayer2 = getter.byAccount(5);
 
-// Returns a player by character _id
+// Returns a player by character _id, or id
 const somePlayer2 = getter.byCharacter('_id');
+const somePlayer2 = getter.byCharacter(5);
 
 // Returns a player by full name
 const somePlayer3 = getter.byName('john_doe');

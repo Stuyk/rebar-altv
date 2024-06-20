@@ -6,14 +6,14 @@ const data: { [key: string]: { [key: string]: any } } = {};
 
 export async function useGlobal(identifier: string) {
     if (!data[identifier]) {
-        let data = await db.get<{ _id: string; identifier: string }>({ identifier }, CollectionNames.Global);
+        let newData = await db.get<{ _id: string; identifier: string }>({ identifier }, CollectionNames.Global);
 
-        if (!data) {
+        if (!newData) {
             const _id = await db.create({ identifier }, CollectionNames.Global);
-            data = await db.get<{ _id: string; identifier: string }>({ _id }, CollectionNames.Global);
+            newData = await db.get<{ _id: string; identifier: string }>({ _id }, CollectionNames.Global);
         }
 
-        data[identifier] = data;
+        data[identifier] = newData;
     }
 
     function get<T = Object>(): T {
