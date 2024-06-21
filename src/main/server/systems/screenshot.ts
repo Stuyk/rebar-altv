@@ -64,7 +64,36 @@ export function useScreenshot(player: alt.Player) {
         await alt.Utils.wait(100);
     }
 
-    return { take, takeVehicleScreenshot };
+    async function takeWeaponScreenshot(player: alt.Player, name: string) {
+        const rPlayer = Rebar.usePlayer(player);
+        rPlayer.world.setWeather('EXTRASUNNY', 0);
+        rPlayer.world.setTime(12, 0, 0);
+
+        player.removeAllWeapons();
+
+        try {
+            player.giveWeapon(name, 9999, true);
+        } catch (err) {
+            alt.logWarning(`Skipping ${name}, invalid model`);
+            return;
+        }
+
+        player.playAnimation('nm@hands', 'hands_up', 8.0, 8.0, -1, 18, 2.0, false, false, false);
+
+        const didCreate = await player.emitRpc(Events.systems.screenshot.takeWeapon);
+        if (!didCreate) {
+            alt.logWarning(`Skipping ${name}, invalid model`);
+            return;
+        }
+
+        await alt.Utils.wait(100);
+
+        await take(name);
+
+        await alt.Utils.wait(200);
+    }
+
+    return { take, takeVehicleScreenshot, takeWeaponScreenshot };
 }
 
 alt.onClient(
