@@ -273,6 +273,10 @@ await rPlayer.screenshot.take('my-screenshot-name');
 // Spawns a vehicle, and creates a camera to take a 'perfect' screenshot of a vehicle
 // outputs under 'screenshots/infernus.jpg'
 await rPlayer.screenshot.takeVehicleScreenshot(player, player.pos, 'infernus', alt.hash('infernus'));
+
+// Spawns a weapon, forces the player into an animation, takes the screenshot
+// outputs under 'screenshots/weapon_pistol50.jpg'
+await rPlayer.screenshot.takeWeaponScreenshot(player, 'weapon_pistol50');
 ```
 
 ## Raycast

@@ -1,5 +1,17 @@
 # Changelog
 
+## Version 36
+
+### Code Changes
+
+-   Added screenshot utility for weapons
+
+### Docs Changes
+
+-   Added weapon screenshot doc
+
+---
+
 ## Version 35
 
 ### Code Changes
