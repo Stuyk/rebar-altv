@@ -77,6 +77,57 @@ async function setupVehicleScreenshot(vehicle: alt.Vehicle) {
     return true;
 }
 
+async function setupWeaponScreenshot() {
+    await alt.Utils.waitFor(() => typeof interval === 'undefined', 5000).catch((err) => {});
+    await alt.Utils.waitFor(() => native.isEntityPlayingAnim(alt.Player.local, 'nm@hands', 'hands_up', 3), 5000);
+
+    await alt.Utils.wait(500);
+
+    shouldDelete = false;
+
+    native.setEntityHeading(alt.Player.local.scriptID, 6);
+
+    try {
+        const coords = native.getPedBoneCoords(alt.Player.local.scriptID, 6286, 0, 0, 0);
+
+        cam = native.createCamWithParams(
+            'DEFAULT_SCRIPTED_CAMERA',
+            coords.x,
+            coords.y,
+            alt.Player.local.pos.z + 2,
+            0,
+            0,
+            0,
+            50,
+            false,
+            1,
+        );
+        native.setCamActive(cam, true);
+        native.pointCamAtCoord(cam, coords.x, coords.y, coords.z);
+
+        // native.pointCamAtEntity(cam, alt.Player.local.scriptID, 0, 0, 0, true);
+        native.renderScriptCams(true, true, 0, false, false, 0);
+    } catch (err) {
+        return false;
+    }
+
+    await alt.Utils.wait(2000);
+
+    interval = alt.everyTick(() => {
+        native.hideHudAndRadarThisFrame();
+        native.setPedCurrentWeaponVisible(alt.Player.local.scriptID, true, true, true, true);
+
+        if (shouldDelete) {
+            alt.clearEveryTick(interval);
+            destroyCamera();
+            shouldDelete = false;
+            return;
+        }
+    });
+
+    return true;
+}
+
 alt.onServer(Events.systems.screenshot.take, async (uid: string) => {
     id = uid;
     const screenshot = await buildScreenshot();
@@ -87,4 +138,5 @@ alt.onServer(Events.systems.screenshot.take, async (uid: string) => {
     }
 });
 
+alt.onRpc(Events.systems.screenshot.takeWeapon, setupWeaponScreenshot);
 alt.onRpc(Events.systems.screenshot.takeVehicle, setupVehicleScreenshot);
