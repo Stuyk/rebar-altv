@@ -21,6 +21,7 @@ import {
     useAccountEvents,
     useCharacter,
     useCharacterBinder,
+    useCharacterEvents,
     useGlobal,
     useIncrementalId,
     useVehicleBinder,
@@ -107,7 +108,7 @@ export function useRebar() {
             character: {
                 useCharacter,
                 useCharacterBinder,
-                useAccountEvents,
+                useCharacterEvents,
             },
             global: {
                 useGlobal,
