@@ -11,18 +11,17 @@ export function useVehicleGetter() {
      * @param {number} id
      * @return {(alt.Vehicle | undefined)}
      */
-    function byID(id: number): alt.Vehicle | undefined {
+    function byAltvId(id: number): alt.Vehicle | undefined {
         return alt.Vehicle.all.find((x) => x.id === id);
     }
 
     /**
-     * Get a vehicle based on their database _id
-     * May return undefined if the vehicle is not currently spawned.
+     * Get a vehicle by database id, or id
      *
-     * @param {string} id
+     * @param {(string | number)} id
      * @return {(alt.Vehicle | undefined)}
      */
-    function byDatabaseID(id: string): alt.Vehicle | undefined {
+    function byId(id: string | number): alt.Vehicle | undefined {
         return alt.Vehicle.all.find((x) => {
             const document = useVehicle(x);
             const data = document.get();
@@ -31,12 +30,28 @@ export function useVehicleGetter() {
                 return false;
             }
 
+            if (typeof id === 'number' && data.id === id) {
+                return true;
+            }
+
             if (data._id !== id) {
                 return false;
             }
 
             return true;
         });
+    }
+
+    /**
+     * Get a vehicle based on their database _id
+     * May return undefined if the vehicle is not currently spawned.
+     *
+     * @deprecated
+     * @param {string} id
+     * @return {(alt.Vehicle | undefined)}
+     */
+    function byDatabaseID(id: string): alt.Vehicle | undefined {
+        return byId(id);
     }
 
     /**
@@ -114,7 +129,8 @@ export function useVehicleGetter() {
     }
 
     return {
-        byID,
+        byAltvId,
+        byId,
         byDatabaseID,
         closestVehicle,
         driver,

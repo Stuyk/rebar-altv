@@ -61,22 +61,34 @@ export function useVehicle(vehicle: alt.Vehicle) {
             vehicle.neonColor = document.neonColor;
         }
 
-        // Synchronize primary paint job
+        // Synchronize primary custom paint job
         if (typeof document.customPrimaryColor !== 'undefined') {
             vehicle.customPrimaryColor = document.customPrimaryColor;
         }
 
-        // Synchronize secondary paint job
+        // Synchronize secondary custom paint job
         if (typeof document.customSecondaryColor !== 'undefined') {
             vehicle.customSecondaryColor = document.customSecondaryColor;
         }
 
+        // Synchronize primary paint job
         if (typeof document.primaryColor !== 'undefined') {
             vehicle.primaryColor = document.primaryColor;
         }
 
+        // Synchronize secondary paint job
         if (typeof document.secondaryColor !== 'undefined') {
             vehicle.secondaryColor = document.secondaryColor;
+        }
+
+        // Synchronize wheelColor
+        if(typeof document.wheelColor !== 'undefined') {
+            vehicle.wheelColor = document.pearlColor;
+        }
+
+        // Synchronize pearlColor
+        if(typeof document.pearlColor !== 'undefined') {
+            vehicle.pearlColor = document.pearlColor;
         }
 
         // Synchronize vehicle extras

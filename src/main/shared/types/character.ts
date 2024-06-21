@@ -48,7 +48,7 @@ export interface BaseCharacter {
      *
      */
     isDead?: boolean;
-};
+}
 
 /**
  * Used as the main interface for storing character data.
@@ -63,6 +63,14 @@ export interface Character extends BaseCharacter {
      *
      */
     _id?: string;
+
+    /**
+     * An easy to use identifier for the character
+     *
+     * @type {number}
+     * @memberof Character
+     */
+    id?: number;
 
     /**
      * The account id associated with this character.
@@ -185,4 +193,4 @@ export interface Character extends BaseCharacter {
      * @type {{ [weaponHash: string]: number }}
      */
     ammo?: { [weaponHash: string]: number };
-};
+}

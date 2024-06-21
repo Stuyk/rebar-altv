@@ -34,6 +34,20 @@ blip.update({ pos: new alt.Vector3(0, 0, 0), text: 'New Text!' });
 blip.destroy();
 ```
 
+Additionally, you can attach a blip to any entity like a player, or a vehicle like this.
+
+```ts
+const blip = Rebar.controllers.useBlipGlobal({
+    color: 6,
+    pos: player.pos,
+    shortRange: true,
+    sprite: 128,
+    text: `${player.name}`,
+});
+
+blip.attach(player);
+```
+
 ## Local Markers
 
 A local blip can only been seen by a single player.

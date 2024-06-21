@@ -279,6 +279,17 @@ export function useCharacter(player: alt.Player) {
         return true;
     }
 
+    async function addIdentifier() {
+        if (typeof getField('id') !== 'undefined') {
+            return getField('id');
+        }
+
+        const identifier = await Rebar.database.useIncrementalId(Rebar.database.CollectionNames.Characters);
+        const id = await identifier.getNext();
+        await setBulk({ id });
+        return id;
+    }
+
     const permission = {
         addPermission,
         addGroupPerm,
@@ -289,7 +300,7 @@ export function useCharacter(player: alt.Player) {
         hasGroupPermission,
     };
 
-    return { get, getField, isValid, getVehicles, permission, set, setBulk };
+    return { addIdentifier, get, getField, isValid, getVehicles, permission, set, setBulk };
 }
 
 export function useCharacterBinder(player: alt.Player, syncPlayer = true) {
@@ -318,7 +329,12 @@ export function useCharacterBinder(player: alt.Player, syncPlayer = true) {
             Rebar.player.useState(player).sync();
         }
 
-        return useCharacter(player);
+        const characterUse = useCharacter(player);
+        try {
+            characterUse.addIdentifier();
+        } catch (err) {}
+
+        return characterUse;
     }
 
     /**

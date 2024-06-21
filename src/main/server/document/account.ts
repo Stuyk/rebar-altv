@@ -230,6 +230,17 @@ export function useAccount(player: alt.Player) {
         return Utility.check(plainText, data.password);
     }
 
+    async function addIdentifier() {
+        if (typeof getField('id') !== 'undefined') {
+            return getField('id');
+        }
+
+        const identifier = await Rebar.database.useIncrementalId(Rebar.database.CollectionNames.Accounts);
+        const id = await identifier.getNext();
+        await setBulk({ id });
+        return id;
+    }
+
     const permission = {
         addPermission,
         removePermission,
@@ -238,6 +249,7 @@ export function useAccount(player: alt.Player) {
     };
 
     return {
+        addIdentifier,
         addPermission,
         get,
         getCharacters,
@@ -266,7 +278,13 @@ export function useAccountBinder(player: alt.Player) {
 
         player.setMeta(sessionKey, document);
         Rebar.events.useEvents().invoke('account-bound', player, document);
-        return useAccount(player);
+
+        const accountUse = useAccount(player);
+        try {
+            accountUse.addIdentifier();
+        } catch (err) {}
+
+        return accountUse;
     }
 
     /**

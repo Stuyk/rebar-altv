@@ -1,5 +1,94 @@
 # Changelog
 
+## Version 36
+
+### Code Changes
+
+-   Added screenshot utility for weapons
+
+### Docs Changes
+
+-   Added weapon screenshot doc
+
+---
+
+## Version 35
+
+### Code Changes
+
+-   Added screenshot utility for taking screenshot of vehicle
+
+### Docs Changes
+
+-   Documented screenshot utility
+
+---
+
+## Version 34
+
+### Code Changes
+
+-   Adds a new ambient sound to the server config
+-   Fixes an issue where subfolders were not supported for `images`, and `sounds`
+-   Added `onScreenPed` solution to show a pedestrian in the 2D space, below webview
+    -   Automatically synchronizes ped with ped reference changes, such as clothes
+    -   Thanks to BattleZone for confirming that NVE is problematic with frontend menus
+-   Added manual override for `useKeybinder` to `updateKeybindForPlayer`
+-   Fixed bug where global documents were overwriting global cache
+-   Modify `getByAccount` and `getByCharacter` to also take `numbers` for their `id` getter
+-   Change `vehicle` `getByDatabaseId` to `byId('_id');`
+
+### Docs Changes
+
+-   Modifies the server config to include `disableAmbientNoise`
+-   Added docs for `updateKeybindForPlayer`
+-   Updated vehicle getter docs
+-   Updated character getter docs
+
+---
+
+## Version 33
+
+### Code Changes
+
+-   Fixes issue where pickup sometimes doesn't spawn the object
+-   Added all clothing dlc info, and maximums to a shared data structure
+    -   Added clothing data getters to `Rebar.utility.clothing`
+    -   Added addCategory section to add custom DLC data during runtime
+
+### Docs Changes
+
+-   Added utility clothes section to server API
+
+---
+
+## Version 32
+
+### Code Changes
+
+-   Added function to attach blips to entities, because alt:V's one is broken
+-   Additionally, when a blip or the entity becomes invalid the blip is automatically destroyed.
+
+### Docs Changes
+
+-   Updated blip documentation to cover attachments
+
+---
+
+## Version 31
+
+### Code Changes
+
+-   Added `disableAttackControls`, `disableCameraControls`, and `freezeCamera` to player.world pathway
+-   Fixed issue with local progress bars not clearing
+-   Fixed issue with `gif` files not being copied correctly
+
+### Docs Changes
+
+-   Added documentation covering `player.world` new functions
+
+---
+
 ## Version 30
 
 ### Code Changes

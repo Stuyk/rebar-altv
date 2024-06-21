@@ -9,10 +9,11 @@ const Rebar = useRebar();
 const getter = Rebar.get.useVehicleGetter();
 
 // Get a vehicle by database id
-const someVehicle = getter.byDatabaseID('_id');
+const someVehicle = getter.byId('_id');
+const someVehicle = getter.byId(5);
 
 // Get a vehicle by alt:V identifier
-const someVehicle2 = getter.byID(5);
+const someVehicle2 = getter.byAltvId(5);
 
 // Get closest vehicle to a player, that isn't the vehicle the player is driving
 const someVehicle3 = getter.closestVehicle(somePlayer);

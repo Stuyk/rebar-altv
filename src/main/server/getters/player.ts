@@ -21,7 +21,7 @@ export function usePlayerGetter() {
      * @param {string} id
      * @return {(alt.Player | undefined)}
      */
-    function byAccount(id: string): alt.Player | undefined {
+    function byAccount(id: string | number): alt.Player | undefined {
         return alt.Player.all.find((p) => {
             if (!p.valid) {
                 return false;
@@ -31,6 +31,10 @@ export function usePlayerGetter() {
             const accountData = document.get();
             if (typeof accountData === 'undefined') {
                 return false;
+            }
+
+            if (typeof id === 'number' && accountData.id === id) {
+                return true;
             }
 
             if (accountData._id !== id) {
@@ -131,7 +135,7 @@ export function usePlayerGetter() {
      * @param {string} id
      * @return {(alt.Player | undefined)}
      */
-    function byCharacter(id: string): alt.Player | undefined {
+    function byCharacter(id: string | number): alt.Player | undefined {
         return alt.Player.all.find((p) => {
             if (!p.valid) {
                 return false;
@@ -141,6 +145,10 @@ export function usePlayerGetter() {
             const data = document.get();
             if (typeof data === 'undefined') {
                 return false;
+            }
+
+            if (typeof id === 'number' && data.id === id) {
+                return true;
             }
 
             return data._id === id;

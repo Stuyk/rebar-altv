@@ -54,4 +54,7 @@ serverConfig.set('disableCover', true);
 
 // Disables performing drive bys for all players
 serverConfig.set('disableDriveBys', true);
+
+// Disables ambient noises around the map
+serverConfig.set('disableAmbientNoise', true);
 ```

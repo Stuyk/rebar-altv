@@ -259,6 +259,26 @@ rebarPlayer.notify.sendMessage({ type: 'info', content: 'Hello there!' });
 rebarPlayer.notify.sendMessage({ type: 'player', content: 'Hello there!', author: 'Some Other Player' });
 ```
 
+## Screenshot
+
+Used to get a screenshot of a player's screen.
+
+Mostly used for utility such as getting vehicle screenshots, and such.
+
+```ts
+// Takes a single screenshot of the game, regardless of what is on screen
+// outputs under 'screenshots/my-screenshot-name.jpg'
+await rPlayer.screenshot.take('my-screenshot-name');
+
+// Spawns a vehicle, and creates a camera to take a 'perfect' screenshot of a vehicle
+// outputs under 'screenshots/infernus.jpg'
+await rPlayer.screenshot.takeVehicleScreenshot(player, player.pos, 'infernus', alt.hash('infernus'));
+
+// Spawns a weapon, forces the player into an animation, takes the screenshot
+// outputs under 'screenshots/weapon_pistol50.jpg'
+await rPlayer.screenshot.takeWeaponScreenshot(player, 'weapon_pistol50');
+```
+
 ## Raycast
 
 Used to get what the player is looking at, or find out other information
@@ -449,6 +469,16 @@ const rebarPlayer = Rebar.usePlayer(player);
 rebarPlayer.world.enableControls();
 rebarPlayer.world.disableControls();
 
+// Disable Camera Controls (still allows walking)
+rebarPlayer.world.disableCameraControls(true);
+
+// Disable Attacking (still allows walking)
+rebarPlayer.world.disableAttackControls(true);
+
+// Freeze gameplay camera, will freeze the gameplay camera in its last known place
+// It's almost like dropping a camera on the ground
+rebarPlayer.world.freezeCamera(true);
+
 // Blur the screen over 5 seconds, and keep it blurred
 rebarPlayer.world.setScreenBlur(5000);
 rebarPlayer.world.clearScreenBlur(5000);
@@ -470,4 +500,8 @@ rebarPlayer.world.setTimecycle('stoned', 5000);
 
 // Change the weather to Thunder over 5 seconds
 rebarPlayer.world.setWeather('THUNDER', 5);
+
+// Show a preview pedestrian on screen
+rebarPlayer.world.showPedOnScreen('right');
+rebarPlayer.world.hidePedOnScreen();
 ```

@@ -54,6 +54,9 @@ export const Events = {
         },
         controls: {
             set: 'player:controls:set',
+            setCameraFrozen: 'player:controls:setFrozen',
+            setAttackControlsDisabled: 'player:controls:set:attack:disabled',
+            setCameraControlsDisabled: 'player:controls:set:disabled',
         },
         native: {
             invoke: 'player:native:invoke',
@@ -75,6 +78,11 @@ export const Events = {
             },
             credits: {
                 create: 'player:notify:credits:create',
+            },
+        },
+        screen: {
+            ped: {
+                show: 'player:show:ped:on:screen',
             },
         },
         webview: {
@@ -104,6 +112,12 @@ export const Events = {
             getFocusedEntity: 'systems:raycast:get:focused:entity',
             getFocusedPosition: 'systems:raycast:get:focused:position',
             getFocusedObject: 'systems:raycast:get:focused:object',
+        },
+        screenshot: {
+            get: 'systems:screenshot:get',
+            take: 'systems:screenshot:take',
+            takeVehicle: 'systems:screen:take:vehicle',
+            takeWeapon: 'systems:screen:take:weapon',
         },
         serverConfig: {
             set: 'systems:server:config:set',

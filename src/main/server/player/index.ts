@@ -16,6 +16,7 @@ import { usePlayerGetter } from '../getters/player.js';
 import { useVehicleGetter } from '../getters/vehicle.js';
 import { useRaycast } from './raycast.js';
 import { useAccount } from '../document/account.js';
+import { useScreenshot } from '../systems/screenshot.js';
 
 const playerGetter = usePlayerGetter();
 const vehicleGetter = useVehicleGetter();
@@ -50,6 +51,7 @@ export function usePlayer(player: alt.Player) {
         native: useNative(player),
         notify: useNotify(player),
         raycast: useRaycast(player),
+        screenshot: useScreenshot(player),
         state: useState(player),
         status: useStatus(player),
         waypoint: useWaypoint(player),

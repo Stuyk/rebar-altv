@@ -126,19 +126,84 @@ export function useWorld(player: alt.Player) {
         player.emit(Events.player.controls.set, false);
     }
 
+    /**
+     * Set to true to freeze the camera in its current place.
+     * It's effectively like dropping a camera on the ground.
+     *
+     * @param {boolean} value
+     * @return
+     */
+    function freezeCamera(value: boolean) {
+        if (!player || !player.valid) {
+            return;
+        }
+
+        player.emit(Events.player.controls.setCameraFrozen, value);
+    }
+
+    /**
+     * Disable camera controls entirely, prevents looking around
+     *
+     * @param {boolean} value
+     * @return
+     */
+    function disableCameraControls(value: boolean) {
+        if (!player || !player.valid) {
+            return;
+        }
+
+        player.emit(Events.player.controls.setCameraControlsDisabled, value);
+    }
+
+    /**
+     * Disable attacking via shooting, punching, etc.
+     * Also disabled weapon swapping.
+     *
+     * @param {boolean} value
+     * @return
+     */
+    function disableAttackControls(value: boolean) {
+        if (!player || !player.valid) {
+            return;
+        }
+
+        player.emit(Events.player.controls.setAttackControlsDisabled, value);
+    }
+
+    function showPedOnScreen(position: 'left' | 'middle' | 'right') {
+        if (!player || !player.valid) {
+            return;
+        }
+
+        player.emit(Events.player.screen.ped.show, true, position);
+    }
+
+    function hidePedOnScreen() {
+        if (!player || !player.valid) {
+            return;
+        }
+
+        player.emit(Events.player.screen.ped.show, false);
+    }
+
     return {
         clearAllScreenEffects,
         clearScreenBlur,
         clearScreenEffect,
         clearScreenFade,
         clearTimecycle,
+        disableAttackControls,
+        disableCameraControls,
         disableControls,
         enableControls,
+        freezeCamera,
+        hidePedOnScreen,
         setScreenBlur,
         setScreenEffect,
         setScreenFade,
         setTime,
         setTimecycle,
         setWeather,
+        showPedOnScreen,
     };
 }
