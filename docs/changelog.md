@@ -6,6 +6,7 @@
 
 -   Added method to allow for Rebar Events to be extended via `global` declare.
 -   Added `rPlayer.sound` pathway, works the same as `rPlayer.audio`
+-   Moved images to https://github.com/Stuyk/gtav-image-archive/
 
 ### Docs Changes
 
