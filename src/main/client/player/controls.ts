@@ -50,7 +50,9 @@ function setCameraControlsDisabled(state: boolean) {
     }
 }
 
-function setAttackControlsDisabled(state: boolean) {}
+function setAttackControlsDisabled(state: boolean) {
+    disableAttackControls = state;
+}
 
 alt.onServer(Events.player.controls.set, setControls);
 alt.onServer(Events.player.controls.setCameraFrozen, setCameraFrozen);
