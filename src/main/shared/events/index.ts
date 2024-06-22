@@ -118,6 +118,7 @@ export const Events = {
             take: 'systems:screenshot:take',
             takeVehicle: 'systems:screen:take:vehicle',
             takeWeapon: 'systems:screen:take:weapon',
+            setClothing: 'systems:screen:set:clothing',
         },
         serverConfig: {
             set: 'systems:server:config:set',
