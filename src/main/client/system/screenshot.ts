@@ -9,6 +9,183 @@ let cam: number;
 let interval: number;
 let shouldDelete = false;
 
+const CLOTHING_IDS = {
+    MASKS: 1,
+    HAIR: 2,
+    TORSOS: 3,
+    LEGS: 4,
+    BAGS: 5,
+    SHOES: 6,
+    ACCESSORIES: 7,
+    UNDERSHIRTS: 8,
+    BODY_ARMOUR: 9,
+    TOP: 11,
+};
+
+const PROP_IDS = {
+    HATS: 0,
+    GLASSES: 1,
+    EARS: 2,
+    WATCHES: 6,
+    BRACELETS: 7,
+};
+
+const ClothingCameras = {
+    // 1
+    [CLOTHING_IDS.MASKS]: {
+        fov: 30,
+        rotation: {
+            x: 0,
+            y: 0,
+            z: -200,
+        },
+        zPos: 0.65,
+    },
+    // 2
+    [CLOTHING_IDS.HAIR]: {
+        fov: 20,
+        rotation: {
+            x: 0,
+            y: 0,
+            z: -200,
+        },
+        zPos: 0.75,
+    },
+    // 3
+    [CLOTHING_IDS.TORSOS]: {
+        fov: 50,
+        rotation: {
+            x: 0,
+            y: 0,
+            z: -165,
+        },
+        zPos: 0.03,
+    },
+    // 4
+    [CLOTHING_IDS.LEGS]: {
+        fov: 75,
+        rotation: {
+            x: 0,
+            y: 0,
+            z: -165,
+        },
+        zPos: -0.35,
+    },
+    // 5
+    [CLOTHING_IDS.BAGS]: {
+        fov: 40,
+        rotation: {
+            x: 0,
+            y: 0,
+            z: -345,
+        },
+        zPos: 0.2,
+    },
+    // 6
+    [CLOTHING_IDS.SHOES]: {
+        fov: 40,
+        rotation: {
+            x: 0,
+            y: 0,
+            z: -165,
+        },
+        zPos: -0.85,
+    },
+    // 7
+    [CLOTHING_IDS.ACCESSORIES]: {
+        fov: 45,
+        rotation: {
+            x: 0,
+            y: 0,
+            z: -165,
+        },
+        zPos: 0.03,
+    },
+    // 8
+    [CLOTHING_IDS.UNDERSHIRTS]: {
+        fov: 50,
+        rotation: {
+            x: 0,
+            y: 0,
+            z: -165,
+        },
+        zPos: 0.03,
+    },
+    // 9
+    [CLOTHING_IDS.BODY_ARMOUR]: {
+        fov: 45,
+        rotation: {
+            x: 0,
+            y: 0,
+            z: -165,
+        },
+        zPos: 0.03,
+    },
+    // 11
+    [CLOTHING_IDS.TOP]: {
+        fov: 50,
+        rotation: {
+            x: 0,
+            y: 0,
+            z: -165,
+        },
+        zPos: 0.03,
+    },
+};
+
+const PropCameras = {
+    // 0
+    [PROP_IDS.HATS]: {
+        fov: 30,
+        rotation: {
+            x: 0,
+            y: 0,
+            z: -200,
+        },
+        zPos: 0.65,
+    },
+    // 1
+    [PROP_IDS.GLASSES]: {
+        fov: 20,
+        rotation: {
+            x: 0,
+            y: 0,
+            z: -200,
+        },
+        zPos: 0.8,
+    },
+    // 2
+    [PROP_IDS.EARS]: {
+        fov: 20,
+        rotation: {
+            x: 0,
+            y: 0,
+            z: -82.5,
+        },
+        zPos: 0.675,
+    },
+    // 6
+    [PROP_IDS.WATCHES]: {
+        fov: 20,
+        rotation: {
+            x: 0,
+            y: 0,
+            z: -247.5,
+        },
+        zPos: 0,
+    },
+    // 7
+    [PROP_IDS.BRACELETS]: {
+        fov: 20,
+        rotation: {
+            x: 0,
+            y: 0,
+            z: -82.5,
+        },
+        zPos: -0.05,
+    },
+};
+
 export async function buildScreenshot() {
     const result = await alt.takeScreenshotGameOnly();
     const data = BufferHelper.toBuffer(result, 128);
@@ -128,6 +305,54 @@ async function setupWeaponScreenshot() {
     return true;
 }
 
+async function setupClothingScreenshot(id: number, flipCamera: boolean) {
+    shouldDelete = false;
+    const camInfo = ClothingCameras[id];
+    const fwd = native.getEntityForwardVector(alt.Player.local.scriptID);
+    let fwdPos = alt.Player.local.pos.add(fwd.x * 1.2, fwd.y * 1.2, 0);
+    if (flipCamera) {
+        fwdPos = alt.Player.local.pos.sub(fwd.x * 1.2, fwd.y * 1.2, 0);
+    }
+
+    try {
+        cam = native.createCamWithParams(
+            'DEFAULT_SCRIPTED_CAMERA',
+            fwdPos.x,
+            fwdPos.y,
+            alt.Player.local.pos.z + camInfo.zPos,
+            0,
+            0,
+            0,
+            camInfo.fov,
+            false,
+            1,
+        );
+        native.pointCamAtCoord(
+            cam,
+            alt.Player.local.pos.x,
+            alt.Player.local.pos.y,
+            alt.Player.local.pos.z + camInfo.zPos,
+        );
+        native.setCamActive(cam, true);
+        native.renderScriptCams(true, true, 0, false, false, 0);
+    } catch (err) {
+        return false;
+    }
+
+    interval = alt.everyTick(() => {
+        native.hideHudAndRadarThisFrame();
+        native.setPedCanHeadIk(alt.Player.local.scriptID, false);
+        if (shouldDelete) {
+            alt.clearEveryTick(interval);
+            destroyCamera();
+            shouldDelete = false;
+            return;
+        }
+    });
+
+    return true;
+}
+
 alt.onServer(Events.systems.screenshot.take, async (uid: string) => {
     id = uid;
     const screenshot = await buildScreenshot();
@@ -140,3 +365,4 @@ alt.onServer(Events.systems.screenshot.take, async (uid: string) => {
 
 alt.onRpc(Events.systems.screenshot.takeWeapon, setupWeaponScreenshot);
 alt.onRpc(Events.systems.screenshot.takeVehicle, setupVehicleScreenshot);
+alt.onRpc(Events.systems.screenshot.setClothing, setupClothingScreenshot);

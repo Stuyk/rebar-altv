@@ -1,5 +1,15 @@
 # Changelog
 
+## Version 37
+
+### Code Changes
+
+-   Introduced method for clothing screeshots
+
+### Docs Changes
+
+-   N/A
+
 ## Version 36
 
 ### Code Changes
