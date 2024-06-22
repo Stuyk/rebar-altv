@@ -1,5 +1,18 @@
 # Changelog
 
+## Version 38
+
+### Code Changes
+
+-   Added method to allow for Rebar Events to be extended via `global` declare.
+-   Added `rPlayer.sound` pathway, works the same as `rPlayer.audio`
+
+### Docs Changes
+
+-   Added documentation covering custom Rebar Events to the events api.
+
+---
+
 ## Version 37
 
 ### Code Changes

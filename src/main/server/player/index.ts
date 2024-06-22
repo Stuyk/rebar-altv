@@ -52,6 +52,7 @@ export function usePlayer(player: alt.Player) {
         notify: useNotify(player),
         raycast: useRaycast(player),
         screenshot: useScreenshot(player),
+        sound: useAudio(player),
         state: useState(player),
         status: useStatus(player),
         waypoint: useWaypoint(player),
