@@ -83,7 +83,7 @@ export function useVehicle(vehicle: alt.Vehicle) {
 
         // Synchronize wheelColor
         if(typeof document.wheelColor !== 'undefined') {
-            vehicle.wheelColor = document.pearlColor;
+            vehicle.wheelColor = document.wheelColor;
         }
 
         // Synchronize pearlColor
