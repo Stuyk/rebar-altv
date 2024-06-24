@@ -18,6 +18,7 @@ export type PlayerStats = {
     inWater: boolean;
     isAiming: boolean;
     isFlying: boolean;
+    isMetric: boolean;
     isTalking: boolean;
     lights: [boolean, boolean];
     locked: boolean;
@@ -28,6 +29,7 @@ export type PlayerStats = {
     stamina: number;
     street: StreetData;
     time: { hour: number; minute: number; second: number };
+    vehicleClass: number;
     vehicleHealth: number;
     weapon: number;
     weather: string;
