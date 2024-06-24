@@ -1,5 +1,19 @@
 # Changelog
 
+## Version 39
+
+### Code Changes
+
+-   Potentially fixes bug where dependencies.json aren't installed outright
+-   Fixes a `hasGroupPermission` function bug
+-   Modified client side player camera with some new functions
+
+### Docs Changes
+
+-   N/A
+
+---
+
 ## Version 38
 
 ### Code Changes
