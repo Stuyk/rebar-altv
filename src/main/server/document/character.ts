@@ -217,7 +217,7 @@ export function useCharacter(player: alt.Player) {
             return false;
         }
 
-        const perm = usePermissionGroup(player);
+        const perm = usePermissionGroup(data);
         return perm.hasGroupPerm(groupName, permission);
     }
 
