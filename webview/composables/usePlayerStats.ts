@@ -16,6 +16,7 @@ const data = ref<PlayerStats>({
     inWater: false,
     isAiming: false,
     isFlying: false,
+    isMetric: true,
     gear: 0,
     maxGear: 0,
     engineOn: false,
@@ -31,6 +32,7 @@ const data = ref<PlayerStats>({
     weather: '',
     indicatorLights: 0,
     lights: [false, false],
+    vehicleClass: -1,
     zone: '',
 });
 
@@ -64,6 +66,9 @@ export function usePlayerStats() {
         inWater: computed(() => {
             return data.value.inWater;
         }),
+        isMetric: computed(() => {
+            return data.value.isMetric;
+        }),
         gear: computed(() => {
             return data.value.gear;
         }),
@@ -78,6 +83,9 @@ export function usePlayerStats() {
         }),
         seat: computed(() => {
             return data.value.seat;
+        }),
+        vehicleClass: computed(() => {
+            return data.value.vehicleClass;
         }),
         vehicleHealth: computed(() => {
             return data.value.vehicleHealth;
