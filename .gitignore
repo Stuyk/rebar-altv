@@ -4,6 +4,7 @@ cache/
 modules/
 node_modules/
 resources/main/
+resources/mods/
 resources/core/
 resources/webview/
 resources/sounds/**/*.ogg
