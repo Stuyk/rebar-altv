@@ -14,7 +14,7 @@ export type Command = {
     name: string;
     desc: string;
     options?: CommandOptions;
-    callback: (player: alt.Player, ...args: any[]) => void | boolean | Promise<void> | Promise<boolean>;
+    callback: (player: alt.Player, ...args: string[]) => void | boolean | Promise<void> | Promise<boolean>;
 };
 
 const tagOrComment = new RegExp(
