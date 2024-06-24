@@ -12,11 +12,11 @@ function tick() {
 function destroy() {
     try {
         alt.clearInterval(interval);
-    } catch(err) {}
+    } catch (err) {}
 
     try {
         native.setCamActive(camera, false);
-    } catch(err) {}
+    } catch (err) {}
 
     native.destroyAllCams(true);
     native.renderScriptCams(false, false, 0, false, false, 0);
@@ -25,6 +25,8 @@ function destroy() {
 }
 
 export function useCamera() {
+    let camPos: alt.Vector3;
+
     function create(
         options: { fov: number; zOffset: number; bone: keyof typeof PedBones } = {
             fov: 30,
@@ -37,9 +39,20 @@ export function useCamera() {
         }
 
         const fwd = native.getEntityForwardVector(alt.Player.local);
-        const pos = alt.Player.local.pos.add(fwd.x * 2, fwd.y * 2, options.zOffset);
+        camPos = alt.Player.local.pos.add(fwd.x * 2, fwd.y * 2, options.zOffset);
 
-        camera = native.createCamWithParams('DEFAULT_SCRIPTED_CAMERA', pos.x, pos.y, pos.z, 0, 0, 0, 55, false, 1);
+        camera = native.createCamWithParams(
+            'DEFAULT_SCRIPTED_CAMERA',
+            camPos.x,
+            camPos.y,
+            camPos.z,
+            0,
+            0,
+            0,
+            55,
+            false,
+            1,
+        );
 
         native.setCamUseShallowDofMode(camera, true);
         native.setCamFov(camera, options.fov);
@@ -56,12 +69,41 @@ export function useCamera() {
         }
     }
 
+    function pointAtBone(bone: keyof typeof PedBones) {
+        if (!camera) {
+            return;
+        }
+
+        native.pointCamAtPedBone(camera, alt.Player.local, PedBones[bone], 0, 0, 0, false);
+        native.renderScriptCams(true, true, 1000, false, false, 0);
+    }
+
+    function setFov(value: number) {
+        if (!camera) {
+            return;
+        }
+
+        native.setCamFov(camera, value);
+        native.renderScriptCams(true, true, 1000, false, false, 0);
+    }
+
+    function setOffset(offset: number) {
+        if (!camera) {
+            return;
+        }
+
+        native.setCamCoord(camera, camPos.x, camPos.y, camPos.z + offset);
+    }
+
     return {
         create,
         destroy,
         get() {
             return camera;
         },
+        setFov,
+        setOffset,
+        pointAtBone,
     };
 }
 
