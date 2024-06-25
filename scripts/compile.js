@@ -8,7 +8,6 @@ const assetPacks = [`./resources/images`, `./resources/sounds`];
 const foldersToClean = [`./resources/core`, `./resources/webview`, ...assetPacks];
 
 const initialCommands = [
-    `node ./scripts/buildPluginDependencies.js`,
     `node ./scripts/webview.js`,
     `pnpm -C webview run build`,
     `npx sucrase ./src -d ./resources/core --exclude-dirs ./src/scratchpad --transforms typescript -q`,
@@ -81,6 +80,8 @@ function logMessage(msg) {
 async function compile() {
     const start = Date.now();
     logMessage(`Compile Started`);
+
+    await runCommands([`node ./scripts/buildPluginDependencies.js`]);
 
     for (let pathsToClean of foldersToClean) {
         try {

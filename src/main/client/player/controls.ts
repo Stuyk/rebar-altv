@@ -7,10 +7,6 @@ let disableAttackControls = false;
 let interval: number;
 
 function tick() {
-    if (!disableCameraControls) {
-        return;
-    }
-
     if (disableCameraControls) {
         // Camera Movement
         native.disableControlAction(0, 1, true);
@@ -22,6 +18,8 @@ function tick() {
     }
 
     if (disableAttackControls) {
+        alt.log('disabling...');
+
         // Scroll Wheel
         native.disableControlAction(0, 14, true);
         native.disableControlAction(0, 15, true);
@@ -50,7 +48,13 @@ function setCameraControlsDisabled(state: boolean) {
     }
 }
 
-function setAttackControlsDisabled(state: boolean) {}
+function setAttackControlsDisabled(state: boolean) {
+    disableAttackControls = state;
+
+    if (!interval) {
+        alt.setInterval(tick, 0);
+    }
+}
 
 alt.onServer(Events.player.controls.set, setControls);
 alt.onServer(Events.player.controls.setCameraFrozen, setCameraFrozen);

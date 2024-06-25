@@ -1,3 +1,32 @@
+const DefaultList = {
+    Male: {
+        clothes: {
+            '1': 8,
+            '2': 18,
+            '3': 16,
+            '4': 16,
+            '5': 9,
+            '6': 16,
+            '8': 16,
+            '11': 16,
+        },
+        props: {},
+    },
+    Female: {
+        clothes: {
+            '1': 8,
+            '2': 18,
+            '3': 17,
+            '4': 16,
+            '5': 9,
+            '6': 16,
+            '8': 16,
+            '11': 16,
+        },
+        props: {},
+    },
+};
+
 // Updated June 19, 2024
 const ClothingList = {
     Female_Apt01: {
@@ -1295,21 +1324,37 @@ export function addCategory(
  * @return
  */
 export function getCategories(type: 'male' | 'female') {
-    return Object.keys(ClothingList).filter((key) => {
-        if (type === 'male') {
-            if (key.toLowerCase().includes('mp_m') || key.includes('Male_')) {
+    return [
+        ...Object.keys(ClothingList).filter((key) => {
+            if (type === 'male') {
+                if (key.toLowerCase().includes('mp_m') || key.includes('Male_')) {
+                    return true;
+                }
+
+                return false;
+            }
+
+            if (key.toLowerCase().includes('mp_f') || key.includes('Female_')) {
                 return true;
             }
 
             return false;
-        }
+        }),
+        type === 'male' ? 'mp_m_0' : 'mp_f_0',
+    ];
+}
 
-        if (key.toLowerCase().includes('mp_f') || key.includes('Female_')) {
-            return true;
-        }
-
-        return false;
-    });
+/**
+ * Get a default category data, meaning non-dlc content. These are small but necessary sections.
+ *
+ * Mostly useful for torsos
+ *
+ * @export
+ * @param {('male' | 'female')} type
+ * @return
+ */
+export function getDefaultCategory(type: 'male' | 'female') {
+    return type === 'male' ? DefaultList.Male : DefaultList.Female;
 }
 
 /**

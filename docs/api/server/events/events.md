@@ -62,3 +62,15 @@ RebarEvents.on('page-closed', (player, pageName) => {
     console.log(pageName);
 });
 ```
+
+## Custom Events
+
+You can declare custom events in your plugin like this.
+
+```ts
+declare global {
+    export interface RebarEvents {
+        'character-select-done': (player: alt.Player) => void;
+    }
+}
+```

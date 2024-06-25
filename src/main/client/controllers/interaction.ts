@@ -51,7 +51,9 @@ function handleClear() {
 
 function handleSet(_uid: string, _message: string | undefined, _pos: alt.Vector3) {
     if (onEnterCallbacks.length <= 0) {
-        createNotification(_message);
+        if (_message && _message.length >= 1) {
+            createNotification(_message);
+        }
     } else {
         for (let cb of onEnterCallbacks) {
             cb(message, uid, pos);
