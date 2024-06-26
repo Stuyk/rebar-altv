@@ -98,6 +98,11 @@ export const Events = {
             update: 'systems:keybinds:update',
             invoke: 'systems:keybinds:invoke',
         },
+        keypress: {
+            update: 'systems:keypress:update',
+            invokeUp: 'systems:keypress:invoke:keyup',
+            invokeDown: 'systems:keypress:invoke:keydown',
+        },
         messenger: {
             process: 'systems:messenger:process',
             send: 'systems:messenger:send',
@@ -125,6 +130,11 @@ export const Events = {
         },
         transmitter: {
             execute: 'systems:transmitter:execute',
+        },
+    },
+    vehicle: {
+        set: {
+            rpm: 'vehicle:set:rpm',
         },
     },
     view: {

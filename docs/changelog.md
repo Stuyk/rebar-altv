@@ -1,5 +1,19 @@
 # Changelog
 
+## Version 40
+
+### Code Changes
+
+-   Added new dlc clothing maximums for 2024 DLC
+-   Added `keypress` api that lets you bind functions to keyup/keydown from server-side
+-   Added `setRpm` to vehicle API
+
+### Docs Changes
+
+-   Documented keypress
+
+---
+
 ## Version 39
 
 ### Code Changes

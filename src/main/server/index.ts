@@ -73,6 +73,7 @@ import { useWorldMenu } from './controllers/worldMenu.js';
 
 import * as ClothingUtility from '@Shared/data/clothing.js';
 import { useScreenshot } from './systems/screenshot.js';
+import { useKeypress } from './systems/serverKeypress.js';
 
 export function useRebar() {
     return {
@@ -155,6 +156,7 @@ export function useRebar() {
             usePermissionGroup,
         },
         useKeybinder,
+        useKeypress,
         usePlayer,
         useProxyFetch,
         useServerConfig,

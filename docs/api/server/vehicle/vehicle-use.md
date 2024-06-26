@@ -42,6 +42,9 @@ rVehicle.toggleLockAsPlayer(player);
 // Check if a vehicle has a document bound to it
 rVehicle.isBound();
 
+// Set the RPM for the vehicle driver to 0
+rVehicle.setRpm(0);
+
 // Add player to the vehicle, remove their id, or clear all keys
 const didAdd = await rVehicle.keys.add('some_document_id');
 const didRemove = await rVehicle.keys.remove('some_document_id');
