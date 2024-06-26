@@ -7,10 +7,13 @@
 -   Added new dlc clothing maximums for 2024 DLC
 -   Added `keypress` api that lets you bind functions to keyup/keydown from server-side
 -   Added `setRpm` to vehicle API
+-   Added new `fonts` resource, which may need to be imported in your `server.toml`; for custom fonts
 
 ### Docs Changes
 
 -   Documented keypress
+-   Documented keypress in vehicle api
+-   Documented fonts folder
 
 ---
 

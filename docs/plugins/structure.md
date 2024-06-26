@@ -13,6 +13,7 @@ If you wish to create plugins then you need to understand the basic structure of
     7. `dependencies`
     8. `shared`
     9. `rmlui`
+    10. `fonts`
 
 [!embed](https://www.youtube.com/watch?v=_bnf-duy3mI)
 
@@ -268,3 +269,13 @@ Add a section called `dependencies` and it will automatically install the depend
     }
 }
 ```
+
+## fonts
+
+Fonts are any files with the following extensions: `otf, ttf`.
+
+Additionally, the fonts are loaded as an `asset-pack` and copied to the `webview/public/fonts` folder as well.
+
+Image paths are absolute so if you put an image in the `fonts` folder then your `html` path will be `./fonts/myfont.ttf`.
+
+If you need the image for rmlui then your path will be `http://assets/fonts/myfont.ttf`.

@@ -10,6 +10,10 @@ const filesToCopy = {
         destination: ['resources', 'webview/public'],
         keyword: 'images',
     },
+    'src/plugins/**/fonts/**/*.+(ttf|otf)': {
+        destination: ['resources', 'webview/public/fonts'],
+        keyword: 'fonts',
+    },
 };
 
 /**

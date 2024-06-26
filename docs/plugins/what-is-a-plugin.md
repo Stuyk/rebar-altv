@@ -25,6 +25,9 @@ This plugin structure is used purely as a full featured plugin.
         ├───dependencies.json (alt: package.json)
         ├───client
         │   └───index.ts
+        ├───fonts
+        │   ├───arial.otf
+        │   └───inter.ttf
         ├───images
         │   ├───somelogo.png
         │   └───bg.jpg

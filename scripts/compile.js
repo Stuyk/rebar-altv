@@ -3,7 +3,7 @@ import { exec } from 'child_process';
 
 const assetPackContent = `type = 'asset-pack'\r\nclient-files = [ '*' ]`;
 
-const assetPacks = [`./resources/images`, `./resources/sounds`];
+const assetPacks = [`./resources/images`, `./resources/sounds`, './resources/fonts'];
 
 const foldersToClean = [`./resources/core`, `./resources/webview`, ...assetPacks];
 
