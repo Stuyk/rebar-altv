@@ -11,7 +11,7 @@ const filesToCopy = {
         keyword: 'images',
     },
     'src/plugins/**/fonts/**/*.+(ttf|otf)': {
-        destination: ['resources', 'webview/public/fonts'],
+        destination: ['resources', 'webview/public'],
         keyword: 'fonts',
     },
 };
