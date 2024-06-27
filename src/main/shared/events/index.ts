@@ -163,5 +163,9 @@ export const Events = {
         localStorageDelete: 'webview:localstorage:delete',
         onPageClose: 'webview:page:close',
         onPageOpen: 'webview:page:open',
+        syncCharacter: 'webview:sync:character',
+        syncPartialCharacter: 'webview:sync:partial:character',
+        syncVehicle: 'webview:sync:vehicle',
+        syncPartialVehicle: 'webview:sync:partial:vehicle',
     },
 };

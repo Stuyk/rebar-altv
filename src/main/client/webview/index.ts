@@ -324,6 +324,42 @@ export function useWebview(path = 'http://assets/webview/index.html') {
         onCloseEvents[pageName].push(callback);
     }
 
+    function onSyncedMetaChange(object: alt.Object, key: string, newValue: any) {
+        if (native.isEntityAPed(object.scriptID)) {
+            webview.emit(Events.view.syncPartialCharacter, key, newValue);
+            return;
+        }
+
+        if (!alt.Player.local.vehicle) {
+            return;
+        }
+
+        if (!native.isEntityAVehicle(object.scriptID)) {
+            return;
+        }
+
+        if (alt.Player.local.vehicle.scriptID !== object.scriptID) {
+            return;
+        }
+
+        webview.emit(Events.view.syncPartialVehicle, key, newValue);
+    }
+
+    function onVehicleEnter(vehicle: alt.Vehicle) {
+        const keys = vehicle.getStreamSyncedMetaKeys();
+        const data = {};
+
+        for (let key of keys) {
+            data[key] = vehicle.getStreamSyncedMeta(key);
+        }
+
+        webview.emit(Events.view.syncVehicle, data);
+    }
+
+    function onVehicleLeave() {
+        webview.emit(Events.view.syncVehicle, {});
+    }
+
     if (!isInitialized) {
         alt.onServer(Events.view.focus, focus);
         alt.onServer(Events.view.unfocus, unfocus);
@@ -337,6 +373,9 @@ export function useWebview(path = 'http://assets/webview/index.html') {
         webview.on(Events.view.emitServer, handleServerEvent);
         webview.on(Events.view.emitServerRpc, handleServerRpcEvent);
         webview.on(Events.view.emitClientRpc, handleClientRpcEvent);
+        alt.on('streamSyncedMetaChange', onSyncedMetaChange);
+        alt.on('enteredVehicle', onVehicleEnter);
+        alt.on('leftVehicle', onVehicleLeave);
     }
 
     return {
