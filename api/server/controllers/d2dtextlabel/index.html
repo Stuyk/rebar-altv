@@ -9,24 +9,24 @@
     <meta name="generator" content="Retype 3.5.0">
 
     <!-- Primary Meta Tags -->
-    <title>Player</title>
-    <meta name="title" content="Player">
-    <meta name="description" content="The player getter gives information about a single player.">
+    <title>useD2DTextLabel</title>
+    <meta name="title" content="useD2DTextLabel">
+    <meta name="description" content="These are the most performant Text Labels that exist for alt:V.">
 
     <!-- Canonical -->
-    <link rel="canonical" href="https://rebarv.com/api/server/getters/getters-player/">
+    <link rel="canonical" href="https://rebarv.com/api/server/controllers/d2dtextlabel/">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://rebarv.com/api/server/getters/getters-player/">
-    <meta property="og:title" content="Player">
-    <meta property="og:description" content="The player getter gives information about a single player.">
+    <meta property="og:url" content="https://rebarv.com/api/server/controllers/d2dtextlabel/">
+    <meta property="og:title" content="useD2DTextLabel">
+    <meta property="og:description" content="These are the most performant Text Labels that exist for alt:V.">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://rebarv.com/api/server/getters/getters-player/">
-    <meta property="twitter:title" content="Player">
-    <meta property="twitter:description" content="The player getter gives information about a single player.">
+    <meta property="twitter:url" content="https://rebarv.com/api/server/controllers/d2dtextlabel/">
+    <meta property="twitter:title" content="useD2DTextLabel">
+    <meta property="twitter:description" content="These are the most performant Text Labels that exist for alt:V.">
 
     <script data-cfasync="false">(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
@@ -186,47 +186,52 @@
                                 <!-- Rendered if sidebar right is enabled -->
                                 <div id="docs-sidebar-right-toggle"></div>
                                 <!-- Page content  -->
-<doc-anchor-target id="player" class="break-words">
+<doc-anchor-target id="used2dtextlabel" class="break-words">
     <h1>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#player">#</doc-anchor-trigger>
-        <span>Player</span>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#used2dtextlabel">#</doc-anchor-trigger>
+        <span>useD2DTextLabel</span>
     </h1>
 </doc-anchor-target>
-<p>The player getter gives information about a single player.</p>
+<p>These are the most performant Text Labels that exist for alt:V.</p>
+<p>These labels are specifically built for in-world use; and provide a way to synchronize with all players or some players.</p>
+<doc-anchor-target id="server">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#server">#</doc-anchor-trigger>
+        <span>Server</span>
+    </h2>
+</doc-anchor-target>
+<p>This example shows a message, and then changes the text to New Text!</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">import { useRebar } from '@Server/index.js';
-const Rebar = useRebar();
+<pre class="language-typescript"><code v-pre class="language-typescript">const label = Rebar.controllers.useD2DTextLabel({
+    pos: player.pos,
+    text: 'Hey there!',
+});
 
-const getter = Rebar.get.usePlayerGetter();
+label.update({ text: 'New Text!' });</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="local">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#local">#</doc-anchor-trigger>
+        <span>Local</span>
+    </h2>
+</doc-anchor-target>
+<p>This example iterates through images passed through the <code v-pre>images</code> directory.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">const label = Rebar.controllers.useD2DTextLabelLocal(player, {
+    pos: player.pos,
+    text: '&lt;img src=&quot;@images/Gold_1.png&quot; /&gt;',
+});
 
-// Returns a account by account _id, or id
-const somePlayer = getter.byAccount('_id');
-const somePlayer2 = getter.byAccount(5);
+let index = 1;
+alt.setInterval(() =&gt; {
+    index += 1;
 
-// Returns a player by character _id, or id
-const somePlayer2 = getter.byCharacter('_id');
-const somePlayer2 = getter.byCharacter(5);
+    if (index &gt;= 11) {
+        index = 1;
+    }
 
-// Returns a player by full name
-const somePlayer3 = getter.byName('john_doe');
-
-// Returns a player by partial name
-const somePlayer4 = getter.byPartialName('john');
-
-// Returns the closest player to a player
-const somePlayer5 = getter.closestToPlayer(somePlayer);
-
-// Returns the closest player to a vehicle
-const somePlayer6 = getter.closestToVehicle(someVehicle);
-
-// Returns a player in front of the player, if present
-const somePlayer7 = getter.inFrontOf(somePlayer, 5); // Returns a player in front of the player, if present
-
-// Returns true if player is near a position
-const result1 = getter.isNearPosition(somePlayer, new alt.Vector3(0, 0, 0));
-
-// Returns true if the player is logged in and playing on a character
-const result2 = getter.isValid(somePlayer);</code></pre>
+    label.update({ text: `&lt;img src=&quot;@images/Gold_${index}.png&quot; /&gt;` });
+}, 50);</code></pre>
 </doc-codeblock></div>
 
                                 
@@ -237,20 +242,20 @@ const result2 = getter.isValid(somePlayer);</code></pre>
                             
                                 <nav class="flex mt-14">
                                     <div class="w-1/2">
-                                        <a class="px-5 py-4 h-full flex items-center break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-l-lg transition-colors duration-150 relative hover:z-5" href="../../../../api/server/document/document-virtual/">
+                                        <a class="px-5 py-4 h-full flex items-center break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-l-lg transition-colors duration-150 relative hover:z-5" href="../../../../api/server/controllers/textlabel/">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="mr-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19 11H7.41l5.29-5.29a.996.996 0 10-1.41-1.41l-7 7a1 1 0 000 1.42l7 7a1.024 1.024 0 001.42-.01.996.996 0 000-1.41L7.41 13H19c.55 0 1-.45 1-1s-.45-1-1-1z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
                                             <span>
                                                 <span class="block text-xs font-normal text-gray-400 dark:text-dark-400">Previous</span>
-                                                <span class="block mt-1">Virtual</span>
+                                                <span class="block mt-1">Text Labels</span>
                                             </span>
                                         </a>
                                     </div>
                             
                                     <div class="w-1/2">
-                                        <a class="px-5 py-4 -mx-px h-full flex items-center justify-end break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-r-lg transition-colors duration-150 relative hover:z-5" href="../../../../api/server/getters/getters-players/">
+                                        <a class="px-5 py-4 -mx-px h-full flex items-center justify-end break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-r-lg transition-colors duration-150 relative hover:z-5" href="../../../../api/server/controllers/worldmenu/">
                                             <span>
                                                 <span class="block text-xs font-normal text-right text-gray-400 dark:text-dark-400">Next</span>
-                                                <span class="block mt-1">Players</span>
+                                                <span class="block mt-1">World Menu</span>
                                             </span>
                                             <svg xmlns="http://www.w3.org/2000/svg" class="ml-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19.92 12.38a1 1 0 00-.22-1.09l-7-7a.996.996 0 10-1.41 1.41l5.3 5.3H5c-.55 0-1 .45-1 1s.45 1 1 1h11.59l-5.29 5.29a.996.996 0 000 1.41c.19.2.44.3.7.3s.51-.1.71-.29l7-7c.09-.09.16-.21.21-.33z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
                                         </a>
@@ -294,6 +299,6 @@ const result2 = getter.isValid(somePlayer);</code></pre>
 
     <div id="docs-overlay-target"></div>
 
-    <script data-cfasync="false">window.__DOCS__ = { "title": "Player", level: 4, icon: "file", hasPrism: true, hasMermaid: false, hasMath: false, tocDepth: 23 }</script>
+    <script data-cfasync="false">window.__DOCS__ = { "title": "useD2DTextLabel", level: 4, icon: "file", hasPrism: true, hasMermaid: false, hasMath: false, tocDepth: 23 }</script>
 </body>
 </html>
