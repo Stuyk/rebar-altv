@@ -1,5 +1,19 @@
 # Changelog
 
+## Version 41
+
+### Code Changes
+
+-   Added `useStreamSyncedBinder` to automatically synchronize document data from server to client for vehicles and characters
+-   Added `useSyncedMeta` composable to the webview, to get data synced from `useStreamSyncedBinder`
+-   Added `useStreamSyncedGetter` to client-side to get type safe responses for stream synced meta data
+
+### Docs Changes
+
+-   Documented `useStreamSyncedBinder`, `useSyncedMeta`, and `useStreamSyncedGetter`
+
+---
+
 ## Version 40
 
 ### Code Changes

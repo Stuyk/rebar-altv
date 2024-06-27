@@ -5,6 +5,7 @@ import { useMessenger } from '../composables/useMessenger';
 import { useMinimap } from '../composables/useMinimap';
 import { usePageEvents } from '../composables/usePageEvents';
 import { usePages } from '../composables/usePages';
+import { useSyncedMeta } from '../composables/useSyncedMeta';
 import DevelopmentBar from './components/Development.vue';
 
 const { pagesPersistent, pagesOverlay, page } = usePages();
@@ -20,6 +21,7 @@ function handleMount() {
     useAudio();
     useMessenger();
     useMinimap().init();
+    useSyncedMeta().init();
 }
 
 onMounted(handleMount);
