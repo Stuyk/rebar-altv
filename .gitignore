@@ -14,6 +14,8 @@ resources/images/**/*.jpeg
 resources/images/**/*.svg
 resources/images/**/*.bmp
 resources/images/**/*.webp
+resources/fonts/**/*.otf
+resources/fonts/**/*.ttf
 resources/rmlui/plugins
 webview/public/sounds/**/*.ogg
 webview/public/images/**/*.png
@@ -22,6 +24,8 @@ webview/public/images/**/*.jpeg
 webview/public/images/**/*.svg
 webview/public/images/**/*.bmp
 webview/public/images/**/*.webp
+webview/public/fonts/**/*.ttf
+webview/public/fonts/**/*.otf
 screenshots/*.jpg
 altv-crash-handler.exe
 altv-server.exe

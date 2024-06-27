@@ -14,6 +14,7 @@ modules = [ 'js-module' ]
 resources = [
     # All resources and mods should always be loaded before core
     'images',
+    'fonts',
     'sounds',
     'rmlui',
     'webview',

@@ -73,6 +73,8 @@ import { useWorldMenu } from './controllers/worldMenu.js';
 
 import * as ClothingUtility from '@Shared/data/clothing.js';
 import { useScreenshot } from './systems/screenshot.js';
+import { useKeypress } from './systems/serverKeypress.js';
+import { useD2DTextLabel, useD2DTextLabelLocal } from './controllers/d2dTextLabel.js';
 
 export function useRebar() {
     return {
@@ -81,6 +83,8 @@ export function useRebar() {
         controllers: {
             useBlipGlobal,
             useBlipLocal,
+            useD2DTextLabel,
+            useD2DTextLabelLocal,
             useInteraction,
             useMarkerGlobal,
             useMarkerLocal,
@@ -155,6 +159,7 @@ export function useRebar() {
             usePermissionGroup,
         },
         useKeybinder,
+        useKeypress,
         usePlayer,
         useProxyFetch,
         useServerConfig,
