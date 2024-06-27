@@ -30,6 +30,10 @@ export const Events = {
             create: 'textlabel:create',
             destroy: 'textlabel:destroy',
         },
+        dxgilabel: {
+            create: 'dxgilabel:create',
+            destroy: 'dxgilabel:destroy',
+        },
     },
     events: {
         clientEvents: {

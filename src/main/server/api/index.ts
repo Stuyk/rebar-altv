@@ -26,7 +26,10 @@ export function useApi() {
     }
 
     async function getAsync<K extends keyof ServerPlugin>(apiName: K, timeout = 30000): Promise<ServerPlugin[K]> {
-        await alt.Utils.waitFor(() => isReady(apiName), timeout);
+        await alt.Utils.waitFor(() => isReady(apiName), timeout).catch((err) => {
+            console.warn(`Failed to load API for ${apiName}`);
+        });
+
         return get(apiName);
     }
 

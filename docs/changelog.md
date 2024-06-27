@@ -8,6 +8,9 @@
 -   Added `keypress` api that lets you bind functions to keyup/keydown from server-side
 -   Added `setRpm` to vehicle API
 -   Added new `fonts` resource, which may need to be imported in your `server.toml`; for custom fonts
+-   Lower distance for all Text Labels; max distance now capped at 20
+-   Failing readiness check on an API will now return the failing API's name
+-   Added `D2D` text labels with global and local support
 
 ### Docs Changes
 

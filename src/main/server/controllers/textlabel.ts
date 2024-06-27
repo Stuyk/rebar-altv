@@ -15,9 +15,9 @@ const labelGroup = new alt.VirtualEntityGroup(MAX_LABELS);
  * @param {TextLabel} label
  * @return
  */
-export function useTextLabelGlobal(label: TextLabel, maxDistance: number = 50) {
-    if (maxDistance > 50) {
-        maxDistance = 50;
+export function useTextLabelGlobal(label: TextLabel, maxDistance: number = 20) {
+    if (maxDistance > 20) {
+        maxDistance = 20;
     }
 
     if (!label.uid) {
