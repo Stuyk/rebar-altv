@@ -1,5 +1,5 @@
 import * as alt from 'alt-server';
-import { MongoClient, Db, InsertOneResult, ObjectId } from 'mongodb';
+import { MongoClient, Db, InsertOneResult, ObjectId, AggregateOptions } from 'mongodb';
 import * as Utility from '@Shared/utility/index.js';
 import { CollectionNames } from '../document/shared.js';
 
@@ -84,7 +84,7 @@ export function useDatabase() {
 
         try {
             await client.createCollection(name);
-        } catch (err) {}
+        } catch (err) { }
     }
 
     /**
@@ -253,6 +253,31 @@ export function useDatabase() {
         }
     }
 
+    /**
+     * Runs an aggregation query
+     * 
+     * If the collection does not exist it will return `undefined`
+     * 
+     * @export
+     * @param {string} collection 
+     * @param {any[]} pipeline 
+     * @param {AggregateOptions} options 
+     * @return {Promise<T[] | undefined>}
+     */
+    async function aggregate<T extends { _id: string }>(collection: string, pipeline: any[], options?: AggregateOptions): Promise<T[] | undefined> {
+        const client = await getClient();
+
+        try {
+            const cursor = await client.collection(collection).aggregate(pipeline, options);
+            const documents = await cursor.toArray();
+            return documents.map((x) => {
+                return { ...x, _id: String(x._id) };
+            }) as (T & { _id: string })[];
+        } catch (err) {
+            return undefined;
+        }
+    }
+
     return {
         create,
         createCollection,
@@ -267,5 +292,6 @@ export function useDatabase() {
             return isConnected;
         },
         update,
+        aggregate,
     };
 }
