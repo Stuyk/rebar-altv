@@ -5,7 +5,14 @@ const assetPackContent = `type = 'asset-pack'\r\nclient-files = [ '*' ]`;
 
 const assetPacks = [`./resources/images`, `./resources/sounds`, './resources/fonts'];
 
-const foldersToClean = [`./resources/core`, `./resources/webview`, ...assetPacks];
+const foldersToClean = [
+    `./resources/core`,
+    `./resources/webview`,
+    `./webview/public/images`,
+    `./webview/public/sounds`,
+    `./webview/public/fonts`,
+    ...assetPacks,
+];
 
 const initialCommands = [
     `node ./scripts/webview.js`,
