@@ -1,5 +1,21 @@
 # Changelog
 
+## Version 42
+
+### Code Changes
+
+-   Added near perfect Torso, Top, and Undershirt data for 99% of tops
+-   Added helper functions in shared clothing script to help obtain clothing data
+-   Fixed bug where local objects were not being destroyed
+-   Fixed bug where disabled plugins were copying files
+-   Fixed bug where previous files were not cleaned up properly
+
+### Docs Changes
+
+-   N/A
+
+---
+
 ## Version 41
 
 ### Code Changes

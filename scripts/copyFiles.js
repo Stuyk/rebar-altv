@@ -16,6 +16,13 @@ const filesToCopy = {
     },
 };
 
+const disabledPlugins = glob.sync('src/plugins/**/.disable').map((x) => {
+    const splitPath = x.split('/');
+    return splitPath[splitPath.length - 2];
+});
+
+console.log(disabledPlugins);
+
 /**
  * Changes html tags to rml tags
  *
@@ -72,7 +79,11 @@ function getPluginName(splitPath) {
 function copyFiles() {
     const folders = Object.keys(filesToCopy);
     for (let folder of folders) {
-        const files = glob.sync(folder);
+        const files = glob.sync(folder).filter((x) => {
+            const index = disabledPlugins.findIndex((disabledPlugin) => x.includes(disabledPlugin));
+            return index === -1;
+        });
+
         const { destination, keyword } = filesToCopy[folder];
 
         for (let file of files) {

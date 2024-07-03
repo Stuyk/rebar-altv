@@ -1,3 +1,10 @@
+import { FemaleTops } from './femaleTops.js';
+import { FemaleTorsos } from './femaleTorsos.js';
+import { FemaleUndershirtCategories } from './femaleUndershirtCategories.js';
+import { MaleTops } from './maleTops.js';
+import { MaleTorsos } from './maleTorsos.js';
+import { MaleUndershirtCategories } from './maleUndershirtCategories.js';
+
 const DefaultList = {
     Male: {
         clothes: {
@@ -1402,4 +1409,54 @@ export function getCategory(
     category: string,
 ): { clothes: { [key: string]: number }; props: { [key: string]: number } } | undefined {
     return ClothingList[category];
+}
+
+/**
+ * Get all tops for a given model
+ *
+ * @export
+ * @param {('male' | 'female')} type
+ * @return
+ */
+export function getTops(type: 'male' | 'female') {
+    return type === 'male' ? MaleTops : FemaleTops;
+}
+
+/**
+ * Get torsos from a given top torsos list
+ *
+ * @export
+ * @param {('male' | 'female')} type
+ * @param {number[]} values
+ * @return
+ */
+export function getTorsos(type: 'male' | 'female', values: number[]) {
+    let torsos: { dlc: string; drawable: number }[] = [];
+
+    if (type === 'male') {
+        for (let value of values) {
+            torsos = torsos.concat(MaleTorsos[value]);
+        }
+    } else {
+        for (let value of values) {
+            torsos = torsos.concat(FemaleTorsos[value]);
+        }
+    }
+
+    return torsos;
+}
+
+/**
+ * Get all undershirts for a given category, and player model type
+ *
+ * @export
+ * @param {('male' | 'female')} type
+ * @param {('empty' | 'monster' | 'none' | 'open' | 'partial' | 'vest')} category
+ * @return
+ */
+export function getUndershirts(
+    type: 'male' | 'female',
+    category: 'empty' | 'monster' | 'none' | 'open' | 'partial' | 'vest',
+) {
+    return type === 'male' ? MaleUndershirtCategories[category] : FemaleUndershirtCategories[category];
 }

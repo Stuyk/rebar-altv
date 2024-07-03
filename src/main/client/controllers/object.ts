@@ -17,7 +17,7 @@ function draw() {
             }
 
             try {
-                objectsDrawn[object.uid].destroy;
+                objectsDrawn[object.uid].destroy();
             } catch (err) {}
 
             delete objectsDrawn[object.uid];
@@ -35,7 +35,7 @@ function draw() {
             true,
             false,
             false,
-            50
+            50,
         );
 
         objectsDrawn[object.uid].frozen = true;

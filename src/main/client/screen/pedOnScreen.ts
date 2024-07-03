@@ -42,6 +42,9 @@ export async function usePedOnScreen(refPed: number, position: keyof typeof PAUS
     previousHudColor = new alt.RGBA(r, g, b, a);
     native.replaceHudColourWithRgba(117, 0, 0, 0, 0);
 
+    const previousClothes = {};
+    const previousProps = {};
+
     function tick() {
         native.setMouseCursorVisible(false);
 
@@ -50,10 +53,24 @@ export async function usePedOnScreen(refPed: number, position: keyof typeof PAUS
                 return;
             }
 
-            for (let i = 0; i < 11; i++) {
+            for (let i = 0; i <= 11; i++) {
                 const drawable = native.getPedDrawableVariation(refPed, i);
                 const texture = native.getPedTextureVariation(refPed, i);
                 const palette = native.getPedPaletteVariation(refPed, i);
+
+                if (
+                    previousClothes[i] &&
+                    previousClothes[i].drawable === drawable &&
+                    previousClothes[i].texture === texture
+                ) {
+                    continue;
+                }
+
+                previousClothes[i] = {
+                    texture,
+                    drawable,
+                };
+
                 native.setPedComponentVariation(ped, i, drawable, texture, palette);
             }
 
@@ -61,7 +78,19 @@ export async function usePedOnScreen(refPed: number, position: keyof typeof PAUS
             for (let prop of props) {
                 const drawable = native.getPedPropIndex(refPed, prop, 0);
                 const texture = native.getPedPropTextureIndex(refPed, prop);
-                native.setPedPropIndex(ped, prop, drawable, texture, true, false);
+
+                if (
+                    previousProps[prop] &&
+                    previousProps[prop].drawable === drawable &&
+                    previousProps[prop].texture === texture
+                ) {
+                    continue;
+                }
+                previousProps[prop] = {
+                    texture,
+                    drawable,
+                };
+                native.setPedPropIndex(ped, prop, drawable, texture, true, 0);
             }
         }
     }
