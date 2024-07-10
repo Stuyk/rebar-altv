@@ -1,6 +1,6 @@
-import * as alt from 'alt-server';
-import * as Utility from '@Shared/utility/index.js';
 import { Events } from '@Shared/events/index.js';
+import * as Utility from '@Shared/utility/index.js';
+import * as alt from 'alt-server';
 import { ProgressBar } from '../../shared/types/progressBar.js';
 
 const GroupType = 'progressbar';
@@ -29,10 +29,6 @@ export function useProgressbarGlobal(progressbar: ProgressBar, isTimer = false, 
         progressbar.uid = Utility.uid.generate();
     }
 
-    if (!progressbar.dimension) {
-        progressbar.dimension = 0;
-    }
-
     if (isTimer) {
         interval = alt.setInterval(() => {
             updateProgress(progressbar.value + 1);
@@ -44,6 +40,8 @@ export function useProgressbarGlobal(progressbar: ProgressBar, isTimer = false, 
         type: GroupType,
         progressbar,
     });
+
+    entity.dimension = progressbar.dimension ? progressbar.dimension : 0;
 
     function destroy() {
         try {

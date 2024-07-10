@@ -1,7 +1,7 @@
-import * as alt from 'alt-server';
-import * as Utility from '@Shared/utility/index.js';
-import { Marker, MarkerType } from '@Shared/types/marker.js';
 import { Events } from '@Shared/events/index.js';
+import { Marker, MarkerType } from '@Shared/types/marker.js';
+import * as Utility from '@Shared/utility/index.js';
+import * as alt from 'alt-server';
 
 const GroupType = 'marker';
 const MAX_MARKERS = 10;
@@ -28,14 +28,12 @@ export function useMarkerGlobal(marker: Marker, maxDistance: number = 50) {
         marker.uid = Utility.uid.generate();
     }
 
-    if (!marker.dimension) {
-        marker.dimension = 0;
-    }
-
     let entity = new alt.VirtualEntity(markerGroup, new alt.Vector3(marker.pos), maxDistance, {
         type: GroupType,
         marker,
     });
+
+    entity.dimension = marker.dimension ? marker.dimension : 0;
 
     function destroy() {
         try {
@@ -53,6 +51,10 @@ export function useMarkerGlobal(marker: Marker, maxDistance: number = 50) {
             type: GroupType,
             marker,
         });
+
+        if (newMarker.dimension !== entity.dimension) {
+          entity.dimension = newMarker.dimension ? newMarker.dimension : 0;
+        }
     }
 
     return {
