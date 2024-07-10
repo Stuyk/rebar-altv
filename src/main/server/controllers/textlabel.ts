@@ -1,7 +1,7 @@
-import * as alt from 'alt-server';
-import * as Utility from '@Shared/utility/index.js';
-import { TextLabel } from '@Shared/types/textLabel.js';
 import { Events } from '@Shared/events/index.js';
+import { TextLabel } from '@Shared/types/textLabel.js';
+import * as Utility from '@Shared/utility/index.js';
+import * as alt from 'alt-server';
 
 const GroupType = 'textlabel';
 const MAX_LABELS = 10;
@@ -29,14 +29,16 @@ export function useTextLabelGlobal(label: TextLabel, maxDistance: number = 20) {
         textlabel: label,
     });
 
+    entity.dimension = label.dimension ? label.dimension : 0;
+
     function destroy() {
         try {
             entity.destroy();
         } catch (err) {}
     }
 
-    function update(newMarker: Partial<TextLabel>) {
-        label = Object.assign(label, newMarker);
+    function update(newTextLabel: Partial<TextLabel>) {
+        label = Object.assign(label, newTextLabel);
         try {
             entity.destroy();
         } catch (err) {}
@@ -45,6 +47,10 @@ export function useTextLabelGlobal(label: TextLabel, maxDistance: number = 20) {
             type: GroupType,
             textlabel: label,
         });
+
+        if (newTextLabel.dimension !== entity.dimension) {
+          entity.dimension = newTextLabel.dimension ? newTextLabel.dimension : 0;
+        }
     }
 
     return {
