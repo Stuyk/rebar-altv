@@ -99,7 +99,7 @@ export function useObjectLocal(player: alt.Player, objectData: iObject) {
     }
 
     function destroy() {
-        player.emit(Events.controllers.textlabel.destroy, objectData.uid);
+        player.emit(Events.controllers.object.destroy, objectData.uid);
     }
 
     function update(newObjectData: Partial<iObject>) {
