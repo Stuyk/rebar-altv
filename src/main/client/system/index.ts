@@ -11,5 +11,6 @@ import './serverKeypress.js';
 import './stats.js';
 import './vehicle.js';
 import './waypoint.js';
+import './world.js';
 
 alt.log('Loaded System');

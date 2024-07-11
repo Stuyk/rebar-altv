@@ -98,6 +98,10 @@ export const Events = {
         },
     },
     systems: {
+        world: {
+            pointDetails: 'systems:world:pointDetails',
+            travelDistance: 'systems:world:routeLength',
+        },
         keybinds: {
             update: 'systems:keybinds:update',
             invoke: 'systems:keybinds:invoke',

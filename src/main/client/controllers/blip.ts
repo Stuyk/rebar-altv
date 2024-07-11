@@ -16,6 +16,11 @@ async function handleCreate(blipData: Blip) {
         blips[blipData.uid].category = blipData.category;
     }
 
+    if (typeof blipData.routeColor !== "undefined") {
+        blips[blipData.uid].route = true;
+        blips[blipData.uid].routeColor = blipData.routeColor;
+    }
+
     blips[blipData.uid].sprite = blipData.sprite;
     blips[blipData.uid].color = blipData.color;
     blips[blipData.uid].shortRange = blipData.shortRange;

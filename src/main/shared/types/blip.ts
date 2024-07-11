@@ -161,4 +161,11 @@ export type Blip = {
      *
      */
     category?: number;
+
+    /**
+     * The color of a route.
+     *
+     * @type {number}
+     */
+    routeColor?: alt.RGBA;
 };

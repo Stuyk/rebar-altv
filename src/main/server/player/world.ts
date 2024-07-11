@@ -186,6 +186,22 @@ export function useWorld(player: alt.Player) {
         player.emit(Events.player.screen.ped.show, false);
     }
 
+    async function getPointDetails(point: alt.Vector3): Promise<{
+        streetName: string;
+        zone: string;
+        crossingRoad: string;
+    }> {
+        if (!player || !player.valid) return;
+        return await player.emitRpc(Events.systems.world.pointDetails, point);
+    }
+
+    async function getTravelDistance(point1: alt.Vector3, point2: alt.Vector3 = undefined): Promise<number> {
+        if (!player || !player.valid) return;
+        point2 = point2 ?? player.pos;
+        const result = await player.emitRpc(Events.systems.world.travelDistance, point1, point2);
+        return result;
+    }
+
     return {
         clearAllScreenEffects,
         clearScreenBlur,
@@ -205,5 +221,7 @@ export function useWorld(player: alt.Player) {
         setTimecycle,
         setWeather,
         showPedOnScreen,
+        getPointDetails,
+        getTravelDistance,
     };
 }
