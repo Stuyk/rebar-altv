@@ -90,6 +90,14 @@ export function useObjectLocal(player: alt.Player, objectData: iObject) {
         objectData.uid = Utility.uid.generate();
     }
 
+    if (!objectData.dimension) {
+        objectData.dimension = 0;
+    }
+
+    if (!objectData.rot) {
+        objectData.rot = alt.Vector3.zero;
+    }
+
     function destroy() {
         player.emit(Events.controllers.textlabel.destroy, objectData.uid);
     }

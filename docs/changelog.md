@@ -1,5 +1,17 @@
 # Changelog
 
+## Version 43
+
+### Code Changes
+
+-   Fixed local object initialization
+
+### Docs Changes
+
+-   N/A
+
+---
+
 ## Version 42
 
 ### Code Changes
