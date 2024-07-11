@@ -102,7 +102,7 @@ export function useObjectLocal(player: alt.Player, objectData: iObject) {
         player.emit(Events.controllers.textlabel.destroy, objectData.uid);
     }
 
-    function update(newObjectData: Partial<TextLabel>) {
+    function update(newObjectData: Partial<iObject>) {
         objectData = Object.assign(objectData, newObjectData);
 
         for (let key of Object.keys(newObjectData)) {
