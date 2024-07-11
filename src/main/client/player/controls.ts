@@ -18,8 +18,6 @@ function tick() {
     }
 
     if (disableAttackControls) {
-        alt.log('disabling...');
-
         // Scroll Wheel
         native.disableControlAction(0, 14, true);
         native.disableControlAction(0, 15, true);
@@ -55,6 +53,13 @@ function setAttackControlsDisabled(state: boolean) {
         alt.setInterval(tick, 0);
     }
 }
+
+export const useControls = () => ({
+    setControls,
+    setCameraFrozen,
+    setCameraControlsDisabled,
+    setAttackControlsDisabled,
+});
 
 alt.onServer(Events.player.controls.set, setControls);
 alt.onServer(Events.player.controls.setCameraFrozen, setCameraFrozen);

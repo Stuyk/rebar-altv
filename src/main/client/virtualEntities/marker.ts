@@ -11,7 +11,7 @@ function draw() {
         if (!marker.scale) {
             marker.scale = new alt.Vector3(1, 1, 1);
         }
-        ScreenMarker.draw(marker.type, marker.entity.pos, marker.scale, marker.color, false, false, false);
+        ScreenMarker.draw(marker.type as number, marker.entity.pos, marker.scale, marker.color, marker.bobUpAndDown ?? false, marker.faceCamera ?? false, marker.rotate ?? false);
     }
 }
 

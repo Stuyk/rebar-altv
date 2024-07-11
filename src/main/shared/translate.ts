@@ -1,13 +1,18 @@
 const translations = {};
 
 export function useTranslate(lang: string = 'en') {
+    function replaceVariables(text: string, vars: { [key: string]: string }): string {
+        return text.replace(/{{\s*([^}]+)\s*}}/g, (_, key) => vars[key.trim()] || '');
+    }
+
     /**
      * Translate text based on key
      *
      * @param {string} key
+     * @param context
      * @return
      */
-    function t(key: string) {
+    function t(key: string, context?: Record<string, any>) {
         if (!translations[lang]) {
             return `${key} has no translation for '${lang}'`;
         }
@@ -16,7 +21,7 @@ export function useTranslate(lang: string = 'en') {
             return `${key} has no translation for '${lang}'`;
         }
 
-        return translations[lang][key];
+        return replaceVariables(translations[lang][key], context);
     }
 
     /**
@@ -48,13 +53,13 @@ export function useTranslate(lang: string = 'en') {
      *
      * @param {{ [key: string]: Object }} data
      */
-    function setBulk(data: { [key: string]: Object }) {
-        for (let lang of Object.keys(data)) {
+    function setBulk(data: Record<string, Record<string, string>>) {
+        for (const lang of Object.keys(data)) {
             if (!translations[lang]) {
                 translations[lang] = {};
             }
 
-            for (let key of Object.keys(data[lang])) {
+            for (const key of Object.keys(data[lang])) {
                 translations[lang][key] = data[lang][key];
             }
         }
