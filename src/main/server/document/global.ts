@@ -4,7 +4,7 @@ import { CollectionNames } from './shared.js';
 const db = useDatabase();
 const data: { [key: string]: { [key: string]: any } } = {};
 
-export async function useGlobal(identifier: string) {
+export async function useGlobal<T extends Object = Object>(identifier: string) {
     if (!data[identifier]) {
         let newData = await db.get<{ _id: string; identifier: string }>({ identifier }, CollectionNames.Global);
 
@@ -16,20 +16,47 @@ export async function useGlobal(identifier: string) {
         data[identifier] = newData;
     }
 
-    function get<T = Object>(): T {
+    /**
+     * Returns the entire document, use type casting or generics to define what is returned
+     *
+     * @template T
+     * @return {T}
+     */
+    function get(): T {
         return data[identifier] as T;
     }
 
-    function getField<T = any>(fieldName: string): T {
-        return data[identifier][fieldName];
+    /**
+     * Returns a specific field from the document, with generic type cast support
+     *
+     * @template T
+     * @param {string} fieldName
+     * @return {T}
+     */
+    function getField<K extends keyof T>(fieldName: K): T[K] {
+        const refData = data[identifier] as T;
+        return refData[fieldName];
     }
 
-    async function set(fieldName: string, value: any): Promise<boolean> {
-        data[identifier][fieldName] = value;
+    /**
+     * Set any field name or value in your global document
+     *
+     * @param {string} fieldName
+     * @param {*} value
+     * @return {Promise<boolean>}
+     */
+    async function set<K extends keyof T>(fieldName: K, value: T[K]): Promise<boolean> {
+        data[identifier] = Object.assign(data[identifier], { [fieldName]: value });
         return await db.update({ _id: data[identifier]._id, [fieldName]: value }, CollectionNames.Global);
     }
 
-    async function setBulk<T = Object>(data: Partial<T>): Promise<boolean> {
+    /**
+     * Set multiple fields in your global document
+     *
+     * @param {Partial<T>} data
+     * @return {Promise<boolean>}
+     */
+    async function setBulk(data: Partial<T>): Promise<boolean> {
         data[identifier] = Object.assign(data[identifier], data);
         return await db.update({ _id: data[identifier]._id, ...data }, CollectionNames.Global);
     }

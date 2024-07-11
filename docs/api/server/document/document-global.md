@@ -56,12 +56,12 @@ type MyDataType = {
 };
 
 async function doSomething() {
-    const document = await Rebar.document.global.useGlobal('my-identifier-goes-here-for-my-document');
+    const document = await Rebar.document.global.useGlobal<MyDataType>('my-identifier-goes-here-for-my-document');
 
     // Overwrite or set a single field
-    document.set<MyDataType>('totalMoneyCreated', 200);
+    document.set('totalMoneyCreated', 200);
 
     // Overwrite multiple fields
-    document.setBulk<MyDataType>({ totalMoneyCreated: 200, totalMoneyDestroyed: 200 });
+    document.setBulk({ totalMoneyCreated: 200, totalMoneyDestroyed: 200 });
 }
 ```

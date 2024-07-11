@@ -1,5 +1,18 @@
 # Changelog
 
+## Version 44
+
+### Code Changes
+
+-   Fixed issue with setting global document data
+-   Additionally, improved type casting support for global documents
+
+### Docs Changes
+
+-   Updated object document api to clarify generics usage
+
+---
+
 ## Version 43
 
 ### Code Changes
