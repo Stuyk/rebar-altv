@@ -56,9 +56,9 @@ export async function useGlobal<T extends Object = Object>(identifier: string) {
      * @param {Partial<T>} data
      * @return {Promise<boolean>}
      */
-    async function setBulk(data: Partial<T>): Promise<boolean> {
-        data[identifier] = Object.assign(data[identifier], data);
-        return await db.update({ _id: data[identifier]._id, ...data }, CollectionNames.Global);
+    async function setBulk(newData: Partial<T>): Promise<boolean> {
+        data[identifier] = Object.assign(data[identifier], newData);
+        return await db.update({ _id: data[identifier]._id, ...newData }, CollectionNames.Global);
     }
 
     return {
