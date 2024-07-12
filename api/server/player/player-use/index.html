@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.5.0.774108392403">
+    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.5.0.774120405332">
 
     <!-- See retype.com -->
     <meta name="generator" content="Retype 3.5.0">
@@ -30,12 +30,12 @@
 
     <script data-cfasync="false">(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
-    <link href="../../../../resources/css/retype.css?v=3.5.0.774108392403" rel="stylesheet">
+    <link href="../../../../resources/css/retype.css?v=3.5.0.774120405332" rel="stylesheet">
 
-    <script data-cfasync="false" src="../../../../resources/js/config.js?v=3.5.0.774108392403" data-turbo-eval="false" defer></script>
+    <script data-cfasync="false" src="../../../../resources/js/config.js?v=3.5.0.774120405332" data-turbo-eval="false" defer></script>
     <script data-cfasync="false" src="../../../../resources/js/retype.js?v=3.5.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" data-cfasync="false" src="../../../../resources/js/lunr.js?v=3.5.0.774108392403" data-turbo-eval="false" defer></script>
-    <script id="prism-js" data-cfasync="false" src="../../../../resources/js/prism.js?v=3.5.0.774108392403" defer></script>
+    <script id="lunr-js" data-cfasync="false" src="../../../../resources/js/lunr.js?v=3.5.0.774120405332" data-turbo-eval="false" defer></script>
+    <script id="prism-js" data-cfasync="false" src="../../../../resources/js/prism.js?v=3.5.0.774120405332" defer></script>
 </head>
 <body>
     <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -312,6 +312,28 @@ rebarPlayer.appearance.setTattoos([{ collection: 'mpairraces_overlays', overlay:
 
 // Called automatically, but resynchronizes freeroam player appearance
 rebarPlayer.appearance.sync();</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="attachment">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#attachment">#</doc-anchor-trigger>
+        <span>Attachment</span>
+    </h2>
+</doc-anchor-target>
+<p>Used to attach an object to a player. Rotation is always set to fixed for attachments.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">const rPlayer = Rebar.usePlayer(player);
+
+rPlayer.attachment.add({
+    uid: 'fishing-rod',
+    model: 'prop_fishing_rod_01',
+    bone: 58,
+    offset: {
+        x: -6.938893903907228e-18,
+        y: -0.039999999999999994,
+        z: 0.16,
+    },
+    rot: { x: -6.938893903907228e-18, y: -0.32, z: 0.18 },
+});</code></pre>
 </doc-codeblock></div>
 <doc-anchor-target id="audio">
     <h2>
