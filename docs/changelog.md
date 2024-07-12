@@ -1,5 +1,19 @@
 # Changelog
 
+## Version 45
+
+### Code Changes
+
+-   Added `useVehicleHandling` function that lets you adjust handling per vehicle
+-   Added object attachments for players, see `useAttachment` under the player endpoint
+
+### Docs Changes
+
+-   Documented `useVehicleHandling`
+-   Documented `useAttachment`
+
+---
+
 ## Version 44
 
 ### Code Changes
