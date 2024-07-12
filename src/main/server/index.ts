@@ -79,6 +79,7 @@ import { useD2DTextLabel, useD2DTextLabelLocal } from './controllers/d2dTextLabe
 import { useStreamSyncedBinder } from './systems/streamSyncedBinder.js';
 import { useRaycast } from './player/raycast.js';
 import { useAttachment } from './player/attachment.js';
+import { useInteractionLocal } from './controllers/interactionLocal.js';
 
 export function useRebar() {
     return {
@@ -90,6 +91,7 @@ export function useRebar() {
             useD2DTextLabel,
             useD2DTextLabelLocal,
             useInteraction,
+            useInteractionLocal,
             useMarkerGlobal,
             useMarkerLocal,
             useObjectGlobal,

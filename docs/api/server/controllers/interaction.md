@@ -6,6 +6,8 @@ Interactions allow a player to walk up to an invisible trigger and press `E` to 
 If using `player.pos` for your interaction, ensure you subtract `1` from the z axis to make it usable
 !!!
 
+## Global Interaction
+
 ```ts
 import { useRebar } from '@Server/index.js';
 
@@ -38,4 +40,37 @@ interaction.onEnter((player: alt.Player, colshape: alt.Colshape, uid: string) =>
 interaction.onLeave((player: alt.Player, colshape: alt.Colshape, uid: string) => {
     // someone left
 });
+```
+
+## Local Interaction
+
+Local interactions can only be interacted with for an individual player.
+
+```ts
+import { useRebar } from '@Server/index.js';
+
+const Rebar = useRebar();
+
+function doSomething(somePlayer: alt.Player) {
+    const interaction = Rebar.controllers.useInteractionLocal(somePlayer, 'test', 'Cylinder', [
+        somePlayer.pos.x,
+        somePlayer.pos.y,
+        somePlayer.pos.z - 1,
+        4,
+        2,
+    ]);
+
+    interaction.onEnter((player, destroy) => {
+        console.log('entered...');
+    });
+
+    interaction.onLeave((player, destroy) => {
+        console.log('leave...');
+    });
+
+    interaction.on((player, destroy) => {
+        console.log('interacted');
+        destroy();
+    });
+}
 ```
