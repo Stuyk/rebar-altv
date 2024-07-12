@@ -10,6 +10,7 @@ import './serverKeybind.js';
 import './serverKeypress.js';
 import './stats.js';
 import './vehicle.js';
+import './vehicleHandling.js';
 import './waypoint.js';
 import './world.js';
 

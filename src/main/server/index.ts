@@ -60,6 +60,7 @@ import { useWaypoint } from './player/waypoint.js';
 import { sha256, sha256Random } from './utility/hash.js';
 import { check, hash } from './utility/password.js';
 import { useVehicle } from './vehicle/index.js';
+import { useVehicleHandling } from './vehicle/vehicleHandling.js';
 import { useProtectCallback } from './utility/protectCallback.js';
 import { useServerTime } from './systems/serverTime.js';
 import { useServerWeather } from './systems/serverWeather.js';
@@ -167,13 +168,13 @@ export function useRebar() {
         useServerTime,
         useServerWeather,
         systems: {
-            useStreamSyncedBinder,
             useKeybinder,
             useKeypress,
             useProxyFetch,
             useServerConfig,
             useServerTime,
             useServerWeather,
+            useStreamSyncedBinder,
         },
         utility: {
             clothing: { ...ClothingUtility },
@@ -189,6 +190,7 @@ export function useRebar() {
         },
         vehicle: {
             useVehicle,
+            useVehicleHandling,
         },
     };
 }
