@@ -1,5 +1,17 @@
 # Changelog
 
+## Version 46
+
+### Code Changes
+
+-   Added `useInteractionLocal` to create local interactions for individual players
+
+### Docs Changes
+
+-   Updated `useInteraction` to include `useInteractionLocal`
+
+---
+
 ## Version 45
 
 ### Code Changes

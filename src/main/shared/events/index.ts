@@ -5,6 +5,13 @@ export const Events = {
             trigger: 'interaction:trigger',
             clear: 'interaction:on:clear',
         },
+        interactionLocal: {
+            create: 'interaction:local:create',
+            destroy: 'interaction:local:destroy',
+            onEnter: 'interaction:local:onEnter',
+            onLeave: 'interaction:local:onLeave',
+            on: 'interaction:local:on',
+        },
         blip: {
             create: 'blip:create',
             destroy: 'blip:destroy',
