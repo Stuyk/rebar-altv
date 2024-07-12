@@ -112,6 +112,26 @@ rebarPlayer.appearance.setTattoos([{ collection: 'mpairraces_overlays', overlay:
 rebarPlayer.appearance.sync();
 ```
 
+## Attachment
+
+Used to attach an object to a player. Rotation is always set to fixed for attachments.
+
+```ts
+const rPlayer = Rebar.usePlayer(player);
+
+rPlayer.attachment.add({
+    uid: 'fishing-rod',
+    model: 'prop_fishing_rod_01',
+    bone: 58,
+    offset: {
+        x: -6.938893903907228e-18,
+        y: -0.039999999999999994,
+        z: 0.16,
+    },
+    rot: { x: -6.938893903907228e-18, y: -0.32, z: 0.18 },
+});
+```
+
 ## Audio
 
 Play audio from frontend or using custom `.ogg` sound files.

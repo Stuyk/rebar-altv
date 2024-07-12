@@ -77,6 +77,8 @@ import { useScreenshot } from './systems/screenshot.js';
 import { useKeypress } from './systems/serverKeypress.js';
 import { useD2DTextLabel, useD2DTextLabelLocal } from './controllers/d2dTextLabel.js';
 import { useStreamSyncedBinder } from './systems/streamSyncedBinder.js';
+import { useRaycast } from './player/raycast.js';
+import { useAttachment } from './player/attachment.js';
 
 export function useRebar() {
     return {
@@ -141,10 +143,12 @@ export function useRebar() {
         player: {
             useAnimation,
             useAudio,
+            useAttachment,
             useClothing,
             useNative,
             useNotify,
             usePlayerAppearance,
+            useRaycast,
             useScreenshot,
             useState,
             useStatus,
