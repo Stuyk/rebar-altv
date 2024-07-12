@@ -41,13 +41,13 @@ function update() {
         seat: alt.Player.local.vehicle ? alt.Player.local.seat : 0,
         speed: alt.Player.local.vehicle ? native.getEntitySpeed(alt.Player.local.vehicle) : alt.Player.local.moveSpeed,
         stamina: alt.Player.local.stamina,
-        street: getStreetInfo(alt.Player.local),
+        street: getStreetInfo(alt.Player.local.pos),
         time: { hour, minute, second },
         vehicleClass: alt.Player.local.vehicle ? native.getVehicleClass(alt.Player.local.vehicle) : -1,
         vehicleHealth: alt.Player.local.vehicle ? native.getVehicleEngineHealth(alt.Player.local.vehicle) : 0,
         weapon: alt.Player.local.currentWeapon,
         weather: getPreviousWeatherType(),
-        zone: getZone(),
+        zone: getZone(alt.Player.local.pos),
     };
 
     view.emit(Events.localPlayer.stats.set, stats);
