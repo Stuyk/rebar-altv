@@ -60,6 +60,7 @@ import { useWaypoint } from './player/waypoint.js';
 import { sha256, sha256Random } from './utility/hash.js';
 import { check, hash } from './utility/password.js';
 import { useVehicle } from './vehicle/index.js';
+import { useVehicleHandling } from './vehicle/vehicleHandling.js';
 import { useProtectCallback } from './utility/protectCallback.js';
 import { useServerTime } from './systems/serverTime.js';
 import { useServerWeather } from './systems/serverWeather.js';
@@ -76,6 +77,8 @@ import { useScreenshot } from './systems/screenshot.js';
 import { useKeypress } from './systems/serverKeypress.js';
 import { useD2DTextLabel, useD2DTextLabelLocal } from './controllers/d2dTextLabel.js';
 import { useStreamSyncedBinder } from './systems/streamSyncedBinder.js';
+import { useRaycast } from './player/raycast.js';
+import { useAttachment } from './player/attachment.js';
 
 export function useRebar() {
     return {
@@ -140,10 +143,12 @@ export function useRebar() {
         player: {
             useAnimation,
             useAudio,
+            useAttachment,
             useClothing,
             useNative,
             useNotify,
             usePlayerAppearance,
+            useRaycast,
             useScreenshot,
             useState,
             useStatus,
@@ -167,13 +172,13 @@ export function useRebar() {
         useServerTime,
         useServerWeather,
         systems: {
-            useStreamSyncedBinder,
             useKeybinder,
             useKeypress,
             useProxyFetch,
             useServerConfig,
             useServerTime,
             useServerWeather,
+            useStreamSyncedBinder,
         },
         utility: {
             clothing: { ...ClothingUtility },
@@ -189,6 +194,7 @@ export function useRebar() {
         },
         vehicle: {
             useVehicle,
+            useVehicleHandling,
         },
     };
 }
