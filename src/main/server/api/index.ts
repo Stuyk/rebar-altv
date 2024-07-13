@@ -32,11 +32,16 @@ export function useApi() {
 
         return get(apiName);
     }
-
+    
+    async function list() {
+        return registeredApis;
+    }
+    
     return {
         get,
         getAsync,
         isReady,
         register,
+        list,
     };
 }
