@@ -62,7 +62,6 @@ async function fadeOut(ped: alt.Ped) {
             return;
         }
 
-        alt.log(alphaValue);
         alphaValue -= 7;
         if (alphaValue <= 25) {
             native.setEntityAlpha(ped, 0, false);
