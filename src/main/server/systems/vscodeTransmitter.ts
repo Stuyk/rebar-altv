@@ -55,4 +55,9 @@ if (alt.debug) {
     });
 
     server.listen(PORT);
+
+    alt.on('on-rpc-restart', () => {
+        alt.log('RPC - Stopping VSCode Transmitter Server');
+        server.close();
+    });
 }

@@ -29,4 +29,4 @@ async function handleStart() {
     alt.log(t('system.server.started'));
 }
 
-alt.on('serverStarted', handleStart);
+handleStart();

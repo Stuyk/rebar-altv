@@ -201,8 +201,6 @@ export function useRebar() {
     };
 }
 
-useRebar().useKeybinder;
-
 declare module 'alt-server' {
     // extending interface by interface merging
     export interface ICustomGlobalMeta {
