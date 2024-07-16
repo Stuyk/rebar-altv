@@ -1,5 +1,25 @@
 # Changelog
 
+## Version 48
+
+### Code Changes
+
+-   Updated RPC endpoints
+-   Began structuring new RPC endpoint functions
+-   Server-side instructional buttons integrated by floydya
+
+---
+
+## Version 47
+
+### Code Changes
+
+-   Added an RPC endpoint under `http://127.0.0.1:8787` with endpoints `/restart`, `/`, and `/health`.
+-   Fixed issue where reconnecting too early would cause client to be frozen on reconnecting
+-   Restarting server now kicks all players while in dev mode only
+
+---
+
 ## Version 46
 
 ### Code Changes

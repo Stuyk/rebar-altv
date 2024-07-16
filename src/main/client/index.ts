@@ -10,6 +10,7 @@ import { useNativeMenu } from './menus/native/index.js';
 import { useClonedPed } from './ped/clone.js';
 
 import { useCamera } from './player/camera.js';
+import { useControls } from './player/controls.js';
 
 import * as math from './utility/math/index.js';
 import * as text from './utility/text/index.js';
@@ -52,6 +53,7 @@ export function useRebarClient() {
         player: {
             useCamera,
             useRaycast,
+            useControls,
         },
         screen: {
             text: {
