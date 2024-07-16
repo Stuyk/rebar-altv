@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.5.0.774456647600">
+    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.5.0.774477774401">
 
     <!-- See retype.com -->
     <meta name="generator" content="Retype 3.5.0">
@@ -11,7 +11,7 @@
     <!-- Primary Meta Tags -->
     <title>Changelog</title>
     <meta name="title" content="Changelog">
-    <meta name="description" content="Added useInteractionLocal to create local interactions for individual players">
+    <meta name="description" content="Updated RPC endpoints">
 
     <!-- Canonical -->
     <link rel="canonical" href="https://rebarv.com/changelog/">
@@ -20,21 +20,21 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://rebarv.com/changelog/">
     <meta property="og:title" content="Changelog">
-    <meta property="og:description" content="Added useInteractionLocal to create local interactions for individual players">
+    <meta property="og:description" content="Updated RPC endpoints">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://rebarv.com/changelog/">
     <meta property="twitter:title" content="Changelog">
-    <meta property="twitter:description" content="Added useInteractionLocal to create local interactions for individual players">
+    <meta property="twitter:description" content="Updated RPC endpoints">
 
     <script data-cfasync="false">(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
-    <link href="../resources/css/retype.css?v=3.5.0.774456647600" rel="stylesheet">
+    <link href="../resources/css/retype.css?v=3.5.0.774477774401" rel="stylesheet">
 
-    <script data-cfasync="false" src="../resources/js/config.js?v=3.5.0.774456647600" data-turbo-eval="false" defer></script>
+    <script data-cfasync="false" src="../resources/js/config.js?v=3.5.0.774477774401" data-turbo-eval="false" defer></script>
     <script data-cfasync="false" src="../resources/js/retype.js?v=3.5.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" data-cfasync="false" src="../resources/js/lunr.js?v=3.5.0.774456647600" data-turbo-eval="false" defer></script>
+    <script id="lunr-js" data-cfasync="false" src="../resources/js/lunr.js?v=3.5.0.774477774401" data-turbo-eval="false" defer></script>
 </head>
 <body>
     <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -191,15 +191,51 @@
         <span>Changelog</span>
     </h1>
 </doc-anchor-target>
+<doc-anchor-target id="version-48">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#version-48">#</doc-anchor-trigger>
+        <span>Version 48</span>
+    </h2>
+</doc-anchor-target>
+<doc-anchor-target id="code-changes">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes">#</doc-anchor-trigger>
+        <span>Code Changes</span>
+    </h3>
+</doc-anchor-target>
+<ul>
+<li>Updated RPC endpoints</li>
+<li>Began structuring new RPC endpoint functions</li>
+<li>Server-side instructional buttons integrated by floydya</li>
+</ul>
+<hr>
+<doc-anchor-target id="version-47">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#version-47">#</doc-anchor-trigger>
+        <span>Version 47</span>
+    </h2>
+</doc-anchor-target>
+<doc-anchor-target id="code-changes-1">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-1">#</doc-anchor-trigger>
+        <span>Code Changes</span>
+    </h3>
+</doc-anchor-target>
+<ul>
+<li>Added an RPC endpoint under <code v-pre>http://127.0.0.1:8787</code> with endpoints <code v-pre>/restart</code>, <code v-pre>/</code>, and <code v-pre>/health</code>.</li>
+<li>Fixed issue where reconnecting too early would cause client to be frozen on reconnecting</li>
+<li>Restarting server now kicks all players while in dev mode only</li>
+</ul>
+<hr>
 <doc-anchor-target id="version-46">
     <h2>
         <doc-anchor-trigger class="header-anchor-trigger" to="#version-46">#</doc-anchor-trigger>
         <span>Version 46</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="code-changes">
+<doc-anchor-target id="code-changes-2">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-2">#</doc-anchor-trigger>
         <span>Code Changes</span>
     </h3>
 </doc-anchor-target>
@@ -222,9 +258,9 @@
         <span>Version 45</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="code-changes-1">
+<doc-anchor-target id="code-changes-3">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-1">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-3">#</doc-anchor-trigger>
         <span>Code Changes</span>
     </h3>
 </doc-anchor-target>
@@ -249,9 +285,9 @@
         <span>Version 44</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="code-changes-2">
+<doc-anchor-target id="code-changes-4">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-2">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-4">#</doc-anchor-trigger>
         <span>Code Changes</span>
     </h3>
 </doc-anchor-target>
@@ -275,9 +311,9 @@
         <span>Version 43</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="code-changes-3">
+<doc-anchor-target id="code-changes-5">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-3">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-5">#</doc-anchor-trigger>
         <span>Code Changes</span>
     </h3>
 </doc-anchor-target>
@@ -300,9 +336,9 @@
         <span>Version 42</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="code-changes-4">
+<doc-anchor-target id="code-changes-6">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-4">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-6">#</doc-anchor-trigger>
         <span>Code Changes</span>
     </h3>
 </doc-anchor-target>
@@ -329,9 +365,9 @@
         <span>Version 41</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="code-changes-5">
+<doc-anchor-target id="code-changes-7">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-5">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-7">#</doc-anchor-trigger>
         <span>Code Changes</span>
     </h3>
 </doc-anchor-target>
@@ -356,9 +392,9 @@
         <span>Version 40</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="code-changes-6">
+<doc-anchor-target id="code-changes-8">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-6">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-8">#</doc-anchor-trigger>
         <span>Code Changes</span>
     </h3>
 </doc-anchor-target>
@@ -389,9 +425,9 @@
         <span>Version 39</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="code-changes-7">
+<doc-anchor-target id="code-changes-9">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-7">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-9">#</doc-anchor-trigger>
         <span>Code Changes</span>
     </h3>
 </doc-anchor-target>
@@ -416,9 +452,9 @@
         <span>Version 38</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="code-changes-8">
+<doc-anchor-target id="code-changes-10">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-8">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-10">#</doc-anchor-trigger>
         <span>Code Changes</span>
     </h3>
 </doc-anchor-target>
@@ -443,9 +479,9 @@
         <span>Version 37</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="code-changes-9">
+<doc-anchor-target id="code-changes-11">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-9">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-11">#</doc-anchor-trigger>
         <span>Code Changes</span>
     </h3>
 </doc-anchor-target>
@@ -467,9 +503,9 @@
         <span>Version 36</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="code-changes-10">
+<doc-anchor-target id="code-changes-12">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-10">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-12">#</doc-anchor-trigger>
         <span>Code Changes</span>
     </h3>
 </doc-anchor-target>
@@ -492,9 +528,9 @@
         <span>Version 35</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="code-changes-11">
+<doc-anchor-target id="code-changes-13">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-11">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-13">#</doc-anchor-trigger>
         <span>Code Changes</span>
     </h3>
 </doc-anchor-target>
@@ -517,9 +553,9 @@
         <span>Version 34</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="code-changes-12">
+<doc-anchor-target id="code-changes-14">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-12">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-14">#</doc-anchor-trigger>
         <span>Code Changes</span>
     </h3>
 </doc-anchor-target>
@@ -556,9 +592,9 @@
         <span>Version 33</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="code-changes-13">
+<doc-anchor-target id="code-changes-15">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-13">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-15">#</doc-anchor-trigger>
         <span>Code Changes</span>
     </h3>
 </doc-anchor-target>
@@ -587,9 +623,9 @@
         <span>Version 32</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="code-changes-14">
+<doc-anchor-target id="code-changes-16">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-14">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-16">#</doc-anchor-trigger>
         <span>Code Changes</span>
     </h3>
 </doc-anchor-target>
@@ -613,9 +649,9 @@
         <span>Version 31</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="code-changes-15">
+<doc-anchor-target id="code-changes-17">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-15">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-17">#</doc-anchor-trigger>
         <span>Code Changes</span>
     </h3>
 </doc-anchor-target>
@@ -640,9 +676,9 @@
         <span>Version 30</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="code-changes-16">
+<doc-anchor-target id="code-changes-18">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-16">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-18">#</doc-anchor-trigger>
         <span>Code Changes</span>
     </h3>
 </doc-anchor-target>
@@ -669,9 +705,9 @@
         <span>Version 29</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="code-changes-17">
+<doc-anchor-target id="code-changes-19">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-17">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-19">#</doc-anchor-trigger>
         <span>Code Changes</span>
     </h3>
 </doc-anchor-target>
@@ -695,9 +731,9 @@
         <span>Version 28</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="code-changes-18">
+<doc-anchor-target id="code-changes-20">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-18">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-20">#</doc-anchor-trigger>
         <span>Code Changes</span>
     </h3>
 </doc-anchor-target>
@@ -730,9 +766,9 @@
         <span>Version 27</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="code-changes-19">
+<doc-anchor-target id="code-changes-21">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-19">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-21">#</doc-anchor-trigger>
         <span>Code Changes</span>
     </h3>
 </doc-anchor-target>
@@ -762,9 +798,9 @@
         <span>Version 26</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="code-changes-20">
+<doc-anchor-target id="code-changes-22">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-20">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-22">#</doc-anchor-trigger>
         <span>Code Changes</span>
     </h3>
 </doc-anchor-target>
@@ -793,9 +829,9 @@
         <span>Version 25</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="code-changes-21">
+<doc-anchor-target id="code-changes-23">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-21">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-23">#</doc-anchor-trigger>
         <span>Code Changes</span>
     </h3>
 </doc-anchor-target>
@@ -824,9 +860,9 @@
         <span>Version 24</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="code-changes-22">
+<doc-anchor-target id="code-changes-24">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-22">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-24">#</doc-anchor-trigger>
         <span>Code Changes</span>
     </h3>
 </doc-anchor-target>
@@ -852,9 +888,9 @@
         <span>Version 23</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="code-changes-23">
+<doc-anchor-target id="code-changes-25">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-23">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-25">#</doc-anchor-trigger>
         <span>Code Changes</span>
     </h3>
 </doc-anchor-target>
@@ -887,9 +923,9 @@
         <span>Version 22</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="code-changes-24">
+<doc-anchor-target id="code-changes-26">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-24">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-26">#</doc-anchor-trigger>
         <span>Code Changes</span>
     </h3>
 </doc-anchor-target>
@@ -926,9 +962,9 @@
         <span>Version 20</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="code-changes-25">
+<doc-anchor-target id="code-changes-27">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-25">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-27">#</doc-anchor-trigger>
         <span>Code Changes</span>
     </h3>
 </doc-anchor-target>
@@ -957,9 +993,9 @@
         <span>Version 19</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="code-changes-26">
+<doc-anchor-target id="code-changes-28">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-26">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-28">#</doc-anchor-trigger>
         <span>Code Changes</span>
     </h3>
 </doc-anchor-target>
@@ -984,9 +1020,9 @@
         <span>Version 18</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="code-changes-27">
+<doc-anchor-target id="code-changes-29">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-27">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-29">#</doc-anchor-trigger>
         <span>Code Changes</span>
     </h3>
 </doc-anchor-target>
@@ -1058,9 +1094,9 @@
         <span>Version 17</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="code-changes-28">
+<doc-anchor-target id="code-changes-30">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-28">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-30">#</doc-anchor-trigger>
         <span>Code Changes</span>
     </h3>
 </doc-anchor-target>
@@ -1086,9 +1122,9 @@
         <span>Version 16</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="code-changes-29">
+<doc-anchor-target id="code-changes-31">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-29">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-31">#</doc-anchor-trigger>
         <span>Code Changes</span>
     </h3>
 </doc-anchor-target>
@@ -1112,9 +1148,9 @@
         <span>Version 15</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="code-changes-30">
+<doc-anchor-target id="code-changes-32">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-30">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-32">#</doc-anchor-trigger>
         <span>Code Changes</span>
     </h3>
 </doc-anchor-target>
@@ -1143,9 +1179,9 @@
         <span>Version 14</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="code-changes-31">
+<doc-anchor-target id="code-changes-33">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-31">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-33">#</doc-anchor-trigger>
         <span>Code Changes</span>
     </h3>
 </doc-anchor-target>
@@ -1173,9 +1209,9 @@
         <span>Version 13</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="code-changes-32">
+<doc-anchor-target id="code-changes-34">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-32">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-34">#</doc-anchor-trigger>
         <span>Code Changes</span>
     </h3>
 </doc-anchor-target>
@@ -1199,9 +1235,9 @@
         <span>Version 12</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="code-changes-33">
+<doc-anchor-target id="code-changes-35">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-33">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-35">#</doc-anchor-trigger>
         <span>Code Changes</span>
     </h3>
 </doc-anchor-target>
@@ -1227,9 +1263,9 @@
         <span>Version 11</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="code-changes-34">
+<doc-anchor-target id="code-changes-36">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-34">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-36">#</doc-anchor-trigger>
         <span>Code Changes</span>
     </h3>
 </doc-anchor-target>
@@ -1256,9 +1292,9 @@
         <span>Version 10</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="code-changes-35">
+<doc-anchor-target id="code-changes-37">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-35">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-37">#</doc-anchor-trigger>
         <span>Code Changes</span>
     </h3>
 </doc-anchor-target>
@@ -1288,9 +1324,9 @@
         <span>Version 9</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="code-changes-36">
+<doc-anchor-target id="code-changes-38">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-36">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-38">#</doc-anchor-trigger>
         <span>Code Changes</span>
     </h3>
 </doc-anchor-target>
@@ -1306,9 +1342,9 @@
         <span>Version 8</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="code-changes-37">
+<doc-anchor-target id="code-changes-39">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-37">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-39">#</doc-anchor-trigger>
         <span>Code Changes</span>
     </h3>
 </doc-anchor-target>
@@ -1340,9 +1376,9 @@
         <span>Version 7</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="code-changes-38">
+<doc-anchor-target id="code-changes-40">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-38">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-40">#</doc-anchor-trigger>
         <span>Code Changes</span>
     </h3>
 </doc-anchor-target>
@@ -1366,9 +1402,9 @@
         <span>Version 6</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="code-changes-39">
+<doc-anchor-target id="code-changes-41">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-39">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-41">#</doc-anchor-trigger>
         <span>Code Changes</span>
     </h3>
 </doc-anchor-target>
@@ -1425,9 +1461,9 @@
         <span>Version 5</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="code-changes-40">
+<doc-anchor-target id="code-changes-42">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-40">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-42">#</doc-anchor-trigger>
         <span>Code Changes</span>
     </h3>
 </doc-anchor-target>
@@ -1463,9 +1499,9 @@
         <span>Version 4</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="code-changes-41">
+<doc-anchor-target id="code-changes-43">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-41">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-43">#</doc-anchor-trigger>
         <span>Code Changes</span>
     </h3>
 </doc-anchor-target>
@@ -1480,9 +1516,9 @@
         <span>Version 3</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="code-changes-42">
+<doc-anchor-target id="code-changes-44">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-42">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-44">#</doc-anchor-trigger>
         <span>Code Changes</span>
     </h3>
 </doc-anchor-target>
@@ -1496,9 +1532,9 @@
         <span>Version 2</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="code-changes-43">
+<doc-anchor-target id="code-changes-45">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-43">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-45">#</doc-anchor-trigger>
         <span>Code Changes</span>
     </h3>
 </doc-anchor-target>
@@ -1512,9 +1548,9 @@
         <span>Version 1</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="code-changes-44">
+<doc-anchor-target id="code-changes-46">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-44">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-46">#</doc-anchor-trigger>
         <span>Code Changes</span>
     </h3>
 </doc-anchor-target>
