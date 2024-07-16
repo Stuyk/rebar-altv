@@ -6,6 +6,7 @@
 
 -   Updated RPC endpoints
 -   Began structuring new RPC endpoint functions
+-   Server-side instructional buttons integrated by floydya
 
 ---
 
