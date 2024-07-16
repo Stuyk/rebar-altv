@@ -1,8 +1,10 @@
+import { Events } from '@Shared/events/index.js';
+import { InstructionalButtons } from '@Shared/types/instructionalButtons.js';
 import * as alt from 'alt-client';
 import * as native from 'natives';
 
 let interval: number;
-let buttons: { text: string; input: string }[] = [];
+let buttons: InstructionalButtons = [];
 let scaleform: number;
 
 native.displayOnscreenKeyboard(0, 'FMMC_KEY_TIP8', '', '', '', '', '', 128);
@@ -21,7 +23,7 @@ function draw() {
 }
 
 export function useInstructionalButtons() {
-    async function create(_buttons: { text: string; input: string }[]) {
+    async function create(_buttons: InstructionalButtons) {
         if (scaleform) {
             destroy();
         }
@@ -73,8 +75,17 @@ export function useInstructionalButtons() {
         buttons = [];
     }
 
+    async function get() {
+        return buttons;
+    }
+
     return {
+        get,
         create,
         destroy,
     };
 }
+
+alt.onServer(Events.player.screen.instructionalButtons.create, useInstructionalButtons().create);
+alt.onServer(Events.player.screen.instructionalButtons.destroy, useInstructionalButtons().destroy);
+alt.onRpc(Events.player.screen.instructionalButtons.get, useInstructionalButtons().get);

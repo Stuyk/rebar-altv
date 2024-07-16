@@ -80,6 +80,7 @@ import { useStreamSyncedBinder } from './systems/streamSyncedBinder.js';
 import { useRaycast } from './player/raycast.js';
 import { useAttachment } from './player/attachment.js';
 import { useInteractionLocal } from './controllers/interactionLocal.js';
+import { useInstructionalButtons } from './controllers/instructionalButtons.js';
 
 export function useRebar() {
     return {
@@ -90,6 +91,7 @@ export function useRebar() {
             useBlipLocal,
             useD2DTextLabel,
             useD2DTextLabelLocal,
+            useInstructionalButtons,
             useInteraction,
             useInteractionLocal,
             useMarkerGlobal,

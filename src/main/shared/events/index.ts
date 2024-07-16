@@ -95,6 +95,11 @@ export const Events = {
             ped: {
                 show: 'player:show:ped:on:screen',
             },
+            instructionalButtons: {
+                create: 'player:screen:instructionalButtons:create',
+                destroy: 'player:screen:instructionalButtons:destroy',
+                get: 'player:screen:instructionalButtons:get',
+            },
         },
         webview: {
             set: {
