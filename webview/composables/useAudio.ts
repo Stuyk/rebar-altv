@@ -11,8 +11,9 @@ export function useAudio() {
         events.on(Events.player.audio.play.local, play);
     }
 
-    async function play(path: string) {
+    async function play(path: string, volume: number = 1) {
         const audio = new Audio(path);
+        audio.volume = volume;
         audio.loop = false;
         await audio.play();
 
