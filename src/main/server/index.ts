@@ -176,6 +176,7 @@ export function useRebar() {
         useServerTime,
         useServerWeather,
         systems: {
+            useMessenger,
             useKeybinder,
             useKeypress,
             useProxyFetch,

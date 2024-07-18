@@ -1,4 +1,30 @@
+---
+order: 95
+---
+
 # Changelog
+
+## Version 49
+
+### Code Changes
+
+-   Updated Virtual Document to use a generic at the base level for the whole document
+    -   This changes how Virtual Documents are constructed, and may break some things if you use virtual documents.
+-   Added `useMessenger` to systems pathway
+-   Fix vehicle handling so it always returns streamSyncedMeta data
+-   Added `handling` to `useVehicle`
+-   Added `vehicle` to `useVehicle`, makes it so you can do `rPlayer.player.pos`
+-   Added `player` to `usePlayer`, makes it so you can do `rVehicle.vehicle.pos`
+
+### Docs Changes
+
+-   Restructured the documentation
+-   Documented `useCharacterEvents` and `useAccountEvents`
+-   Combined getters documentation
+-   Combined controllers documentation
+-   Combined vehicle documentation
+
+---
 
 ## Version 48
 
