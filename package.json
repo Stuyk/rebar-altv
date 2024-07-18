@@ -1,7 +1,7 @@
 {
     "author": "stuyk",
     "type": "module",
-    "version": "48",
+    "version": "49",
     "scripts": {
         "dev": "nodemon -x pnpm start",
         "dev:linux": "nodemon -x pnpm start:linux",
@@ -20,7 +20,7 @@
         "@altv/types-shared": "^16.2.1",
         "@altv/types-webview": "^16.2.1",
         "@altv/types-worker": "^16.2.0",
-        "@types/node": "^20.14.10",
+        "@types/node": "^20.14.11",
         "altv-pkg": "^2.7.5",
         "autoprefixer": "^10.4.19",
         "fast-glob": "^3.3.2",
@@ -32,7 +32,7 @@
         "retypeapp": "^3.5.0",
         "shx": "^0.3.4",
         "sucrase": "^3.35.0",
-        "tailwindcss": "^3.4.5"
+        "tailwindcss": "^3.4.6"
     },
     "dependencies": {
         "@hono/node-server": "^1.12.0",
@@ -43,7 +43,7 @@
         "sjcl": "^1.0.8",
         "typescript": "^5.5.3",
         "vite": "^5.3.4",
-        "vue": "^3.4.31",
+        "vue": "^3.4.32",
         "vue-tsc": "^2.0.26"
     },
     "prettier": {
