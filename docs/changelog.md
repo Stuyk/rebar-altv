@@ -15,6 +15,7 @@ order: 95
 -   Added `handling` to `useVehicle`
 -   Added `vehicle` to `useVehicle`, makes it so you can do `rPlayer.player.pos`
 -   Added `player` to `usePlayer`, makes it so you can do `rVehicle.vehicle.pos`
+-   Changed Rebar endpoints to use Hono, and deprecated old server utility @floydya
 
 ### Docs Changes
 
