@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.5.0.774652843469">
+
+    <!-- See retype.com -->
+    <meta name="generator" content="Retype 3.5.0">
+
+    <!-- Primary Meta Tags -->
+    <title>Code Examples</title>
+    <meta name="title" content="Code Examples">
+    <meta name="description" content="This is a giant page for code examples and a general purpose cookbook for writing just about anything.">
+
+    <!-- Canonical -->
+    <link rel="canonical" href="https://rebarv.com/tutorials/general/code-examples/">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://rebarv.com/tutorials/general/code-examples/">
+    <meta property="og:title" content="Code Examples">
+    <meta property="og:description" content="This is a giant page for code examples and a general purpose cookbook for writing just about anything.">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://rebarv.com/tutorials/general/code-examples/">
+    <meta property="twitter:title" content="Code Examples">
+    <meta property="twitter:description" content="This is a giant page for code examples and a general purpose cookbook for writing just about anything.">
+
+    <script data-cfasync="false">(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
+
+    <link href="../../../resources/css/retype.css?v=3.5.0.774652843469" rel="stylesheet">
+
+    <script data-cfasync="false" src="../../../resources/js/config.js?v=3.5.0.774652843469" data-turbo-eval="false" defer></script>
+    <script data-cfasync="false" src="../../../resources/js/retype.js?v=3.5.0" data-turbo-eval="false" defer></script>
+    <script id="lunr-js" data-cfasync="false" src="../../../resources/js/lunr.js?v=3.5.0.774652843469" data-turbo-eval="false" defer></script>
+    <script id="prism-js" data-cfasync="false" src="../../../resources/js/prism.js?v=3.5.0.774652843469" defer></script>
+</head>
+<body>
+    <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
+        <div class="absolute bottom-0 left-0 bg-gray-100 dark:bg-dark-800" style="top: 5rem; right: 50%"></div>
+    
+        <header id="docs-site-header" class="sticky top-0 z-30 flex w-full h-16 bg-white border-b border-gray-200 md:h-20 dark:bg-dark-850 dark:border-dark-650">
+            <div class="container relative flex items-center justify-between pr-6 grow md:justify-start">
+                <!-- Mobile menu button skeleton -->
+                <button v-cloak class="skeleton docs-mobile-menu-button flex items-center justify-center shrink-0 overflow-hidden dark:text-white focus:outline-none rounded-full w-10 h-10 ml-3.5 md:hidden"><svg xmlns="http://www.w3.org/2000/svg" class="mb-px shrink-0" width="24" height="24" viewBox="0 0 24 24" role="presentation" style="margin-bottom: 0px;"><g fill="currentColor"><path d="M2 4h20v2H2zM2 11h20v2H2zM2 18h20v2H2z"></path></g></svg></button>
+                <div v-cloak id="docs-sidebar-toggle"></div>
+        
+                <!-- Logo -->
+                <div class="flex items-center justify-between h-full py-2 md:w-75">
+                    <div class="flex items-center px-2 md:px-6">
+                        <a id="docs-site-logo" href="../../../" class="flex items-center leading-snug text-xl">
+                            <span class="w-10 mr-2 grow-0 shrink-0 overflow-hidden">
+                                <img class="max-h-10 dark:hidden md:inline-block" src="../../../static/logo_dark.svg">
+                                <img class="max-h-10 hidden dark:inline-block" src="../../../static/logo_light.svg">
+                            </span>
+                            <span class="dark:text-white font-semibold line-clamp-1 md:line-clamp-2">Rebar for alt:V</span>
+                        </a>
+                    </div>
+        
+                    <span class="hidden h-8 border-r md:inline-block dark:border-dark-650"></span>
+                </div>
+        
+                <div class="flex justify-between md:grow">
+                    <!-- Top Nav -->
+                    <nav class="hidden md:flex">
+                        <ul class="flex flex-col mb-4 md:pl-16 md:mb-0 md:flex-row md:items-center">
+                            <li class="mr-6">
+                                <a class="py-2 md:mb-0 inline-flex items-center text-sm whitespace-nowrap transition-colors duration-200 ease-linear md:text-blue-500 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200" href="https://discord.gg/63rrbadsR7">Discord</a>
+                            </li>
+                            <li class="mr-6">
+                                <a class="py-2 md:mb-0 inline-flex items-center text-sm whitespace-nowrap transition-colors duration-200 ease-linear md:text-blue-500 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200" href="https://github.com/stuyk/rebar-altv">GitHub</a>
+                            </li>
+                            <li class="mr-6">
+                                <a class="py-2 md:mb-0 inline-flex items-center text-sm whitespace-nowrap transition-colors duration-200 ease-linear md:text-blue-500 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200" href="https://forge.plebmasters.de/hub?targetFrameworks=Rebar+(alt:V)&contentType=Script">Plugins</a>
+                            </li>
+                            <li class="mr-6">
+                                <a class="py-2 md:mb-0 inline-flex items-center text-sm whitespace-nowrap transition-colors duration-200 ease-linear md:text-blue-500 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200" href="https://altv.mp">alt:V</a>
+                            </li>
+        
+                        </ul>
+                    </nav>
+        
+                    <!-- Header Right Skeleton -->
+                    <div v-cloak class="flex justify-end grow skeleton">
+        
+                        <!-- Search input mock -->
+                        <div class="relative hidden w-40 lg:block lg:max-w-sm lg:ml-auto">
+                            <div class="absolute flex items-center justify-center h-full pl-3 dark:text-dark-300">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="icon-base" width="16" height="16" viewBox="0 0 24 24" aria-labelledby="icon" role="presentation" style="margin-bottom: 1px;"><g fill="currentColor" ><path d="M21.71 20.29l-3.68-3.68A8.963 8.963 0 0020 11c0-4.96-4.04-9-9-9s-9 4.04-9 9 4.04 9 9 9c2.12 0 4.07-.74 5.61-1.97l3.68 3.68c.2.19.45.29.71.29s.51-.1.71-.29c.39-.39.39-1.03 0-1.42zM4 11c0-3.86 3.14-7 7-7s7 3.14 7 7c0 1.92-.78 3.66-2.04 4.93-.01.01-.02.01-.02.01-.01.01-.01.01-.01.02A6.98 6.98 0 0111 18c-3.86 0-7-3.14-7-7z" ></path></g></svg>
+                            </div>
+                            <input class="w-full h-10 placeholder-gray-400 transition-colors duration-200 ease-in bg-gray-200 border border-transparent rounded md:text-sm hover:bg-white hover:border-gray-300 focus:outline-none focus:bg-white focus:border-gray-500 dark:bg-dark-600 dark:border-dark-600 dark:placeholder-dark-400" style="padding: 0.625rem 0.75rem 0.625rem 2rem" type="text" placeholder="Search">
+                        </div>
+        
+                        <!-- Mobile search button -->
+                        <div class="flex items-center justify-center w-10 h-10 lg:hidden">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="shrink-0 icon-base" width="20" height="20" viewBox="0 0 24 24" aria-labelledby="icon" role="presentation" style="margin-bottom: 0px;"><g fill="currentColor" ><path d="M21.71 20.29l-3.68-3.68A8.963 8.963 0 0020 11c0-4.96-4.04-9-9-9s-9 4.04-9 9 4.04 9 9 9c2.12 0 4.07-.74 5.61-1.97l3.68 3.68c.2.19.45.29.71.29s.51-.1.71-.29c.39-.39.39-1.03 0-1.42zM4 11c0-3.86 3.14-7 7-7s7 3.14 7 7c0 1.92-.78 3.66-2.04 4.93-.01.01-.02.01-.02.01-.01.01-.01.01-.01.02A6.98 6.98 0 0111 18c-3.86 0-7-3.14-7-7z" ></path></g></svg>
+                        </div>
+        
+                        <!-- Dark mode switch placeholder -->
+                        <div class="w-10 h-10 lg:ml-2"></div>
+        
+                        <!-- History button -->
+                        <div class="flex items-center justify-center w-10 h-10" style="margin-right: -0.625rem;">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="shrink-0 icon-base" width="22" height="22" viewBox="0 0 24 24" aria-labelledby="icon" role="presentation" style="margin-bottom: 0px;"><g fill="currentColor" ><g ><path d="M12.01 6.01c-.55 0-1 .45-1 1V12a1 1 0 00.4.8l3 2.22a.985.985 0 001.39-.2.996.996 0 00-.21-1.4l-2.6-1.92V7.01c.02-.55-.43-1-.98-1z"></path><path d="M12.01 1.91c-5.33 0-9.69 4.16-10.05 9.4l-.29-.26a.997.997 0 10-1.34 1.48l1.97 1.79c.19.17.43.26.67.26s.48-.09.67-.26l1.97-1.79a.997.997 0 10-1.34-1.48l-.31.28c.34-4.14 3.82-7.41 8.05-7.41 4.46 0 8.08 3.63 8.08 8.09s-3.63 8.08-8.08 8.08c-2.18 0-4.22-.85-5.75-2.4a.996.996 0 10-1.42 1.4 10.02 10.02 0 007.17 2.99c5.56 0 10.08-4.52 10.08-10.08.01-5.56-4.52-10.09-10.08-10.09z"></path></g></g></svg>
+                        </div>
+                    </div>
+        
+                    <div v-cloak class="flex justify-end grow">
+                        <div id="docs-mobile-search-button"></div>
+                        <doc-search-desktop></doc-search-desktop>
+        
+                        <doc-theme-switch class="lg:ml-2"></doc-theme-switch>
+                        <doc-history></doc-history>
+                    </div>
+                </div>
+            </div>
+        </header>
+    
+        <div class="container relative flex bg-white">
+            <!-- Sidebar Skeleton -->
+            <div v-cloak class="fixed flex flex-col shrink-0 duration-300 ease-in-out bg-gray-100 border-gray-200 sidebar top-20 w-75 border-r h-screen md:sticky transition-transform skeleton dark:bg-dark-800 dark:border-dark-650">
+            
+                <!-- Render this div, if config.showSidebarFilter is `true` -->
+                <div class="flex items-center h-16 px-6">
+                    <input class="w-full h-8 px-3 py-2 transition-colors duration-200 ease-linear bg-white border border-gray-200 rounded shadow-none text-sm focus:outline-none focus:border-gray-600 dark:bg-dark-600 dark:border-dark-600" type="text" placeholder="Filter">
+                </div>
+            
+                <div class="pl-6 mt-1 mb-4">
+                    <div class="w-32 h-3 mb-4 bg-gray-200 rounded-full loading dark:bg-dark-600"></div>
+                    <div class="w-48 h-3 mb-4 bg-gray-200 rounded-full loading dark:bg-dark-600"></div>
+                    <div class="w-40 h-3 mb-4 bg-gray-200 rounded-full loading dark:bg-dark-600"></div>
+                    <div class="w-32 h-3 mb-4 bg-gray-200 rounded-full loading dark:bg-dark-600"></div>
+                    <div class="w-48 h-3 mb-4 bg-gray-200 rounded-full loading dark:bg-dark-600"></div>
+                    <div class="w-40 h-3 mb-4 bg-gray-200 rounded-full loading dark:bg-dark-600"></div>
+                </div>
+            
+                <div class="shrink-0 mt-auto bg-transparent dark:border-dark-650">
+                    <a class="flex items-center justify-center flex-nowrap h-16 text-gray-400 dark:text-dark-400 hover:text-gray-700 dark:hover:text-dark-300 transition-colors duration-150 ease-in docs-powered-by" target="_blank" href="https://retype.com/" rel="noopener">
+                        <span class="text-xs whitespace-nowrap">Powered by</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="ml-2" fill="currentColor" width="96" height="20" overflow="visible"><path d="M0 0v20h13.59V0H0zm11.15 17.54H2.44V2.46h8.71v15.08zM15.8 20h2.44V4.67L15.8 2.22zM20.45 6.89V20h2.44V9.34z"/><g><path d="M40.16 8.44c0 1.49-.59 2.45-1.75 2.88l2.34 3.32h-2.53l-2.04-2.96h-1.43v2.96h-2.06V5.36h3.5c1.43 0 2.46.24 3.07.73s.9 1.27.9 2.35zm-2.48 1.1c.26-.23.38-.59.38-1.09 0-.5-.13-.84-.4-1.03s-.73-.28-1.39-.28h-1.54v2.75h1.5c.72 0 1.2-.12 1.45-.35zM51.56 5.36V7.2h-4.59v1.91h4.13v1.76h-4.13v1.92h4.74v1.83h-6.79V5.36h6.64zM60.09 7.15v7.48h-2.06V7.15h-2.61V5.36h7.28v1.79h-2.61zM70.81 14.64h-2.06v-3.66l-3.19-5.61h2.23l1.99 3.45 1.99-3.45H74l-3.19 5.61v3.66zM83.99 6.19c.65.55.97 1.4.97 2.55s-.33 1.98-1 2.51-1.68.8-3.04.8h-1.23v2.59h-2.06V5.36h3.26c1.42 0 2.45.28 3.1.83zm-1.51 3.65c.25-.28.37-.69.37-1.22s-.16-.92-.48-1.14c-.32-.23-.82-.34-1.5-.34H79.7v3.12h1.38c.68 0 1.15-.14 1.4-.42zM95.85 5.36V7.2h-4.59v1.91h4.13v1.76h-4.13v1.92H96v1.83h-6.79V5.36h6.64z"/></g></svg>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Sidebar component -->
+            <doc-sidebar v-cloak>
+                <template #sidebar-footer>
+                    <div class="shrink-0 mt-auto border-t md:bg-transparent md:border-none dark:border-dark-650">
+            
+                        <div class="py-3 px-6 md:hidden border-b dark:border-dark-650">
+                            <nav>
+                                <ul class="flex flex-wrap justify-center items-center">
+                                    <li class="mr-6">
+                                        <a class="block py-1 inline-flex items-center text-sm whitespace-nowrap transition-colors duration-200 ease-linear md:text-blue-500 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200" href="https://discord.gg/63rrbadsR7">Discord</a>
+                                    </li>
+                                    <li class="mr-6">
+                                        <a class="block py-1 inline-flex items-center text-sm whitespace-nowrap transition-colors duration-200 ease-linear md:text-blue-500 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200" href="https://github.com/stuyk/rebar-altv">GitHub</a>
+                                    </li>
+                                    <li class="mr-6">
+                                        <a class="block py-1 inline-flex items-center text-sm whitespace-nowrap transition-colors duration-200 ease-linear md:text-blue-500 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200" href="https://forge.plebmasters.de/hub?targetFrameworks=Rebar+(alt:V)&contentType=Script">Plugins</a>
+                                    </li>
+                                    <li class="mr-6">
+                                        <a class="block py-1 inline-flex items-center text-sm whitespace-nowrap transition-colors duration-200 ease-linear md:text-blue-500 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200" href="https://altv.mp">alt:V</a>
+                                    </li>
+            
+                                </ul>
+                            </nav>
+                        </div>
+            
+                        <a class="flex items-center justify-center flex-nowrap h-16 text-gray-400 dark:text-dark-400 hover:text-gray-700 dark:hover:text-dark-300 transition-colors duration-150 ease-in docs-powered-by" target="_blank" href="https://retype.com/" rel="noopener">
+                            <span class="text-xs whitespace-nowrap">Powered by</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="ml-2" fill="currentColor" width="96" height="20" overflow="visible"><path d="M0 0v20h13.59V0H0zm11.15 17.54H2.44V2.46h8.71v15.08zM15.8 20h2.44V4.67L15.8 2.22zM20.45 6.89V20h2.44V9.34z"/><g><path d="M40.16 8.44c0 1.49-.59 2.45-1.75 2.88l2.34 3.32h-2.53l-2.04-2.96h-1.43v2.96h-2.06V5.36h3.5c1.43 0 2.46.24 3.07.73s.9 1.27.9 2.35zm-2.48 1.1c.26-.23.38-.59.38-1.09 0-.5-.13-.84-.4-1.03s-.73-.28-1.39-.28h-1.54v2.75h1.5c.72 0 1.2-.12 1.45-.35zM51.56 5.36V7.2h-4.59v1.91h4.13v1.76h-4.13v1.92h4.74v1.83h-6.79V5.36h6.64zM60.09 7.15v7.48h-2.06V7.15h-2.61V5.36h7.28v1.79h-2.61zM70.81 14.64h-2.06v-3.66l-3.19-5.61h2.23l1.99 3.45 1.99-3.45H74l-3.19 5.61v3.66zM83.99 6.19c.65.55.97 1.4.97 2.55s-.33 1.98-1 2.51-1.68.8-3.04.8h-1.23v2.59h-2.06V5.36h3.26c1.42 0 2.45.28 3.1.83zm-1.51 3.65c.25-.28.37-.69.37-1.22s-.16-.92-.48-1.14c-.32-.23-.82-.34-1.5-.34H79.7v3.12h1.38c.68 0 1.15-.14 1.4-.42zM95.85 5.36V7.2h-4.59v1.91h4.13v1.76h-4.13v1.92H96v1.83h-6.79V5.36h6.64z"/></g></svg>
+                        </a>
+                    </div>
+                </template>
+            </doc-sidebar>
+    
+            <div class="grow min-w-0 dark:bg-dark-850">
+                <!-- Render "toolbar" template here on api pages --><!-- Render page content -->
+                <div class="flex">
+                    <div class="min-w-0 p-4 grow md:px-16">
+                        <main class="relative pb-12 lg:pt-2">
+                            <div class="docs-markdown" id="docs-content">
+                                <!-- Rendered if sidebar right is enabled -->
+                                <div id="docs-sidebar-right-toggle"></div>
+                                <!-- Page content  -->
+<doc-anchor-target id="code-examples" class="break-words">
+    <h1>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-examples">#</doc-anchor-trigger>
+        <span>Code Examples</span>
+    </h1>
+</doc-anchor-target>
+<p>This is a giant page for code examples and a general purpose cookbook for writing just about anything.</p>
+<p>Always check the documentation for further information and to see the full extent of what this framework has to offer.</p>
+<div class="flex mb-6">
+    <div class="shrink-0 w-1 rounded-tl rounded-bl bg-blue-500 dark:bg-blue-400"></div>
+    <div class="flex w-full py-4 border border-l-0 border-gray-300 rounded-tr rounded-br doc-alert bg-white dark:bg-dark-700 dark:border-dark-700" role="alert">
+        <div class="flex items-center ml-4 h-7">
+            <svg xmlns="http://www.w3.org/2000/svg" class="mb-px text-blue-500 dark:text-blue-400" width="22" height="22" viewBox="0 0 24 24" role="presentation">
+                <g fill="currentColor"><g>
+                    <path d="M12 1C5.93 1 1 5.93 1 12s4.93 11 11 11 11-4.93 11-11S18.07 1 12 1zm0 20c-4.96 0-9-4.04-9-9s4.04-9 9-9 9 4.04 9 9-4.04 9-9 9z"></path>
+                    <path d="M12 11c-.55 0-1 .45-1 1v4c0 .55.45 1 1 1s1-.45 1-1v-4c0-.55-.45-1-1-1zM12.01 7c-.56 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1z"></path>
+                    <path fill="none" d="M0 0h24v24H0z"></path>
+                </g></g>
+            </svg>
+        </div>
+        <div class="pr-5 ml-3 w-full">
+<p>Some of these code examples require other plugins to work.</p>
+<p>Check out <a href="https://forge.plebmasters.de/hub?targetFrameworks=Rebar+(alt:V)&amp;contentType=Script">Plebmasters Forge</a> to see all available plugins.</p>
+        </div>
+    </div>
+</div>
+<doc-anchor-target id="server-api">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#server-api">#</doc-anchor-trigger>
+        <span>Server API</span>
+    </h2>
+</doc-anchor-target>
+<p>We mostly work on the server-side for a majority of the functionality.</p>
+<p>Here&#x27;s how to import Rebar in various ways.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">import { useRebar } from '@Server/index.js';
+
+const Rebar = useRebar();</code></pre>
+</doc-codeblock></div>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">import * as alt from 'alt-server';
+
+const Rebar = alt.getMeta('Rebar');</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="rebar-events">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#rebar-events">#</doc-anchor-trigger>
+        <span>Rebar Events</span>
+    </h2>
+</doc-anchor-target>
+<p>Rebar has a handful of events that can be used in tandem with alt:V events.</p>
+<p>These become more useful when a character select, or auth plugins are installed.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">import { useRebar } from '@Server/index.js';
+
+const Rebar = useRebar();
+const RebarEvents = Rebar.events.useEvents();
+
+RebarEvents.on('character-bound', (player) =&gt; {
+    // do something when they've selected a character
+});</code></pre>
+</doc-codeblock></div>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">RebarEvents.on('account-bound', (player) =&gt; {
+    // do something when they've logged into an account
+});</code></pre>
+</doc-codeblock></div>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">RebarEvents.on('time-changed', (hour, minute, second) =&gt; {
+    // Do something when the time changes in-game
+});</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="notifying-a-player">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#notifying-a-player">#</doc-anchor-trigger>
+        <span>Notifying a Player</span>
+    </h2>
+</doc-anchor-target>
+<p>Send a default GTA:V notification to the player.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">import { useRebar } from '@Server/index.js';
+
+const Rebar = useRebar();
+const RebarEvents = Rebar.events.useEvents();
+
+RebarEvents.on('character-bound', (player) =&gt; {
+    const rPlayer = Rebar.usePlayer(player);
+    rPlayer.notify.showNotification('Welcome to the server!');
+});</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="screen-shards">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#screen-shards">#</doc-anchor-trigger>
+        <span>Screen Shards</span>
+    </h2>
+</doc-anchor-target>
+<p>Shards are like the <code v-pre>Mission Failed</code> full screen effect that you see in normal GTA:V. You can show them like this.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">import * as alt from 'alt-server';
+import { useRebar } from '@Server/index.js';
+
+const Rebar = useRebar();
+const RebarEvents = Rebar.events.useEvents();
+
+RebarEvents.on('character-bound', (player) =&gt; {
+    const rPlayer = Rebar.usePlayer(player);
+    rPlayer.notify.showShard({
+        title: 'Welcome to the Server',
+        duration: 2000,
+    });
+});</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="screen-mission-text">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#screen-mission-text">#</doc-anchor-trigger>
+        <span>Screen Mission Text</span>
+    </h2>
+</doc-anchor-target>
+<p>Mission text will show in the bottom center of the screen.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">import * as alt from 'alt-server';
+import { useRebar } from '@Server/index.js';
+
+const Rebar = useRebar();
+const RebarEvents = Rebar.events.useEvents();
+
+RebarEvents.on('character-bound', (player) =&gt; {
+    const rPlayer = Rebar.usePlayer(player);
+    rPlayer.notify.showMissionText('Visit our website at https://rebarv.com');
+});</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="keybinds">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#keybinds">#</doc-anchor-trigger>
+        <span>Keybinds</span>
+    </h2>
+</doc-anchor-target>
+<p>Keybinds can be done on server-side to allow for server-side callbacks.</p>
+<p>Here&#x27;s a simple keybind that when <code v-pre>K</code> is pressed it teleports the player to a position.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">import * as alt from 'alt-server';
+import { useRebar } from '@Server/index.js';
+
+const Rebar = useRebar();
+const Keybinder = Rebar.useKeybinder();
+
+const K_KEY = 75;
+
+Keybinder.on(K_KEY, (player) =&gt; {
+    player.pos = new alt.Vector3({
+        x: 912,
+        y: -199,
+        z: 73,
+    });
+});</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="interaction-points">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#interaction-points">#</doc-anchor-trigger>
+        <span>Interaction Points</span>
+    </h2>
+</doc-anchor-target>
+<p>Interaction points are places where the player can press <code v-pre>E</code> to do something.</p>
+<p>They can be accented with markers, text labels, and blips.</p>
+<p>There are also local versions of <code v-pre>marker</code>, <code v-pre>text label</code>, and <code v-pre>blips</code> to only show it to a single player. Which has full control via server-side.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">import * as alt from 'alt-server';
+import { useRebar } from '@Server/index.js';
+import { MarkerType } from '@Shared/types/marker.js';
+
+const Rebar = useRebar();
+
+const posRef = new alt.Vector3({
+    x: 912.6202392578125,
+    y: -198.6721649169922,
+    z: 71.22137451171875,
+});
+
+const interaction = Rebar.controllers.useInteraction(
+    new alt.ColshapeCylinder(posRef.x, posRef.y, posRef.z, 3, 3),
+    'player',
+);
+
+interaction.onEnter((player) =&gt; {
+    const rPlayer = Rebar.usePlayer(player);
+    rPlayer.notify.showNotification('Entered the point!');
+});
+
+interaction.onLeave((player) =&gt; {
+    const rPlayer = Rebar.usePlayer(player);
+    rPlayer.notify.showNotification('Left the point!');
+});
+
+interaction.on((player) =&gt; {
+    const rPlayer = Rebar.usePlayer(player);
+    rPlayer.notify.showNotification('Pressed E on the Point!');
+});
+
+Rebar.controllers.useMarkerGlobal({
+    pos: posRef,
+    color: new alt.RGBA(0, 255, 0, 75),
+    scale: new alt.Vector3(3, 3, 1),
+    type: MarkerType.CYLINDER,
+});
+
+Rebar.controllers.useTextLabelGlobal({
+    pos: posRef.add(0, 0, 1),
+    text: 'Press E to do something!',
+});
+
+Rebar.controllers.useBlipGlobal({
+    color: 6,
+    pos: posRef,
+    shortRange: true,
+    sprite: 128,
+    text: 'Interaction Point',
+});</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="server-configuration">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#server-configuration">#</doc-anchor-trigger>
+        <span>Server Configuration</span>
+    </h2>
+</doc-anchor-target>
+<p>You can modify server configuration by creating a plugin that tweaks the settings.</p>
+<p>Here&#x27;s an example of what you can invoke to change settings in Rebar.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">import { useRebar } from '@Server/index.js';
+
+const Rebar = useRebar();
+const ServerConfig = Rebar.useServerConfig();
+
+ServerConfig.set('disablePistolWhip', true);
+ServerConfig.set('disableVehicleEngineAutoStart', true);
+ServerConfig.set('disableVehicleEngineAutoStop', true);
+ServerConfig.set('disableVehicleSeatSwap', true);
+ServerConfig.set('hideAreaName', true);
+ServerConfig.set('hideHealthArmour', true);
+ServerConfig.set('hideMinimapInPage', true);
+ServerConfig.set('hideMinimapInVehicle', true);
+ServerConfig.set('hideMinimapOnFoot', true);
+ServerConfig.set('hideStreetName', true);
+ServerConfig.set('hideVehicleClass', true);
+ServerConfig.set('hideVehicleName', true);</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="saving-player-data">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#saving-player-data">#</doc-anchor-trigger>
+        <span>Saving Player Data</span>
+    </h2>
+</doc-anchor-target>
+<p>With a character select plugin, and auth plugin installed it&#x27;s really easy to write data to the database using the document system.</p>
+<p>This document system also exists for other entities like Vehicles,and Accounts.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">import * as alt from 'alt-server';
+import { useRebar } from '@Server/index.js';
+
+const Rebar = useRebar();
+
+type MyCustomData = {
+    mydata: string;
+};
+
+async function onSomeEvent(player: alt.Player) {
+    const rPlayer = Rebar.usePlayer(player);
+    await rPlayer.character.setBulk&lt;MyCustomData&gt;({
+        mydata: 'hello world!',
+    });
+
+    // Returns `hello world`
+    const mydata = rPlayer.character.getField&lt;MyCustomData&gt;('mydata');
+}</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="character--account-permissions">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#character--account-permissions">#</doc-anchor-trigger>
+        <span>Character &amp; Account Permissions</span>
+    </h2>
+</doc-anchor-target>
+<p>There&#x27;s a built in permission system to assign players as admins, specific jobs, etc.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">import * as alt from 'alt-server';
+import { useRebar } from '@Server/index.js';
+
+const Rebar = useRebar();
+
+function someFunction(player: alt.Player) {
+    const rPlayer = Rebar.usePlayer(player);
+
+    rPlayer.character.permission.addPermission('mechanic');
+    rPlayer.account.addPermission('admin');
+}</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="registering-commands">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#registering-commands">#</doc-anchor-trigger>
+        <span>Registering Commands</span>
+    </h2>
+</doc-anchor-target>
+<p>With a <code v-pre>chat plugin</code> you can register commands and invoke them in-game in the chat window.</p>
+<p>Additionally, you can protect your commands from being ran under <code v-pre>Account Permissions</code> or <code v-pre>Character Permissions</code>.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">import * as alt from 'alt-server';
+import { useRebar } from '@Server/index.js';
+
+const Rebar = useRebar();
+const Messenger = Rebar.messenger.useMessenger();
+
+Messenger.commands.register({
+    name: 'test',
+    desc: '- Runs a test command',
+    callback: async (player) =&gt; {},
+});
+
+Messenger.commands.register({
+    name: 'adminonlycommand',
+    desc: '- Only admins can run this',
+    options: { accountPermissions: ['admin'] },
+    callback: async (player) =&gt; {
+        const rPlayer = Rebar.usePlayer(player);
+        rPlayer.notify.showNotification('Hello Admin!');
+    },
+});
+
+Messenger.commands.register({
+    name: 'mechaniconlycommand',
+    desc: '- Only mechanics can run this',
+    options: { permissions: ['mechanic'] },
+    callback: async (player) =&gt; {
+        const rPlayer = Rebar.usePlayer(player);
+        rPlayer.notify.showNotification('Hello Mechanic!');
+    },
+});</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="assigning-custom-models">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#assigning-custom-models">#</doc-anchor-trigger>
+        <span>Assigning Custom Models</span>
+    </h2>
+</doc-anchor-target>
+<p>You can easily assign a custom player model to override their default character appearance.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">import * as alt from 'alt-server';
+import { useRebar } from '@Server/index.js';
+
+const Rebar = useRebar();
+
+function someFunction(player: alt.Player) {
+    const rPlayer = Rebar.usePlayer(player);
+    rPlayer.clothing.setSkin('a_c_husky');
+}</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="assigning-uniforms">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#assigning-uniforms">#</doc-anchor-trigger>
+        <span>Assigning Uniforms</span>
+    </h2>
+</doc-anchor-target>
+<p>You can also assign and clear uniforms for the player to wear.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">import * as alt from 'alt-server';
+import { useRebar } from '@Server/index.js';
+
+const Rebar = useRebar();
+
+function someFunction(player: alt.Player) {
+    const rPlayer = Rebar.usePlayer(player);
+    rPlayer.clothing.setUniform([
+        { dlc: alt.hash('some_dlc'), drawable: 0, id: 5, texture: 0 },
+        { dlc: alt.hash('some_dlc'), drawable: 1, id: 6, texture: 0 },
+        { dlc: alt.hash('some_dlc'), drawable: 7, id: 2, texture: 0 },
+    ]);
+
+    rPlayer.clothing.clearUniform();
+}</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="owned-vehicles">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#owned-vehicles">#</doc-anchor-trigger>
+        <span>Owned Vehicles</span>
+    </h2>
+</doc-anchor-target>
+<p>Vehicles can be owned by an individual player, or a <code v-pre>permission</code>.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">import * as alt from 'alt-server';
+import { useRebar } from '@Server/index.js';
+
+const Rebar = useRebar();
+
+function someFunction(player: alt.Player) {
+    const rPlayer = Rebar.usePlayer(player);
+    const _id = rPlayer.character.getField('_id');
+
+    let veh: alt.Vehicle;
+    try {
+        veh = new alt.Vehicle('infernus', player.pos, player.rot);
+    } catch (err) {
+        // invalid vehicle model
+        return;
+    }
+
+    // Automatically stored into the database
+    Rebar.vehicle.useVehicle(veh).create(_id);
+}</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="spawn-owned-vehicles">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#spawn-owned-vehicles">#</doc-anchor-trigger>
+        <span>Spawn Owned Vehicles</span>
+    </h2>
+</doc-anchor-target>
+<p>Want to easily spawn vehicles owned by a player, well Rebar makes it super simple.</p>
+<p>It even handles synchronizing mods, extras, lock state, engine damage, and more.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">import * as alt from 'alt-server';
+import { useRebar } from '@Server/index.js';
+
+const Rebar = useRebar();
+
+async function someFunction(player: alt.Player) {
+    const rPlayer = Rebar.usePlayer(player);
+    const vehicles = await rPlayer.character.getVehicles();
+
+    for (let vehData of vehicles) {
+        if (Rebar.get.useVehicleGetter().isSpawned(vehData._id)) {
+            continue;
+        }
+
+        const newVehicle = new alt.Vehicle(vehData.model, vehData.pos, vehData.rot);
+        const rVehicle = Rebar.vehicle.useVehicle(newVehicle);
+        rVehicle.bind(vehData);
+    }
+}</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="teleport-to-a-waypoint">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#teleport-to-a-waypoint">#</doc-anchor-trigger>
+        <span>Teleport to a Waypoint</span>
+    </h2>
+</doc-anchor-target>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">import * as alt from 'alt-server';
+import { useRebar } from '@Server/index.js';
+
+const Rebar = useRebar();
+const Messenger = Rebar.messenger.useMessenger();
+
+Messenger.commands.register({
+    name: '/tpwp',
+    desc: 'teleport to a given waypoint',
+    callback: async (player: alt.Player) =&gt; {
+        const pos = await Rebar.player.useWaypoint(player).get();
+        if (!pos) {
+            return;
+        }
+
+        player.pos = pos.add(0, 0, 1);
+    },
+});</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="control-pedestrians">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#control-pedestrians">#</doc-anchor-trigger>
+        <span>Control Pedestrians</span>
+    </h2>
+</doc-anchor-target>
+<p>We have a built in pedestrian controller on server-side that lets you invoke natives to easily make pedestrians do various things.</p>
+<p>Here&#x27;s one that makes a bunch of them dance together.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">import * as alt from 'alt-server';
+import { useRebar } from '@Server/index.js';
+
+const Rebar = useRebar();
+
+function someFunction(player: alt.Player) {
+    const peds: ReturnType&lt;typeof Rebar.controllers.usePed&gt;[] = [];
+
+    for (let i = 0; i &lt; 10; i++) {
+        const ped = Rebar.controllers.usePed(new alt.Ped('mp_m_freemode_01', player.pos, player.rot, 100));
+        ped.setOption('makeStupid', true);
+        peds.push(ped);
+
+        ped.invoke('taskPlayAnim', 'timetable@tracy@ig_5@idle_a', 'idle_a', 8.0, 8.0, -1, 1, 0, false, false, false);
+    }
+
+    for (let ped of peds) {
+        ped.invoke('taskPlayAnim', 'timetable@tracy@ig_5@idle_a', 'idle_a', 8.0, 8.0, -1, 1, 0, false, false, false);
+    }
+}</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="raycast-for-objects">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#raycast-for-objects">#</doc-anchor-trigger>
+        <span>Raycast for Objects</span>
+    </h2>
+</doc-anchor-target>
+<p>Raycast for an Object from server-side.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">import * as alt from 'alt-server';
+import { useRebar } from '@Server/index.js';
+
+const Rebar = useRebar();
+
+// This may not work for all ATM models, just an example
+const models = [
+    //
+    alt.hash('prop_atm_01'),
+    alt.hash('prop_atm_02'),
+    alt.hash('prop_atm_03'),
+    alt.hash('prop_fleeca_atm'),
+];
+
+messenger.commands.register({
+    name: '/atm',
+    desc: '',
+    callback: async (player: alt.Player) =&gt; {
+        const rPlayer = Rebar.usePlayer(player);
+        const result = await rPlayer.raycast.getFocusedObject(true);
+
+        if (!result) {
+            return;
+        }
+
+        if (!models.includes(result.model)) {
+            return;
+        }
+
+        rPlayer.notify.showNotification('Interacting with an ATM!');
+    },
+});</code></pre>
+</doc-codeblock></div>
+
+                                
+                                <!-- Required only on API pages -->
+                                <doc-toolbar-member-filter-no-results></doc-toolbar-member-filter-no-results>
+                            </div>
+                            <footer class="clear-both">
+                            
+                                <nav class="flex mt-14">
+                                    <div class="w-1/2">
+                                        <a class="px-5 py-4 h-full flex items-center break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-l-lg transition-colors duration-150 relative hover:z-5" href="../../../info/webview/composables/use-synced-meta/">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="mr-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19 11H7.41l5.29-5.29a.996.996 0 10-1.41-1.41l-7 7a1 1 0 000 1.42l7 7a1.024 1.024 0 001.42-.01.996.996 0 000-1.41L7.41 13H19c.55 0 1-.45 1-1s-.45-1-1-1z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
+                                            <span>
+                                                <span class="block text-xs font-normal text-gray-400 dark:text-dark-400">Previous</span>
+                                                <span class="block mt-1">use​Synced​Meta</span>
+                                            </span>
+                                        </a>
+                                    </div>
+                            
+                                    <div class="w-1/2">
+                                        <a class="px-5 py-4 -mx-px h-full flex items-center justify-end break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-r-lg transition-colors duration-150 relative hover:z-5" href="../../../tutorials/general/vscode-transmitter/">
+                                            <span>
+                                                <span class="block text-xs font-normal text-right text-gray-400 dark:text-dark-400">Next</span>
+                                                <span class="block mt-1">VS​Code Transmitter</span>
+                                            </span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="ml-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19.92 12.38a1 1 0 00-.22-1.09l-7-7a.996.996 0 10-1.41 1.41l5.3 5.3H5c-.55 0-1 .45-1 1s.45 1 1 1h11.59l-5.29 5.29a.996.996 0 000 1.41c.19.2.44.3.7.3s.51-.1.71-.29l7-7c.09-.09.16-.21.21-.33z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
+                                        </a>
+                                    </div>
+                                </nav>
+                            </footer>
+                        </main>
+                
+                        <div class="border-t dark:border-dark-650 pt-6 mb-8">
+                            <footer class="flex flex-wrap items-center justify-between">
+                                <div>
+                                    <ul class="flex flex-wrap items-center text-sm">
+                                    </ul>
+                                </div>
+                                <div class="docs-copyright py-2 text-gray-500 dark:text-dark-350 text-sm leading-relaxed"><p>© Copyright 2024. All rights reserved.</p></div>
+                            </footer>
+                        </div>
+                    </div>
+                
+                    <!-- Rendered if sidebar right is enabled -->
+                    <!-- Sidebar right skeleton-->
+                    <div v-cloak class="fixed top-0 bottom-0 right-0 translate-x-full bg-white border-gray-200 lg:sticky lg:border-l lg:shrink-0 lg:pt-6 lg:transform-none sm:w-1/2 lg:w-64 lg:z-0 md:w-104 sidebar-right skeleton dark:bg-dark-850 dark:border-dark-650">
+                        <div class="pl-5">
+                            <div class="w-32 h-3 mb-4 bg-gray-200 dark:bg-dark-600 rounded-full loading"></div>
+                            <div class="w-48 h-3 mb-4 bg-gray-200 dark:bg-dark-600 rounded-full loading"></div>
+                            <div class="w-40 h-3 mb-4 bg-gray-200 dark:bg-dark-600 rounded-full loading"></div>
+                        </div>
+                    </div>
+                
+                    <!-- User should be able to hide sidebar right -->
+                    <doc-sidebar-right v-cloak></doc-sidebar-right>
+                </div>
+
+            </div>
+        </div>
+    
+        <doc-search-mobile></doc-search-mobile>
+        <doc-back-to-top></doc-back-to-top>
+    </div>
+
+
+    <div id="docs-overlay-target"></div>
+
+    <script data-cfasync="false">window.__DOCS__ = { "title": "Code Examples", level: 3, icon: "file", hasPrism: true, hasMermaid: false, hasMath: false, tocDepth: 23 }</script>
+</body>
+</html>

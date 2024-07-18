@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.5.0.774652843469">
+
+    <!-- See retype.com -->
+    <meta name="generator" content="Retype 3.5.0">
+
+    <!-- Primary Meta Tags -->
+    <title>Chapter 7. Programming</title>
+    <meta name="title" content="Chapter 7. Programming">
+    <meta name="description" content="In our previous section we created our first plugin, spawned a player, and gave them a weapon.">
+
+    <!-- Canonical -->
+    <link rel="canonical" href="https://rebarv.com/tutorials/rebar/chapter-07-programming/">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://rebarv.com/tutorials/rebar/chapter-07-programming/">
+    <meta property="og:title" content="Chapter 7. Programming">
+    <meta property="og:description" content="In our previous section we created our first plugin, spawned a player, and gave them a weapon.">
+    <meta property="og:image" content="https://rebarv.com/static/book/intellisense.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://rebarv.com/tutorials/rebar/chapter-07-programming/">
+    <meta property="twitter:title" content="Chapter 7. Programming">
+    <meta property="twitter:description" content="In our previous section we created our first plugin, spawned a player, and gave them a weapon.">
+    <meta property="twitter:image" content="https://rebarv.com/static/book/intellisense.png">
+
+    <script data-cfasync="false">(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
+
+    <link href="../../../resources/css/retype.css?v=3.5.0.774652843469" rel="stylesheet">
+
+    <script data-cfasync="false" src="../../../resources/js/config.js?v=3.5.0.774652843469" data-turbo-eval="false" defer></script>
+    <script data-cfasync="false" src="../../../resources/js/retype.js?v=3.5.0" data-turbo-eval="false" defer></script>
+    <script id="lunr-js" data-cfasync="false" src="../../../resources/js/lunr.js?v=3.5.0.774652843469" data-turbo-eval="false" defer></script>
+    <script id="prism-js" data-cfasync="false" src="../../../resources/js/prism.js?v=3.5.0.774652843469" defer></script>
+</head>
+<body>
+    <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
+        <div class="absolute bottom-0 left-0 bg-gray-100 dark:bg-dark-800" style="top: 5rem; right: 50%"></div>
+    
+        <header id="docs-site-header" class="sticky top-0 z-30 flex w-full h-16 bg-white border-b border-gray-200 md:h-20 dark:bg-dark-850 dark:border-dark-650">
+            <div class="container relative flex items-center justify-between pr-6 grow md:justify-start">
+                <!-- Mobile menu button skeleton -->
+                <button v-cloak class="skeleton docs-mobile-menu-button flex items-center justify-center shrink-0 overflow-hidden dark:text-white focus:outline-none rounded-full w-10 h-10 ml-3.5 md:hidden"><svg xmlns="http://www.w3.org/2000/svg" class="mb-px shrink-0" width="24" height="24" viewBox="0 0 24 24" role="presentation" style="margin-bottom: 0px;"><g fill="currentColor"><path d="M2 4h20v2H2zM2 11h20v2H2zM2 18h20v2H2z"></path></g></svg></button>
+                <div v-cloak id="docs-sidebar-toggle"></div>
+        
+                <!-- Logo -->
+                <div class="flex items-center justify-between h-full py-2 md:w-75">
+                    <div class="flex items-center px-2 md:px-6">
+                        <a id="docs-site-logo" href="../../../" class="flex items-center leading-snug text-xl">
+                            <span class="w-10 mr-2 grow-0 shrink-0 overflow-hidden">
+                                <img class="max-h-10 dark:hidden md:inline-block" src="../../../static/logo_dark.svg">
+                                <img class="max-h-10 hidden dark:inline-block" src="../../../static/logo_light.svg">
+                            </span>
+                            <span class="dark:text-white font-semibold line-clamp-1 md:line-clamp-2">Rebar for alt:V</span>
+                        </a>
+                    </div>
+        
+                    <span class="hidden h-8 border-r md:inline-block dark:border-dark-650"></span>
+                </div>
+        
+                <div class="flex justify-between md:grow">
+                    <!-- Top Nav -->
+                    <nav class="hidden md:flex">
+                        <ul class="flex flex-col mb-4 md:pl-16 md:mb-0 md:flex-row md:items-center">
+                            <li class="mr-6">
+                                <a class="py-2 md:mb-0 inline-flex items-center text-sm whitespace-nowrap transition-colors duration-200 ease-linear md:text-blue-500 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200" href="https://discord.gg/63rrbadsR7">Discord</a>
+                            </li>
+                            <li class="mr-6">
+                                <a class="py-2 md:mb-0 inline-flex items-center text-sm whitespace-nowrap transition-colors duration-200 ease-linear md:text-blue-500 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200" href="https://github.com/stuyk/rebar-altv">GitHub</a>
+                            </li>
+                            <li class="mr-6">
+                                <a class="py-2 md:mb-0 inline-flex items-center text-sm whitespace-nowrap transition-colors duration-200 ease-linear md:text-blue-500 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200" href="https://forge.plebmasters.de/hub?targetFrameworks=Rebar+(alt:V)&contentType=Script">Plugins</a>
+                            </li>
+                            <li class="mr-6">
+                                <a class="py-2 md:mb-0 inline-flex items-center text-sm whitespace-nowrap transition-colors duration-200 ease-linear md:text-blue-500 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200" href="https://altv.mp">alt:V</a>
+                            </li>
+        
+                        </ul>
+                    </nav>
+        
+                    <!-- Header Right Skeleton -->
+                    <div v-cloak class="flex justify-end grow skeleton">
+        
+                        <!-- Search input mock -->
+                        <div class="relative hidden w-40 lg:block lg:max-w-sm lg:ml-auto">
+                            <div class="absolute flex items-center justify-center h-full pl-3 dark:text-dark-300">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="icon-base" width="16" height="16" viewBox="0 0 24 24" aria-labelledby="icon" role="presentation" style="margin-bottom: 1px;"><g fill="currentColor" ><path d="M21.71 20.29l-3.68-3.68A8.963 8.963 0 0020 11c0-4.96-4.04-9-9-9s-9 4.04-9 9 4.04 9 9 9c2.12 0 4.07-.74 5.61-1.97l3.68 3.68c.2.19.45.29.71.29s.51-.1.71-.29c.39-.39.39-1.03 0-1.42zM4 11c0-3.86 3.14-7 7-7s7 3.14 7 7c0 1.92-.78 3.66-2.04 4.93-.01.01-.02.01-.02.01-.01.01-.01.01-.01.02A6.98 6.98 0 0111 18c-3.86 0-7-3.14-7-7z" ></path></g></svg>
+                            </div>
+                            <input class="w-full h-10 placeholder-gray-400 transition-colors duration-200 ease-in bg-gray-200 border border-transparent rounded md:text-sm hover:bg-white hover:border-gray-300 focus:outline-none focus:bg-white focus:border-gray-500 dark:bg-dark-600 dark:border-dark-600 dark:placeholder-dark-400" style="padding: 0.625rem 0.75rem 0.625rem 2rem" type="text" placeholder="Search">
+                        </div>
+        
+                        <!-- Mobile search button -->
+                        <div class="flex items-center justify-center w-10 h-10 lg:hidden">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="shrink-0 icon-base" width="20" height="20" viewBox="0 0 24 24" aria-labelledby="icon" role="presentation" style="margin-bottom: 0px;"><g fill="currentColor" ><path d="M21.71 20.29l-3.68-3.68A8.963 8.963 0 0020 11c0-4.96-4.04-9-9-9s-9 4.04-9 9 4.04 9 9 9c2.12 0 4.07-.74 5.61-1.97l3.68 3.68c.2.19.45.29.71.29s.51-.1.71-.29c.39-.39.39-1.03 0-1.42zM4 11c0-3.86 3.14-7 7-7s7 3.14 7 7c0 1.92-.78 3.66-2.04 4.93-.01.01-.02.01-.02.01-.01.01-.01.01-.01.02A6.98 6.98 0 0111 18c-3.86 0-7-3.14-7-7z" ></path></g></svg>
+                        </div>
+        
+                        <!-- Dark mode switch placeholder -->
+                        <div class="w-10 h-10 lg:ml-2"></div>
+        
+                        <!-- History button -->
+                        <div class="flex items-center justify-center w-10 h-10" style="margin-right: -0.625rem;">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="shrink-0 icon-base" width="22" height="22" viewBox="0 0 24 24" aria-labelledby="icon" role="presentation" style="margin-bottom: 0px;"><g fill="currentColor" ><g ><path d="M12.01 6.01c-.55 0-1 .45-1 1V12a1 1 0 00.4.8l3 2.22a.985.985 0 001.39-.2.996.996 0 00-.21-1.4l-2.6-1.92V7.01c.02-.55-.43-1-.98-1z"></path><path d="M12.01 1.91c-5.33 0-9.69 4.16-10.05 9.4l-.29-.26a.997.997 0 10-1.34 1.48l1.97 1.79c.19.17.43.26.67.26s.48-.09.67-.26l1.97-1.79a.997.997 0 10-1.34-1.48l-.31.28c.34-4.14 3.82-7.41 8.05-7.41 4.46 0 8.08 3.63 8.08 8.09s-3.63 8.08-8.08 8.08c-2.18 0-4.22-.85-5.75-2.4a.996.996 0 10-1.42 1.4 10.02 10.02 0 007.17 2.99c5.56 0 10.08-4.52 10.08-10.08.01-5.56-4.52-10.09-10.08-10.09z"></path></g></g></svg>
+                        </div>
+                    </div>
+        
+                    <div v-cloak class="flex justify-end grow">
+                        <div id="docs-mobile-search-button"></div>
+                        <doc-search-desktop></doc-search-desktop>
+        
+                        <doc-theme-switch class="lg:ml-2"></doc-theme-switch>
+                        <doc-history></doc-history>
+                    </div>
+                </div>
+            </div>
+        </header>
+    
+        <div class="container relative flex bg-white">
+            <!-- Sidebar Skeleton -->
+            <div v-cloak class="fixed flex flex-col shrink-0 duration-300 ease-in-out bg-gray-100 border-gray-200 sidebar top-20 w-75 border-r h-screen md:sticky transition-transform skeleton dark:bg-dark-800 dark:border-dark-650">
+            
+                <!-- Render this div, if config.showSidebarFilter is `true` -->
+                <div class="flex items-center h-16 px-6">
+                    <input class="w-full h-8 px-3 py-2 transition-colors duration-200 ease-linear bg-white border border-gray-200 rounded shadow-none text-sm focus:outline-none focus:border-gray-600 dark:bg-dark-600 dark:border-dark-600" type="text" placeholder="Filter">
+                </div>
+            
+                <div class="pl-6 mt-1 mb-4">
+                    <div class="w-32 h-3 mb-4 bg-gray-200 rounded-full loading dark:bg-dark-600"></div>
+                    <div class="w-48 h-3 mb-4 bg-gray-200 rounded-full loading dark:bg-dark-600"></div>
+                    <div class="w-40 h-3 mb-4 bg-gray-200 rounded-full loading dark:bg-dark-600"></div>
+                    <div class="w-32 h-3 mb-4 bg-gray-200 rounded-full loading dark:bg-dark-600"></div>
+                    <div class="w-48 h-3 mb-4 bg-gray-200 rounded-full loading dark:bg-dark-600"></div>
+                    <div class="w-40 h-3 mb-4 bg-gray-200 rounded-full loading dark:bg-dark-600"></div>
+                </div>
+            
+                <div class="shrink-0 mt-auto bg-transparent dark:border-dark-650">
+                    <a class="flex items-center justify-center flex-nowrap h-16 text-gray-400 dark:text-dark-400 hover:text-gray-700 dark:hover:text-dark-300 transition-colors duration-150 ease-in docs-powered-by" target="_blank" href="https://retype.com/" rel="noopener">
+                        <span class="text-xs whitespace-nowrap">Powered by</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="ml-2" fill="currentColor" width="96" height="20" overflow="visible"><path d="M0 0v20h13.59V0H0zm11.15 17.54H2.44V2.46h8.71v15.08zM15.8 20h2.44V4.67L15.8 2.22zM20.45 6.89V20h2.44V9.34z"/><g><path d="M40.16 8.44c0 1.49-.59 2.45-1.75 2.88l2.34 3.32h-2.53l-2.04-2.96h-1.43v2.96h-2.06V5.36h3.5c1.43 0 2.46.24 3.07.73s.9 1.27.9 2.35zm-2.48 1.1c.26-.23.38-.59.38-1.09 0-.5-.13-.84-.4-1.03s-.73-.28-1.39-.28h-1.54v2.75h1.5c.72 0 1.2-.12 1.45-.35zM51.56 5.36V7.2h-4.59v1.91h4.13v1.76h-4.13v1.92h4.74v1.83h-6.79V5.36h6.64zM60.09 7.15v7.48h-2.06V7.15h-2.61V5.36h7.28v1.79h-2.61zM70.81 14.64h-2.06v-3.66l-3.19-5.61h2.23l1.99 3.45 1.99-3.45H74l-3.19 5.61v3.66zM83.99 6.19c.65.55.97 1.4.97 2.55s-.33 1.98-1 2.51-1.68.8-3.04.8h-1.23v2.59h-2.06V5.36h3.26c1.42 0 2.45.28 3.1.83zm-1.51 3.65c.25-.28.37-.69.37-1.22s-.16-.92-.48-1.14c-.32-.23-.82-.34-1.5-.34H79.7v3.12h1.38c.68 0 1.15-.14 1.4-.42zM95.85 5.36V7.2h-4.59v1.91h4.13v1.76h-4.13v1.92H96v1.83h-6.79V5.36h6.64z"/></g></svg>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Sidebar component -->
+            <doc-sidebar v-cloak>
+                <template #sidebar-footer>
+                    <div class="shrink-0 mt-auto border-t md:bg-transparent md:border-none dark:border-dark-650">
+            
+                        <div class="py-3 px-6 md:hidden border-b dark:border-dark-650">
+                            <nav>
+                                <ul class="flex flex-wrap justify-center items-center">
+                                    <li class="mr-6">
+                                        <a class="block py-1 inline-flex items-center text-sm whitespace-nowrap transition-colors duration-200 ease-linear md:text-blue-500 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200" href="https://discord.gg/63rrbadsR7">Discord</a>
+                                    </li>
+                                    <li class="mr-6">
+                                        <a class="block py-1 inline-flex items-center text-sm whitespace-nowrap transition-colors duration-200 ease-linear md:text-blue-500 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200" href="https://github.com/stuyk/rebar-altv">GitHub</a>
+                                    </li>
+                                    <li class="mr-6">
+                                        <a class="block py-1 inline-flex items-center text-sm whitespace-nowrap transition-colors duration-200 ease-linear md:text-blue-500 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200" href="https://forge.plebmasters.de/hub?targetFrameworks=Rebar+(alt:V)&contentType=Script">Plugins</a>
+                                    </li>
+                                    <li class="mr-6">
+                                        <a class="block py-1 inline-flex items-center text-sm whitespace-nowrap transition-colors duration-200 ease-linear md:text-blue-500 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200" href="https://altv.mp">alt:V</a>
+                                    </li>
+            
+                                </ul>
+                            </nav>
+                        </div>
+            
+                        <a class="flex items-center justify-center flex-nowrap h-16 text-gray-400 dark:text-dark-400 hover:text-gray-700 dark:hover:text-dark-300 transition-colors duration-150 ease-in docs-powered-by" target="_blank" href="https://retype.com/" rel="noopener">
+                            <span class="text-xs whitespace-nowrap">Powered by</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="ml-2" fill="currentColor" width="96" height="20" overflow="visible"><path d="M0 0v20h13.59V0H0zm11.15 17.54H2.44V2.46h8.71v15.08zM15.8 20h2.44V4.67L15.8 2.22zM20.45 6.89V20h2.44V9.34z"/><g><path d="M40.16 8.44c0 1.49-.59 2.45-1.75 2.88l2.34 3.32h-2.53l-2.04-2.96h-1.43v2.96h-2.06V5.36h3.5c1.43 0 2.46.24 3.07.73s.9 1.27.9 2.35zm-2.48 1.1c.26-.23.38-.59.38-1.09 0-.5-.13-.84-.4-1.03s-.73-.28-1.39-.28h-1.54v2.75h1.5c.72 0 1.2-.12 1.45-.35zM51.56 5.36V7.2h-4.59v1.91h4.13v1.76h-4.13v1.92h4.74v1.83h-6.79V5.36h6.64zM60.09 7.15v7.48h-2.06V7.15h-2.61V5.36h7.28v1.79h-2.61zM70.81 14.64h-2.06v-3.66l-3.19-5.61h2.23l1.99 3.45 1.99-3.45H74l-3.19 5.61v3.66zM83.99 6.19c.65.55.97 1.4.97 2.55s-.33 1.98-1 2.51-1.68.8-3.04.8h-1.23v2.59h-2.06V5.36h3.26c1.42 0 2.45.28 3.1.83zm-1.51 3.65c.25-.28.37-.69.37-1.22s-.16-.92-.48-1.14c-.32-.23-.82-.34-1.5-.34H79.7v3.12h1.38c.68 0 1.15-.14 1.4-.42zM95.85 5.36V7.2h-4.59v1.91h4.13v1.76h-4.13v1.92H96v1.83h-6.79V5.36h6.64z"/></g></svg>
+                        </a>
+                    </div>
+                </template>
+            </doc-sidebar>
+    
+            <div class="grow min-w-0 dark:bg-dark-850">
+                <!-- Render "toolbar" template here on api pages --><!-- Render page content -->
+                <div class="flex">
+                    <div class="min-w-0 p-4 grow md:px-16">
+                        <main class="relative pb-12 lg:pt-2">
+                            <div class="docs-markdown" id="docs-content">
+                                <!-- Rendered if sidebar right is enabled -->
+                                <div id="docs-sidebar-right-toggle"></div>
+                                <!-- Page content  -->
+<doc-anchor-target id="chapter-7-programming" class="break-words">
+    <h1>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#chapter-7-programming">#</doc-anchor-trigger>
+        <span>Chapter 7. Programming</span>
+    </h1>
+</doc-anchor-target>
+<p>In our previous section we created our first plugin, spawned a player, and gave them a weapon. In this section, we&#x27;re going to learn how to do some basic programming, and how to know what to type based on the patterns you&#x27;re seeing.</p>
+<p>Don&#x27;t try to overthink what you&#x27;re seeing here in this section, you may need to come back to it for a refresher or maybe you need a little more help by looking at <a href="https://learnxinyminutes.com/docs/typescript/">some more examples</a>.</p>
+<p>What is important is that you give it time, and practice often. You obtain nothing if you do nothing.</p>
+<blockquote>
+<p>Do or do not. There is no try.</p>
+<p>- Yoda</p>
+</blockquote>
+<doc-anchor-target id="basics">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#basics">#</doc-anchor-trigger>
+        <span>Basics</span>
+    </h2>
+</doc-anchor-target>
+<p>Variables are the bread and butter for programming, variables store different data types. We&#x27;ve already used one variable to store an <code v-pre>alt.Vector3</code> inside of it.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">let spawnPosition = new alt.Vector3({
+    x: -864.1437377929688,
+    y: -172.6201934814453,
+    z: 37.799232482910156,
+});</code></pre>
+</doc-codeblock></div>
+<p>But variables can store just about anything inside of them. Here&#x27;s a few examples of what that looks like for types like <code v-pre>strings</code>, <code v-pre>numbers</code>, <code v-pre>objects</code>, <code v-pre>interfaces</code>, and <code v-pre>arrays</code>.</p>
+<doc-anchor-target id="variables">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#variables">#</doc-anchor-trigger>
+        <span>Variables</span>
+    </h3>
+</doc-anchor-target>
+<p>Variables can be declared as <code v-pre>let</code> or <code v-pre>const</code> depending on what is needed.</p>
+<p>If the value is not meant to change, we use <code v-pre>const</code>. If the value is meant to change we use <code v-pre>let</code>.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">// Not meant to change
+const spawnPosition = new alt.Vector3({
+    x: -864.1437377929688,
+    y: -172.6201934814453,
+    z: 37.799232482910156,
+});
+
+// Mean to be changed
+let count = 0;
+count += 1;</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="strings">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#strings">#</doc-anchor-trigger>
+        <span>Strings</span>
+    </h3>
+</doc-anchor-target>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">// We use 'let' to declare a variable of the string type, and give it a name.
+let myVariable: string;
+
+// We can assign a variable with '='
+let anotherVariable = 'hello world';
+
+// We can change that same variable by not using 'let'
+anotherVariable = 'hello';
+
+// We can add another string to the current variable by using +
+anotherVariable = 'hello' + 'world';
+
+// We can add two variables together by using + as well
+let variableHello = 'hello';
+let variableWorld = 'world';
+
+// Variable contains 'hello world'
+let result = variableHello + ' ' + variableWorld;</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="numbers">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#numbers">#</doc-anchor-trigger>
+        <span>Numbers</span>
+    </h3>
+</doc-anchor-target>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">// Again, we use 'let' to declare a variable of the number type, and give it a name
+let myNumber: number;
+
+// We can assign a variable with '='
+let anotherNumber = 5;
+
+// We can change that same variable
+anotherNumber = 10;
+
+// We can add more to that variable, which results in the variable being 15
+anotherNumber += 5;
+
+// We can subtract from that variable, which results in 5
+anotherNumber -= 10;
+
+// We can multiply that variable which results in 10
+anotherNumber *= 5;
+
+// We can divide that variable which results in 5
+anotherNumber /= 2;
+
+// We can use all the operators to add, subtract, multiply, or divide two variables together
+let numberA = 5;
+let numberB = 5;
+
+let result = numberA + numberB;
+let result2 = numberA * numberB;
+let result3 = numberA / numberB;
+let result4 = numberA - numberB;</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="booleans">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#booleans">#</doc-anchor-trigger>
+        <span>Booleans</span>
+    </h3>
+</doc-anchor-target>
+<p>Booleans are a great way to see if something is true or false.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">let isRaining = true;
+let isCloudy = true;
+
+// Booleans can also be created by comparing or combining types.
+let isBadWeather = isRaining &amp;&amp; isCloudy;
+
+// We can also make booleans out of numbers
+let value1 = 5;
+let value2 = 10;
+
+// Is value 2 greater than, value 1
+let isValue2Larger = value2 &gt; value1; // true
+
+// Is value 1 less than, value 2
+let isValue1Smaller = value1 &lt; value2; // true
+
+// Are these the same values?
+let isValueSame = value1 === value; // false</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="objects">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#objects">#</doc-anchor-trigger>
+        <span>Objects</span>
+    </h3>
+</doc-anchor-target>
+<p>Objects can be incredibly complex, so this is just the basics of declaring and modifying them.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">// Objects can be delcared with {}
+let myObject = {};
+
+// Objects can contain any amount of data
+const myObject = {
+    name: 'Kirk',
+    age: 30,
+};
+
+// Objects can have that data changed at any time
+myObject.name = 'Kirk Shepfield';
+myObject.age = 25;
+
+// Objects can also contain more objects
+const newObject = {
+    name: 'Kirk',
+    age: 30,
+    data: {
+        address: '127.0.0.1',
+    },
+};
+
+// Those objects inside objects can also be modified
+newObject.data.address = '0.0.0.0';</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="interfaces">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#interfaces">#</doc-anchor-trigger>
+        <span>Interfaces</span>
+    </h3>
+</doc-anchor-target>
+<p>While objects are great, they aren&#x27;t great without an interface. An interface lets you determine the expected structure of ran Object.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">// You can declare an interface like this
+interface User {
+    // notice how this uses a string
+    name: string;
+    // this uses a number
+    age: number;
+    // this uses an object
+    data: {
+        // and this uses a string
+        address: string;
+    };
+}
+
+// Now we can declare an object that uses this interface specifically
+// Sometimes your IDE will complain, if interface does not match
+const user: User = {
+    name: 'Kirk',
+    age: 25,
+    data: {
+        address: 'everywhere',
+    },
+};
+
+// We can also make interfaces with optional values by using '?'
+interface UserOptional {
+    // notice how this uses a string
+    name: string;
+    // this uses a number
+    age: number;
+    // this uses an object
+    data?: {
+        // and this uses a string
+        address: string;
+    };
+}
+
+// Now we can delcare this user without declaring 'data'
+const user2: UserOptional = {
+    name: 'Kirk',
+    age: 25,
+};
+
+// Neat!</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="arrays">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#arrays">#</doc-anchor-trigger>
+        <span>Arrays</span>
+    </h3>
+</doc-anchor-target>
+<p>Arrays are a group of strings, objects, numbers, or other types. They are often represented by a type <code v-pre>[]</code></p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">// Let's declare some fruit in an array as a string array with string[]
+let fruits: string[] = ['apple', 'orange', 'banana'];
+
+// I want to get the first element of our fruits array
+console.log(fruits[0]); // This will get the first element of the array, which is apple
+
+// I want to get the second element of our fruits array
+console.log(fruits[1]); // This will get the second element, which is orange
+
+// I want to get the last element of our fruits array, without knowing the length
+console.log(fruits[fruits.length - 1]); // This will get the last element in the array, the banana
+
+// I want to remove the last element in the array
+let banana = fruits.pop();
+
+// I want to remove the first element in the array
+let apple = fruits.shift();
+
+// I want add both fruits back in
+fruits.push('banana');
+fruits.push('apple');
+
+// Our array is now ['orange', 'banana', 'apple']
+// I want to remove banana from the array, but it's in the middle
+let index = fruits.findIndex((x) =&gt; x.includes('banana'));
+let banana = fruits.splice(index, 1);
+
+// Our array is now ['orange', 'apple']
+// Let's print all the elements in our array
+for (let fruit of fruits) {
+    // fruit is used as our iterator for the array, it will print orange, and then apple
+    console.log(fruit);
+}
+
+// Neat!</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="if-statements">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#if-statements">#</doc-anchor-trigger>
+        <span>If Statements</span>
+    </h3>
+</doc-anchor-target>
+<p>If statements can be seen as your logical operators to help make your code do certain things. It&#x27;s effectively like stating if you have a chocolate bar, do you eat the whole thing now, or do you eat it later. Then you tell the computer exactly what to do with the chocolate bar.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">// Basic If Statement
+let isRaining = true;
+if (isRaining) {
+    console.log('Take an umbrella!');
+}
+
+// If-Else Statement
+let isSunny = false;
+if (isSunny) {
+    console.log('Wear sunglasses!');
+} else {
+    console.log('No need for sunglasses.');
+}
+
+// If-Else If-Else Statement
+let temperature = 30;
+if (temperature &gt; 30) {
+    console.log(&quot;It's hot!&quot;);
+} else if (temperature &lt; 10) {
+    console.log(&quot;It's cold!&quot;);
+} else {
+    console.log(&quot;It's moderate.&quot;);
+}
+
+// Nested If Statements
+let time = 14; // 2 PM
+let isWeekend = true;
+if (isWeekend) {
+    if (time &lt; 12) {
+        console.log('Good morning!');
+    } else {
+        console.log('Good afternoon!');
+    }
+} else {
+    console.log(&quot;It's a weekday.&quot;);
+}
+
+// Ternary Operator
+let age = 18;
+let canVote = age &gt;= 18 ? 'Yes' : 'No';
+console.log(canVote); // 'Yes'
+
+// Combining Conditions
+let isAdult = true;
+let hasID = true;
+if (isAdult &amp;&amp; hasID) {
+    console.log('Entry allowed.');
+}
+
+let isMember = false;
+if (isAdult || isMember) {
+    console.log('Discount applicable.');
+}
+
+if (!isMember) {
+    console.log('Membership required.'); // Membership required
+}</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="functions">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#functions">#</doc-anchor-trigger>
+        <span>Functions</span>
+    </h3>
+</doc-anchor-target>
+<p>Functions allow you to put re-useable code together to be called multiple times.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">// Basic Function
+function greet(name: string): void {
+    console.log(`Hello, ${name}!`);
+}
+greet('Alice'); // Hello, Alice!
+
+// Return Value
+function add(a: number, b: number): number {
+    return a + b;
+}
+
+const result = add(5, 3);
+
+// Default Parameters
+function greetWithDefault(name: string = 'Guest'): void {
+    console.log(`Hello, ${name}!`);
+}
+greetWithDefault(); // Hello, Guest!
+greetWithDefault('Bob'); // Hello, Bob!
+
+// Rest Parameters
+function sumAll(...nums: number[]): number {
+    return nums.reduce((total, num) =&gt; total + num, 0);
+}
+console.log(sumAll(1, 2, 3, 4)); // 10</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="camel-casing">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#camel-casing">#</doc-anchor-trigger>
+        <span>Camel Casing</span>
+    </h3>
+</doc-anchor-target>
+<p>When you are declaring variables you should always <code v-pre>camelCase</code> them. This means that the first word is always lowercase, and all words thereafter are capitalized. <code v-pre>likeThisReallyLongSentence</code>.</p>
+<p>However, this is just a general rule for JavaScript, and TypeScript. Try to abide by it so others can read your code quickly.</p>
+<doc-anchor-target id="function-scope">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#function-scope">#</doc-anchor-trigger>
+        <span>Function Scope</span>
+    </h2>
+</doc-anchor-target>
+<p>Scope determines where certain variables and functions can be logged or executed.</p>
+<doc-anchor-target id="global-scope">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#global-scope">#</doc-anchor-trigger>
+        <span>Global Scope</span>
+    </h3>
+</doc-anchor-target>
+<ul>
+<li>Variables declared outside any function or block</li>
+<li>Accessible from anywhere in the code</li>
+</ul>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">let globalVar = &quot;I'm global&quot;;
+
+function printGlobalVar() {
+    console.log(globalVar); // Accessible here
+}
+
+printGlobalVar(); // Output: I'm global
+console.log(globalVar); // Accessible here as well</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="function-scope-1">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#function-scope-1">#</doc-anchor-trigger>
+        <span>Function Scope</span>
+    </h3>
+</doc-anchor-target>
+<ul>
+<li>Variables declared inside a function using <code v-pre>let</code>, or <code v-pre>const</code></li>
+<li>Accessible only within that function</li>
+</ul>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">function greet() {
+    let message = 'Hello, World!';
+    console.log(message); // Accessible here
+}
+
+greet(); // Output: Hello, World!
+console.log(message); // Error: Cannot find name 'message'</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="block-scope">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#block-scope">#</doc-anchor-trigger>
+        <span>Block Scope</span>
+    </h3>
+</doc-anchor-target>
+<ul>
+<li>Variables declared inside a block (e.g., <code v-pre>{}</code>) using <code v-pre>let</code> or <code v-pre>const</code>.</li>
+<li>Accessible only within that block.</li>
+</ul>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">if (true) {
+    let blockScopedVar = &quot;I'm block scoped&quot;;
+    console.log(blockScopedVar); // Accessible here
+}
+
+console.log(blockScopedVar); // Error: Cannot find name 'blockScopedVar'</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="recap">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#recap">#</doc-anchor-trigger>
+        <span>Recap</span>
+    </h3>
+</doc-anchor-target>
+<ul>
+<li><strong>Global Scope</strong>: Accessible anywhere</li>
+<li><strong>Function Scope</strong>: Accessible only within the function</li>
+<li><strong>Block Scope</strong>: Accessible only within the block</li>
+</ul>
+<p>Understanding these scopes helps manage variable accessibility and avoid bugs.</p>
+<doc-anchor-target id="intellisense">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#intellisense">#</doc-anchor-trigger>
+        <span>Intellisense</span>
+    </h2>
+</doc-anchor-target>
+<p>If you are not sure what intellisense is, it&#x27;s the little helper in your text editor that will sometimes pop-up with suggestions.</p>
+<p>Here&#x27;s a picture of what that looks like.</p>
+<p><figure class="content-center">
+    <img src="../../../static/book/intellisense.png" alt="">
+    <figcaption class="caption"></figcaption>
+</figure>
+</p>
+<p>There&#x27;s a lot of confusing icons, and strange symbols throughout the entire suggestion. Let&#x27;s break it down so you can understand what you&#x27;re looking at more.</p>
+<p><figure class="content-center">
+    <img src="../../../static/book/intellisense-explained.png" alt="">
+    <figcaption class="caption"></figcaption>
+</figure>
+</p>
+<p>As you can see in the above image, it clearly explains what each icon is and what their name is. Now let&#x27;s break down how each one of those works. Let&#x27;s take a look at some common examples from <code v-pre>alt:V</code>.</p>
+<doc-anchor-target id="class-type">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#class-type">#</doc-anchor-trigger>
+        <span>Class Type</span>
+    </h3>
+</doc-anchor-target>
+<p>Now we&#x27;re going to focus on <code v-pre>alt.Vehicle</code> which is a <code v-pre>class</code>. A class can be described as a little <code v-pre>orange tree with roots</code>.</p>
+<p>Usually when you see a <code v-pre>class</code> it needs to be be instantiated with the <code v-pre>new</code> keyword.</p>
+<p>Let&#x27;s take a look at what that may look like.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">// As you can see below we've instantiated 3 different classes in a single line.
+// 1 for the vehicle, 1 for the position, and 1 for the rotation of the vehicle.
+const vehicle = new alt.Vehicle('infernus', new alt.Vector3(5, 5, 5), new alt.Vector3(0, 0, 0));</code></pre>
+</doc-codeblock></div>
+<p><figure class="content-center">
+    <img src="../../../static/book/alt-vehicle.png" alt="">
+    <figcaption class="caption"></figcaption>
+</figure>
+</p>
+<p>You can also see that our parameters are now matching perfectly.</p>
+<p>It expected the following based on the screenshot above...</p>
+<ul>
+<li><code v-pre>model</code> of <code v-pre>string</code> type,</li>
+<li><code v-pre>pos</code> of <code v-pre>alt.Vector3</code> type,</li>
+<li><code v-pre>rot</code> of <code v-pre>alt.Vector3</code> type.</li>
+</ul>
+<p><em>Remember that a <code v-pre>?</code> means the argument, variable, or property may be optional</em></p>
+<doc-anchor-target id="property-type">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#property-type">#</doc-anchor-trigger>
+        <span>Property Type</span>
+    </h3>
+</doc-anchor-target>
+<p>Properties are always assigned with an <code v-pre>=</code> sign. A property can be described as a <code v-pre>small low blue box</code>.</p>
+<p><figure class="content-center">
+    <img src="../../../static/book/player-health.png" alt="">
+    <figcaption class="caption"></figcaption>
+</figure>
+</p>
+<p>As you can see above we see two properties, headRot and health. We&#x27;re focusing on health though.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">player.health = 200; // believe it or not player health goes between 99-200. &lt;= 99 being dead</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="function-type">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#function-type">#</doc-anchor-trigger>
+        <span>Function Type</span>
+    </h3>
+</doc-anchor-target>
+<p>Functions usually require using <code v-pre>()</code> to make them function. The icon is often a <code v-pre>large purple box</code>.</p>
+<p><figure class="content-center">
+    <img src="../../../static/book/player-give-weapon.png" alt="">
+    <figcaption class="caption"></figcaption>
+</figure>
+</p>
+<p>When you open up the function with <code v-pre>()</code> you will get additional intellisense hints.</p>
+<p><figure class="content-center">
+    <img src="../../../static/book/player-give-weapon-intellisense.png" alt="">
+    <figcaption class="caption"></figcaption>
+</figure>
+</p>
+<p>As you can see above it will take a <code v-pre>string or number</code>, <code v-pre>number</code> for ammo, and a <code v-pre>boolean</code> for equipNow.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">player.giveWeapon('WEAPON_PISTOL50', 999, true);</code></pre>
+</doc-codeblock></div>
+<p>Functions can also sometimes return data when executed, take a look at this <code v-pre>player.getEyeColor()</code> function.</p>
+<p><figure class="content-center">
+    <img src="../../../static/book/player-get-eye-color.png" alt="">
+    <figcaption class="caption"></figcaption>
+</figure>
+</p>
+<p>That last parameter which says <code v-pre>: number</code> is the expected <code v-pre>ReturnType</code> for the function. So we can assume we&#x27;ll be getting a <code v-pre>number</code> back from the function after it&#x27;s executed.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">const eyeColor = player.getEyeColor();</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="recap-1">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#recap-1">#</doc-anchor-trigger>
+        <span>Recap</span>
+    </h2>
+</doc-anchor-target>
+<p>While there&#x27;s a lot to learn in programming, this will all eventually become second nature in your understanding as you proceed to work with the knowledge you&#x27;ve obtained every day. You must practice programming to be good at programming. It is a skill that can only be obtained by writing code, and dealing with the bugs.</p>
+
+                                
+                                <!-- Required only on API pages -->
+                                <doc-toolbar-member-filter-no-results></doc-toolbar-member-filter-no-results>
+                            </div>
+                            <footer class="clear-both">
+                            
+                                <nav class="flex mt-14">
+                                    <div class="w-1/2">
+                                        <a class="px-5 py-4 h-full flex items-center break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-l-lg transition-colors duration-150 relative hover:z-5" href="../../../tutorials/rebar/chapter-06-expanding-the-plugin/">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="mr-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19 11H7.41l5.29-5.29a.996.996 0 10-1.41-1.41l-7 7a1 1 0 000 1.42l7 7a1.024 1.024 0 001.42-.01.996.996 0 000-1.41L7.41 13H19c.55 0 1-.45 1-1s-.45-1-1-1z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
+                                            <span>
+                                                <span class="block text-xs font-normal text-gray-400 dark:text-dark-400">Previous</span>
+                                                <span class="block mt-1">Chapter 6. Expanding the Plugin</span>
+                                            </span>
+                                        </a>
+                                    </div>
+                            
+                                    <div class="w-1/2">
+                                        <a class="px-5 py-4 -mx-px h-full flex items-center justify-end break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-r-lg transition-colors duration-150 relative hover:z-5" href="../../../tutorials/rebar/chapter-08-excercises/">
+                                            <span>
+                                                <span class="block text-xs font-normal text-right text-gray-400 dark:text-dark-400">Next</span>
+                                                <span class="block mt-1">Chapter 8. Exercises</span>
+                                            </span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="ml-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19.92 12.38a1 1 0 00-.22-1.09l-7-7a.996.996 0 10-1.41 1.41l5.3 5.3H5c-.55 0-1 .45-1 1s.45 1 1 1h11.59l-5.29 5.29a.996.996 0 000 1.41c.19.2.44.3.7.3s.51-.1.71-.29l7-7c.09-.09.16-.21.21-.33z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
+                                        </a>
+                                    </div>
+                                </nav>
+                            </footer>
+                        </main>
+                
+                        <div class="border-t dark:border-dark-650 pt-6 mb-8">
+                            <footer class="flex flex-wrap items-center justify-between">
+                                <div>
+                                    <ul class="flex flex-wrap items-center text-sm">
+                                    </ul>
+                                </div>
+                                <div class="docs-copyright py-2 text-gray-500 dark:text-dark-350 text-sm leading-relaxed"><p>© Copyright 2024. All rights reserved.</p></div>
+                            </footer>
+                        </div>
+                    </div>
+                
+                    <!-- Rendered if sidebar right is enabled -->
+                    <!-- Sidebar right skeleton-->
+                    <div v-cloak class="fixed top-0 bottom-0 right-0 translate-x-full bg-white border-gray-200 lg:sticky lg:border-l lg:shrink-0 lg:pt-6 lg:transform-none sm:w-1/2 lg:w-64 lg:z-0 md:w-104 sidebar-right skeleton dark:bg-dark-850 dark:border-dark-650">
+                        <div class="pl-5">
+                            <div class="w-32 h-3 mb-4 bg-gray-200 dark:bg-dark-600 rounded-full loading"></div>
+                            <div class="w-48 h-3 mb-4 bg-gray-200 dark:bg-dark-600 rounded-full loading"></div>
+                            <div class="w-40 h-3 mb-4 bg-gray-200 dark:bg-dark-600 rounded-full loading"></div>
+                        </div>
+                    </div>
+                
+                    <!-- User should be able to hide sidebar right -->
+                    <doc-sidebar-right v-cloak></doc-sidebar-right>
+                </div>
+
+            </div>
+        </div>
+    
+        <doc-search-mobile></doc-search-mobile>
+        <doc-back-to-top></doc-back-to-top>
+    </div>
+
+
+    <div id="docs-overlay-target"></div>
+
+    <script data-cfasync="false">window.__DOCS__ = { "title": "Chapter 7. Programming", level: 3, icon: "file", hasPrism: true, hasMermaid: false, hasMath: false, tocDepth: 23 }</script>
+</body>
+</html>

@@ -1,0 +1,1126 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.5.0.774652843469">
+
+    <!-- See retype.com -->
+    <meta name="generator" content="Retype 3.5.0">
+
+    <!-- Primary Meta Tags -->
+    <title>Chapter 10. Authentication Plugin</title>
+    <meta name="title" content="Chapter 10. Authentication Plugin">
+    <meta name="description" content="Authentication is our next big ticket item for doing anything with the Rebar Framework.">
+
+    <!-- Canonical -->
+    <link rel="canonical" href="https://rebarv.com/tutorials/rebar/chapter-10-authentication/">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://rebarv.com/tutorials/rebar/chapter-10-authentication/">
+    <meta property="og:title" content="Chapter 10. Authentication Plugin">
+    <meta property="og:description" content="Authentication is our next big ticket item for doing anything with the Rebar Framework.">
+    <meta property="og:image" content="https://rebarv.com/static/book/cam-freeze.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://rebarv.com/tutorials/rebar/chapter-10-authentication/">
+    <meta property="twitter:title" content="Chapter 10. Authentication Plugin">
+    <meta property="twitter:description" content="Authentication is our next big ticket item for doing anything with the Rebar Framework.">
+    <meta property="twitter:image" content="https://rebarv.com/static/book/cam-freeze.png">
+
+    <script data-cfasync="false">(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
+
+    <link href="../../../resources/css/retype.css?v=3.5.0.774652843469" rel="stylesheet">
+
+    <script data-cfasync="false" src="../../../resources/js/config.js?v=3.5.0.774652843469" data-turbo-eval="false" defer></script>
+    <script data-cfasync="false" src="../../../resources/js/retype.js?v=3.5.0" data-turbo-eval="false" defer></script>
+    <script id="lunr-js" data-cfasync="false" src="../../../resources/js/lunr.js?v=3.5.0.774652843469" data-turbo-eval="false" defer></script>
+    <script id="prism-js" data-cfasync="false" src="../../../resources/js/prism.js?v=3.5.0.774652843469" defer></script>
+</head>
+<body>
+    <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
+        <div class="absolute bottom-0 left-0 bg-gray-100 dark:bg-dark-800" style="top: 5rem; right: 50%"></div>
+    
+        <header id="docs-site-header" class="sticky top-0 z-30 flex w-full h-16 bg-white border-b border-gray-200 md:h-20 dark:bg-dark-850 dark:border-dark-650">
+            <div class="container relative flex items-center justify-between pr-6 grow md:justify-start">
+                <!-- Mobile menu button skeleton -->
+                <button v-cloak class="skeleton docs-mobile-menu-button flex items-center justify-center shrink-0 overflow-hidden dark:text-white focus:outline-none rounded-full w-10 h-10 ml-3.5 md:hidden"><svg xmlns="http://www.w3.org/2000/svg" class="mb-px shrink-0" width="24" height="24" viewBox="0 0 24 24" role="presentation" style="margin-bottom: 0px;"><g fill="currentColor"><path d="M2 4h20v2H2zM2 11h20v2H2zM2 18h20v2H2z"></path></g></svg></button>
+                <div v-cloak id="docs-sidebar-toggle"></div>
+        
+                <!-- Logo -->
+                <div class="flex items-center justify-between h-full py-2 md:w-75">
+                    <div class="flex items-center px-2 md:px-6">
+                        <a id="docs-site-logo" href="../../../" class="flex items-center leading-snug text-xl">
+                            <span class="w-10 mr-2 grow-0 shrink-0 overflow-hidden">
+                                <img class="max-h-10 dark:hidden md:inline-block" src="../../../static/logo_dark.svg">
+                                <img class="max-h-10 hidden dark:inline-block" src="../../../static/logo_light.svg">
+                            </span>
+                            <span class="dark:text-white font-semibold line-clamp-1 md:line-clamp-2">Rebar for alt:V</span>
+                        </a>
+                    </div>
+        
+                    <span class="hidden h-8 border-r md:inline-block dark:border-dark-650"></span>
+                </div>
+        
+                <div class="flex justify-between md:grow">
+                    <!-- Top Nav -->
+                    <nav class="hidden md:flex">
+                        <ul class="flex flex-col mb-4 md:pl-16 md:mb-0 md:flex-row md:items-center">
+                            <li class="mr-6">
+                                <a class="py-2 md:mb-0 inline-flex items-center text-sm whitespace-nowrap transition-colors duration-200 ease-linear md:text-blue-500 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200" href="https://discord.gg/63rrbadsR7">Discord</a>
+                            </li>
+                            <li class="mr-6">
+                                <a class="py-2 md:mb-0 inline-flex items-center text-sm whitespace-nowrap transition-colors duration-200 ease-linear md:text-blue-500 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200" href="https://github.com/stuyk/rebar-altv">GitHub</a>
+                            </li>
+                            <li class="mr-6">
+                                <a class="py-2 md:mb-0 inline-flex items-center text-sm whitespace-nowrap transition-colors duration-200 ease-linear md:text-blue-500 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200" href="https://forge.plebmasters.de/hub?targetFrameworks=Rebar+(alt:V)&contentType=Script">Plugins</a>
+                            </li>
+                            <li class="mr-6">
+                                <a class="py-2 md:mb-0 inline-flex items-center text-sm whitespace-nowrap transition-colors duration-200 ease-linear md:text-blue-500 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200" href="https://altv.mp">alt:V</a>
+                            </li>
+        
+                        </ul>
+                    </nav>
+        
+                    <!-- Header Right Skeleton -->
+                    <div v-cloak class="flex justify-end grow skeleton">
+        
+                        <!-- Search input mock -->
+                        <div class="relative hidden w-40 lg:block lg:max-w-sm lg:ml-auto">
+                            <div class="absolute flex items-center justify-center h-full pl-3 dark:text-dark-300">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="icon-base" width="16" height="16" viewBox="0 0 24 24" aria-labelledby="icon" role="presentation" style="margin-bottom: 1px;"><g fill="currentColor" ><path d="M21.71 20.29l-3.68-3.68A8.963 8.963 0 0020 11c0-4.96-4.04-9-9-9s-9 4.04-9 9 4.04 9 9 9c2.12 0 4.07-.74 5.61-1.97l3.68 3.68c.2.19.45.29.71.29s.51-.1.71-.29c.39-.39.39-1.03 0-1.42zM4 11c0-3.86 3.14-7 7-7s7 3.14 7 7c0 1.92-.78 3.66-2.04 4.93-.01.01-.02.01-.02.01-.01.01-.01.01-.01.02A6.98 6.98 0 0111 18c-3.86 0-7-3.14-7-7z" ></path></g></svg>
+                            </div>
+                            <input class="w-full h-10 placeholder-gray-400 transition-colors duration-200 ease-in bg-gray-200 border border-transparent rounded md:text-sm hover:bg-white hover:border-gray-300 focus:outline-none focus:bg-white focus:border-gray-500 dark:bg-dark-600 dark:border-dark-600 dark:placeholder-dark-400" style="padding: 0.625rem 0.75rem 0.625rem 2rem" type="text" placeholder="Search">
+                        </div>
+        
+                        <!-- Mobile search button -->
+                        <div class="flex items-center justify-center w-10 h-10 lg:hidden">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="shrink-0 icon-base" width="20" height="20" viewBox="0 0 24 24" aria-labelledby="icon" role="presentation" style="margin-bottom: 0px;"><g fill="currentColor" ><path d="M21.71 20.29l-3.68-3.68A8.963 8.963 0 0020 11c0-4.96-4.04-9-9-9s-9 4.04-9 9 4.04 9 9 9c2.12 0 4.07-.74 5.61-1.97l3.68 3.68c.2.19.45.29.71.29s.51-.1.71-.29c.39-.39.39-1.03 0-1.42zM4 11c0-3.86 3.14-7 7-7s7 3.14 7 7c0 1.92-.78 3.66-2.04 4.93-.01.01-.02.01-.02.01-.01.01-.01.01-.01.02A6.98 6.98 0 0111 18c-3.86 0-7-3.14-7-7z" ></path></g></svg>
+                        </div>
+        
+                        <!-- Dark mode switch placeholder -->
+                        <div class="w-10 h-10 lg:ml-2"></div>
+        
+                        <!-- History button -->
+                        <div class="flex items-center justify-center w-10 h-10" style="margin-right: -0.625rem;">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="shrink-0 icon-base" width="22" height="22" viewBox="0 0 24 24" aria-labelledby="icon" role="presentation" style="margin-bottom: 0px;"><g fill="currentColor" ><g ><path d="M12.01 6.01c-.55 0-1 .45-1 1V12a1 1 0 00.4.8l3 2.22a.985.985 0 001.39-.2.996.996 0 00-.21-1.4l-2.6-1.92V7.01c.02-.55-.43-1-.98-1z"></path><path d="M12.01 1.91c-5.33 0-9.69 4.16-10.05 9.4l-.29-.26a.997.997 0 10-1.34 1.48l1.97 1.79c.19.17.43.26.67.26s.48-.09.67-.26l1.97-1.79a.997.997 0 10-1.34-1.48l-.31.28c.34-4.14 3.82-7.41 8.05-7.41 4.46 0 8.08 3.63 8.08 8.09s-3.63 8.08-8.08 8.08c-2.18 0-4.22-.85-5.75-2.4a.996.996 0 10-1.42 1.4 10.02 10.02 0 007.17 2.99c5.56 0 10.08-4.52 10.08-10.08.01-5.56-4.52-10.09-10.08-10.09z"></path></g></g></svg>
+                        </div>
+                    </div>
+        
+                    <div v-cloak class="flex justify-end grow">
+                        <div id="docs-mobile-search-button"></div>
+                        <doc-search-desktop></doc-search-desktop>
+        
+                        <doc-theme-switch class="lg:ml-2"></doc-theme-switch>
+                        <doc-history></doc-history>
+                    </div>
+                </div>
+            </div>
+        </header>
+    
+        <div class="container relative flex bg-white">
+            <!-- Sidebar Skeleton -->
+            <div v-cloak class="fixed flex flex-col shrink-0 duration-300 ease-in-out bg-gray-100 border-gray-200 sidebar top-20 w-75 border-r h-screen md:sticky transition-transform skeleton dark:bg-dark-800 dark:border-dark-650">
+            
+                <!-- Render this div, if config.showSidebarFilter is `true` -->
+                <div class="flex items-center h-16 px-6">
+                    <input class="w-full h-8 px-3 py-2 transition-colors duration-200 ease-linear bg-white border border-gray-200 rounded shadow-none text-sm focus:outline-none focus:border-gray-600 dark:bg-dark-600 dark:border-dark-600" type="text" placeholder="Filter">
+                </div>
+            
+                <div class="pl-6 mt-1 mb-4">
+                    <div class="w-32 h-3 mb-4 bg-gray-200 rounded-full loading dark:bg-dark-600"></div>
+                    <div class="w-48 h-3 mb-4 bg-gray-200 rounded-full loading dark:bg-dark-600"></div>
+                    <div class="w-40 h-3 mb-4 bg-gray-200 rounded-full loading dark:bg-dark-600"></div>
+                    <div class="w-32 h-3 mb-4 bg-gray-200 rounded-full loading dark:bg-dark-600"></div>
+                    <div class="w-48 h-3 mb-4 bg-gray-200 rounded-full loading dark:bg-dark-600"></div>
+                    <div class="w-40 h-3 mb-4 bg-gray-200 rounded-full loading dark:bg-dark-600"></div>
+                </div>
+            
+                <div class="shrink-0 mt-auto bg-transparent dark:border-dark-650">
+                    <a class="flex items-center justify-center flex-nowrap h-16 text-gray-400 dark:text-dark-400 hover:text-gray-700 dark:hover:text-dark-300 transition-colors duration-150 ease-in docs-powered-by" target="_blank" href="https://retype.com/" rel="noopener">
+                        <span class="text-xs whitespace-nowrap">Powered by</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="ml-2" fill="currentColor" width="96" height="20" overflow="visible"><path d="M0 0v20h13.59V0H0zm11.15 17.54H2.44V2.46h8.71v15.08zM15.8 20h2.44V4.67L15.8 2.22zM20.45 6.89V20h2.44V9.34z"/><g><path d="M40.16 8.44c0 1.49-.59 2.45-1.75 2.88l2.34 3.32h-2.53l-2.04-2.96h-1.43v2.96h-2.06V5.36h3.5c1.43 0 2.46.24 3.07.73s.9 1.27.9 2.35zm-2.48 1.1c.26-.23.38-.59.38-1.09 0-.5-.13-.84-.4-1.03s-.73-.28-1.39-.28h-1.54v2.75h1.5c.72 0 1.2-.12 1.45-.35zM51.56 5.36V7.2h-4.59v1.91h4.13v1.76h-4.13v1.92h4.74v1.83h-6.79V5.36h6.64zM60.09 7.15v7.48h-2.06V7.15h-2.61V5.36h7.28v1.79h-2.61zM70.81 14.64h-2.06v-3.66l-3.19-5.61h2.23l1.99 3.45 1.99-3.45H74l-3.19 5.61v3.66zM83.99 6.19c.65.55.97 1.4.97 2.55s-.33 1.98-1 2.51-1.68.8-3.04.8h-1.23v2.59h-2.06V5.36h3.26c1.42 0 2.45.28 3.1.83zm-1.51 3.65c.25-.28.37-.69.37-1.22s-.16-.92-.48-1.14c-.32-.23-.82-.34-1.5-.34H79.7v3.12h1.38c.68 0 1.15-.14 1.4-.42zM95.85 5.36V7.2h-4.59v1.91h4.13v1.76h-4.13v1.92H96v1.83h-6.79V5.36h6.64z"/></g></svg>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Sidebar component -->
+            <doc-sidebar v-cloak>
+                <template #sidebar-footer>
+                    <div class="shrink-0 mt-auto border-t md:bg-transparent md:border-none dark:border-dark-650">
+            
+                        <div class="py-3 px-6 md:hidden border-b dark:border-dark-650">
+                            <nav>
+                                <ul class="flex flex-wrap justify-center items-center">
+                                    <li class="mr-6">
+                                        <a class="block py-1 inline-flex items-center text-sm whitespace-nowrap transition-colors duration-200 ease-linear md:text-blue-500 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200" href="https://discord.gg/63rrbadsR7">Discord</a>
+                                    </li>
+                                    <li class="mr-6">
+                                        <a class="block py-1 inline-flex items-center text-sm whitespace-nowrap transition-colors duration-200 ease-linear md:text-blue-500 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200" href="https://github.com/stuyk/rebar-altv">GitHub</a>
+                                    </li>
+                                    <li class="mr-6">
+                                        <a class="block py-1 inline-flex items-center text-sm whitespace-nowrap transition-colors duration-200 ease-linear md:text-blue-500 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200" href="https://forge.plebmasters.de/hub?targetFrameworks=Rebar+(alt:V)&contentType=Script">Plugins</a>
+                                    </li>
+                                    <li class="mr-6">
+                                        <a class="block py-1 inline-flex items-center text-sm whitespace-nowrap transition-colors duration-200 ease-linear md:text-blue-500 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200" href="https://altv.mp">alt:V</a>
+                                    </li>
+            
+                                </ul>
+                            </nav>
+                        </div>
+            
+                        <a class="flex items-center justify-center flex-nowrap h-16 text-gray-400 dark:text-dark-400 hover:text-gray-700 dark:hover:text-dark-300 transition-colors duration-150 ease-in docs-powered-by" target="_blank" href="https://retype.com/" rel="noopener">
+                            <span class="text-xs whitespace-nowrap">Powered by</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="ml-2" fill="currentColor" width="96" height="20" overflow="visible"><path d="M0 0v20h13.59V0H0zm11.15 17.54H2.44V2.46h8.71v15.08zM15.8 20h2.44V4.67L15.8 2.22zM20.45 6.89V20h2.44V9.34z"/><g><path d="M40.16 8.44c0 1.49-.59 2.45-1.75 2.88l2.34 3.32h-2.53l-2.04-2.96h-1.43v2.96h-2.06V5.36h3.5c1.43 0 2.46.24 3.07.73s.9 1.27.9 2.35zm-2.48 1.1c.26-.23.38-.59.38-1.09 0-.5-.13-.84-.4-1.03s-.73-.28-1.39-.28h-1.54v2.75h1.5c.72 0 1.2-.12 1.45-.35zM51.56 5.36V7.2h-4.59v1.91h4.13v1.76h-4.13v1.92h4.74v1.83h-6.79V5.36h6.64zM60.09 7.15v7.48h-2.06V7.15h-2.61V5.36h7.28v1.79h-2.61zM70.81 14.64h-2.06v-3.66l-3.19-5.61h2.23l1.99 3.45 1.99-3.45H74l-3.19 5.61v3.66zM83.99 6.19c.65.55.97 1.4.97 2.55s-.33 1.98-1 2.51-1.68.8-3.04.8h-1.23v2.59h-2.06V5.36h3.26c1.42 0 2.45.28 3.1.83zm-1.51 3.65c.25-.28.37-.69.37-1.22s-.16-.92-.48-1.14c-.32-.23-.82-.34-1.5-.34H79.7v3.12h1.38c.68 0 1.15-.14 1.4-.42zM95.85 5.36V7.2h-4.59v1.91h4.13v1.76h-4.13v1.92H96v1.83h-6.79V5.36h6.64z"/></g></svg>
+                        </a>
+                    </div>
+                </template>
+            </doc-sidebar>
+    
+            <div class="grow min-w-0 dark:bg-dark-850">
+                <!-- Render "toolbar" template here on api pages --><!-- Render page content -->
+                <div class="flex">
+                    <div class="min-w-0 p-4 grow md:px-16">
+                        <main class="relative pb-12 lg:pt-2">
+                            <div class="docs-markdown" id="docs-content">
+                                <!-- Rendered if sidebar right is enabled -->
+                                <div id="docs-sidebar-right-toggle"></div>
+                                <!-- Page content  -->
+<doc-anchor-target id="chapter-10-authentication-plugin" class="break-words">
+    <h1>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#chapter-10-authentication-plugin">#</doc-anchor-trigger>
+        <span>Chapter 10. Authentication Plugin</span>
+    </h1>
+</doc-anchor-target>
+<p>Authentication is our next big ticket item for doing anything with the Rebar Framework. While there are a handful of Authentication plugins out there, I believe it&#x27;s incredibly important to learn and understand how Authentication works.</p>
+<p>We&#x27;re going to be building a <strong>single account</strong>, and <strong>single character</strong> login system.</p>
+<p>It will simply take a username, and a password to register and account.</p>
+<doc-anchor-target id="before-beginning">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#before-beginning">#</doc-anchor-trigger>
+        <span>Before Beginning</span>
+    </h2>
+</doc-anchor-target>
+<p>If you followed the previous tutorial on death match, please add a file called <code v-pre>.disable</code> to your death match game mode folder.</p>
+<p>This will disable that plugin from loading.</p>
+<doc-anchor-target id="create-a-new-plugin">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#create-a-new-plugin">#</doc-anchor-trigger>
+        <span>Create a New Plugin</span>
+    </h2>
+</doc-anchor-target>
+<p>You&#x27;re going to create a new plugin folder called <code v-pre>authentication</code>. You are going to create 2 folders inside of it.</p>
+<ul>
+<li>server</li>
+<li>webview</li>
+</ul>
+<p>Go ahead and create the <code v-pre>index.ts</code> file inside of <code v-pre>plugins/authentication/server/</code>. We will come back to work on the webview folder later in this tutorial when we&#x27;re ready.</p>
+<doc-anchor-target id="setting-up-the-camera">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#setting-up-the-camera">#</doc-anchor-trigger>
+        <span>Setting up the Camera</span>
+    </h2>
+</doc-anchor-target>
+<p>We&#x27;re going to immediately throw the player into the sky when they join the server. As well as change their dimension, and freeze them.</p>
+<p>We&#x27;ll be using a combination of alt:V functions, and properties. As well as Rebar functions.</p>
+<p>Here&#x27;s exactly what we&#x27;re going to do so you can understand:</p>
+<ol>
+<li>Move the player position way up high</li>
+<li>Freeze the player</li>
+<li>Set the player invisible</li>
+<li>Set the player&#x27;s dimension, to a larger dimension Hiding the player from the default dimension</li>
+<li>Wait 1 second for everything to process</li>
+<li>Freeze the player&#x27;s gameplay camera in place</li>
+</ol>
+<doc-anchor-target id="handle-player-connect">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#handle-player-connect">#</doc-anchor-trigger>
+        <span>Handle Player Connect</span>
+    </h3>
+</doc-anchor-target>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">// server/index.ts
+import * as alt from 'alt-server';
+import { useRebar } from '@Server/index.js';
+
+const Rebar = useRebar();
+
+// Take careful note that this function is async
+alt.on('playerConnect', async (player) =&gt; {
+    // When the player connects, we do something here
+    // all code below should go here for this section
+});</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="move-the-player-up">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#move-the-player-up">#</doc-anchor-trigger>
+        <span>Move the Player Up</span>
+    </h3>
+</doc-anchor-target>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">// server/index.ts
+
+player.pos = new alt.Vector3(0, 0, 100);</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="freeze-the-player">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#freeze-the-player">#</doc-anchor-trigger>
+        <span>Freeze the Player</span>
+    </h3>
+</doc-anchor-target>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">// server/index.ts
+
+player.frozen = true;</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="make-player-invisible">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#make-player-invisible">#</doc-anchor-trigger>
+        <span>Make Player Invisible</span>
+    </h3>
+</doc-anchor-target>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">// server/index.ts
+
+player.visible = false;</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="change-dimension">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#change-dimension">#</doc-anchor-trigger>
+        <span>Change Dimension</span>
+    </h3>
+</doc-anchor-target>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">// server/index.ts
+
+player.dimension = player.id + 1;</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="freeze-gameplay-camera">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#freeze-gameplay-camera">#</doc-anchor-trigger>
+        <span>Freeze Gameplay Camera</span>
+    </h3>
+</doc-anchor-target>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">// async means we can wait for code to finish
+// await means this is waiting for code to complete
+await alt.Utils.wait(1000); // Wait 1 second before freezing camera
+
+const rPlayer = Rebar.usePlayer(player);
+rPlayer.world.freezeCamera(true);</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="result">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#result">#</doc-anchor-trigger>
+        <span>Result</span>
+    </h3>
+</doc-anchor-target>
+<p><figure class="content-center">
+    <img src="../../../static/book/cam-freeze.png" alt="">
+    <figcaption class="caption"></figcaption>
+</figure>
+</p>
+<doc-anchor-target id="server-config-settings">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#server-config-settings">#</doc-anchor-trigger>
+        <span>Server Config Settings</span>
+    </h2>
+</doc-anchor-target>
+<p>Additionally, we&#x27;re going to add a server configuration setting that will automatically hide the radar in the bottom left when any WebView page is open. This can be done anywhere outside of the player connection function. Make sure it&#x27;s outside of it.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">// server/index.ts
+import * as alt from 'alt-server';
+import { useRebar } from '@Server/index.js';
+
+const Rebar = useRebar();
+const ServerConfig = Rebar.useServerConfig();
+
+ServerConfig.set('hideMinimapInPage', true);
+
+// Rest of the code</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="building-a-page">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#building-a-page">#</doc-anchor-trigger>
+        <span>Building a Page</span>
+    </h2>
+</doc-anchor-target>
+<p>Our next step is going to be creating a <code v-pre>Vue Template</code> which is ideal for creating user interfaces. Our first step is going to be opening the <code v-pre>plugins/authentication/webview</code> folder and creating a unique page name. Like... <code v-pre>Authentication.vue</code>.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<div class="codeblock-title">vue</div>
+<pre class="language-none"><code v-pre class="language-none">&lt;script lang=&quot;ts&quot; setup&gt;
+import { ref, watch } from 'vue';
+import { useEvents } from '../../../../webview/composables/useEvents';
+
+const Events = useEvents();
+&lt;/script&gt;
+
+&lt;template&gt;
+    &lt;div&gt;Hello World!&lt;/div&gt;
+&lt;/template&gt;</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="loading-the-page">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#loading-the-page">#</doc-anchor-trigger>
+        <span>Loading the Page</span>
+    </h3>
+</doc-anchor-target>
+<p>Head back over <code v-pre>server/index.ts</code> and we&#x27;ll use the WebView functionality in <code v-pre>rPlayer</code> to show the page to the user. You may need to run the server once before the pages show up.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">// server/index.ts
+
+rPlayer.webview.show('Authentication', 'page');</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="blur-the-screen">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#blur-the-screen">#</doc-anchor-trigger>
+        <span>Blur the Screen</span>
+    </h3>
+</doc-anchor-target>
+<p>We&#x27;re also going to blur the screen so it&#x27;s a little more pleasing to look at.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">// server/index.ts
+
+rPlayer.world.setScreenBlur(200);</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="initial-result">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#initial-result">#</doc-anchor-trigger>
+        <span>Initial Result</span>
+    </h3>
+</doc-anchor-target>
+<p>You should see a <code v-pre>hello world</code> in the top-left of your screen.</p>
+<p><figure class="content-center">
+    <img src="../../../static/book/blurred-screen.png" alt="">
+    <figcaption class="caption"></figcaption>
+</figure>
+</p>
+<doc-anchor-target id="building-a-form">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#building-a-form">#</doc-anchor-trigger>
+        <span>Building a Form</span>
+    </h2>
+</doc-anchor-target>
+<p>We&#x27;re going to need to modify the <code v-pre>Authentication.vue</code> and make it act as a form. We&#x27;ll be utilizing a little bit of Tailwind CSS to make the form take form.</p>
+<doc-anchor-target id="before-building">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#before-building">#</doc-anchor-trigger>
+        <span>Before Building</span>
+    </h3>
+</doc-anchor-target>
+<p>Instead of building in-game and seeing previews every time you reconnect. We actually have a utility command in Rebar that will let you do all of this work out of the browser. Open up a terminal where Rebar is located, and run this command.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-bash"><code v-pre class="language-bash">pnpm webview:dev</code></pre>
+</doc-codeblock></div>
+<p>This will open up a server on <code v-pre>http://localhost:5173/</code> which you can open in your browser.</p>
+<p>Alternatively, if you have one screen. In VSCode press <code v-pre>CTRL + SHIFT P</code> and type <code v-pre>Simple Browser: Show</code> and paste the URL when prompted. This will show the same page in your VSCode window. You can then drag the tab to the side to split the view.</p>
+<doc-anchor-target id="creating-the-wrapper">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#creating-the-wrapper">#</doc-anchor-trigger>
+        <span>Creating the Wrapper</span>
+    </h3>
+</doc-anchor-target>
+<p>We need the page to take up the whole screen, but also we want to make sure it&#x27;s centered.</p>
+<p>The easiest way to do this is to apply <code v-pre>fixed</code> css with <code v-pre>flex</code> and then use centering css for the rest.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<div class="codeblock-title">vue</div>
+<pre class="language-none"><code v-pre class="language-none">&lt;template&gt;
+    &lt;div class=&quot;fixed left-0 top-0 flex h-screen w-screen items-center justify-center&quot;&gt;
+        &lt;div class=&quot;flex w-1/3 flex-col gap-4 rounded-lg bg-zinc-900 bg-opacity-80 p-6&quot;&gt;
+            &lt;!-- Our Content Goes Here --&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/template&gt;</code></pre>
+</doc-codeblock></div>
+<p>This will result in a simple black box with slight transparency, and rounded corners.</p>
+<p>It will always take up <code v-pre>1/3</code> of the screen regardless of how large your resolution is.</p>
+<doc-anchor-target id="fill-in-the-wrapper">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#fill-in-the-wrapper">#</doc-anchor-trigger>
+        <span>Fill in the Wrapper</span>
+    </h3>
+</doc-anchor-target>
+<p>We&#x27;re going to add a header, two inputs, and a single button for registering and logging in.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<div class="codeblock-title">vue</div>
+<pre class="language-none"><code v-pre class="language-none">&lt;template&gt;
+    &lt;div class=&quot;fixed left-0 top-0 flex h-screen w-screen items-center justify-center&quot;&gt;
+        &lt;div class=&quot;flex w-1/2 flex-col gap-4 rounded-lg bg-zinc-900 bg-opacity-80 p-6&quot;&gt;
+            &lt;div class=&quot;font-bold text-white&quot;&gt;Authenticate&lt;/div&gt;
+            &lt;input type=&quot;text&quot; placeholder=&quot;username&quot; class=&quot;rounded-md bg-zinc-900 p-2 text-white&quot; /&gt;
+            &lt;input type=&quot;password&quot; placeholder=&quot;password&quot; class=&quot;rounded-md bg-zinc-900 p-2 text-white&quot; /&gt;
+            &lt;button class=&quot;rounded-md bg-emerald-700 p-3 font-medium text-white hover:bg-emerald-800&quot;&gt;
+                Login / Register
+            &lt;/button&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/template&gt;</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="building-page-logic">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#building-page-logic">#</doc-anchor-trigger>
+        <span>Building Page Logic</span>
+    </h2>
+</doc-anchor-target>
+<p>Our next step is going to be making all of these inputs and buttons function in a useable way. What we&#x27;ll be doing is utilizing <code v-pre>vue</code> to handle all of the heavy lifting to make all the functionality work.</p>
+<doc-anchor-target id="binding-inputs">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#binding-inputs">#</doc-anchor-trigger>
+        <span>Binding Inputs</span>
+    </h3>
+</doc-anchor-target>
+<p>In <code v-pre>vue</code> you can use a <code v-pre>ref</code> to bind the data to the given input box. We&#x27;re going to do just that.</p>
+<p>In the <code v-pre>script</code> section at the top we&#x27;ll add the following:</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">const username = ref&lt;string&gt;('');
+const password = ref&lt;string&gt;('');</code></pre>
+</doc-codeblock></div>
+<p>Then we&#x27;ll bind those to the given inputs with a v-model</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<div class="codeblock-title">vue</div>
+<pre class="language-none"><code v-pre class="language-none">// Don't copy this, manually add the 'v-model' attribute
+&lt;input v-model=&quot;username&quot; ... /&gt;
+&lt;input v-model=&quot;password&quot; ... /&gt;</code></pre>
+</doc-codeblock></div>
+<p>Our resulting code should look something like this:</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<div class="codeblock-title">vue</div>
+<pre class="language-none"><code v-pre class="language-none">&lt;script lang=&quot;ts&quot; setup&gt;
+import { ref, watch } from 'vue';
+import { useEvents } from '../../../../webview/composables/useEvents';
+
+const Events = useEvents();
+
+const username = ref&lt;string&gt;('');
+const password = ref&lt;string&gt;('');
+&lt;/script&gt;
+
+&lt;template&gt;
+    &lt;div class=&quot;fixed left-0 top-0 flex h-screen w-screen items-center justify-center&quot;&gt;
+        &lt;div class=&quot;flex w-1/2 flex-col gap-4 rounded-lg bg-zinc-900 bg-opacity-80 p-6&quot;&gt;
+            &lt;div class=&quot;font-bold text-white&quot;&gt;Authenticate&lt;/div&gt;
+            &lt;input
+                v-model=&quot;username&quot;
+                type=&quot;text&quot;
+                placeholder=&quot;username&quot;
+                class=&quot;rounded-md bg-zinc-900 p-2 text-white&quot;
+            /&gt;
+            &lt;input
+                v-model=&quot;password&quot;
+                type=&quot;password&quot;
+                placeholder=&quot;password&quot;
+                class=&quot;rounded-md bg-zinc-900 p-2 text-white&quot;
+            /&gt;
+            &lt;button class=&quot;rounded-md bg-emerald-700 p-3 font-medium text-white hover:bg-emerald-800&quot;&gt;
+                Login / Register
+            &lt;/button&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/template&gt;</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="binding-buttons">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#binding-buttons">#</doc-anchor-trigger>
+        <span>Binding Buttons</span>
+    </h3>
+</doc-anchor-target>
+<p>Our first step is going to be creating a simple <code v-pre>loginOrRegister</code> function in the script section, but we need to make it <code v-pre>async</code>.</p>
+<p>We&#x27;ll append the <code v-pre>async</code> keyword and write the function.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">async function loginOrRegister() {
+    console.log('something happened!');
+}</code></pre>
+</doc-codeblock></div>
+<p>When you have a any <code v-pre>div</code>, <code v-pre>link</code> or even a <code v-pre>button</code> you can use <code v-pre>@click</code> to bind it to a function.</p>
+<p>We&#x27;ll add <code v-pre>@click=</code> to the <code v-pre>button</code> as an attribute.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<div class="codeblock-title">vue</div>
+<pre class="language-none"><code v-pre class="language-none">&lt;button @click=&quot;loginOrRegister&quot; ...</code></pre>
+</doc-codeblock></div>
+<p>Here&#x27;s what that code should look like...</p>
+<p>If you have it open in the browser, you can see the console output if you press <code v-pre>F12</code>.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<div class="codeblock-title">vue</div>
+<pre class="language-none"><code v-pre class="language-none">&lt;script lang=&quot;ts&quot; setup&gt;
+import { ref, watch } from 'vue';
+import { useEvents } from '../../../../webview/composables/useEvents';
+
+const Events = useEvents();
+
+const username = ref&lt;string&gt;('');
+const password = ref&lt;string&gt;('');
+
+function loginOrRegister() {
+    console.log('something happened!');
+}
+&lt;/script&gt;
+
+&lt;template&gt;
+    &lt;div class=&quot;fixed left-0 top-0 flex h-screen w-screen items-center justify-center&quot;&gt;
+        &lt;div class=&quot;flex w-1/2 flex-col gap-4 rounded-lg bg-zinc-900 bg-opacity-80 p-6&quot;&gt;
+            &lt;div class=&quot;font-bold text-white&quot;&gt;Authenticate&lt;/div&gt;
+            &lt;input
+                v-model=&quot;username&quot;
+                type=&quot;text&quot;
+                placeholder=&quot;username&quot;
+                class=&quot;rounded-md bg-zinc-900 p-2 text-white&quot;
+            /&gt;
+            &lt;input
+                v-model=&quot;password&quot;
+                type=&quot;password&quot;
+                placeholder=&quot;password&quot;
+                class=&quot;rounded-md bg-zinc-900 p-2 text-white&quot;
+            /&gt;
+            &lt;button
+                @click=&quot;loginOrRegister&quot;
+                class=&quot;rounded-md bg-emerald-700 p-3 font-medium text-white hover:bg-emerald-800&quot;
+            &gt;
+                Login / Register
+            &lt;/button&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/template&gt;</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="verifying-inputs">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#verifying-inputs">#</doc-anchor-trigger>
+        <span>Verifying Inputs</span>
+    </h2>
+</doc-anchor-target>
+<p>Next we&#x27;re going to simply verify the inputs for username and password. We want to make sure that each input has at least 3 letters or characters given to it before the login button does anything, and we&#x27;ll invalidate everything until it&#x27;s all correct.</p>
+<doc-anchor-target id="add-a-boolean-ref">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#add-a-boolean-ref">#</doc-anchor-trigger>
+        <span>Add a Boolean Ref</span>
+    </h3>
+</doc-anchor-target>
+<p>We&#x27;ll start by adding 2 new refs under <code v-pre>username</code> and <code v-pre>password</code>.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">const username = ref&lt;string&gt;('');
+const password = ref&lt;string&gt;('');
+const usernameValid = ref(false);
+const passwordValid = ref(false);</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="build-validation">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#build-validation">#</doc-anchor-trigger>
+        <span>Build Validation</span>
+    </h3>
+</doc-anchor-target>
+<p>We can build validation by using the <code v-pre>watch</code> function from <code v-pre>vue</code>. What this will do is that every time <code v-pre>username</code> and <code v-pre>password</code> is updated it&#x27;ll call another function. This can be used to check if the length matches correctly.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">watch(username, (value) =&gt; {
+    usernameValid.value = false;
+
+    // If the length of the username is less than 2, return
+    if (value.length &lt;= 2) {
+        return;
+    }
+
+    usernameValid.value = true;
+});
+
+watch(password, (value) =&gt; {
+    passwordValid.value = false;
+
+    // If the length of the password is less than 2, return
+    if (value.length &lt;= 2) {
+        return;
+    }
+
+    passwordValid.value = true;
+});</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="hide-the-button">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#hide-the-button">#</doc-anchor-trigger>
+        <span>Hide the Button</span>
+    </h3>
+</doc-anchor-target>
+<p>We&#x27;re going to show the button only when <code v-pre>usernameValid &amp;&amp; passwordValid</code> are set to <code v-pre>true</code>. We can use a <code v-pre>v-if</code> statement to do this.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<div class="codeblock-title">vue</div>
+<pre class="language-none"><code v-pre class="language-none">&lt;button
+    @click=&quot;loginOrRegister&quot;
+    class=&quot;rounded-md bg-emerald-700 p-3 font-medium text-white hover:bg-emerald-800&quot;
+    v-if=&quot;usernameValid &amp;&amp; passwordValid&quot;
+&gt;
+   Login / Register
+&lt;/button&gt;</code></pre>
+</doc-codeblock></div>
+<p>You can now verify that this all works by typing into both boxes until the login button shows up.</p>
+<doc-anchor-target id="sanitize-inputs">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#sanitize-inputs">#</doc-anchor-trigger>
+        <span>Sanitize Inputs</span>
+    </h3>
+</doc-anchor-target>
+<p>Now we&#x27;re going to sanitize the username input further, and only allow <code v-pre>A-Z</code> and <code v-pre>0-9</code> in the username. We can do this by using something called Regex. Regex is a confusing little monster that validates inputs. The option below will do exactly what we need.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">watch(username, (value) =&gt; {
+    usernameValid.value = false;
+
+    // If the length of the username is less than 2, return
+    if (value.length &lt;= 2) {
+        return;
+    }
+
+    // If the length of the username does not match the given character set, return
+    if (!username.value.match(/^[A-Za-z0-9]+$/gm)) {
+        return;
+    }
+
+    // LGTM!
+    usernameValid.value = true;
+});</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="feedback">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#feedback">#</doc-anchor-trigger>
+        <span>Feedback</span>
+    </h3>
+</doc-anchor-target>
+<p>One thing we should definitely add is a feedback message for when any of the inputs are invalid.</p>
+<p>We can do this by creating an element under each input that will complain about what is wrong.</p>
+<p>We&#x27;ll only show the feedback when the <code v-pre>username</code> or <code v-pre>password</code> is invalid.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<div class="codeblock-title">vue</div>
+<pre class="language-none"><code v-pre class="language-none">&lt;input v-model=&quot;username&quot; type=&quot;text&quot; placeholder=&quot;username&quot; class=&quot;rounded-md bg-zinc-900 p-2 text-white&quot; /&gt;
+&lt;span class=&quot;text-xs text-red-300&quot; v-if=&quot;!usernameValid&quot;&gt;
+    Username must be at least 3 characters long, no special characters. Alphanumeric only.
+&lt;/span&gt;
+&lt;input v-model=&quot;password&quot; type=&quot;password&quot; placeholder=&quot;password&quot; class=&quot;rounded-md bg-zinc-900 p-2 text-white&quot; /&gt;
+&lt;span class=&quot;text-xs text-red-300&quot; v-if=&quot;!passwordValid&quot;&gt;
+    Password must be at least 3 characters long.
+&lt;/span&gt;</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="code-check">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-check">#</doc-anchor-trigger>
+        <span>Code Check</span>
+    </h3>
+</doc-anchor-target>
+<p>We&#x27;re going to just use this section to verify that your code is similar to what is below.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<div class="codeblock-title">vue</div>
+<pre class="language-none"><code v-pre class="language-none">&lt;script lang=&quot;ts&quot; setup&gt;
+import { ref, watch } from 'vue';
+import { useEvents } from '../../../../webview/composables/useEvents';
+
+const Events = useEvents();
+
+const username = ref&lt;string&gt;('');
+const password = ref&lt;string&gt;('');
+const usernameValid = ref(false);
+const passwordValid = ref(false);
+
+async function loginOrRegister() {
+    console.log('hi there');
+}
+
+watch(username, (value) =&gt; {
+    usernameValid.value = false;
+    if (value.length &lt;= 2) {
+        return;
+    }
+
+    if (!username.value.match(/^[A-Za-z0-9_.]+$/gm)) {
+        return;
+    }
+
+    usernameValid.value = true;
+});
+
+watch(password, (value) =&gt; {
+    passwordValid.value = false;
+    if (value.length &lt;= 2) {
+        return;
+    }
+
+    passwordValid.value = true;
+});
+&lt;/script&gt;
+
+&lt;template&gt;
+    &lt;div class=&quot;fixed left-0 top-0 flex h-screen w-screen items-center justify-center&quot;&gt;
+        &lt;div class=&quot;flex w-1/2 flex-col gap-4 rounded-lg bg-zinc-900 bg-opacity-80 p-6&quot;&gt;
+            &lt;div class=&quot;font-bold text-white&quot;&gt;Authenticate&lt;/div&gt;
+            &lt;input
+                v-model=&quot;username&quot;
+                type=&quot;text&quot;
+                placeholder=&quot;username&quot;
+                class=&quot;rounded-md bg-zinc-900 p-2 text-white&quot;
+            /&gt;
+            &lt;span class=&quot;text-xs text-red-300&quot; v-if=&quot;!usernameValid&quot;&gt;
+                Username must be at least 3 characters long, no special characters. Alphanumeric only.
+            &lt;/span&gt;
+            &lt;input
+                v-model=&quot;password&quot;
+                type=&quot;password&quot;
+                placeholder=&quot;password&quot;
+                class=&quot;rounded-md bg-zinc-900 p-2 text-white&quot;
+            /&gt;
+            &lt;span class=&quot;text-xs text-red-300&quot; v-if=&quot;!passwordValid&quot;&gt;
+                Password must be at least 3 characters long.
+            &lt;/span&gt;
+            &lt;button
+                @click=&quot;loginOrRegister&quot;
+                class=&quot;rounded-md bg-emerald-700 p-3 font-medium text-white hover:bg-emerald-800&quot;
+                v-if=&quot;usernameValid &amp;&amp; passwordValid&quot;
+            &gt;
+                Login / Register
+            &lt;/button&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/template&gt;</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="emitting-to-server">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#emitting-to-server">#</doc-anchor-trigger>
+        <span>Emitting to Server</span>
+    </h2>
+</doc-anchor-target>
+<p>We&#x27;re going to use an <code v-pre>rpc</code> event to emit the request to the server, and get a result back. This means that when the user clicks the <code v-pre>login / register</code> button it will send an event to the server with their <code v-pre>username</code> and <code v-pre>password</code> and then we can verify if an account exists, or if we need to create a new account.</p>
+<doc-anchor-target id="emit-to-server">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#emit-to-server">#</doc-anchor-trigger>
+        <span>Emit to Server</span>
+    </h3>
+</doc-anchor-target>
+<p>Modify the <code v-pre>loginOrRegister</code> function in the Vue file to use the <code v-pre>Events</code> variable to emit to the server.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">async function loginOrRegister() {
+    const result = await Events.emitServerRpc('authenticate:login', username.value, password.value);
+    console.log(result);
+}</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="handle-the-event">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#handle-the-event">#</doc-anchor-trigger>
+        <span>Handle the Event</span>
+    </h3>
+</doc-anchor-target>
+<p>On the server-side now we&#x27;re going to listen for the <code v-pre>authenticate:login</code> event in our <code v-pre>server/index.ts</code> file. We can do this by using <code v-pre>alt.onRpc</code> as it will have a corresponding RPC event coming up from the client.</p>
+<p>We&#x27;re going to also make this RPC event <code v-pre>async</code>, so we can get results from our database.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">// server/index.ts
+
+alt.onRpc('authenticate:login', async (player: alt.Player, username: string, password: string) =&gt; {
+    console.log(username, password);
+    return true;
+});</code></pre>
+</doc-codeblock></div>
+<p>Verify that you receive the input data on server-side by spamming some data into the input fields in-game.</p>
+<doc-anchor-target id="build-the-registration">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#build-the-registration">#</doc-anchor-trigger>
+        <span>Build the Registration</span>
+    </h3>
+</doc-anchor-target>
+<p>Now that we&#x27;ve successfully gotten the event, we can move on to using the database.</p>
+<p>We&#x27;re going to grab our <code v-pre>db</code> function and use <code v-pre>getMany</code> to find as many documents as possible that match the <code v-pre>username</code>.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">// server/index.ts
+
+// This will extend the existing `Account` structure and add a username field
+type AccountExtended = Account &amp; { username: string };
+
+alt.onRpc('authenticate:login', async (player: alt.Player, username: string, password: string) =&gt; {
+    const db = Rebar.database.useDatabase();
+    const results = await db.getMany&lt;AccountExtended&gt;({ username }, Rebar.database.CollectionNames.Accounts);
+
+    // This should return an empty array if the account does not exist
+    console.log(results);
+});</code></pre>
+</doc-codeblock></div>
+<p>After we&#x27;ve gotten the results, if the results are <code v-pre>&lt;= 0</code> we&#x27;re going to register the user.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">// server/index.ts
+
+if (results.length &lt;= 0) {
+    // Hash the plain text password with pbkdf2
+    const pbkdf2Password = Rebar.utility.password.hash(password);
+
+    // Create a database entry for the account, which returns an _id
+    const _id = await db.create({ username, password: pbkdf2Password }, Rebar.database.CollectionNames.Accounts);
+
+    // Use the '_id' to get the full document, and log it to console
+    return true;
+}</code></pre>
+</doc-codeblock></div>
+<p>After registering the user, we&#x27;re going to want to pull that document down, and get it ready for some later steps. For now we&#x27;ll just print it to the server console so that we can use it later.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">// server/index.ts
+
+if (results.length &lt;= 0) {
+    const pbkdf2Password = Rebar.utility.password.hash(password);
+    const _id = await db.create({ username, password: pbkdf2Password }, Rebar.database.CollectionNames.Accounts);
+    const document = await db.get({ _id }, Rebar.database.CollectionNames.Accounts);
+
+    // This document is in the database, well done
+    console.log(document);
+
+    // For now we'll return true
+    return true;
+}</code></pre>
+</doc-codeblock></div>
+<p>If you&#x27;re successful you&#x27;ll get something like this in your console:</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-bash"><code v-pre class="language-bash">{
+  _id: '6670a71daafac905d549f376',
+  username: 'hello',
+  password: 'c1wXtKqGCzUxXgOjmfrQt0tOQN5AjYSLer4/jwMeICM=$dWF2Wc7wL1VgnSTo1RcMAmcH7Oa5nidQ9SctqXb+51BZLa6wcKBgTwmztir61yDPVWPmH+OCC72Jsv9nip2UNPJF/kPrbNOohhl3VVjYg5ovGZ3Evw4Qyr8IJABvrjiSZ65hict60EBci0tY+VWmijg3jbKXsCshxWpq7V7n3L4zmXni1kp+YSwGN5IJtIBn3LuOrbEKrkDN+cIoKvlyISU0CvZGze0wxsTjlEqQKUye151qIHTW/+fkafQZPEwsuTcbgdtv5A35z37VjtT46PVgAHJAJ8Rp2joSxn2+2LkzVd8l4YtpI3f3tRNcq/ziWnd6zTONHsadu4nF4QQMIYZfWsHQkynfP1fFgJJCP5dlPAggR5VDkQTNmug34FB5X1+9i86Tpf1P/87OXlzrVITRfFYs8SCsmFKOnYailvgtyZ899sAuXl85ZIUdd0xoI397ewZRKZmcRIv647TywhxhnyCOudOSIBm7tUHmeHx+xMTKQEuT98JX04oYb69KekMmu83ZwE6O4OKtxc71tU/ojblXuMSZRSigTAPKEolDxaaf5zW5DFnHeNeGV+Esn2WPwvEAur6zeWnIZeeUZYRfHIZKQMJRkaY6TQH1qlkqGJoCDgQePSG4b6bU1cvaI9qf7J57uSHMF4rgVO71hhxWFPXRNrU7vVSk6WS1y8A='
+}</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="build-the-login">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#build-the-login">#</doc-anchor-trigger>
+        <span>Build the Login</span>
+    </h3>
+</doc-anchor-target>
+<p>Our next step is going to be handling the other pathway in which we&#x27;ve found a result for the username.</p>
+<p>We&#x27;re going to need to check their password against the password that exists in the database.</p>
+<p>This part is pretty simple, as we&#x27;ll be doing this below the <code v-pre>results.length &lt;= 0</code> section.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">if (results.length &lt;= 0) {
+    // ignore this section
+}
+
+// you're going to write it here</code></pre>
+</doc-codeblock></div>
+<p>We&#x27;re going to get the 1st document from the results, and then check if the password matches.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">// We'll get the first document
+const document = results[0];
+
+// Then we'll use the password checker to verify it matches
+// If it does not match, it'll return false
+if (!Rebar.utility.password.check(password, document.password)) {
+    return false;
+}
+
+return true;</code></pre>
+</doc-codeblock></div>
+<p>That&#x27;s it for both Login and Registration!</p>
+<doc-anchor-target id="handle-login">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#handle-login">#</doc-anchor-trigger>
+        <span>Handle Login</span>
+    </h2>
+</doc-anchor-target>
+<p>Now that we have a <code v-pre>document</code> for when the user either registers, or logs in we can use that document to bind it to the player in-game.</p>
+<p>Binding essentially makes it really easy for us to write new data to an account.</p>
+<doc-anchor-target id="handling-the-document">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#handling-the-document">#</doc-anchor-trigger>
+        <span>Handling the Document</span>
+    </h3>
+</doc-anchor-target>
+<p>We&#x27;re going to create a shared async function that will handle the document and bind it to the player.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">// server/index.ts
+
+async function handleLogin(player: alt.Player, document: AccountExtended) {
+    // This is what binds the account document type to the player
+    const account = Rebar.document.account.useAccountBinder(player).bind(document);
+}
+
+alt.onRpc('authenticate:login', async (player: alt.Player, username: string, password: string) =&gt; {
+    const db = Rebar.database.useDatabase();
+    const results = await db.getMany&lt;AccountExtended&gt;({ username }, Rebar.database.CollectionNames.Accounts);
+
+    if (results.length &lt;= 0) {
+        const pbkdf2Password = Rebar.utility.password.hash(password);
+        const _id = await db.create({ username, password: pbkdf2Password }, Rebar.database.CollectionNames.Accounts);
+        const document = await db.get&lt;AccountExtended&gt;({ _id }, Rebar.database.CollectionNames.Accounts);
+        await handleLogin(player, document); // Callong the handle login function
+        return true;
+    }
+
+    const document = results[0];
+    if (!Rebar.utility.password.check(password, document.password)) {
+        return false;
+    }
+
+    // Calling the handle login function
+    await handleLogin(player, document);
+    return true;
+});</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="building-a-character">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#building-a-character">#</doc-anchor-trigger>
+        <span>Building a Character</span>
+    </h2>
+</doc-anchor-target>
+<p>Now that we&#x27;ve bound the account, we can use <code v-pre>account.getCharacters()</code> to find any characters the player might have on their account.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">async function handleLogin(player: alt.Player, document: AccountExtended) {
+    const account = Rebar.document.account.useAccountBinder(player).bind(document);
+    const characters = await account.getCharacters();
+    console.log(characters);
+}</code></pre>
+</doc-codeblock></div>
+<p>If you head in-game and register an account or login, you&#x27;ll see an empty array logged to the console.</p>
+<doc-anchor-target id="adding-and-loading-a-character">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#adding-and-loading-a-character">#</doc-anchor-trigger>
+        <span>Adding, and Loading a Character</span>
+    </h3>
+</doc-anchor-target>
+<p>Now we&#x27;re going to add a character to this account, because they don&#x27;t have any. It&#x27;s almost exactly similar to the account process but we need to provide some character data. For the sake of this tutorial we&#x27;ll be using the <code v-pre>username</code> as the character name.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">// server/index.ts
+
+if (characters.length &lt;= 0) {
+    // Grab the account identifier
+    const accountId = account.getField&lt;AccountExtended&gt;('_id');
+
+    // Grab the username
+    const username = account.getField&lt;AccountExtended&gt;('username');
+
+    // Create the character entry with account_id, and name
+    const _id = await db.create&lt;Character&gt;(
+        { account_id: accountId, name: username },
+        Rebar.database.CollectionNames.Characters,
+    );
+
+    // Grab the created document
+    const document = await db.get&lt;Character&gt;({ _id }, Rebar.database.CollectionNames.Characters);
+
+    // Bind the character document to the player
+    Rebar.document.character.useCharacterBinder(player).bind(document);
+
+    // We're done!
+    return;
+}
+
+// Otherwise, if they have a character. Grab the first result and bind it
+Rebar.document.character.useCharacterBinder(player).bind(characters[0]);</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="final-step">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#final-step">#</doc-anchor-trigger>
+        <span>Final Step</span>
+    </h2>
+</doc-anchor-target>
+<p>Lastly we need to close the page when they&#x27;ve logged in successfully. We can do this hiding the page we&#x27;ve loaded and essentially resetting everything we&#x27;ve done to the game from server-side.</p>
+<p>Let&#x27;s take a moment to remember that we:</p>
+<ul>
+<li>Froze the Player</li>
+<li>Froze the Camera</li>
+<li>Changed their Dimension</li>
+<li>Made them invisible</li>
+<li>Blurred the screen</li>
+</ul>
+<doc-anchor-target id="finish-loading">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#finish-loading">#</doc-anchor-trigger>
+        <span>Finish Loading</span>
+    </h3>
+</doc-anchor-target>
+<p>Now we&#x27;re going to make a function to reverse all of that, hide the page, and spawn the player somewhere.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">function finish(player: alt.Player) {
+    player.frozen = false;
+    player.visible = true;
+    player.dimension = 0;
+    player.model = 'mp_m_freemode_01';
+    player.spawn(
+        new alt.Vector3({
+            x: -864.1437377929688,
+            y: -172.6201934814453,
+            z: 37.799232482910156,
+        }),
+    );
+
+    const rPlayer = Rebar.usePlayer(player);
+    rPlayer.world.freezeCamera(false);
+    rPlayer.world.clearScreenBlur(200);
+    rPlayer.webview.hide('Authentication');
+}</code></pre>
+</doc-codeblock></div>
+<p>Now we just need to add this <code v-pre>finish</code> function and call it wherever we bind the character. Add it immediately after binding the character.</p>
+<p>Like this:</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">Rebar.document.character.useCharacterBinder(player).bind(document);
+finish(player);</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="were-done">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#were-done">#</doc-anchor-trigger>
+        <span>We&#x27;re done!</span>
+    </h3>
+</doc-anchor-target>
+<p>Now you can test the entire process all the way through.</p>
+
+                                
+                                <!-- Required only on API pages -->
+                                <doc-toolbar-member-filter-no-results></doc-toolbar-member-filter-no-results>
+                            </div>
+                            <footer class="clear-both">
+                            
+                                <nav class="flex mt-14">
+                                    <div class="w-1/2">
+                                        <a class="px-5 py-4 h-full flex items-center break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-l-lg transition-colors duration-150 relative hover:z-5" href="../../../tutorials/rebar/chapter-09-deathmatch/">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="mr-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19 11H7.41l5.29-5.29a.996.996 0 10-1.41-1.41l-7 7a1 1 0 000 1.42l7 7a1.024 1.024 0 001.42-.01.996.996 0 000-1.41L7.41 13H19c.55 0 1-.45 1-1s-.45-1-1-1z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
+                                            <span>
+                                                <span class="block text-xs font-normal text-gray-400 dark:text-dark-400">Previous</span>
+                                                <span class="block mt-1">Chapter 9. Free for All Death Match Gamemode</span>
+                                            </span>
+                                        </a>
+                                    </div>
+                            
+                                    <div class="w-1/2">
+                                        <a class="px-5 py-4 -mx-px h-full flex items-center justify-end break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-r-lg transition-colors duration-150 relative hover:z-5" href="../../../userebar/">
+                                            <span>
+                                                <span class="block text-xs font-normal text-right text-gray-400 dark:text-dark-400">Next</span>
+                                                <span class="block mt-1">API - use​Rebar</span>
+                                            </span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="ml-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19.92 12.38a1 1 0 00-.22-1.09l-7-7a.996.996 0 10-1.41 1.41l5.3 5.3H5c-.55 0-1 .45-1 1s.45 1 1 1h11.59l-5.29 5.29a.996.996 0 000 1.41c.19.2.44.3.7.3s.51-.1.71-.29l7-7c.09-.09.16-.21.21-.33z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
+                                        </a>
+                                    </div>
+                                </nav>
+                            </footer>
+                        </main>
+                
+                        <div class="border-t dark:border-dark-650 pt-6 mb-8">
+                            <footer class="flex flex-wrap items-center justify-between">
+                                <div>
+                                    <ul class="flex flex-wrap items-center text-sm">
+                                    </ul>
+                                </div>
+                                <div class="docs-copyright py-2 text-gray-500 dark:text-dark-350 text-sm leading-relaxed"><p>© Copyright 2024. All rights reserved.</p></div>
+                            </footer>
+                        </div>
+                    </div>
+                
+                    <!-- Rendered if sidebar right is enabled -->
+                    <!-- Sidebar right skeleton-->
+                    <div v-cloak class="fixed top-0 bottom-0 right-0 translate-x-full bg-white border-gray-200 lg:sticky lg:border-l lg:shrink-0 lg:pt-6 lg:transform-none sm:w-1/2 lg:w-64 lg:z-0 md:w-104 sidebar-right skeleton dark:bg-dark-850 dark:border-dark-650">
+                        <div class="pl-5">
+                            <div class="w-32 h-3 mb-4 bg-gray-200 dark:bg-dark-600 rounded-full loading"></div>
+                            <div class="w-48 h-3 mb-4 bg-gray-200 dark:bg-dark-600 rounded-full loading"></div>
+                            <div class="w-40 h-3 mb-4 bg-gray-200 dark:bg-dark-600 rounded-full loading"></div>
+                        </div>
+                    </div>
+                
+                    <!-- User should be able to hide sidebar right -->
+                    <doc-sidebar-right v-cloak></doc-sidebar-right>
+                </div>
+
+            </div>
+        </div>
+    
+        <doc-search-mobile></doc-search-mobile>
+        <doc-back-to-top></doc-back-to-top>
+    </div>
+
+
+    <div id="docs-overlay-target"></div>
+
+    <script data-cfasync="false">window.__DOCS__ = { "title": "Chapter 10. Authentication Plugin", level: 3, icon: "file", hasPrism: true, hasMermaid: false, hasMath: false, tocDepth: 23 }</script>
+</body>
+</html>

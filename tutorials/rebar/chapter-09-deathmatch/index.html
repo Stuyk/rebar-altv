@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.5.0.774652843469">
+
+    <!-- See retype.com -->
+    <meta name="generator" content="Retype 3.5.0">
+
+    <!-- Primary Meta Tags -->
+    <title>Chapter 9. Free for All Death Match Gamemode</title>
+    <meta name="title" content="Chapter 9. Free for All Death Match Gamemode">
+    <meta name="description" content="In this chapter we're going to build a very basic version of a free for all death match.">
+
+    <!-- Canonical -->
+    <link rel="canonical" href="https://rebarv.com/tutorials/rebar/chapter-09-deathmatch/">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://rebarv.com/tutorials/rebar/chapter-09-deathmatch/">
+    <meta property="og:title" content="Chapter 9. Free for All Death Match Gamemode">
+    <meta property="og:description" content="In this chapter we're going to build a very basic version of a free for all death match.">
+    <meta property="og:image" content="https://rebarv.com/static/book/weapon-pickup.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://rebarv.com/tutorials/rebar/chapter-09-deathmatch/">
+    <meta property="twitter:title" content="Chapter 9. Free for All Death Match Gamemode">
+    <meta property="twitter:description" content="In this chapter we're going to build a very basic version of a free for all death match.">
+    <meta property="twitter:image" content="https://rebarv.com/static/book/weapon-pickup.png">
+
+    <script data-cfasync="false">(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
+
+    <link href="../../../resources/css/retype.css?v=3.5.0.774652843469" rel="stylesheet">
+
+    <script data-cfasync="false" src="../../../resources/js/config.js?v=3.5.0.774652843469" data-turbo-eval="false" defer></script>
+    <script data-cfasync="false" src="../../../resources/js/retype.js?v=3.5.0" data-turbo-eval="false" defer></script>
+    <script id="lunr-js" data-cfasync="false" src="../../../resources/js/lunr.js?v=3.5.0.774652843469" data-turbo-eval="false" defer></script>
+    <script id="prism-js" data-cfasync="false" src="../../../resources/js/prism.js?v=3.5.0.774652843469" defer></script>
+</head>
+<body>
+    <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
+        <div class="absolute bottom-0 left-0 bg-gray-100 dark:bg-dark-800" style="top: 5rem; right: 50%"></div>
+    
+        <header id="docs-site-header" class="sticky top-0 z-30 flex w-full h-16 bg-white border-b border-gray-200 md:h-20 dark:bg-dark-850 dark:border-dark-650">
+            <div class="container relative flex items-center justify-between pr-6 grow md:justify-start">
+                <!-- Mobile menu button skeleton -->
+                <button v-cloak class="skeleton docs-mobile-menu-button flex items-center justify-center shrink-0 overflow-hidden dark:text-white focus:outline-none rounded-full w-10 h-10 ml-3.5 md:hidden"><svg xmlns="http://www.w3.org/2000/svg" class="mb-px shrink-0" width="24" height="24" viewBox="0 0 24 24" role="presentation" style="margin-bottom: 0px;"><g fill="currentColor"><path d="M2 4h20v2H2zM2 11h20v2H2zM2 18h20v2H2z"></path></g></svg></button>
+                <div v-cloak id="docs-sidebar-toggle"></div>
+        
+                <!-- Logo -->
+                <div class="flex items-center justify-between h-full py-2 md:w-75">
+                    <div class="flex items-center px-2 md:px-6">
+                        <a id="docs-site-logo" href="../../../" class="flex items-center leading-snug text-xl">
+                            <span class="w-10 mr-2 grow-0 shrink-0 overflow-hidden">
+                                <img class="max-h-10 dark:hidden md:inline-block" src="../../../static/logo_dark.svg">
+                                <img class="max-h-10 hidden dark:inline-block" src="../../../static/logo_light.svg">
+                            </span>
+                            <span class="dark:text-white font-semibold line-clamp-1 md:line-clamp-2">Rebar for alt:V</span>
+                        </a>
+                    </div>
+        
+                    <span class="hidden h-8 border-r md:inline-block dark:border-dark-650"></span>
+                </div>
+        
+                <div class="flex justify-between md:grow">
+                    <!-- Top Nav -->
+                    <nav class="hidden md:flex">
+                        <ul class="flex flex-col mb-4 md:pl-16 md:mb-0 md:flex-row md:items-center">
+                            <li class="mr-6">
+                                <a class="py-2 md:mb-0 inline-flex items-center text-sm whitespace-nowrap transition-colors duration-200 ease-linear md:text-blue-500 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200" href="https://discord.gg/63rrbadsR7">Discord</a>
+                            </li>
+                            <li class="mr-6">
+                                <a class="py-2 md:mb-0 inline-flex items-center text-sm whitespace-nowrap transition-colors duration-200 ease-linear md:text-blue-500 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200" href="https://github.com/stuyk/rebar-altv">GitHub</a>
+                            </li>
+                            <li class="mr-6">
+                                <a class="py-2 md:mb-0 inline-flex items-center text-sm whitespace-nowrap transition-colors duration-200 ease-linear md:text-blue-500 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200" href="https://forge.plebmasters.de/hub?targetFrameworks=Rebar+(alt:V)&contentType=Script">Plugins</a>
+                            </li>
+                            <li class="mr-6">
+                                <a class="py-2 md:mb-0 inline-flex items-center text-sm whitespace-nowrap transition-colors duration-200 ease-linear md:text-blue-500 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200" href="https://altv.mp">alt:V</a>
+                            </li>
+        
+                        </ul>
+                    </nav>
+        
+                    <!-- Header Right Skeleton -->
+                    <div v-cloak class="flex justify-end grow skeleton">
+        
+                        <!-- Search input mock -->
+                        <div class="relative hidden w-40 lg:block lg:max-w-sm lg:ml-auto">
+                            <div class="absolute flex items-center justify-center h-full pl-3 dark:text-dark-300">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="icon-base" width="16" height="16" viewBox="0 0 24 24" aria-labelledby="icon" role="presentation" style="margin-bottom: 1px;"><g fill="currentColor" ><path d="M21.71 20.29l-3.68-3.68A8.963 8.963 0 0020 11c0-4.96-4.04-9-9-9s-9 4.04-9 9 4.04 9 9 9c2.12 0 4.07-.74 5.61-1.97l3.68 3.68c.2.19.45.29.71.29s.51-.1.71-.29c.39-.39.39-1.03 0-1.42zM4 11c0-3.86 3.14-7 7-7s7 3.14 7 7c0 1.92-.78 3.66-2.04 4.93-.01.01-.02.01-.02.01-.01.01-.01.01-.01.02A6.98 6.98 0 0111 18c-3.86 0-7-3.14-7-7z" ></path></g></svg>
+                            </div>
+                            <input class="w-full h-10 placeholder-gray-400 transition-colors duration-200 ease-in bg-gray-200 border border-transparent rounded md:text-sm hover:bg-white hover:border-gray-300 focus:outline-none focus:bg-white focus:border-gray-500 dark:bg-dark-600 dark:border-dark-600 dark:placeholder-dark-400" style="padding: 0.625rem 0.75rem 0.625rem 2rem" type="text" placeholder="Search">
+                        </div>
+        
+                        <!-- Mobile search button -->
+                        <div class="flex items-center justify-center w-10 h-10 lg:hidden">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="shrink-0 icon-base" width="20" height="20" viewBox="0 0 24 24" aria-labelledby="icon" role="presentation" style="margin-bottom: 0px;"><g fill="currentColor" ><path d="M21.71 20.29l-3.68-3.68A8.963 8.963 0 0020 11c0-4.96-4.04-9-9-9s-9 4.04-9 9 4.04 9 9 9c2.12 0 4.07-.74 5.61-1.97l3.68 3.68c.2.19.45.29.71.29s.51-.1.71-.29c.39-.39.39-1.03 0-1.42zM4 11c0-3.86 3.14-7 7-7s7 3.14 7 7c0 1.92-.78 3.66-2.04 4.93-.01.01-.02.01-.02.01-.01.01-.01.01-.01.02A6.98 6.98 0 0111 18c-3.86 0-7-3.14-7-7z" ></path></g></svg>
+                        </div>
+        
+                        <!-- Dark mode switch placeholder -->
+                        <div class="w-10 h-10 lg:ml-2"></div>
+        
+                        <!-- History button -->
+                        <div class="flex items-center justify-center w-10 h-10" style="margin-right: -0.625rem;">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="shrink-0 icon-base" width="22" height="22" viewBox="0 0 24 24" aria-labelledby="icon" role="presentation" style="margin-bottom: 0px;"><g fill="currentColor" ><g ><path d="M12.01 6.01c-.55 0-1 .45-1 1V12a1 1 0 00.4.8l3 2.22a.985.985 0 001.39-.2.996.996 0 00-.21-1.4l-2.6-1.92V7.01c.02-.55-.43-1-.98-1z"></path><path d="M12.01 1.91c-5.33 0-9.69 4.16-10.05 9.4l-.29-.26a.997.997 0 10-1.34 1.48l1.97 1.79c.19.17.43.26.67.26s.48-.09.67-.26l1.97-1.79a.997.997 0 10-1.34-1.48l-.31.28c.34-4.14 3.82-7.41 8.05-7.41 4.46 0 8.08 3.63 8.08 8.09s-3.63 8.08-8.08 8.08c-2.18 0-4.22-.85-5.75-2.4a.996.996 0 10-1.42 1.4 10.02 10.02 0 007.17 2.99c5.56 0 10.08-4.52 10.08-10.08.01-5.56-4.52-10.09-10.08-10.09z"></path></g></g></svg>
+                        </div>
+                    </div>
+        
+                    <div v-cloak class="flex justify-end grow">
+                        <div id="docs-mobile-search-button"></div>
+                        <doc-search-desktop></doc-search-desktop>
+        
+                        <doc-theme-switch class="lg:ml-2"></doc-theme-switch>
+                        <doc-history></doc-history>
+                    </div>
+                </div>
+            </div>
+        </header>
+    
+        <div class="container relative flex bg-white">
+            <!-- Sidebar Skeleton -->
+            <div v-cloak class="fixed flex flex-col shrink-0 duration-300 ease-in-out bg-gray-100 border-gray-200 sidebar top-20 w-75 border-r h-screen md:sticky transition-transform skeleton dark:bg-dark-800 dark:border-dark-650">
+            
+                <!-- Render this div, if config.showSidebarFilter is `true` -->
+                <div class="flex items-center h-16 px-6">
+                    <input class="w-full h-8 px-3 py-2 transition-colors duration-200 ease-linear bg-white border border-gray-200 rounded shadow-none text-sm focus:outline-none focus:border-gray-600 dark:bg-dark-600 dark:border-dark-600" type="text" placeholder="Filter">
+                </div>
+            
+                <div class="pl-6 mt-1 mb-4">
+                    <div class="w-32 h-3 mb-4 bg-gray-200 rounded-full loading dark:bg-dark-600"></div>
+                    <div class="w-48 h-3 mb-4 bg-gray-200 rounded-full loading dark:bg-dark-600"></div>
+                    <div class="w-40 h-3 mb-4 bg-gray-200 rounded-full loading dark:bg-dark-600"></div>
+                    <div class="w-32 h-3 mb-4 bg-gray-200 rounded-full loading dark:bg-dark-600"></div>
+                    <div class="w-48 h-3 mb-4 bg-gray-200 rounded-full loading dark:bg-dark-600"></div>
+                    <div class="w-40 h-3 mb-4 bg-gray-200 rounded-full loading dark:bg-dark-600"></div>
+                </div>
+            
+                <div class="shrink-0 mt-auto bg-transparent dark:border-dark-650">
+                    <a class="flex items-center justify-center flex-nowrap h-16 text-gray-400 dark:text-dark-400 hover:text-gray-700 dark:hover:text-dark-300 transition-colors duration-150 ease-in docs-powered-by" target="_blank" href="https://retype.com/" rel="noopener">
+                        <span class="text-xs whitespace-nowrap">Powered by</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="ml-2" fill="currentColor" width="96" height="20" overflow="visible"><path d="M0 0v20h13.59V0H0zm11.15 17.54H2.44V2.46h8.71v15.08zM15.8 20h2.44V4.67L15.8 2.22zM20.45 6.89V20h2.44V9.34z"/><g><path d="M40.16 8.44c0 1.49-.59 2.45-1.75 2.88l2.34 3.32h-2.53l-2.04-2.96h-1.43v2.96h-2.06V5.36h3.5c1.43 0 2.46.24 3.07.73s.9 1.27.9 2.35zm-2.48 1.1c.26-.23.38-.59.38-1.09 0-.5-.13-.84-.4-1.03s-.73-.28-1.39-.28h-1.54v2.75h1.5c.72 0 1.2-.12 1.45-.35zM51.56 5.36V7.2h-4.59v1.91h4.13v1.76h-4.13v1.92h4.74v1.83h-6.79V5.36h6.64zM60.09 7.15v7.48h-2.06V7.15h-2.61V5.36h7.28v1.79h-2.61zM70.81 14.64h-2.06v-3.66l-3.19-5.61h2.23l1.99 3.45 1.99-3.45H74l-3.19 5.61v3.66zM83.99 6.19c.65.55.97 1.4.97 2.55s-.33 1.98-1 2.51-1.68.8-3.04.8h-1.23v2.59h-2.06V5.36h3.26c1.42 0 2.45.28 3.1.83zm-1.51 3.65c.25-.28.37-.69.37-1.22s-.16-.92-.48-1.14c-.32-.23-.82-.34-1.5-.34H79.7v3.12h1.38c.68 0 1.15-.14 1.4-.42zM95.85 5.36V7.2h-4.59v1.91h4.13v1.76h-4.13v1.92H96v1.83h-6.79V5.36h6.64z"/></g></svg>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Sidebar component -->
+            <doc-sidebar v-cloak>
+                <template #sidebar-footer>
+                    <div class="shrink-0 mt-auto border-t md:bg-transparent md:border-none dark:border-dark-650">
+            
+                        <div class="py-3 px-6 md:hidden border-b dark:border-dark-650">
+                            <nav>
+                                <ul class="flex flex-wrap justify-center items-center">
+                                    <li class="mr-6">
+                                        <a class="block py-1 inline-flex items-center text-sm whitespace-nowrap transition-colors duration-200 ease-linear md:text-blue-500 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200" href="https://discord.gg/63rrbadsR7">Discord</a>
+                                    </li>
+                                    <li class="mr-6">
+                                        <a class="block py-1 inline-flex items-center text-sm whitespace-nowrap transition-colors duration-200 ease-linear md:text-blue-500 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200" href="https://github.com/stuyk/rebar-altv">GitHub</a>
+                                    </li>
+                                    <li class="mr-6">
+                                        <a class="block py-1 inline-flex items-center text-sm whitespace-nowrap transition-colors duration-200 ease-linear md:text-blue-500 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200" href="https://forge.plebmasters.de/hub?targetFrameworks=Rebar+(alt:V)&contentType=Script">Plugins</a>
+                                    </li>
+                                    <li class="mr-6">
+                                        <a class="block py-1 inline-flex items-center text-sm whitespace-nowrap transition-colors duration-200 ease-linear md:text-blue-500 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200" href="https://altv.mp">alt:V</a>
+                                    </li>
+            
+                                </ul>
+                            </nav>
+                        </div>
+            
+                        <a class="flex items-center justify-center flex-nowrap h-16 text-gray-400 dark:text-dark-400 hover:text-gray-700 dark:hover:text-dark-300 transition-colors duration-150 ease-in docs-powered-by" target="_blank" href="https://retype.com/" rel="noopener">
+                            <span class="text-xs whitespace-nowrap">Powered by</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="ml-2" fill="currentColor" width="96" height="20" overflow="visible"><path d="M0 0v20h13.59V0H0zm11.15 17.54H2.44V2.46h8.71v15.08zM15.8 20h2.44V4.67L15.8 2.22zM20.45 6.89V20h2.44V9.34z"/><g><path d="M40.16 8.44c0 1.49-.59 2.45-1.75 2.88l2.34 3.32h-2.53l-2.04-2.96h-1.43v2.96h-2.06V5.36h3.5c1.43 0 2.46.24 3.07.73s.9 1.27.9 2.35zm-2.48 1.1c.26-.23.38-.59.38-1.09 0-.5-.13-.84-.4-1.03s-.73-.28-1.39-.28h-1.54v2.75h1.5c.72 0 1.2-.12 1.45-.35zM51.56 5.36V7.2h-4.59v1.91h4.13v1.76h-4.13v1.92h4.74v1.83h-6.79V5.36h6.64zM60.09 7.15v7.48h-2.06V7.15h-2.61V5.36h7.28v1.79h-2.61zM70.81 14.64h-2.06v-3.66l-3.19-5.61h2.23l1.99 3.45 1.99-3.45H74l-3.19 5.61v3.66zM83.99 6.19c.65.55.97 1.4.97 2.55s-.33 1.98-1 2.51-1.68.8-3.04.8h-1.23v2.59h-2.06V5.36h3.26c1.42 0 2.45.28 3.1.83zm-1.51 3.65c.25-.28.37-.69.37-1.22s-.16-.92-.48-1.14c-.32-.23-.82-.34-1.5-.34H79.7v3.12h1.38c.68 0 1.15-.14 1.4-.42zM95.85 5.36V7.2h-4.59v1.91h4.13v1.76h-4.13v1.92H96v1.83h-6.79V5.36h6.64z"/></g></svg>
+                        </a>
+                    </div>
+                </template>
+            </doc-sidebar>
+    
+            <div class="grow min-w-0 dark:bg-dark-850">
+                <!-- Render "toolbar" template here on api pages --><!-- Render page content -->
+                <div class="flex">
+                    <div class="min-w-0 p-4 grow md:px-16">
+                        <main class="relative pb-12 lg:pt-2">
+                            <div class="docs-markdown" id="docs-content">
+                                <!-- Rendered if sidebar right is enabled -->
+                                <div id="docs-sidebar-right-toggle"></div>
+                                <!-- Page content  -->
+<doc-anchor-target id="chapter-9-free-for-all-death-match-gamemode" class="break-words">
+    <h1>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#chapter-9-free-for-all-death-match-gamemode">#</doc-anchor-trigger>
+        <span>Chapter 9. Free for All Death Match Gamemode</span>
+    </h1>
+</doc-anchor-target>
+<p>In this chapter we&#x27;re going to build a very basic version of a free for all death match. It&#x27;s going to require very little code, and in this section I&#x27;ll provide a handful of positions and code to help you build this faster.</p>
+<p>Death Match is perhaps one of the easiest game modes to write, and gives a firm understanding of spawning and death mechanics.</p>
+<doc-anchor-target id="respawn-system">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#respawn-system">#</doc-anchor-trigger>
+        <span>Respawn System</span>
+    </h2>
+</doc-anchor-target>
+<doc-anchor-target id="spawn-positions">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#spawn-positions">#</doc-anchor-trigger>
+        <span>Spawn Positions</span>
+    </h3>
+</doc-anchor-target>
+<p>All of these positions are located in a subway station.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">// server/index.ts
+
+// This is a list of spawn points we can use
+// They're all inside of the subway station
+const spawns = [
+    { x: -788.31, y: -122.15, z: 19.95 },
+    { x: -845.725, y: -155.81, z: 19.95 },
+    { x: -817.93, y: -139.22, z: 19.95 },
+    { x: -810.61, y: -134.41, z: 19.95 },
+    { x: -818.87, y: -130.96, z: 28.17 },
+    { x: -810.09, y: -144.58, z: 28.17 },
+];</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="spawn-randomly">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#spawn-randomly">#</doc-anchor-trigger>
+        <span>Spawn Randomly</span>
+    </h3>
+</doc-anchor-target>
+<p>Using some of the code we did in the <code v-pre>excercises</code> we can randomly spawn a player to a random position</p>
+<p>Let&#x27;s create a function to do that for us.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">// server/index.ts
+
+function spawnPlayer(player: alt.Player) {
+    const index = Math.floor(Math.random() * spawns.length);
+    player.spawn(spawns[index]);
+}
+
+alt.on('playerConnect', (player) =&gt; {
+    player.model = 'mp_m_freemode_01';
+    spawnPlayer(player);
+});</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="handling-death">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#handling-death">#</doc-anchor-trigger>
+        <span>Handling Death</span>
+    </h3>
+</doc-anchor-target>
+<p>When we get killed, or when a player dies. They&#x27;ll need to be respawned. We can use the alt event for <code v-pre>playerDeath</code> to handle that, and use the <code v-pre>spawnPlayer</code></p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">// server/index.ts
+
+alt.on('playerDeath', (player) =&gt; {
+    spawnPlayer(player);
+});</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="giving-weapons">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#giving-weapons">#</doc-anchor-trigger>
+        <span>Giving Weapons</span>
+    </h3>
+</doc-anchor-target>
+<p>Now our next step in this process is making sure that all of the players are armed for this free-for-all death match. Let&#x27;s go ahead and give each player a random weapon when we call the <code v-pre>spawnPlayer</code> function.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">// server/index.ts
+
+const weapons = ['WEAPON_BATTLEAXE', 'WEAPON_CROWBAR', 'WEAPON_BAT', 'WEAPON_RPG'];
+
+function spawnPlayer(player: alt.Player) {
+    const index = Math.floor(Math.random() * spawns.length);
+    player.spawn(spawns[index]);
+
+    const weaponIndex = Math.floor(Math.random() * weapons.length);
+    player.giveWeapon(weapons[weaponIndex], 999, true);
+}</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="testing-time">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#testing-time">#</doc-anchor-trigger>
+        <span>Testing Time</span>
+    </h3>
+</doc-anchor-target>
+<p>Now you can go in-game and test to make sure it works. If you want other players to join consider checking out this <a href="https://www.youtube.com/watch?v=c35GzxDrG5c">Tutorial on playit.gg Tunneling</a> which will allow you to port forward for alt:V without port forwarding your router, and windows firewall.</p>
+<p>If you wish to port forward your router, and firewall you need to open port <code v-pre>7788</code>.</p>
+<doc-anchor-target id="pickups">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#pickups">#</doc-anchor-trigger>
+        <span>Pickups</span>
+    </h2>
+</doc-anchor-target>
+<p>In the previous chapter we learned the basics of writing a super simple game mode. However, this next chapter is going to start covering some enhancements that we can add to our free-for-all death match game mode. Which in this case will be weapon pickups.</p>
+<p>First thing we&#x27;re going to check is if we have <code v-pre>Rebar</code> available and imported into the free-for-all game mode.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">import { useRebar } from '@Server/index.js';
+
+const Rebar = useRebar();</code></pre>
+</doc-codeblock></div>
+<p>Make sure this is located at the top of your <code v-pre>server/index.ts</code> file.</p>
+<doc-anchor-target id="what-is-a-pickup">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#what-is-a-pickup">#</doc-anchor-trigger>
+        <span>What is a Pickup?</span>
+    </h3>
+</doc-anchor-target>
+<p>Pickups will allow you to listen for when a player walks over a given point, and then we can give them a weapon. They&#x27;re often seen as a hovering weapon that will invoke a function when walked over. Let&#x27;s build one.</p>
+<p>They&#x27;re found under the <code v-pre>Rebar.controllers.</code> pathway when writing code.</p>
+<doc-anchor-target id="pickup-positions">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#pickup-positions">#</doc-anchor-trigger>
+        <span>Pickup Positions</span>
+    </h3>
+</doc-anchor-target>
+<p>Here are two pickup positions we can use to create a pickup with.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">new alt.Vector3({
+    x: -816.7376708984375,
+    y: -138.48944091796875,
+    z: 28.175315856933594,
+});
+
+new alt.Vector3({
+    x: -811.4326171875,
+    y: -135.86361694335938,
+    z: 28.175315856933594,
+});</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="create-the-pickup">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#create-the-pickup">#</doc-anchor-trigger>
+        <span>Create the Pickup</span>
+    </h3>
+</doc-anchor-target>
+<p>Below we&#x27;re going to great a pickup based on a specific weapon type. Intellisense will hint you at the available pickups for you to utilize in your pickup creation.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">// server/index.ts
+
+Rebar.controllers.usePickupGlobal({
+    pickup: 'PICKUP_WEAPON_RAILGUN',
+    pos: new alt.Vector3({
+        x: -816.7376708984375,
+        y: -138.48944091796875,
+        z: 28.175315856933594,
+    }),
+});</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="listen-for-the-pickup">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#listen-for-the-pickup">#</doc-anchor-trigger>
+        <span>Listen for the Pickup</span>
+    </h3>
+</doc-anchor-target>
+<p>Next we&#x27;re going to tack on a <code v-pre>.on</code> function to the usePickupGlobal. When we create a <code v-pre>pickup</code> it will return a handful of functions we can use and <code v-pre>on</code> just so happens to be one.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">// server/index.ts
+
+Rebar.controllers
+    .usePickupGlobal({
+        pickup: 'PICKUP_WEAPON_RAILGUN',
+        pos: new alt.Vector3({
+            x: -816.7376708984375,
+            y: -138.48944091796875,
+            z: 28.175315856933594,
+        }),
+    })
+    .on((player, weapon, destroy) =&gt; {
+        player.giveWeapon('WEAPON_RAILGUN', 99, true);
+    });</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="verify-the-pickup-works">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#verify-the-pickup-works">#</doc-anchor-trigger>
+        <span>Verify the Pickup Works</span>
+    </h3>
+</doc-anchor-target>
+<p>Next step is verifying that the pickup works. Go ahead and head in-game and walk over to the pickup location. The two positions are at the top of the subway platform.</p>
+<p><figure class="content-center">
+    <img src="../../../static/book/weapon-pickup.png" alt="">
+    <figcaption class="caption"></figcaption>
+</figure>
+</p>
+<doc-anchor-target id="notifying-the-player">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#notifying-the-player">#</doc-anchor-trigger>
+        <span>Notifying the Player</span>
+    </h3>
+</doc-anchor-target>
+<p>Now that we have the player picking up a weapon, we can also let them know they&#x27;ve picked up the weapon.</p>
+<p>We can do this by slightly modifying the pickup controller.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">// server/index.ts
+
+Rebar.controllers
+    .usePickupGlobal({
+        pickup: 'PICKUP_WEAPON_RAILGUN',
+        pos: new alt.Vector3({
+            x: -816.7376708984375,
+            y: -138.48944091796875,
+            z: 28.175315856933594,
+        }),
+    })
+    .on((player, weapon, destroy) =&gt; {
+        player.giveWeapon('WEAPON_RAILGUN', 99, true);
+
+        // the usePlayer function has a lot of functionality built into it
+        // feel free to explore it with intellisense!
+        const rPlayer = Rebar.usePlayer(player);
+        rPlayer.notify.showNotification(`You picked up the Railgun!`);
+    });</code></pre>
+</doc-codeblock></div>
+<p><figure class="content-center">
+    <img src="../../../static/book/weapon-pickup-notification.png" alt="">
+    <figcaption class="caption"></figcaption>
+</figure>
+</p>
+<doc-anchor-target id="markers">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#markers">#</doc-anchor-trigger>
+        <span>Markers</span>
+    </h2>
+</doc-anchor-target>
+<p>Now that we&#x27;ve messed with some pickups, let&#x27;s really show the player that the pickup&#x27;s are there, and we can do that by using markers.</p>
+<p>Markers are effectively colorful holograms to show a player something in the world.</p>
+<doc-anchor-target id="marker-positions">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#marker-positions">#</doc-anchor-trigger>
+        <span>Marker Positions</span>
+    </h3>
+</doc-anchor-target>
+<p>We&#x27;ll be using the same positions from the last section, but we&#x27;ll be subtracting 1 from the z position.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">// These were already subtracted
+new alt.Vector3({
+    x: -816.7376708984375,
+    y: -138.48944091796875,
+    z: 27.175315856933594,
+});
+
+// These were already subtracted
+new alt.Vector3({
+    x: -811.4326171875,
+    y: -135.86361694335938,
+    z: 27.175315856933594,
+});</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="building-a-marker">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#building-a-marker">#</doc-anchor-trigger>
+        <span>Building a Marker</span>
+    </h3>
+</doc-anchor-target>
+<p>Markers have various types, and you&#x27;ll see that when you fill in <code v-pre>type</code> with the <code v-pre>string</code> type, intellisense will give you more hints.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">// server/index.ts
+
+Rebar.controllers.useMarkerGlobal({
+    type: 'CYLINDER',
+    pos: new alt.Vector3({
+        x: -816.7376708984375,
+        y: -138.48944091796875,
+        z: 27.175315856933594,
+    }),
+    color: new alt.RGBA(0, 255, 0, 100),
+    scale: new alt.Vector3(2, 2, 1),
+});</code></pre>
+</doc-codeblock></div>
+<p><figure class="content-center">
+    <img src="../../../static/book/marker-preview.png" alt="">
+    <figcaption class="caption"></figcaption>
+</figure>
+</p>
+<p>Look at that, now we have a nice marker to really draw the player to the location.</p>
+<doc-anchor-target id="interactions">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#interactions">#</doc-anchor-trigger>
+        <span>Interactions</span>
+    </h2>
+</doc-anchor-target>
+<p>Interactions require the player to press the <code v-pre>E</code> key in-game for something to happen. They&#x27;re effectively a super simple way to trigger a certain function when the key is pressed.</p>
+<p>In this section we&#x27;re going to build an interaction to use the elevator in the game. It will simply teleport the player from the top to the bottom of the subway station.</p>
+<doc-anchor-target id="interaction-positions">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#interaction-positions">#</doc-anchor-trigger>
+        <span>Interaction Positions</span>
+    </h3>
+</doc-anchor-target>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">// Elevator Top
+new alt.Vector3({
+    x: -815.67236328125,
+    y: -134.51853942871094,
+    z: 27.17535400390625,
+});
+
+// Elevator Bottom
+new alt.Vector3({
+    x: -815.7911376953125,
+    y: -134.67520141601562,
+    z: 18.95029067993164,
+});</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="teleport-to-top">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#teleport-to-top">#</doc-anchor-trigger>
+        <span>Teleport to Top</span>
+    </h3>
+</doc-anchor-target>
+<p>First thing we&#x27;re going to do is use the <code v-pre>Rebar.controllers</code> to create an interaction.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">// server/index.ts
+
+// This one is actually a bit different, you'll be creating a colshape inside of the interaction controller
+// Also notice that the coordinates are passed manually, and not with a alt.Vector3
+const elevatorTop = Rebar.controllers.useInteraction(new alt.ColshapeSphere(-815.67, -134.51, 27.17, 2), 'player');</code></pre>
+</doc-codeblock></div>
+<p>After creating the interaction, we&#x27;re going to listen for when it is interacted with.</p>
+<p>Once the player has interacted with the top elevator position, we&#x27;ll move them down to the bottom position.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">// server/index.ts
+
+elevatorTop.on((player) =&gt; {
+    // Teleport to the bottom
+    player.pos = new alt.Vector3({
+        x: -815.7911376953125,
+        y: -134.67520141601562,
+        z: 18.95029067993164,
+    });
+});</code></pre>
+</doc-codeblock></div>
+<p>Additionally, we&#x27;re going to use a <code v-pre>cone marker</code> to show the player the entry point.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">// server/index.ts
+
+Rebar.controllers.useMarkerGlobal({
+    pos: new alt.Vector3({
+        x: -815.7911376953125,
+        y: -134.67520141601562,
+        z: 18.95029067993164,
+    }),
+    type: 'UPSIDE_DOWN_CONE',
+    color: new alt.RGBA(255, 255, 0, 100),
+    scale: new alt.Vector3(1, 1, 1),
+});</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="teleport-to-bottom">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#teleport-to-bottom">#</doc-anchor-trigger>
+        <span>Teleport to Bottom</span>
+    </h3>
+</doc-anchor-target>
+<p>Now we&#x27;re going to create the bottom elevator code, and it&#x27;s going to utilize pretty much the opposite positions that we used above. Feel free to try writing it on your own before using the code below.</p>
+<p>We&#x27;ll build the interaction first.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">// server/index.ts
+
+// Build the interaction
+const elevatorBottom = Rebar.controllers.useInteraction(new alt.ColshapeSphere(-815.79, -134, 18.6, 2), 'player');
+
+// Listen for when the player press 'e' and teleport them to the point given
+elevatorBottom.on((player) =&gt; {
+    player.pos = new alt.Vector3(-815.79, -134.51, 27.17);
+});
+
+// Build the marker to show the player they can interact with it
+Rebar.controllers.useMarkerGlobal({
+    pos: new alt.Vector3({
+        x: -815.67236328125,
+        y: -134.51853942871094,
+        z: 18.6,
+    }),
+    type: 'UPSIDE_DOWN_CONE',
+    color: new alt.RGBA(255, 255, 0, 100),
+    scale: new alt.Vector3(1, 1, 1),
+});</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="text-labels">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#text-labels">#</doc-anchor-trigger>
+        <span>Text Labels</span>
+    </h2>
+</doc-anchor-target>
+<p>Now that we&#x27;ve created an elevator, our next step is going to be adding some text labels to elevator positions to really let the player know that they can press a key to go up and down the elevator.</p>
+<p>We&#x27;re going to use the <code v-pre>Rebar.controllers</code> pathway to build some new Text Labels.</p>
+<doc-anchor-target id="elevator-up-label">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#elevator-up-label">#</doc-anchor-trigger>
+        <span>Elevator Up Label</span>
+    </h3>
+</doc-anchor-target>
+<p>Labels require passing a position, and some text.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">// server/index.ts
+
+Rebar.controllers.useTextLabelGlobal({
+    pos: new alt.Vector3({
+        x: -815.67236328125,
+        y: -134.51853942871094,
+        z: 18.6,
+    }),
+    text: `E - Use Elevator`,
+});</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="elevator-down-label">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#elevator-down-label">#</doc-anchor-trigger>
+        <span>Elevator Down Label</span>
+    </h3>
+</doc-anchor-target>
+<p>We&#x27;ll do the same as above, but we&#x27;re just going to change the position.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">// server/index.ts
+
+Rebar.controllers.useTextLabelGlobal({
+    pos: new alt.Vector3({
+        x: -815.67236328125,
+        y: -134.51853942871094,
+        z: 27.17535400390625,
+    }),
+    text: `E - Use Elevator`,
+});</code></pre>
+</doc-codeblock></div>
+<p><figure class="content-center">
+    <img src="../../../static/book/text-labels.png" alt="">
+    <figcaption class="caption"></figcaption>
+</figure>
+</p>
+<doc-anchor-target id="timers">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#timers">#</doc-anchor-trigger>
+        <span>Timers</span>
+    </h2>
+</doc-anchor-target>
+<p>There are a lot of cases where you want something to happen after a certain period of time. Let&#x27;s say that we only want the Railgun to be available every 15 seconds after it&#x27;s picked up.</p>
+<p>What we&#x27;re going to do is make it so that when the Railgun is taken, it will destroy itself, and then it will create a timer to respawn the Railgun after 15 seconds.</p>
+<doc-anchor-target id="pickup-as-a-function">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#pickup-as-a-function">#</doc-anchor-trigger>
+        <span>Pickup as a Function</span>
+    </h3>
+</doc-anchor-target>
+<p>We&#x27;re going to adjust the existing Railgun code, and change it as follows.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">// server/index.ts
+
+function createRailgun() {
+    let isTaken = false;
+
+    // Move the marker for the Railgun into this function as well
+    const marker = Rebar.controllers.useMarkerGlobal({
+        type: 'CYLINDER',
+        pos: new alt.Vector3({
+            x: -816.7376708984375,
+            y: -138.48944091796875,
+            z: 27.175315856933594,
+        }),
+        color: new alt.RGBA(0, 255, 0, 100),
+        scale: new alt.Vector3(2, 2, 1),
+    });
+
+    // Add the pickup creation function
+    const pickup = Rebar.controllers.usePickupGlobal({
+        pickup: 'PICKUP_WEAPON_RAILGUN',
+        pos: new alt.Vector3({
+            x: -816.7376708984375,
+            y: -138.48944091796875,
+            z: 28.175315856933594,
+        }),
+    });
+
+    // We'll use the 'destroy' function from the callback to remove it
+    pickup.on((player, weapon, destroy) =&gt; {
+        // Make sure that nobody else can claim the railgun after it is claimed
+        if (isTaken) {
+            return;
+        }
+
+        isTaken = true;
+
+        // Destroy the pickup
+        destroy();
+
+        // Destroy the marker
+        marker.destroy();
+
+        // Give the player the railgun
+        player.giveWeapon('WEAPON_RAILGUN', 99, true);
+
+        const rPlayer = Rebar.usePlayer(player);
+        rPlayer.notify.showNotification(`You picked up the Railgun!`);
+    });
+}</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="respawn-the-railgun">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#respawn-the-railgun">#</doc-anchor-trigger>
+        <span>Respawn the Railgun</span>
+    </h3>
+</doc-anchor-target>
+<p>We will now modify the pickup.on <code v-pre>callback</code> to call the <code v-pre>createRailgun</code> after 15 seconds.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">// server/index.ts
+
+pickup.on((player, weapon, destroy) =&gt; {
+    // Make sure that nobody else can claim the railgun after it is claimed
+    if (isTaken) {
+        return;
+    }
+
+    isTaken = true;
+
+    // Destroy the pickup
+    destroy();
+
+    // Destroy the marker
+    marker.destroy();
+
+    // Give the player the railgun
+    player.giveWeapon('WEAPON_RAILGUN', 99, true);
+
+    const rPlayer = Rebar.usePlayer(player);
+    rPlayer.notify.showNotification(`You picked up the Railgun!`);
+
+    // Respawn the railgun after 15 seconds
+    alt.setTimeout(createRailgun, 15000); // 15 Seconds as milliseconds
+});</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="spawn-the-railgun">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#spawn-the-railgun">#</doc-anchor-trigger>
+        <span>Spawn the Railgun</span>
+    </h3>
+</doc-anchor-target>
+<p>Finally, we just need to call <code v-pre>createRailgun</code> somewhere in the file to create the initial railgun.</p>
+<p>You can likely put this at the end of your file.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">// server/index.ts
+
+createRailgun();</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="recap-on-death-match">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#recap-on-death-match">#</doc-anchor-trigger>
+        <span>Recap on Death Match</span>
+    </h2>
+</doc-anchor-target>
+<p>In this section you learned about working with player connections, respawning, weapon pickups, markers, interactions, text labels, and timers. All of these functionalities are core to building almost anything with Rebar.</p>
+<p>However, this is for a non-persistent game mode. Meaning that nothing is saved.</p>
+<p>This chapter was simply a primer to building larger more complex features.</p>
+
+                                
+                                <!-- Required only on API pages -->
+                                <doc-toolbar-member-filter-no-results></doc-toolbar-member-filter-no-results>
+                            </div>
+                            <footer class="clear-both">
+                            
+                                <nav class="flex mt-14">
+                                    <div class="w-1/2">
+                                        <a class="px-5 py-4 h-full flex items-center break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-l-lg transition-colors duration-150 relative hover:z-5" href="../../../tutorials/rebar/chapter-08-excercises/">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="mr-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19 11H7.41l5.29-5.29a.996.996 0 10-1.41-1.41l-7 7a1 1 0 000 1.42l7 7a1.024 1.024 0 001.42-.01.996.996 0 000-1.41L7.41 13H19c.55 0 1-.45 1-1s-.45-1-1-1z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
+                                            <span>
+                                                <span class="block text-xs font-normal text-gray-400 dark:text-dark-400">Previous</span>
+                                                <span class="block mt-1">Chapter 8. Exercises</span>
+                                            </span>
+                                        </a>
+                                    </div>
+                            
+                                    <div class="w-1/2">
+                                        <a class="px-5 py-4 -mx-px h-full flex items-center justify-end break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-r-lg transition-colors duration-150 relative hover:z-5" href="../../../tutorials/rebar/chapter-10-authentication/">
+                                            <span>
+                                                <span class="block text-xs font-normal text-right text-gray-400 dark:text-dark-400">Next</span>
+                                                <span class="block mt-1">Chapter 10. Authentication Plugin</span>
+                                            </span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="ml-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19.92 12.38a1 1 0 00-.22-1.09l-7-7a.996.996 0 10-1.41 1.41l5.3 5.3H5c-.55 0-1 .45-1 1s.45 1 1 1h11.59l-5.29 5.29a.996.996 0 000 1.41c.19.2.44.3.7.3s.51-.1.71-.29l7-7c.09-.09.16-.21.21-.33z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
+                                        </a>
+                                    </div>
+                                </nav>
+                            </footer>
+                        </main>
+                
+                        <div class="border-t dark:border-dark-650 pt-6 mb-8">
+                            <footer class="flex flex-wrap items-center justify-between">
+                                <div>
+                                    <ul class="flex flex-wrap items-center text-sm">
+                                    </ul>
+                                </div>
+                                <div class="docs-copyright py-2 text-gray-500 dark:text-dark-350 text-sm leading-relaxed"><p>© Copyright 2024. All rights reserved.</p></div>
+                            </footer>
+                        </div>
+                    </div>
+                
+                    <!-- Rendered if sidebar right is enabled -->
+                    <!-- Sidebar right skeleton-->
+                    <div v-cloak class="fixed top-0 bottom-0 right-0 translate-x-full bg-white border-gray-200 lg:sticky lg:border-l lg:shrink-0 lg:pt-6 lg:transform-none sm:w-1/2 lg:w-64 lg:z-0 md:w-104 sidebar-right skeleton dark:bg-dark-850 dark:border-dark-650">
+                        <div class="pl-5">
+                            <div class="w-32 h-3 mb-4 bg-gray-200 dark:bg-dark-600 rounded-full loading"></div>
+                            <div class="w-48 h-3 mb-4 bg-gray-200 dark:bg-dark-600 rounded-full loading"></div>
+                            <div class="w-40 h-3 mb-4 bg-gray-200 dark:bg-dark-600 rounded-full loading"></div>
+                        </div>
+                    </div>
+                
+                    <!-- User should be able to hide sidebar right -->
+                    <doc-sidebar-right v-cloak></doc-sidebar-right>
+                </div>
+
+            </div>
+        </div>
+    
+        <doc-search-mobile></doc-search-mobile>
+        <doc-back-to-top></doc-back-to-top>
+    </div>
+
+
+    <div id="docs-overlay-target"></div>
+
+    <script data-cfasync="false">window.__DOCS__ = { "title": "Chapter 9. Free for All Death Match Gamemode", level: 3, icon: "file", hasPrism: true, hasMermaid: false, hasMath: false, tocDepth: 23 }</script>
+</body>
+</html>
