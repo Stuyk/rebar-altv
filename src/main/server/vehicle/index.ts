@@ -3,6 +3,7 @@ import { useRebar } from '../index.js';
 import { Vehicle, WheelState } from '../../shared/types/vehicle.js';
 import * as Utility from '@Shared/utility/index.js';
 import { Events } from '../../shared/events/index.js';
+import { useVehicleHandling } from './vehicleHandling.js';
 
 const Rebar = useRebar();
 const db = Rebar.database.useDatabase();
@@ -516,6 +517,7 @@ export function useVehicle(vehicle: alt.Vehicle) {
         bind,
         create,
         getVehicleModelName,
+        handling: useVehicleHandling(vehicle),
         hasOwner,
         isBound,
         keys: {
@@ -533,6 +535,7 @@ export function useVehicle(vehicle: alt.Vehicle) {
         toggleEngineAsPlayer,
         toggleLock,
         toggleLockAsPlayer,
+        vehicle,
         verifyOwner,
     };
 }

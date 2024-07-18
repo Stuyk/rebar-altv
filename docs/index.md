@@ -1,3 +1,7 @@
+---
+order: 99
+---
+
 # What is Rebar?
 
 Rebar is a plug-and-play base framework for the alternative GTA:V multiplayer client alt:V. Rebar is meant to act as a light framework that provides utility, and a basic standard for building plugins that can be compatible with other plugins.

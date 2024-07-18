@@ -1,7 +1,5 @@
 import * as alt from 'alt-server';
-import { useRebar } from '../index.js';
-
-const Rebar = useRebar();
+import { usePlayer } from '../player/index.js';
 
 function hasPermission(
     player: alt.Player,
@@ -9,7 +7,7 @@ function hasPermission(
     characterPermissions: string[],
     groupPermissions: { [key: string]: string[] },
 ) {
-    const rPlayer = Rebar.usePlayer(player);
+    const rPlayer = usePlayer(player);
     if (!rPlayer.isValid()) {
         return false;
     }

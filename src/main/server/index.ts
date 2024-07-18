@@ -29,7 +29,12 @@ import {
     useVehicleEvents,
     useVirtual,
 } from './document/index.js';
+
+
 import { CollectionNames } from './document/shared.js';
+
+import { useProtectCallback } from './utility/protectCallback.js';
+import { useRateLimitCallback } from './utility/rateLimitCallback.js';
 
 import { useEvents } from './events/index.js';
 
@@ -61,13 +66,12 @@ import { sha256, sha256Random } from './utility/hash.js';
 import { check, hash } from './utility/password.js';
 import { useVehicle } from './vehicle/index.js';
 import { useVehicleHandling } from './vehicle/vehicleHandling.js';
-import { useProtectCallback } from './utility/protectCallback.js';
 import { useServerTime } from './systems/serverTime.js';
 import { useServerWeather } from './systems/serverWeather.js';
 import { useProxyFetch } from './systems/proxyFetch.js';
 import { usePed } from './controllers/ped.js';
 import { useServerConfig } from './systems/serverConfig.js';
-import { useRateLimitCallback } from './utility/rateLimitCallback.js';
+
 import { useKeybinder } from './systems/serverKeybinds.js';
 import { useProgressbarGlobal, useProgressbarLocal } from './controllers/progressbar.js';
 import { useWorldMenu } from './controllers/worldMenu.js';
@@ -176,6 +180,7 @@ export function useRebar() {
         useServerTime,
         useServerWeather,
         systems: {
+            useMessenger,
             useKeybinder,
             useKeypress,
             useProxyFetch,

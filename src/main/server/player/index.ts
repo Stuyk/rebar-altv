@@ -52,6 +52,7 @@ export function usePlayer(player: alt.Player) {
         },
         native: useNative(player),
         notify: useNotify(player),
+        player,
         raycast: useRaycast(player),
         screenshot: useScreenshot(player),
         sound: useAudio(player),

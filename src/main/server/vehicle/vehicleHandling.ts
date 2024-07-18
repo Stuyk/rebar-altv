@@ -15,8 +15,8 @@ export function useVehicleHandling(vehicle: alt.Vehicle) {
         vehicle.setStreamSyncedMeta('handling', handlingData);
     }
 
-    function get(): Partial<HandlingData> {
-        return handlingData;
+    function get(): Partial<HandlingData | undefined> {
+        return vehicle.getStreamSyncedMeta('handling');
     }
 
     function setPartial(data: Partial<HandlingData>) {

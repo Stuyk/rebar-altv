@@ -1,57 +1,49 @@
-import { KnownKeys } from '@Shared/utilityTypes/index.js';
 import { useDatabase } from '@Server/database/index.js';
 
 type BaseDocument = { _id: string };
 
 const db = useDatabase();
 
-export function useVirtual(_id: string, collectionName: string) {
+export function useVirtual<T extends BaseDocument = BaseDocument>(_id: string, collectionName: string) {
     /**
-     * Return data from the database directly.
+     * Return the entire document from the database
      *
-     * @template T
-     * @return {(Promise<(BaseDocument & T) | undefined>)}
+     * @return {(Promise<T | undefined>)}
      */
-    async function get<T = {}>(): Promise<(BaseDocument & T) | undefined> {
+    async function get(): Promise<T | undefined> {
         const data = await db.get({ _id }, collectionName);
         return data as BaseDocument & T;
     }
 
     /**
-     * Return specific fiedl data from the document
+     * Returns a specific key from the document
      *
-     * @template T
-     * @template ReturnType
-     * @param {(keyof KnownKeys<BaseDocument & T>)} fieldName
-     * @return {(Promise<ReturnType | undefined>)}
+     * @template K
+     * @param {K} fieldName
+     * @return {(Promise<T[K] | undefined>)}
      */
-    async function getField<T = {}, ReturnType = any>(
-        fieldName: keyof KnownKeys<BaseDocument & T>,
-    ): Promise<ReturnType | undefined> {
-        const data = await get<BaseDocument & T>();
+    async function getField<K extends keyof T>(fieldName: K): Promise<T[K] | undefined> {
+        const data = await get();
         return data[String(fieldName)];
     }
 
     /**
-     * Set a specified field to a specified value
+     * Set a specific value for the given document and save to database
      *
-     * @template T
-     * @template Keys
-     * @param {Keys} fieldName
-     * @param {*} value
+     * @template K
+     * @param {K} fieldName
+     * @param {T[K]} value
      */
-    async function set<T = {}, Keys = keyof KnownKeys<BaseDocument & T>>(fieldName: Keys, value: any) {
+    async function set<K extends keyof T>(fieldName: K, value: T[K]) {
         await db.update({ _id, [String(fieldName)]: value }, collectionName);
     }
 
     /**
-     * Set many fields to specified values
+     * Set multiple fields for the given document and save to database
      *
-     * @template T
-     * @template Keys
-     * @param {Keys} fields
+     * @param {Partial<T>} fields
      */
-    async function setBulk<T = {}, Keys = Partial<BaseDocument & T>>(fields: Keys) {
+    async function setBulk(fields: Partial<T>) {
         await db.update({ _id, ...fields }, collectionName);
     }
 
