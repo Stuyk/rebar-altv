@@ -14,7 +14,7 @@ app.post('/server', async (c) => {
     return c.text('Code Executed on Server');
 });
 
-app.post('', async (c) => {
+app.post('/client', async (c) => {
     if (alt.Player.all.length <= 0) {
         return c.text('No players on server to execute code against');
     }
