@@ -5,15 +5,17 @@ import { Message } from '../../shared/types/message.js';
 
 export type PlayerMessageCallback = (player: alt.Player, msg: string) => void;
 
-export type CommandOptions = {
+export type PermissionOptions = {
     permissions?: string[];
     accountPermissions?: string[];
+    groups?: Record<string, string[]>;
+    accountGroups?: Record<string, string[]>;
 };
 
 export type Command = {
     name: string;
     desc: string;
-    options?: CommandOptions;
+    options?: PermissionOptions;
     callback: (player: alt.Player, ...args: string[]) => void | boolean | Promise<void> | Promise<boolean>;
 };
 
@@ -42,6 +44,45 @@ const commands: Command[] = [];
 const callbacks: PlayerMessageCallback[] = [];
 let endCommandRegistrationTime = Date.now();
 
+/**
+ * 
+ * @param {alt.Player} player Player to check permissions for.
+ * @param {PermissionOptions} options Permission options to check against.
+ * @returns {boolean} True if the player has access to the functionality.
+ */
+function isAvailableForPlayer(player: alt.Player, options?: PermissionOptions): boolean {
+    if (!player.valid) return false;
+    if (!options) return true;
+    if (
+        !options.accountPermissions &&
+        !options.permissions &&
+        !options.groups &&
+        !options.accountGroups
+    ) {
+        return true;
+    }
+
+    const rPlayer = Rebar.usePlayer(player);
+    
+    if (rPlayer.account.groupPermissions.hasAtLeastOneGroupWithSpecificPerm(options.accountGroups)) {
+        return true;
+    }
+
+    if (rPlayer.character.groupPermissions.hasAtLeastOneGroupWithSpecificPerm(options.groups)) {
+        return true;
+    }
+    
+    if (rPlayer.account.permissions.hasAnyPermission(options.accountPermissions)) {
+        return true;
+    }
+
+    if (rPlayer.character.permissions.hasAnyPermission(options.permissions)) {
+        return true;
+    }
+
+    return false;
+}
+
 export function useMessenger() {
     function registerCommand(command: Command) {
         command.name = command.name.replaceAll('/', '');
@@ -61,20 +102,7 @@ export function useMessenger() {
     }
 
     function hasCommandPermission(player: alt.Player, command: Command) {
-        const permissions = Rebar.permission.usePermission(player);
-        if (!command.options.accountPermissions && !command.options.permissions) {
-            return true;
-        }
-
-        if (permissions.hasOne('account', command.options.accountPermissions)) {
-            return true;
-        }
-
-        if (permissions.hasOne('character', command.options.permissions)) {
-            return true;
-        }
-
-        return false;
+        return isAvailableForPlayer(player, command.options);
     }
 
     async function invokeCommand(player: alt.Player, cmdName: string, ...args: any[]): Promise<boolean> {
@@ -103,6 +131,14 @@ export function useMessenger() {
     function sendMessage(player: alt.Player, message: Message) {
         const webview = Rebar.player.useWebview(player);
         webview.emit(Events.systems.messenger.send, message);
+    }
+
+    function broadcastMessage(message: Message, options?: PermissionOptions) {
+        for (const player of alt.Player.all) {
+            if (isAvailableForPlayer(player, options)) {
+                sendMessage(player, message);
+            }
+        }
     }
 
     /**
@@ -140,6 +176,7 @@ export function useMessenger() {
         message: {
             on: onMessage,
             send: sendMessage,
+            broadcast: broadcastMessage,
         },
     };
 }

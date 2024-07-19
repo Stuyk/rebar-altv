@@ -4,9 +4,9 @@ import { KnownKeys } from '@Shared/utilityTypes/index.js';
 import { useDatabase } from '@Server/database/index.js';
 import { CollectionNames, KeyChangeCallback } from './shared.js';
 import { Vehicle } from 'main/shared/types/vehicle.js';
-import { usePermission } from '@Server/systems/permission.js';
-import { usePermissionGroup } from '@Server/systems/permissionGroup.js';
 import { useRebar } from '../index.js';
+import { usePermissionProxy } from '@Server/systems/permissionProxy.js';
+import { removeGroup } from 'natives';
 
 const Rebar = useRebar();
 const sessionKey = 'document:character';
@@ -151,156 +151,77 @@ export function useCharacter(player: alt.Player) {
         return results as (Vehicle & T)[];
     }
 
-    /**
-     * Adds a permission to this character
-     *
-     * @async
-     * @name addPermission
-     * @param {string} permission
-     * @returns {Promise<boolean>}
-     * @exports
-     */
-    async function addPermission(permission: string) {
-        if (!player.valid) {
-            return false;
-        }
-
-        const perm = usePermission(player);
-        return await perm.add('character', permission);
-    }
-
-    /**
-     * Removes a permission from the given player character.
-     *
-     * @async
-     * @name removePermission
-     * @param {string} permission
-     * @returns {Promise<boolean>}
-     * @exports
-     */
-    async function removePermission(permission: string) {
-        if (!player.valid) {
-            return false;
-        }
-
-        const perm = usePermission(player);
-        return await perm.remove('character', permission);
-    }
-
-    /**
-     * Check if the current player character has a permission.
-     *
-     * @export
-     * @param {string} permission
-     * @return {boolean}
-     */
-    function hasPermission(permission: string) {
-        if (!player.valid) {
-            return false;
-        }
-
-        const perm = usePermission(player);
-        return perm.has('character', permission);
-    }
-
-    /**
-     * Check if a player character has a group permission.
-     *
-     * @export
-     * @param {string} groupName
-     * @param {string} permission
-     * @returns {boolean}
-     */
-    function hasGroupPermission(groupName: string, permission: string) {
-        const data = get();
-        if (typeof data === 'undefined') {
-            return false;
-        }
-
-        const perm = usePermissionGroup(data);
-        return perm.hasGroupPerm(groupName, permission);
-    }
-
-    /**
-     * Check if a player has any matching permission
-     *
-     * @export
-     * @param {PermissionGroup} document
-     * @param {string} groupName
-     * @param {string} permission
-     */
-    function hasAnyGroupPermission(groupName: string, permissions: string[]) {
-        const data = get();
-        if (typeof data === 'undefined') {
-            return false;
-        }
-
-        const perm = usePermissionGroup(data);
-        return perm.hasAtLeastOneGroupPerm(groupName, permissions);
-    }
-
-    /**
-     * Add a group permission to a character.
-     *
-     * @export
-     * @param {string} groupName
-     * @param {string} permission
-     * @return {Promise<boolean>}
-     */
-    async function addGroupPerm(groupName: string, permission: string): Promise<boolean> {
-        const data = get();
-        if (typeof data === 'undefined') {
-            return false;
-        }
-
-        const perm = usePermissionGroup(data);
-        const newDocument = perm.addGroupPerm(groupName, permission);
-        await set('groups', newDocument.groups);
-        return true;
-    }
-
-    /**
-     * Remove a group permission from a character.
-     *
-     * @export
-     * @param {string} groupName
-     * @param {string} permission
-     * @return {Promise<boolean>}
-     */
-    async function removeGroupPerm(groupName: string, permission: string): Promise<boolean> {
-        const data = get();
-        if (typeof data === 'undefined') {
-            return false;
-        }
-
-        const perm = usePermissionGroup(data);
-        const newDocument = perm.removeGroupPerm(groupName, permission);
-        await set('groups', newDocument.groups);
-        return true;
-    }
-
     async function addIdentifier() {
         if (typeof getField('id') !== 'undefined') {
             return getField('id');
         }
 
-        const identifier = await Rebar.database.useIncrementalId(Rebar.database.CollectionNames.Characters);
+        const identifier = Rebar.database.useIncrementalId(Rebar.database.CollectionNames.Characters);
         const id = await identifier.getNext();
         await setBulk({ id });
         return id;
     }
 
-    const permission = {
-        addPermission,
-        addGroupPerm,
-        removePermission,
-        removeGroupPerm,
-        hasAnyGroupPermission,
-        hasPermission,
-        hasGroupPermission,
-    };
+    const { permissions, groupPermissions } = usePermissionProxy(player, 'character', get, set);
 
-    return { addIdentifier, get, getField, isValid, getVehicles, permission, set, setBulk };
+    /**
+     * Old permission system. Will be deprecated in the future.
+     * Use the new permission system instead.
+     * @deprecated
+     */
+    const permission = {
+        /**
+         * @deprecated
+         */
+        addPermission: async (permissionName: string) => {
+            alt.logWarning('Consider using useCharacter(...).permissions.addPermission. This will be deprecated.');
+            return await permissions.addPermission(permissionName);
+        },
+        /**
+         * @deprecated
+         */
+        removePermission: async (permissionName: string) => {
+            alt.logWarning('Consider using useCharacter(...).permissions.removePermission. This will be deprecated.');
+            return await permissions.removePermission(permissionName);
+        },
+        /**
+         * @deprecated
+         */
+        hasPermission: (permissionName: string) => {
+            alt.logWarning('Consider using useCharacter(...).permissions.hasPermission. This will be deprecated.');
+            return permissions.hasPermission(permissionName);
+        },
+        /**
+         * @deprecated
+         */
+        hasGroupPermission: (groupName: string, permissionName: string) => {
+            alt.logWarning('Consider using useCharacter(...).permissions.hasGroupPermission. This will be deprecated.');
+            return groupPermissions.hasGroupPerm(groupName, permissionName);
+        },
+        /**
+         * @deprecated
+         */
+        hasAnyGroupPermission: (groupName: string, permissionNames: string[]) => {
+            alt.logWarning('Consider using useCharacter(...).permissions.hasAnyGroupPermission. This will be deprecated.');
+            return groupPermissions.hasAtLeastOneGroupPerm(groupName, permissionNames);
+        },
+        /**
+         * @deprecated
+         */
+        addGroupPerm: async (groupName: string, permissionName: string) => {
+            alt.logWarning('Consider using useCharacter(...).permissions.addGroupPerm. This will be deprecated.');
+            return await groupPermissions.addPermissions(groupName, [permissionName]);
+        },
+        /**
+         * @deprecated
+         */
+        removeGroupPerm: async (groupName: string, permissionName: string) => {
+            alt.logWarning('Consider using useCharacter(...).permissions.removeGroupPerm. This will be deprecated.');
+            return await groupPermissions.removePermissions(groupName, [permissionName]);
+        }
+    }
+
+    return { addIdentifier, get, getField, isValid, getVehicles, permission, permissions, groupPermissions, set, setBulk };
 }
 
 export function useCharacterBinder(player: alt.Player, syncPlayer = true) {

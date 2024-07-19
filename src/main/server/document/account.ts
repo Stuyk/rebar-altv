@@ -5,8 +5,8 @@ import { KnownKeys } from '@Shared/utilityTypes/index.js';
 import { useDatabase } from '@Server/database/index.js';
 import { CollectionNames, KeyChangeCallback } from './shared.js';
 import { Character } from '@Shared/types/character.js';
-import { usePermission } from '@Server/systems/permission.js';
 import { useRebar } from '../index.js';
+import { usePermissionProxy } from '@Server/systems/permissionProxy.js';
 
 const Rebar = useRebar();
 const sessionKey = 'document:account';
@@ -150,51 +150,6 @@ export function useAccount(player: alt.Player) {
     }
 
     /**
-     * Add a permission to the given player's account.
-     *
-     * @export
-     * @param {alt.Player} player
-     * @param {string} permission
-     * @return {*}
-     */
-    async function addPermission(permission: string) {
-        if (!player.valid) {
-            return false;
-        }
-
-        const perm = usePermission(player);
-        return await perm.add('account', permission);
-    }
-
-    /**
-     * Remove a permission to the given player's account.
-     *
-     * @export
-     * @param {string} permission
-     * @return {*}
-     */
-    async function removePermission(permission: string) {
-        if (!player.valid) {
-            return false;
-        }
-
-        const perm = usePermission(player);
-        return await perm.remove('account', permission);
-    }
-
-    /**
-     * Check if the player has an account permission.
-     *
-     * @export
-     * @param {string} permission
-     * @return {boolean}
-     */
-    function hasPermission(permission: string) {
-        const perm = usePermission(player);
-        return perm.has('account', permission);
-    }
-
-    /**
      * Set the password for this account
      *
      * @param {string} plainText
@@ -240,26 +195,57 @@ export function useAccount(player: alt.Player) {
         await setBulk({ id });
         return id;
     }
+    const { permissions, groupPermissions } = usePermissionProxy(player, 'account', get, set);
 
+    /**
+     * Old permission system. Will be deprecated.
+     * @deprecated
+     */
     const permission = {
-        addPermission,
-        removePermission,
-        hasPermission,
-        setBanned,
-    };
+        /**
+         * @deprecated
+         */
+        addPermission: async (permissionName: string) => {
+            alt.logWarning('Consider using useAccount(...).permissions.addPermission instead. This will be deprecated.');
+            return permissions.addPermission(permissionName);
+        },
+        /**
+         * @deprecated
+         */
+        removePermission: async (permissionName: string) => {
+            alt.logWarning('Consider using useAccount(...).permissions.removePermission instead. This will be deprecated.');
+            return permissions.removePermission(permissionName);
+        },
+        /**
+         * @deprecated
+         */
+        hasPermission: (permissionName: string) => {
+            alt.logWarning('Consider using useAccount(...).permissions.hasPermission instead. This will be deprecated.');
+            return permissions.hasPermission(permissionName);
+        },
+        /**
+         * @deprecated
+         */
+        setBanned: async (reason: string) => {
+            alt.logWarning('Consider using useAccount(...).setBanned instead. This will be deprecated.');
+            return setBanned(reason);
+        },
+    }
 
     return {
+        permission,
         addIdentifier,
-        addPermission,
         get,
         getCharacters,
         getField,
         isValid,
-        permission,
         set,
         setBulk,
         setPassword,
         checkPassword,
+        setBanned,
+        permissions,
+        groupPermissions,
     };
 }
 
