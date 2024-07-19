@@ -29,34 +29,12 @@ const someCharacterData = {
 };
 
 // Bind account data to the player after fetching
-const document = Rebar.document.character.useAccountBinder(player).bind(someCharacterData);
+const document = Rebar.document.character.useCharacterBinder(player).bind(someCharacterData);
 ```
 
 ---
 
 ## useCharacter
-
-### addGroupPerm
-
-Add a permission group with a specific ranking.
-
-```ts
-function someFunction(player: alt.Player) {
-    const document = Rebar.document.character.useCharacter(player);
-    document.addGroupPerm('police', 'cadet');
-}
-```
-
-### addPermission
-
-Add a permission to the character.
-
-```ts
-function someFunction(player: alt.Player) {
-    const document = Rebar.document.character.useCharacter(player);
-    document.permission.addPermission('mechanic');
-}
-```
 
 ### isValid
 
@@ -109,68 +87,6 @@ async function someFunction(player: alt.Player) {
 }
 ```
 
-### hasPermission
-
-Add a permission to the character.
-
-```ts
-function someFunction(player: alt.Player) {
-    const document = Rebar.document.character.useCharacter(player);
-    if (!document.permission.hasPermission('mechanic')) {
-        // No Permission!
-        return;
-    }
-}
-```
-
-### hasAnyGroupPermission
-
-Check if the character has any group permission.
-
-```ts
-function someFunction(player: alt.Player) {
-    const document = Rebar.document.character.useCharacter(player);
-    if (!document.hasAnyGroupPermission('police', ['cadet'])) {
-        return;
-    }
-}
-```
-
-### hasGroupPerm
-
-Check if the character has a specific group perm.
-
-```ts
-function someFunction(player: alt.Player) {
-    const document = Rebar.document.character.useCharacter(player);
-    if (!document.hasGroupPerm('police', 'cadet')) {
-        return;
-    }
-}
-```
-
-### removeGroupPerm
-
-Add a permission group with a specific ranking.
-
-```ts
-function someFunction(player: alt.Player) {
-    const document = Rebar.document.character.useCharacter(player);
-    document.removeGroupPerm('police', 'cadet');
-}
-```
-
-### removePermission
-
-Add a permission to the character.
-
-```ts
-function someFunction(player: alt.Player) {
-    const document = Rebar.document.character.useCharacter(player);
-    document.permission.removePermission('mechanic');
-}
-```
-
 ### set
 
 Set a single field to be stored in the database.
@@ -188,6 +104,152 @@ function someFunction(player: alt.Player) {
 function someFunction(player: alt.Player) {
     const document = Rebar.document.character.useCharacter(player);
     document.setBulk({ name: 'New_Name!', health: 200 });
+}
+```
+
+### permissions
+
+You can grant/revoke permissions to the character and check if character has them.
+
+#### addPermission
+
+Grants a permission to the character.
+
+```ts
+async function someFunction(player: alt.Player) {
+    const document = Rebar.document.character.useCharacter(player);
+    await document.permissions.addPermission('admin');
+}
+```
+
+#### removePermission
+
+Revokes permission from the character.
+
+```ts
+async function someFunction(player: alt.Player) {
+    const document = Rebar.document.character.useCharacter(player);
+    await document.permissions.removePermission('admin');
+}
+```
+
+#### hasPermission
+
+Checks if character has a permission.
+
+```ts
+function someFunction(player: alt.Player) {
+    const document = Rebar.document.character.useCharacter(player);
+    const hasPerm: boolean = document.permissions.hasPermission('admin');
+}
+```
+
+#### hasAllPermissions
+
+Checks if character has all of the provided permissions:
+
+```ts
+function someFunction(player: alt.Player) {
+    const document = Rebar.document.character.useCharacter(player);
+    const hasAllPerm: boolean = document.permissions.hasAllPermissions(['admin', 'support']);
+}
+```
+
+#### hasAnyPermission
+
+Checks if character has at least one of the provided permissions:
+
+```ts
+function someFunction(player: alt.Player) {
+    const document = Rebar.document.character.useCharacter(player);
+    const hasAnyPerm: boolean = document.permissions.hasAnyPermission(['admin', 'support']);
+}
+```
+
+### groupPermissions
+
+Permission groups allow you to assign permissions under a specific group name for an character.
+
+#### addPermissions
+
+Adds permission to specified group. If an character had no group before - it will create it.
+
+```ts
+async function someFunction(player: alt.Player) {
+    const document = Rebar.document.character.useCharacter(player);
+    await document.groupPermissions.addPermissions('admin', 'noclip');
+}
+```
+
+#### removePermissions
+
+Removes permission from group, it will also remove a group, if there are no permissions left.
+
+```ts
+async function someFunction(player: alt.Player) {
+    const document = Rebar.document.character.useCharacter(player);
+    await document.groupPermissions.removePermissions('admin', 'noclip');
+}
+```
+
+#### removeGroup
+
+Completely removes group from an character with all its permissions.
+
+```ts
+async function someFunction(player: alt.Player) {
+    const document = Rebar.document.character.useCharacter(player);
+    await document.groupPermissions.removeGroup('admin');
+}
+```
+
+#### hasGroup
+
+Checks if character belongs to group.
+
+```ts
+function someFunction(player: alt.Player) {
+    const document = Rebar.document.character.useCharacter(player);
+    const isAdmin: boolean = document.groupPermissions.hasGroup('admin');
+}
+```
+
+#### hasGroupPerm
+
+Checks if character belongs to group and has a specific permission.
+
+```ts
+function someFunction(player: alt.Player) {
+    const document = Rebar.document.character.useCharacter(player);
+    const canNoclip: boolean = document.groupPermissions.hasGroupPerm('admin', 'noclip');
+}
+```
+
+#### hasAtLeastOneGroupPerm
+
+Checks if character belongs to group and has any of provided permissions.
+
+```ts
+function someFunction(player: alt.Player) {
+    const document = Rebar.document.character.useCharacter(player);
+    const canBanOrNoclip: boolean = document.groupPermissions.hasAtLeastOneGroupPerm('admin', ['noclip', 'ban']);
+}
+```
+
+#### hasAtLeastOneGroupWithSpecificPerm
+
+Checks if character belongs to any of the group and has corresponding rights.
+
+```ts
+function someFunction(player: alt.Player) {
+    const document = Rebar.document.character.useCharacter(player);
+    const isStaff = document.groupPermissions.hasAtLeastOneGroupWithSpecificPerm({
+        admin: ['noclip', 'ban'],
+        support: ['answerReport']
+    });
+    // This will be true if:
+    // 1. Character has `admin` group with `noclip` OR/AND `ban` permission.
+    // 2. Character has `support` group with `answerReport` permission.
 }
 ```
 
