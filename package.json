@@ -1,12 +1,13 @@
 {
     "author": "stuyk",
     "type": "module",
-    "version": "49",
+    "version": "50",
     "scripts": {
-        "dev": "nodemon -x pnpm start",
-        "dev:linux": "nodemon -x pnpm start:linux",
+        "dev": "nodemon --config ./nodemon-dev.json -x pnpm start",
+        "dev:linux": "nodemon --config ./nodemon-dev.json -x pnpm start:linux",
         "start": "node ./scripts/compile.js && altv-server",
         "start:linux": "node ./scripts/compile.js && ./altv-server",
+        "dev:hot": "pnpm build:docker && concurrently --raw \"nodemon -C --config ./nodemon-hot.json -x pnpm build:docker\" \"altv-server\"",
         "build:docker": "node ./scripts/compile.js -- docker",
         "binaries": "pnpm altv-pkg",
         "rebar:upgrade": "node ./scripts/upgrade.js",
@@ -37,6 +38,7 @@
     "dependencies": {
         "@hono/node-server": "^1.12.0",
         "@vitejs/plugin-vue": "^5.0.5",
+        "concurrently": "^8.2.2",
         "dotenv": "^16.4.5",
         "hono": "^4.5.0",
         "mongodb": "^6.8.0",
@@ -54,26 +56,5 @@
         "plugins": [
             "prettier-plugin-tailwindcss"
         ]
-    },
-    "nodemonConfig": {
-        "verbose": false,
-        "ext": "ts, vue",
-        "watch": [
-            "./src",
-            "./webview"
-        ],
-        "ignore": [
-            "webview/pages/*",
-            "webview/vite.config.*",
-            "*/package.json",
-            "*.mjs",
-            "ignore*.ts",
-            "autogen*.ts",
-            "webview/src/main.ts",
-            "src/scratchpad"
-        ],
-        "events": {
-            "restart": "node ./scripts/restart.js"
-        }
     }
 }
