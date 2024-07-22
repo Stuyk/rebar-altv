@@ -1,0 +1,18 @@
+{
+    "verbose": false,
+    "ext": "ts, vue",
+    "watch": ["./src", "./webview"],
+    "ignore": [
+        "webview/pages/*",
+        "webview/vite.config.*",
+        "*/package.json",
+        "*.mjs",
+        "ignore*.ts",
+        "autogen*.ts",
+        "webview/src/main.ts",
+        "src/scratchpad"
+    ],
+    "events": {
+        "exit": "node ./scripts/reload.js"
+    }
+}
