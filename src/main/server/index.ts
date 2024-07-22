@@ -85,11 +85,13 @@ import { useRaycast } from './player/raycast.js';
 import { useAttachment } from './player/attachment.js';
 import { useInteractionLocal } from './controllers/interactionLocal.js';
 import { useInstructionalButtons } from './controllers/instructionalButtons.js';
+import { useHono } from './rpc/index.js';
 
 export function useRebar() {
     return {
         useApi,
         useConfig,
+        useHono,
         controllers: {
             useBlipGlobal,
             useBlipLocal,

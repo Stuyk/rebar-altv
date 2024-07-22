@@ -1,5 +1,5 @@
 import * as alt from 'alt-server';
-import { Hono } from 'hono';
+import { Context, Hono } from 'hono';
 import { serve, ServerType, type HttpBindings } from '@hono/node-server';
 import * as Server from './server/index.js';
 import * as Api from './api/index.js';
@@ -21,8 +21,6 @@ if (alt.debug) {
     app.route('/transmitter', Transmitter.get());
 }
 
-server = serve({ fetch: app.fetch, port: 8787 });
-
 alt.on('on-rpc-restart', () => {
     if (!server) {
         return;
@@ -31,3 +29,30 @@ alt.on('on-rpc-restart', () => {
     alt.log('RPC - Stopping RPC Server');
     server.close();
 });
+
+
+function init() {
+    if (server) return;
+    server = serve({ fetch: app.fetch, port: 8787 });
+}
+
+init();
+
+export function useHono() {
+    function addRouter(path: string, router: Hono<{ Bindings: HttpBindings }>) {
+        app.route(path, router);
+        alt.logDebug('— Registered Router: ' + path);
+    }
+
+    const middlewares = {
+        localOnly: async (c: Context, next: Function) => {
+            if (c.env.incoming.socket.remoteAddress !== '127.0.0.1') {
+                c.status(403);
+                return c.json({ data: 'Unauthorized' });
+              }
+              return await next();
+        }
+    } 
+
+    return { addRouter, middlewares };
+}
