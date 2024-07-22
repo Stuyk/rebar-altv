@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.5.0.774652843469">
+    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.5.0.774973433812">
 
     <!-- See retype.com -->
     <meta name="generator" content="Retype 3.5.0">
@@ -30,12 +30,12 @@
 
     <script data-cfasync="false">(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
-    <link href="../../../resources/css/retype.css?v=3.5.0.774652843469" rel="stylesheet">
+    <link href="../../../resources/css/retype.css?v=3.5.0.774973433812" rel="stylesheet">
 
-    <script data-cfasync="false" src="../../../resources/js/config.js?v=3.5.0.774652843469" data-turbo-eval="false" defer></script>
+    <script data-cfasync="false" src="../../../resources/js/config.js?v=3.5.0.774973433812" data-turbo-eval="false" defer></script>
     <script data-cfasync="false" src="../../../resources/js/retype.js?v=3.5.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" data-cfasync="false" src="../../../resources/js/lunr.js?v=3.5.0.774652843469" data-turbo-eval="false" defer></script>
-    <script id="prism-js" data-cfasync="false" src="../../../resources/js/prism.js?v=3.5.0.774652843469" defer></script>
+    <script id="lunr-js" data-cfasync="false" src="../../../resources/js/lunr.js?v=3.5.0.774973433812" data-turbo-eval="false" defer></script>
+    <script id="prism-js" data-cfasync="false" src="../../../resources/js/prism.js?v=3.5.0.774973433812" defer></script>
 </head>
 <body>
     <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -230,7 +230,7 @@ const someCharacterData = {
 };
 
 // Bind account data to the player after fetching
-const document = Rebar.document.character.useAccountBinder(player).bind(someCharacterData);</code></pre>
+const document = Rebar.document.character.useCharacterBinder(player).bind(someCharacterData);</code></pre>
 </doc-codeblock></div>
 <hr>
 <doc-anchor-target id="usecharacter">
@@ -239,32 +239,6 @@ const document = Rebar.document.character.useAccountBinder(player).bind(someChar
         <span>useCharacter</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="addgroupperm">
-    <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#addgroupperm">#</doc-anchor-trigger>
-        <span>addGroupPerm</span>
-    </h3>
-</doc-anchor-target>
-<p>Add a permission group with a specific ranking.</p>
-<div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">function someFunction(player: alt.Player) {
-    const document = Rebar.document.character.useCharacter(player);
-    document.addGroupPerm('police', 'cadet');
-}</code></pre>
-</doc-codeblock></div>
-<doc-anchor-target id="addpermission">
-    <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#addpermission">#</doc-anchor-trigger>
-        <span>addPermission</span>
-    </h3>
-</doc-anchor-target>
-<p>Add a permission to the character.</p>
-<div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">function someFunction(player: alt.Player) {
-    const document = Rebar.document.character.useCharacter(player);
-    document.permission.addPermission('mechanic');
-}</code></pre>
-</doc-codeblock></div>
 <doc-anchor-target id="isvalid">
     <h3>
         <doc-anchor-trigger class="header-anchor-trigger" to="#isvalid">#</doc-anchor-trigger>
@@ -324,78 +298,6 @@ const document = Rebar.document.character.useAccountBinder(player).bind(someChar
     }
 }</code></pre>
 </doc-codeblock></div>
-<doc-anchor-target id="haspermission">
-    <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#haspermission">#</doc-anchor-trigger>
-        <span>hasPermission</span>
-    </h3>
-</doc-anchor-target>
-<p>Add a permission to the character.</p>
-<div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">function someFunction(player: alt.Player) {
-    const document = Rebar.document.character.useCharacter(player);
-    if (!document.permission.hasPermission('mechanic')) {
-        // No Permission!
-        return;
-    }
-}</code></pre>
-</doc-codeblock></div>
-<doc-anchor-target id="hasanygrouppermission">
-    <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#hasanygrouppermission">#</doc-anchor-trigger>
-        <span>hasAnyGroupPermission</span>
-    </h3>
-</doc-anchor-target>
-<p>Check if the character has any group permission.</p>
-<div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">function someFunction(player: alt.Player) {
-    const document = Rebar.document.character.useCharacter(player);
-    if (!document.hasAnyGroupPermission('police', ['cadet'])) {
-        return;
-    }
-}</code></pre>
-</doc-codeblock></div>
-<doc-anchor-target id="hasgroupperm">
-    <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#hasgroupperm">#</doc-anchor-trigger>
-        <span>hasGroupPerm</span>
-    </h3>
-</doc-anchor-target>
-<p>Check if the character has a specific group perm.</p>
-<div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">function someFunction(player: alt.Player) {
-    const document = Rebar.document.character.useCharacter(player);
-    if (!document.hasGroupPerm('police', 'cadet')) {
-        return;
-    }
-}</code></pre>
-</doc-codeblock></div>
-<doc-anchor-target id="removegroupperm">
-    <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#removegroupperm">#</doc-anchor-trigger>
-        <span>removeGroupPerm</span>
-    </h3>
-</doc-anchor-target>
-<p>Add a permission group with a specific ranking.</p>
-<div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">function someFunction(player: alt.Player) {
-    const document = Rebar.document.character.useCharacter(player);
-    document.removeGroupPerm('police', 'cadet');
-}</code></pre>
-</doc-codeblock></div>
-<doc-anchor-target id="removepermission">
-    <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#removepermission">#</doc-anchor-trigger>
-        <span>removePermission</span>
-    </h3>
-</doc-anchor-target>
-<p>Add a permission to the character.</p>
-<div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">function someFunction(player: alt.Player) {
-    const document = Rebar.document.character.useCharacter(player);
-    document.permission.removePermission('mechanic');
-}</code></pre>
-</doc-codeblock></div>
 <doc-anchor-target id="set">
     <h3>
         <doc-anchor-trigger class="header-anchor-trigger" to="#set">#</doc-anchor-trigger>
@@ -419,6 +321,182 @@ const document = Rebar.document.character.useAccountBinder(player).bind(someChar
 <pre class="language-typescript"><code v-pre class="language-typescript">function someFunction(player: alt.Player) {
     const document = Rebar.document.character.useCharacter(player);
     document.setBulk({ name: 'New_Name!', health: 200 });
+}</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="permissions">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#permissions">#</doc-anchor-trigger>
+        <span>permissions</span>
+    </h3>
+</doc-anchor-target>
+<p>You can grant/revoke permissions to the character and check if character has them.</p>
+<doc-anchor-target id="addpermission">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#addpermission">#</doc-anchor-trigger>
+        <span>addPermission</span>
+    </h4>
+</doc-anchor-target>
+<p>Grants a permission to the character.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">async function someFunction(player: alt.Player) {
+    const document = Rebar.document.character.useCharacter(player);
+    await document.permissions.addPermission('admin');
+}</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="removepermission">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#removepermission">#</doc-anchor-trigger>
+        <span>removePermission</span>
+    </h4>
+</doc-anchor-target>
+<p>Revokes permission from the character.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">async function someFunction(player: alt.Player) {
+    const document = Rebar.document.character.useCharacter(player);
+    await document.permissions.removePermission('admin');
+}</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="haspermission">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#haspermission">#</doc-anchor-trigger>
+        <span>hasPermission</span>
+    </h4>
+</doc-anchor-target>
+<p>Checks if character has a permission.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">function someFunction(player: alt.Player) {
+    const document = Rebar.document.character.useCharacter(player);
+    const hasPerm: boolean = document.permissions.hasPermission('admin');
+}</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="hasallpermissions">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#hasallpermissions">#</doc-anchor-trigger>
+        <span>hasAllPermissions</span>
+    </h4>
+</doc-anchor-target>
+<p>Checks if character has all of the provided permissions:</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">function someFunction(player: alt.Player) {
+    const document = Rebar.document.character.useCharacter(player);
+    const hasAllPerm: boolean = document.permissions.hasAllPermissions(['admin', 'support']);
+}</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="hasanypermission">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#hasanypermission">#</doc-anchor-trigger>
+        <span>hasAnyPermission</span>
+    </h4>
+</doc-anchor-target>
+<p>Checks if character has at least one of the provided permissions:</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">function someFunction(player: alt.Player) {
+    const document = Rebar.document.character.useCharacter(player);
+    const hasAnyPerm: boolean = document.permissions.hasAnyPermission(['admin', 'support']);
+}</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="grouppermissions">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#grouppermissions">#</doc-anchor-trigger>
+        <span>groupPermissions</span>
+    </h3>
+</doc-anchor-target>
+<p>Permission groups allow you to assign permissions under a specific group name for an character.</p>
+<doc-anchor-target id="addpermissions">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#addpermissions">#</doc-anchor-trigger>
+        <span>addPermissions</span>
+    </h4>
+</doc-anchor-target>
+<p>Adds permission to specified group. If an character had no group before - it will create it.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">async function someFunction(player: alt.Player) {
+    const document = Rebar.document.character.useCharacter(player);
+    await document.groupPermissions.addPermissions('admin', 'noclip');
+}</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="removepermissions">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#removepermissions">#</doc-anchor-trigger>
+        <span>removePermissions</span>
+    </h4>
+</doc-anchor-target>
+<p>Removes permission from group, it will also remove a group, if there are no permissions left.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">async function someFunction(player: alt.Player) {
+    const document = Rebar.document.character.useCharacter(player);
+    await document.groupPermissions.removePermissions('admin', 'noclip');
+}</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="removegroup">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#removegroup">#</doc-anchor-trigger>
+        <span>removeGroup</span>
+    </h4>
+</doc-anchor-target>
+<p>Completely removes group from an character with all its permissions.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">async function someFunction(player: alt.Player) {
+    const document = Rebar.document.character.useCharacter(player);
+    await document.groupPermissions.removeGroup('admin');
+}</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="hasgroup">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#hasgroup">#</doc-anchor-trigger>
+        <span>hasGroup</span>
+    </h4>
+</doc-anchor-target>
+<p>Checks if character belongs to group.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">function someFunction(player: alt.Player) {
+    const document = Rebar.document.character.useCharacter(player);
+    const isAdmin: boolean = document.groupPermissions.hasGroup('admin');
+}</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="hasgroupperm">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#hasgroupperm">#</doc-anchor-trigger>
+        <span>hasGroupPerm</span>
+    </h4>
+</doc-anchor-target>
+<p>Checks if character belongs to group and has a specific permission.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">function someFunction(player: alt.Player) {
+    const document = Rebar.document.character.useCharacter(player);
+    const canNoclip: boolean = document.groupPermissions.hasGroupPerm('admin', 'noclip');
+}</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="hasatleastonegroupperm">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#hasatleastonegroupperm">#</doc-anchor-trigger>
+        <span>hasAtLeastOneGroupPerm</span>
+    </h4>
+</doc-anchor-target>
+<p>Checks if character belongs to group and has any of provided permissions.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">function someFunction(player: alt.Player) {
+    const document = Rebar.document.character.useCharacter(player);
+    const canBanOrNoclip: boolean = document.groupPermissions.hasAtLeastOneGroupPerm('admin', ['noclip', 'ban']);
+}</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="hasatleastonegroupwithspecificperm">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#hasatleastonegroupwithspecificperm">#</doc-anchor-trigger>
+        <span>hasAtLeastOneGroupWithSpecificPerm</span>
+    </h4>
+</doc-anchor-target>
+<p>Checks if character belongs to any of the group and has corresponding rights.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">function someFunction(player: alt.Player) {
+    const document = Rebar.document.character.useCharacter(player);
+    const isStaff = document.groupPermissions.hasAtLeastOneGroupWithSpecificPerm({
+        admin: ['noclip', 'ban'],
+        support: ['answerReport']
+    });
+    // This will be true if:
+    // 1. Character has `admin` group with `noclip` OR/AND `ban` permission.
+    // 2. Character has `support` group with `answerReport` permission.
 }</code></pre>
 </doc-codeblock></div>
 <doc-anchor-target id="usecharacterevents">
