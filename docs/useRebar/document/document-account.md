@@ -44,16 +44,6 @@ const data = account.get();
 console.log(data.email);
 ```
 
-### addPermission
-
-Add a permission to the account.
-
-```ts
-const document = Rebar.document.account.useAccount(player);
-
-await document.permission.addPermission('admin');
-```
-
 ### checkPassword
 
 When you setup an account you often want to also setup a password, or check a password.
@@ -94,19 +84,6 @@ async function someFunction(player: alt.Player) {
 }
 ```
 
-### hasPermission
-
-```ts
-async function someFunction(player: alt.Player) {
-    const document = Rebar.document.account.useAccount(player);
-
-    if (!document.hasPermission('admin')) {
-        // No Permission
-        return;
-    }
-}
-```
-
 ### isValid
 
 If you need to check if a player has an account document bound to them, you can use the following method.
@@ -137,15 +114,6 @@ async function someFunction(player: alt.Player) {
     } else {
         console.log('They do not have a character');
     }
-}
-```
-
-### removePermission
-
-```ts
-async function someFunction(player: alt.Player) {
-    const document = Rebar.document.account.useAccount(player);
-    await document.permission.removePermission('admin');
 }
 ```
 
@@ -183,6 +151,152 @@ function someFunction(player: alt.Player) {
 function someFunction(player: alt.Player) {
     const document = Rebar.document.account.useAccount(player);
     document.setBulk({ banned: true, reason: 'big nerd' });
+}
+```
+
+### permissions
+
+You can grant/revoke permissions to the account and check if account has them.
+
+#### addPermission
+
+Grants a permission to the account.
+
+```ts
+async function someFunction(player: alt.Player) {
+    const document = Rebar.document.account.useAccount(player);
+    await document.permissions.addPermission('admin');
+}
+```
+
+#### removePermission
+
+Revokes permission from the account.
+
+```ts
+async function someFunction(player: alt.Player) {
+    const document = Rebar.document.account.useAccount(player);
+    await document.permissions.removePermission('admin');
+}
+```
+
+#### hasPermission
+
+Checks if account has a permission.
+
+```ts
+function someFunction(player: alt.Player) {
+    const document = Rebar.document.account.useAccount(player);
+    const hasPerm: boolean = document.permissions.hasPermission('admin');
+}
+```
+
+#### hasAllPermissions
+
+Checks if account has all of the provided permissions:
+
+```ts
+function someFunction(player: alt.Player) {
+    const document = Rebar.document.account.useAccount(player);
+    const hasAllPerm: boolean = document.permissions.hasAllPermissions(['admin', 'support']);
+}
+```
+
+#### hasAnyPermission
+
+Checks if account has at least one of the provided permissions:
+
+```ts
+function someFunction(player: alt.Player) {
+    const document = Rebar.document.account.useAccount(player);
+    const hasAnyPerm: boolean = document.permissions.hasAnyPermission(['admin', 'support']);
+}
+```
+
+### groupPermissions
+
+Permission groups allow you to assign permissions under a specific group name for an account.
+
+#### addPermissions
+
+Adds permission to specified group. If an account had no group before - it will create it.
+
+```ts
+async function someFunction(player: alt.Player) {
+    const document = Rebar.document.account.useAccount(player);
+    await document.groupPermissions.addPermissions('admin', 'noclip');
+}
+```
+
+#### removePermissions
+
+Removes permission from group, it will also remove a group, if there are no permissions left.
+
+```ts
+async function someFunction(player: alt.Player) {
+    const document = Rebar.document.account.useAccount(player);
+    await document.groupPermissions.removePermissions('admin', 'noclip');
+}
+```
+
+#### removeGroup
+
+Completely removes group from an account with all its permissions.
+
+```ts
+async function someFunction(player: alt.Player) {
+    const document = Rebar.document.account.useAccount(player);
+    await document.groupPermissions.removeGroup('admin');
+}
+```
+
+#### hasGroup
+
+Checks if account belongs to group.
+
+```ts
+function someFunction(player: alt.Player) {
+    const document = Rebar.document.account.useAccount(player);
+    const isAdmin: boolean = document.groupPermissions.hasGroup('admin');
+}
+```
+
+#### hasGroupPerm
+
+Checks if account belongs to group and has a specific permission.
+
+```ts
+function someFunction(player: alt.Player) {
+    const document = Rebar.document.account.useAccount(player);
+    const canNoclip: boolean = document.groupPermissions.hasGroupPerm('admin', 'noclip');
+}
+```
+
+#### hasAtLeastOneGroupPerm
+
+Checks if account belongs to group and has any of provided permissions.
+
+```ts
+function someFunction(player: alt.Player) {
+    const document = Rebar.document.account.useAccount(player);
+    const canBanOrNoclip: boolean = document.groupPermissions.hasAtLeastOneGroupPerm('admin', ['noclip', 'ban']);
+}
+```
+
+#### hasAtLeastOneGroupWithSpecificPerm
+
+Checks if account belongs to any of the group and has corresponding rights.
+
+```ts
+function someFunction(player: alt.Player) {
+    const document = Rebar.document.account.useAccount(player);
+    const isStaff = document.groupPermissions.hasAtLeastOneGroupWithSpecificPerm({
+        admin: ['noclip', 'ban'],
+        support: ['answerReport']
+    });
+    // This will be true if:
+    // 1. Account has `admin` group with `noclip` OR/AND `ban` permission.
+    // 2. Account has `support` group with `answerReport` permission.
 }
 ```
 
