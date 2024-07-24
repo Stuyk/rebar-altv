@@ -4,6 +4,22 @@ order: 95
 
 # Changelog
 
+## Version 50
+
+### Code Changes
+
+-   Permission system was redone by @floydya for better performance and usage
+-   Added hot reloading option for `core and webview` resources, accessible through `dev:hot`
+    -   This keeps you connected to the server while the resource itself reloads, it's quite fast
+-   Split nodemon into two configurations, added new script for reloading
+
+### Docs Changes
+
+-   Permission system was updated / documented by @floydya
+-   Documented `dev:hot` for install
+
+---
+
 ## Version 49
 
 ### Code Changes
