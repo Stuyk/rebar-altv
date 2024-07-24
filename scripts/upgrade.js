@@ -16,6 +16,8 @@ const foldersToCopy = [
     'scripts',
     'package.json',
     'tsconfig.json',
+    'nodemon-dev.json',
+    'nodemon-hot.json',
 ];
 
 function cloneRepository(repoUrl, clonePath) {

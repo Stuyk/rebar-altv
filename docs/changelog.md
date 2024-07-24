@@ -4,6 +4,14 @@ order: 95
 
 # Changelog
 
+## Version 51
+
+### Code Changes
+
+-   Auto copy `nodemon-dev` and `nodemon-hot` files during script updates
+
+---
+
 ## Version 50
 
 ### Code Changes
