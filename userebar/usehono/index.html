@@ -9,33 +9,33 @@
     <meta name="generator" content="Retype 3.5.0">
 
     <!-- Primary Meta Tags -->
-    <title>Native Menu</title>
-    <meta name="title" content="Native Menu">
-    <meta name="description" content="This is a faux version of the native menu. It's a custom implementation that has a much simpler API.">
+    <title>useHono</title>
+    <meta name="title" content="useHono">
+    <meta name="description" content="The useHono function is designed to extend the game-server web API server by utilizing the Hono framework.">
 
     <!-- Canonical -->
-    <link rel="canonical" href="https://rebarv.com/userebarclient/menus/native-menu/">
+    <link rel="canonical" href="https://rebarv.com/userebar/usehono/">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://rebarv.com/userebarclient/menus/native-menu/">
-    <meta property="og:title" content="Native Menu">
-    <meta property="og:description" content="This is a faux version of the native menu. It's a custom implementation that has a much simpler API.">
+    <meta property="og:url" content="https://rebarv.com/userebar/usehono/">
+    <meta property="og:title" content="useHono">
+    <meta property="og:description" content="The useHono function is designed to extend the game-server web API server by utilizing the Hono framework.">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://rebarv.com/userebarclient/menus/native-menu/">
-    <meta property="twitter:title" content="Native Menu">
-    <meta property="twitter:description" content="This is a faux version of the native menu. It's a custom implementation that has a much simpler API.">
+    <meta property="twitter:url" content="https://rebarv.com/userebar/usehono/">
+    <meta property="twitter:title" content="useHono">
+    <meta property="twitter:description" content="The useHono function is designed to extend the game-server web API server by utilizing the Hono framework.">
 
     <script data-cfasync="false">(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
-    <link href="../../../resources/css/retype.css?v=3.5.0.775151539478" rel="stylesheet">
+    <link href="../../resources/css/retype.css?v=3.5.0.775151539478" rel="stylesheet">
 
-    <script data-cfasync="false" src="../../../resources/js/config.js?v=3.5.0.775151539478" data-turbo-eval="false" defer></script>
-    <script data-cfasync="false" src="../../../resources/js/retype.js?v=3.5.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" data-cfasync="false" src="../../../resources/js/lunr.js?v=3.5.0.775151539478" data-turbo-eval="false" defer></script>
-    <script id="prism-js" data-cfasync="false" src="../../../resources/js/prism.js?v=3.5.0.775151539478" defer></script>
+    <script data-cfasync="false" src="../../resources/js/config.js?v=3.5.0.775151539478" data-turbo-eval="false" defer></script>
+    <script data-cfasync="false" src="../../resources/js/retype.js?v=3.5.0" data-turbo-eval="false" defer></script>
+    <script id="lunr-js" data-cfasync="false" src="../../resources/js/lunr.js?v=3.5.0.775151539478" data-turbo-eval="false" defer></script>
+    <script id="prism-js" data-cfasync="false" src="../../resources/js/prism.js?v=3.5.0.775151539478" defer></script>
 </head>
 <body>
     <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -50,10 +50,10 @@
                 <!-- Logo -->
                 <div class="flex items-center justify-between h-full py-2 md:w-75">
                     <div class="flex items-center px-2 md:px-6">
-                        <a id="docs-site-logo" href="../../../" class="flex items-center leading-snug text-xl">
+                        <a id="docs-site-logo" href="../../" class="flex items-center leading-snug text-xl">
                             <span class="w-10 mr-2 grow-0 shrink-0 overflow-hidden">
-                                <img class="max-h-10 dark:hidden md:inline-block" src="../../../static/logo_dark.svg">
-                                <img class="max-h-10 hidden dark:inline-block" src="../../../static/logo_light.svg">
+                                <img class="max-h-10 dark:hidden md:inline-block" src="../../static/logo_dark.svg">
+                                <img class="max-h-10 hidden dark:inline-block" src="../../static/logo_light.svg">
                             </span>
                             <span class="dark:text-white font-semibold line-clamp-1 md:line-clamp-2">Rebar for alt:V</span>
                         </a>
@@ -186,174 +186,113 @@
                                 <!-- Rendered if sidebar right is enabled -->
                                 <div id="docs-sidebar-right-toggle"></div>
                                 <!-- Page content  -->
-<doc-anchor-target id="native-menu" class="break-words">
+<doc-anchor-target id="usehono" class="break-words">
     <h1>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#native-menu">#</doc-anchor-trigger>
-        <span>Native Menu</span>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#usehono">#</doc-anchor-trigger>
+        <span>useHono</span>
     </h1>
 </doc-anchor-target>
-<p>This is a faux version of the native menu. It&#x27;s a custom implementation that has a much simpler API.</p>
-<doc-anchor-target id="create">
+<p>The <code v-pre>useHono</code> function is designed to extend the game-server web API server by utilizing the Hono framework. It provides mechanisms to register new routes and use middlewares for handling incoming requests.</p>
+<doc-anchor-target id="addrouter">
     <h2>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#create">#</doc-anchor-trigger>
-        <span>Create</span>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#addrouter">#</doc-anchor-trigger>
+        <span>addRouter</span>
     </h2>
 </doc-anchor-target>
+<p>Registers a new router with the main Hono application.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">import * as alt from 'alt-client';
-import { useNativeMenu } from '@Client/menus/native/index.js';
+<pre class="language-typescript"><code v-pre class="language-typescript">import { useRebar } from '@Server/index.js';
 
-const menu = useNativeMenu({
-    header: 'My Menu',
-    noExit: false, // Prevent menu from exiting forcing it open if set to true
-    backCallback: () =&gt; {}, // Call another function when backspace is pressed. Showing another menu, or something else.
-    options: [
-        {
-            text: 'Invoke Event',
-            type: 'invoke',
-            value: 'any-value-you-want',
-            callback: (value) =&gt; {
-                alt.log(value);
-            },
-        },
-        {
-            text: 'My Selection Group',
-            type: 'selection',
-            callback: (value) =&gt; {
-                alt.log(value);
-            },
-            index: 0,
-            options: [
-                {
-                    text: 'afdsfdsfdsdsss',
-                    value: 'a',
-                },
-                {
-                    text: 'b',
-                    value: 'b',
-                },
-            ],
-        },
-        {
-            text: 'My Color Group',
-            type: 'color',
-            callback: (value) =&gt; {
-                alt.log(value);
-            },
-            index: 0,
-            options: [
-                {
-                    text: 'red',
-                    color: new alt.RGBA(255, 0, 0, 255),
-                    value: 0,
-                },
-                {
-                    text: 'green',
-                    color: new alt.RGBA(0, 255, 0, 255),
-                    value: 1,
-                },
-            ],
-        },
-        {
-            text: 'Input',
-            type: 'input',
-            callback: (value) =&gt; {
-                alt.log(value);
-            },
-            value: 'initial value',
-        },
-    ],
+const Rebar = useRebar();
+const hono = Rebar.useHono();
+
+const app = new Hono&lt;{ Bindings: HttpBindings }&gt;();
+
+// Do stuff with your Hono app.
+
+hono.addRouter('/api/v1', app);</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="midlewares">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#midlewares">#</doc-anchor-trigger>
+        <span>midlewares</span>
+    </h2>
+</doc-anchor-target>
+<p>A collection of middleware functions for request handling.</p>
+<doc-anchor-target id="localonly">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#localonly">#</doc-anchor-trigger>
+        <span>localOnly</span>
+    </h3>
+</doc-anchor-target>
+<p>Middleware to restrict access to requests coming from the local machine (IP address <code v-pre>127.0.0.1</code>).</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">import { useRebar } from '@Server/index.js';
+
+const Rebar = useRebar();
+const hono = Rebar.useHono();
+
+const app = new Hono&lt;{ Bindings: HttpBindings }&gt;();
+
+app.get('/ban', hono.middlewares.localOnly, (c) =&gt; {
+    // Handle the request
 });
 
-menu.open();</code></pre>
+hono.addRouter('/api/v1', app);</code></pre>
 </doc-codeblock></div>
-<doc-anchor-target id="destroy">
+<blockquote>
+<p>You can also build your own middlewares, such as check auth token or whatever else.</p>
+</blockquote>
+<doc-anchor-target id="example-usage">
     <h2>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#destroy">#</doc-anchor-trigger>
-        <span>Destroy</span>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#example-usage">#</doc-anchor-trigger>
+        <span>Example usage</span>
     </h2>
 </doc-anchor-target>
+<p>Here is an example of creating a <code v-pre>/ban</code> endpoint, that will allow you to ban an account via api.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">menu.destroy();</code></pre>
-</doc-codeblock></div>
-<doc-anchor-target id="nested-menus-example">
-    <h2>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#nested-menus-example">#</doc-anchor-trigger>
-        <span>Nested Menus Example</span>
-    </h2>
-</doc-anchor-target>
-<p>This is a menu with two deeper level menus inside of it.</p>
-<div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">function openMain() {
-    const menu = useNativeMenu({
-        header: 'main Menu',
-        noExit: false,
-        options: [
-            {
-                text: 'Menu 1',
-                type: 'invoke',
-                value: '',
-                callback: () =&gt; {
-                    openOne(menu);
-                },
-            },
-            {
-                text: 'Menu 2',
-                type: 'invoke',
-                value: '',
-                callback: () =&gt; {
-                    openTwo(menu);
-                },
-            },
-        ],
-    });
+<pre class="language-typescript"><code v-pre class="language-typescript">import { HttpBindings } from &quot;@hono/node-server&quot;;
+import { useRebar } from &quot;@Server/index.js&quot;;
+import { Account } from &quot;@Shared/types/account.js&quot;;
+import { Hono } from &quot;hono&quot;;
 
-    menu.open();
-}
+const Rebar = useRebar();
+const hono = Rebar.useHono();
+const app = new Hono&lt;{ Bindings: HttpBindings }&gt;();
 
-function openOne(prevMenu: ReturnType&lt;typeof useNativeMenu&gt;) {
-    prevMenu.destroy();
+app.get('/ban', hono.middlewares.localOnly, (c) =&gt; {
+    let { reason, _id } = c.req.query();
 
-    const menu = useNativeMenu({
-        header: 'Menu One',
-        backCallback: openMain,
-        options: [
-            {
-                text: 'Invoke Event',
-                type: 'invoke',
-                value: '',
-                callback: (value) =&gt; {
-                    alt.log(value);
-                },
-            },
-        ],
-    });
+    if (!_id) {
+        c.status(400);
+        return c.json({ data: 'ID was not provided' });
+    }
 
-    menu.open();
-}
+    if (!reason) {
+        reason = 'No Reason Given';
+    }
 
-function openTwo(prevMenu: ReturnType&lt;typeof useNativeMenu&gt;) {
-    prevMenu.destroy();
+    const onlinePlayer = Rebar.get.usePlayerGetter().byAccount(_id);
+    if (!onlinePlayer) {
+        const document = Rebar.document.virtual.useVirtual&lt;Account&gt;(_id, Rebar.database.CollectionNames.Accounts);
+        if (!document.get()) {
+            c.status(400);
+            return c.json({ data: `Account does not exist on the server` });
+        } else {
+            document.setBulk({
+                banned: true,
+                reason,
+            });
+        }
+    } else {
+        const rPlayer = Rebar.usePlayer(onlinePlayer);
+        rPlayer.account.setBanned(reason);
+    }
+    c.status(200);
+    return c.json({ data: `Banned ${_id} with reason '${reason}'` });
+})
 
-    const menu = useNativeMenu({
-        header: 'Menu Two',
-        backCallback: openMain,
-        options: [
-            {
-                text: 'Invoke Event',
-                type: 'invoke',
-                value: '',
-                callback: (value) =&gt; {
-                    alt.log(value);
-                },
-            },
-        ],
-    });
-
-    menu.open();
-}
-
-openMain();</code></pre>
+hono.addRouter('/api/v1', app);</code></pre>
 </doc-codeblock></div>
 
                                 
@@ -364,20 +303,20 @@ openMain();</code></pre>
                             
                                 <nav class="flex mt-14">
                                     <div class="w-1/2">
-                                        <a class="px-5 py-4 h-full flex items-center break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-l-lg transition-colors duration-150 relative hover:z-5" href="../../../userebarclient/controllers/interaction/">
+                                        <a class="px-5 py-4 h-full flex items-center break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-l-lg transition-colors duration-150 relative hover:z-5" href="../../userebar/usevehicle/">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="mr-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19 11H7.41l5.29-5.29a.996.996 0 10-1.41-1.41l-7 7a1 1 0 000 1.42l7 7a1.024 1.024 0 001.42-.01.996.996 0 000-1.41L7.41 13H19c.55 0 1-.45 1-1s-.45-1-1-1z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
                                             <span>
                                                 <span class="block text-xs font-normal text-gray-400 dark:text-dark-400">Previous</span>
-                                                <span class="block mt-1">Interaction</span>
+                                                <span class="block mt-1">use​Vehicle</span>
                                             </span>
                                         </a>
                                     </div>
                             
                                     <div class="w-1/2">
-                                        <a class="px-5 py-4 -mx-px h-full flex items-center justify-end break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-r-lg transition-colors duration-150 relative hover:z-5" href="../../../userebarclient/screen/instructional-menu/">
+                                        <a class="px-5 py-4 -mx-px h-full flex items-center justify-end break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-r-lg transition-colors duration-150 relative hover:z-5" href="../../userebarclient/client-api-usage/">
                                             <span>
                                                 <span class="block text-xs font-normal text-right text-gray-400 dark:text-dark-400">Next</span>
-                                                <span class="block mt-1">Instructional Menu</span>
+                                                <span class="block mt-1">Client API Usage</span>
                                             </span>
                                             <svg xmlns="http://www.w3.org/2000/svg" class="ml-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19.92 12.38a1 1 0 00-.22-1.09l-7-7a.996.996 0 10-1.41 1.41l5.3 5.3H5c-.55 0-1 .45-1 1s.45 1 1 1h11.59l-5.29 5.29a.996.996 0 000 1.41c.19.2.44.3.7.3s.51-.1.71-.29l7-7c.09-.09.16-.21.21-.33z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
                                         </a>
@@ -421,6 +360,6 @@ openMain();</code></pre>
 
     <div id="docs-overlay-target"></div>
 
-    <script data-cfasync="false">window.__DOCS__ = { "title": "Native Menu", level: 3, icon: "file", hasPrism: true, hasMermaid: false, hasMath: false, tocDepth: 23 }</script>
+    <script data-cfasync="false">window.__DOCS__ = { "title": "useHono", level: 2, icon: "file", hasPrism: true, hasMermaid: false, hasMath: false, tocDepth: 23 }</script>
 </body>
 </html>
