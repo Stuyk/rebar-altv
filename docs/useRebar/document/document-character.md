@@ -245,7 +245,7 @@ function someFunction(player: alt.Player) {
     const document = Rebar.document.character.useCharacter(player);
     const isStaff = document.groupPermissions.hasAtLeastOneGroupWithSpecificPerm({
         admin: ['noclip', 'ban'],
-        support: ['answerReport']
+        support: ['answerReport'],
     });
     // This will be true if:
     // 1. Character has `admin` group with `noclip` OR/AND `ban` permission.

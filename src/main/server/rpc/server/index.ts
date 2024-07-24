@@ -1,8 +1,11 @@
 import * as alt from 'alt-server';
 import { Hono } from 'hono';
 import { type HttpBindings } from '@hono/node-server';
+import { useRebar } from '../../index.js';
 
 const app = new Hono<{ Bindings: HttpBindings }>();
+const Rebar = useRebar();
+const RebarEvents = Rebar.events.useEvents();
 
 declare module 'alt-server' {
     export interface ICustomEmitEvent {
@@ -41,6 +44,11 @@ app.get('/reload', async (c) => {
 
     await alt.Utils.wait(500);
 
+    if (resource === 'core') {
+        alt.restartResource('webview');
+    }
+
+    alt.setMeta('hotreload', true);
     alt.restartResource(resource);
 
     c.status(200);
