@@ -39,9 +39,13 @@ function useDoorConfig() {
     function setLockState(uid: string, state: DoorState): void {
         config.set(uid, state);
         const doorIdx = doors.findIndex((door) => door.uid === uid);
-        if (doorIdx === -1) return;
+        if (doorIdx === -1) {
+            return;
+        }
+
         doors[doorIdx].state = state;
         doors[doorIdx].entity.setStreamSyncedMeta('door', objectData(doors[doorIdx]));
+        events.invoke(`door-${doors[doorIdx].state}`, uid, undefined);
     }
 
     return { getLockState, setLockState };
@@ -69,6 +73,7 @@ export function useDoor() {
         if (typeof state === 'undefined') {
             doorConfig.setLockState(door.uid, door.state);
         }
+
         door.state = state ?? door.state ?? DoorState.UNLOCKED;
 
         const entity = new alt.VirtualEntity(doorGroup, new alt.Vector3(door.pos), streamingDistance, {
@@ -103,15 +108,19 @@ export function useDoor() {
         if (door?.permissions?.character) {
             allowed = rCharacter.permissions.hasAnyPermission(door?.permissions?.character ?? []);
         }
+
         if (door?.permissions?.account) {
             allowed = rAccount.permissions.hasAnyPermission(door?.permissions?.account ?? []);
         }
+
         if (door?.groups?.character) {
             allowed = rCharacter.groupPermissions.hasAtLeastOneGroupWithSpecificPerm(door?.groups?.character ?? {});
         }
+
         if (door?.groups?.account) {
             allowed = rAccount.groupPermissions.hasAtLeastOneGroupWithSpecificPerm(door?.groups?.account ?? {});
         }
+
         return allowed;
     }
 
@@ -146,7 +155,10 @@ export function useDoor() {
      */
     function forceSetLockState(uid: string, state: DoorState): boolean {
         const door = doors.find((door) => door.uid === uid);
-        if (!door) return false;
+        if (!door) {
+            return false;
+        }
+
         door.state = state;
         doorConfig.setLockState(uid, door.state);
         events.invoke(`door-${door.state}`, uid, null);
