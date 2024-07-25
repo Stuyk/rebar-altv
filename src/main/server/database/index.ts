@@ -2,8 +2,9 @@ import * as alt from 'alt-server';
 import { MongoClient, Db, InsertOneResult, ObjectId, AggregateOptions } from 'mongodb';
 import * as Utility from '@Shared/utility/index.js';
 import { CollectionNames } from '../document/shared.js';
+import { useConfig } from '@Server/config/index.js';
 
-const DatabaseName = 'Rebar';
+const config = useConfig();
 
 let isConnected = false;
 let isInit = false;
@@ -37,7 +38,7 @@ export function useDatabase() {
             return false;
         }
 
-        database = client.db(DatabaseName);
+        database = client.db(config.getField('database_name'));
         isInit = false;
         isConnected = true;
         alt.log('Connected to MongoDB Successfully');
