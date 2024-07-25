@@ -50,6 +50,10 @@ function tick() {
         native.setPlayerCanUseCover(alt.Player.local, false);
     }
 
+    if(config.disableWeaponRadial) {
+        native.disableControlAction(0, 37, true);
+    }
+
     let finalRadarState = true;
 
     if (config.hideMinimapOnFoot) {
