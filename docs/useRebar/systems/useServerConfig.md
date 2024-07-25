@@ -57,4 +57,7 @@ serverConfig.set('disableDriveBys', true);
 
 // Disables ambient noises around the map
 serverConfig.set('disableAmbientNoise', true);
+
+// Disables the Weapon Radial Menu
+serverConfig.set('disableWeaponRadial', true);
 ```
