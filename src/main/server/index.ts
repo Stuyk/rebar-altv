@@ -7,6 +7,7 @@ import { useApi } from './api/index.js';
 import { useConfig } from './config/index.js';
 
 import { useBlipGlobal, useBlipLocal } from './controllers/blip.js';
+import { useDoor } from './controllers/doors.js';
 import { useInteraction } from './controllers/interaction.js';
 import { useMarkerGlobal, useMarkerLocal } from './controllers/markers.js';
 import { useObjectGlobal, useObjectLocal } from './controllers/object.js';
@@ -97,6 +98,7 @@ export function useRebar() {
             useBlipLocal,
             useD2DTextLabel,
             useD2DTextLabelLocal,
+            useDoor,
             useInstructionalButtons,
             useInteraction,
             useInteractionLocal,

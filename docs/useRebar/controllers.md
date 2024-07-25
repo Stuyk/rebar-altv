@@ -13,6 +13,7 @@ Controllers pretty much make your gamemode tick by displaying a lot information 
 -   Interactable Positions
 -   Menus
 -   Text Labels
+-   Doors
 -   etc.
 
 ---
@@ -685,4 +686,54 @@ async function showSomeMenu(player: alt.Player) {
     // Returns { event, args }
     console.log(result);
 }
+```
+
+## Doors
+
+Doors are objects that can be opened and closed. When they are locked, no one can bypass them.
+
+### useDoor
+
+```ts
+import { useRebar } from '@Server/index.js';
+
+const Rebar = useRebar();
+const doorController = Rebar.controllers.useDoor();
+
+// Register a door
+doorController.register({
+    uid: 'pacific-standard-bank-main-right-door',
+    isUnlocked: true,
+    model: 110411286,
+    pos: { x: 232.6054, y: 214.1584, z: 106.4049 },
+    permissions: ['admin', 'bankOperator'],
+});
+
+
+// Then we can add few interactions, that will be applied for all doors in the game:
+
+const keybinder = Rebar.systems.useKeybinder();
+// Toggle the door state when the player presses 'K'.
+// If player has permission to toggle lock state of the door, it will toggle it.
+keybinder.on(75, async (player: alt.Player) => {
+    const nearestDoor = await doorController.getNearestDoor(player);
+    if (!nearestDoor) return;
+    doorController.toggleLock(player, nearestDoor.uid);
+});
+
+
+const { commands, message } = Rebar.systems.useMessenger();
+// Register a command to lock/unlock the door for testing purposes.
+// /setunlock [uid] [isUnlocked: true/false]
+commands.register({
+    name: 'setunlock',
+    desc: '[uid] [isUnlocked: true/false] – Locks/unlocks the door.',
+    callback: (player: alt.Player, doorUid: string, isUnlocked: 'false' | 'true') => {
+        if (!['false', 'true'].includes(isUnlocked)) {
+            message.send(player, { content: 'Invalid value. Must be true or false.', type: 'system' });
+            return;
+        }
+        doorController.forceSetLock(doorUid, isUnlocked === 'true');
+    }
+})
 ```
