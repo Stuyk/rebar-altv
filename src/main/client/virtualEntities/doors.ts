@@ -88,7 +88,7 @@ function isDoor(object: alt.Object) {
     return object.getStreamSyncedMeta('type') === 'door';
 }
 
-alt.log(`Controllers - Loaded Doors Handler`);
+alt.log(`Virtual Entities - Loaded Doors Handler`);
 alt.on('worldObjectStreamIn', onStreamEnter);
 alt.on('worldObjectStreamOut', onStreamExit);
 alt.on('streamSyncedMetaChange', onStreamSyncedMetaChanged);
