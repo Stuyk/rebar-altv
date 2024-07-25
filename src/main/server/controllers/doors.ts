@@ -45,7 +45,6 @@ function useDoorConfig() {
 
         doors[doorIdx].state = state;
         doors[doorIdx].entity.setStreamSyncedMeta('door', objectData(doors[doorIdx]));
-        events.invoke(`door-${doors[doorIdx].state}`, uid, undefined);
     }
 
     return { getLockState, setLockState };
