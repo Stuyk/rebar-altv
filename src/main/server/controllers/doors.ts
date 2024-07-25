@@ -1,10 +1,10 @@
+import * as alt from 'alt-server';
 import { useGlobal } from '@Server/document/global.js';
 import { objectData } from '@Shared/utility/clone.js';
 import { Door, DoorsConfig } from '@Shared/types/index.js';
-import * as alt from 'alt-server';
 import { useAccount, useCharacter } from '@Server/document/index.js';
-import { useWorldGetter } from '@Server/getters/world.js';
 import { distance2d } from '@Shared/utility/vector.js';
+import { useEvents } from '@Server/events/index.js';
 
 const config = await useGlobal<DoorsConfig>('doors');
 const MAX_DOORS_TO_DRAW = 10;
@@ -12,6 +12,7 @@ const streamingDistance = 15;
 const doorEntityType = 'door';
 const doorGroup = new alt.VirtualEntityGroup(MAX_DOORS_TO_DRAW);
 const doors: (Door & { entity: alt.VirtualEntity })[] = [];
+const events = useEvents();
 
 /**
  * Door configuration that allows you to get and set the lock state of a door.
@@ -115,6 +116,7 @@ export function useDoor() {
 
         door.isUnlocked = !door.isUnlocked;
         doorConfig.setLockState(uid, door.isUnlocked);
+        events.invoke(door.isUnlocked ? 'door-unlocked' : 'door-locked', uid, player);
         return true;
     }
 
@@ -130,6 +132,7 @@ export function useDoor() {
         if (!door) return false;
         door.isUnlocked = isUnlocked;
         doorConfig.setLockState(uid, door.isUnlocked);
+        events.invoke(door.isUnlocked ? 'door-unlocked' : 'door-locked', uid, null);
         return true;
     }
 
@@ -140,8 +143,6 @@ export function useDoor() {
      * @returns {Promise<Door | undefined>} The nearest door to the player.
      */
     async function getNearestDoor(player: alt.Player): Promise<Door | undefined> {
-        const colshape = new alt.ColshapeCylinder(player.pos.x, player.pos.y, player.pos.z - 1 - streamingDistance, streamingDistance, streamingDistance * 2);
-        await alt.Utils.wait(100);
         let lastDistance = streamingDistance;
         let closestTarget: Door | undefined = undefined;
         for (const door of doors) {
@@ -153,5 +154,15 @@ export function useDoor() {
         return closestTarget;
     }
 
-    return { register, toggleLock, forceSetLock, getNearestDoor };
+    /**
+     * Gets a door by its uid.
+     * 
+     * @param {string} uid Door uid to get.
+     * @returns {Door | undefined} The door with the specified uid.
+     */
+    function getDoor(uid: string): Door | undefined {
+        return doors.find((door) => door.uid === uid);
+    }
+
+    return { register, toggleLock, forceSetLock, getNearestDoor, getDoor };
 }
