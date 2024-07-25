@@ -1,7 +1,7 @@
 {
     "author": "stuyk",
     "type": "module",
-    "version": "51",
+    "version": "52",
     "scripts": {
         "dev": "nodemon --config ./nodemon-dev.json -x pnpm start",
         "dev:linux": "nodemon --config ./nodemon-dev.json -x pnpm start:linux",
