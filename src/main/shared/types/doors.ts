@@ -1,6 +1,12 @@
 import * as alt from 'alt-shared';
 
 
+export enum DoorState {
+    LOCKED = 'locked',
+    UNLOCKED = 'unlocked',
+}
+
+
 export interface Door {
     /**
      * Unique identifier for the door.
@@ -10,11 +16,11 @@ export interface Door {
     uid: string;
 
     /**
-     * Whether the door is locked or not.
+     * Door locked/unlocked state.
      * 
-     * @type {boolean}
+     * @type {DoorState}
      */
-    isUnlocked: boolean;
+    state: DoorState;
 
     /**
      * Position of the door.
@@ -62,5 +68,5 @@ export interface DoorsConfig {
      * 
      * @type {boolean}
      */
-    [door: string]: boolean;
+    [door: string]: DoorState;
 }

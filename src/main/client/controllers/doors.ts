@@ -1,9 +1,8 @@
 import * as alt from 'alt-client';
 import * as native from 'natives';
 
-import { Door } from '@Shared/types/index.js';
+import { Door, DoorState } from '@Shared/types/index.js';
 import { drawText3D } from '@Client/screen/textlabel.js';
-
 
 let doors: Array<Door & { entity: alt.Object }> = [];
 let interval: number;
@@ -15,10 +14,18 @@ function draw() {
         if (alt.debug) {
             const dist = alt.Player.local.pos.distanceTo(door.pos);
             if (dist > 5) continue;
-            drawText3D(`UID: ${door.uid} - Unlocked: ${door.isUnlocked}`, door.pos, 0.5, new alt.RGBA(255, 255, 255, 255));
+            drawText3D(`UID: ${door.uid} - State: ${door.state}`, door.pos, 0.5, new alt.RGBA(255, 255, 255, 255));
         }
 
-        native.setStateOfClosestDoorOfType(door.model, door.pos.x, door.pos.y, door.pos.z, !door.isUnlocked, 0, false);
+        native.setStateOfClosestDoorOfType(
+            door.model,
+            door.pos.x,
+            door.pos.y,
+            door.pos.z,
+            door.state === DoorState.LOCKED,
+            0,
+            false,
+        );
     }
 }
 

@@ -1,7 +1,7 @@
 import * as alt from 'alt-server';
 import { useGlobal } from '@Server/document/global.js';
 import { objectData } from '@Shared/utility/clone.js';
-import { Door, DoorsConfig } from '@Shared/types/index.js';
+import { Door, DoorsConfig, DoorState } from '@Shared/types/index.js';
 import { useAccount, useCharacter } from '@Server/document/index.js';
 import { distance2d } from '@Shared/utility/vector.js';
 import { useEvents } from '@Server/events/index.js';
@@ -19,15 +19,28 @@ const events = useEvents();
  * For internal use only.
  */
 function useDoorConfig() {
-    function getLockState(uid: string): boolean | undefined {
+    /**
+     * Gets the lock state of a door.
+     *
+     * @param {string} uid The uid of the door.
+     * @returns {DoorState | undefined} The state of the door in the DB.
+     */
+    function getLockState(uid: string): DoorState | undefined {
         return config.getField(uid);
     }
 
-    function setLockState(uid: string, isUnlocked: boolean) {
-        config.set(uid, isUnlocked);
+    /**
+     * Sets the lock state of a door.
+     *
+     * @param {string} uid The uid of the door.
+     * @param {DoorState} state The state of the door.
+     * @returns {void}
+     */
+    function setLockState(uid: string, state: DoorState): void {
+        config.set(uid, state);
         const doorIdx = doors.findIndex((door) => door.uid === uid);
         if (doorIdx === -1) return;
-        doors[doorIdx].isUnlocked = isUnlocked;
+        doors[doorIdx].state = state;
         doors[doorIdx].entity.setStreamSyncedMeta('door', objectData(doors[doorIdx]));
     }
 
@@ -43,8 +56,8 @@ export function useDoor() {
     /**
      * Registers a door to the door controller. This will create a virtual entity for the door.
      * The door will be streamed to all players within the streaming distance.
-     * 
-     * @param {Door} door 
+     *
+     * @param {Door} door
      * @returns {void}
      */
     function register(door: Door): void {
@@ -52,11 +65,11 @@ export function useDoor() {
             throw new Error(`Door with uid ${door.uid} already exists. Please make sure all doors have unique uids.`);
         }
 
-        const isUnlocked = doorConfig.getLockState(door.uid);
-        if (typeof isUnlocked === 'undefined') {
-            doorConfig.setLockState(door.uid, door.isUnlocked);
+        const state = doorConfig.getLockState(door.uid);
+        if (typeof state === 'undefined') {
+            doorConfig.setLockState(door.uid, door.state);
         }
-        door.isUnlocked = isUnlocked ?? door.isUnlocked;
+        door.state = state ?? door.state ?? DoorState.UNLOCKED;
 
         const entity = new alt.VirtualEntity(doorGroup, new alt.Vector3(door.pos), streamingDistance, {
             door,
@@ -68,7 +81,7 @@ export function useDoor() {
     /**
      * Checks if the player has the required permissions to lock/unlock the door.
      * For internal use only.
-     * 
+     *
      * @param {alt.Player} player
      * @param {Door} door
      * @returns {boolean}
@@ -102,43 +115,47 @@ export function useDoor() {
         return allowed;
     }
 
+    function getNextState(state: DoorState): DoorState {
+        return state === DoorState.LOCKED ? DoorState.UNLOCKED : DoorState.LOCKED;
+    }
+
     /**
      * Toggles the lock state of a door. If the player has the required permissions, the lock state will be toggled.
-     * 
+     *
      * @param {alt.Player} player The player that is toggling the lock state.
      * @param {string} uid The uid of the door.
      * @returns {boolean} Whether the lock state was toggled or not.
      */
-    function toggleLock(player: alt.Player, uid: string): boolean {
+    function toggleLockState(player: alt.Player, uid: string): boolean {
         const door = doors.find((door) => door.uid === uid);
         if (!door) return false;
         if (!checkPermissions(player, door)) return false;
 
-        door.isUnlocked = !door.isUnlocked;
-        doorConfig.setLockState(uid, door.isUnlocked);
-        events.invoke(door.isUnlocked ? 'door-unlocked' : 'door-locked', uid, player);
+        door.state = getNextState(door.state);
+        doorConfig.setLockState(uid, door.state);
+        events.invoke(`door-${door.state}`, uid, player);
         return true;
     }
 
     /**
      * Forces the lock state of a door. This will bypass any permission checks.
-     * 
+     *
      * @param {string} uid The uid of the door.
-     * @param {boolean} isUnlocked Whether the door is unlocked or not.
+     * @param {DoorState} state Whether the door is unlocked or not.
      * @returns {boolean} Whether the lock state was set or not.
      */
-    function forceSetLock(uid: string, isUnlocked: boolean): boolean {
+    function forceSetLockState(uid: string, state: DoorState): boolean {
         const door = doors.find((door) => door.uid === uid);
         if (!door) return false;
-        door.isUnlocked = isUnlocked;
-        doorConfig.setLockState(uid, door.isUnlocked);
-        events.invoke(door.isUnlocked ? 'door-unlocked' : 'door-locked', uid, null);
+        door.state = state;
+        doorConfig.setLockState(uid, door.state);
+        events.invoke(`door-${door.state}`, uid, null);
         return true;
     }
 
     /**
      * Gets the nearest door to the player.
-     * 
+     *
      * @param {alt.Player} player Player to get the nearest door to.
      * @returns {Promise<Door | undefined>} The nearest door to the player.
      */
@@ -156,7 +173,7 @@ export function useDoor() {
 
     /**
      * Gets a door by its uid.
-     * 
+     *
      * @param {string} uid Door uid to get.
      * @returns {Door | undefined} The door with the specified uid.
      */
@@ -164,5 +181,5 @@ export function useDoor() {
         return doors.find((door) => door.uid === uid);
     }
 
-    return { register, toggleLock, forceSetLock, getNearestDoor, getDoor };
+    return { register, toggleLockState, forceSetLockState, getNearestDoor, getDoor };
 }

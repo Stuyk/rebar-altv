@@ -696,6 +696,7 @@ Doors are objects that can be opened and closed. When they are locked, no one ca
 
 ```ts
 import { useRebar } from '@Server/index.js';
+import { DoorState } from '@Shared/types/index.js';
 
 const Rebar = useRebar();
 const doorController = Rebar.controllers.useDoor();
@@ -703,7 +704,7 @@ const doorController = Rebar.controllers.useDoor();
 // Register a door
 doorController.register({
     uid: 'pacific-standard-bank-main-right-door',
-    isUnlocked: true,
+    state: DoorState.LOCKED,
     model: 110411286,
     pos: { x: 232.6054, y: 214.1584, z: 106.4049 },
     permissions: ['admin', 'bankOperator'],
@@ -718,22 +719,27 @@ const keybinder = Rebar.systems.useKeybinder();
 keybinder.on(75, async (player: alt.Player) => {
     const nearestDoor = await doorController.getNearestDoor(player);
     if (!nearestDoor) return;
-    doorController.toggleLock(player, nearestDoor.uid);
+    doorController.toggleLockState(player, nearestDoor.uid);
 });
 
 
 const { commands, message } = Rebar.systems.useMessenger();
 // Register a command to lock/unlock the door for testing purposes.
-// /setunlock [uid] [isUnlocked: true/false]
+// /lockdoor [uid]
 commands.register({
-    name: 'setunlock',
-    desc: '[uid] [isUnlocked: true/false] – Locks/unlocks the door.',
-    callback: (player: alt.Player, doorUid: string, isUnlocked: 'false' | 'true') => {
-        if (!['false', 'true'].includes(isUnlocked)) {
-            message.send(player, { content: 'Invalid value. Must be true or false.', type: 'system' });
-            return;
-        }
-        doorController.forceSetLock(doorUid, isUnlocked === 'true');
+    name: 'lockdoor',
+    desc: '[uid] – Locks the door.',
+    callback: (player: alt.Player, doorUid: string) => {
+        doorController.forceSetLockState(doorUid, DoorState.LOCKED);
+    }
+})
+
+// /unlockdoor [uid]
+commands.register({
+    name: 'unlockdoor',
+    desc: '[uid] – Unlocks the door.',
+    callback: (player: alt.Player, doorUid: string) => {
+        doorController.forceSetLockState(doorUid, DoorState.UNLOCKED);
     }
 })
 ```
