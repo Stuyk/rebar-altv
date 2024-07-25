@@ -2,6 +2,7 @@ import dotenv from 'dotenv';
 
 export interface Config {
     mongodb: string;
+    database_name: string;
 }
 
 export interface ConfigInit<T extends keyof Config> {
@@ -115,4 +116,9 @@ export function useConfig() {
 useConfig().initFromEnv('mongodb', {
     env: 'MONGODB',
     default: 'mongodb://127.0.0.1:27017'
+});
+
+useConfig().initFromEnv('database_name', {
+    env: 'DATABASE_NAME',
+    default: 'Rebar',
 });

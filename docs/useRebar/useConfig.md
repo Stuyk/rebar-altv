@@ -12,9 +12,14 @@ This document provides an overview of the configuration management for a Rebar s
 -   Setting a default value if env variable was not defined.
 -   Basic type validation - number, boolean, string (by default).
 
-## Usage
+## Defaults
 
-By default, `mongodb` is initialized automatically. It is required and has default value of local mongodb instance.
+| Config Variable | Env Variable  | Type   | Default                   |
+|-----------------|---------------|--------|---------------------------|
+| `mongodb`         | `MONGODB`       | `string` | `mongodb://127.0.0.1:27017` |
+| `database_name`   | `DATABASE_NAME` | `string` | `Rebar`                     |
+
+## Usage
 
 Config defined as an interface, all methods covered with type hints, so you will see all variables and correct types on each method call.
 
