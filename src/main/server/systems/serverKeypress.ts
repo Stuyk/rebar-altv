@@ -85,7 +85,7 @@ export function useKeypress() {
         return uid;
     }
 
-    function onHold(key: number, callback: OnKeybind) {
+    function onHold(key: number, callbacks: { hold: OnKeybind; up?: OnKeybind; down?: OnKeybind }) {
         const uid = Rebar.utility.uid.generate();
 
         if (!keyCallbacks[key]) {
@@ -100,6 +100,11 @@ export function useKeypress() {
             uid,
             callback: (player) => {
                 player.setMeta(`keyhold-${uid}`, Date.now() + 2000);
+                if (!callbacks.down) {
+                    return;
+                }
+
+                callbacks.down(player);
             },
         });
 
@@ -107,6 +112,11 @@ export function useKeypress() {
             uid,
             callback: (player) => {
                 player.deleteMeta(`keyhold-${uid}`);
+                if (!callbacks.up) {
+                    return;
+                }
+
+                callbacks.up(player);
             },
         });
 
@@ -123,7 +133,7 @@ export function useKeypress() {
                 }
 
                 player.deleteMeta(`keyhold-${uid}`);
-                callback(player);
+                callbacks.hold(player);
             },
         });
 
