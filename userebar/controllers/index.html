@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.5.0.775168954348">
+    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.5.0.775325132778">
 
     <!-- See retype.com -->
     <meta name="generator" content="Retype 3.5.0">
@@ -32,12 +32,12 @@
 
     <script data-cfasync="false">(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
-    <link href="../../resources/css/retype.css?v=3.5.0.775168954348" rel="stylesheet">
+    <link href="../../resources/css/retype.css?v=3.5.0.775325132778" rel="stylesheet">
 
-    <script data-cfasync="false" src="../../resources/js/config.js?v=3.5.0.775168954348" data-turbo-eval="false" defer></script>
+    <script data-cfasync="false" src="../../resources/js/config.js?v=3.5.0.775325132778" data-turbo-eval="false" defer></script>
     <script data-cfasync="false" src="../../resources/js/retype.js?v=3.5.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" data-cfasync="false" src="../../resources/js/lunr.js?v=3.5.0.775168954348" data-turbo-eval="false" defer></script>
-    <script id="prism-js" data-cfasync="false" src="../../resources/js/prism.js?v=3.5.0.775168954348" defer></script>
+    <script id="lunr-js" data-cfasync="false" src="../../resources/js/lunr.js?v=3.5.0.775325132778" data-turbo-eval="false" defer></script>
+    <script id="prism-js" data-cfasync="false" src="../../resources/js/prism.js?v=3.5.0.775325132778" defer></script>
 </head>
 <body>
     <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -202,6 +202,7 @@
 <li>Interactable Positions</li>
 <li>Menus</li>
 <li>Text Labels</li>
+<li>Doors</li>
 <li>etc.</li>
 </ul>
 <hr>
@@ -987,6 +988,68 @@ label.destroy();</code></pre>
     // Returns { event, args }
     console.log(result);
 }</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="doors">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#doors">#</doc-anchor-trigger>
+        <span>Doors</span>
+    </h2>
+</doc-anchor-target>
+<p>Doors are objects that can be opened and closed. When they are locked, no one can bypass them.</p>
+<doc-anchor-target id="usedoor">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#usedoor">#</doc-anchor-trigger>
+        <span>useDoor</span>
+    </h3>
+</doc-anchor-target>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">import { useRebar } from '@Server/index.js';
+import { DoorState } from '@Shared/types/index.js';
+
+const Rebar = useRebar();
+const doorController = Rebar.controllers.useDoor();
+
+// Register a door
+doorController.register({
+    uid: 'pacific-standard-bank-main-right-door',
+    state: DoorState.LOCKED,
+    model: 110411286,
+    pos: { x: 232.6054, y: 214.1584, z: 106.4049 },
+    permissions: ['admin', 'bankOperator'],
+});
+
+
+// Then we can add few interactions, that will be applied for all doors in the game:
+
+const keybinder = Rebar.systems.useKeybinder();
+// Toggle the door state when the player presses 'K'.
+// If player has permission to toggle lock state of the door, it will toggle it.
+keybinder.on(75, async (player: alt.Player) =&gt; {
+    const nearestDoor = await doorController.getNearestDoor(player);
+    if (!nearestDoor) return;
+    doorController.toggleLockState(player, nearestDoor.uid);
+});
+
+
+const { commands, message } = Rebar.systems.useMessenger();
+// Register a command to lock/unlock the door for testing purposes.
+// /lockdoor [uid]
+commands.register({
+    name: 'lockdoor',
+    desc: '[uid] – Locks the door.',
+    callback: (player: alt.Player, doorUid: string) =&gt; {
+        doorController.forceSetLockState(doorUid, DoorState.LOCKED);
+    }
+})
+
+// /unlockdoor [uid]
+commands.register({
+    name: 'unlockdoor',
+    desc: '[uid] – Unlocks the door.',
+    callback: (player: alt.Player, doorUid: string) =&gt; {
+        doorController.forceSetLockState(doorUid, DoorState.UNLOCKED);
+    }
+})</code></pre>
 </doc-codeblock></div>
 
                                 

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.5.0.775168954348">
+    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.5.0.775325132778">
 
     <!-- See retype.com -->
     <meta name="generator" content="Retype 3.5.0">
@@ -30,12 +30,12 @@
 
     <script data-cfasync="false">(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
-    <link href="../../../resources/css/retype.css?v=3.5.0.775168954348" rel="stylesheet">
+    <link href="../../../resources/css/retype.css?v=3.5.0.775325132778" rel="stylesheet">
 
-    <script data-cfasync="false" src="../../../resources/js/config.js?v=3.5.0.775168954348" data-turbo-eval="false" defer></script>
+    <script data-cfasync="false" src="../../../resources/js/config.js?v=3.5.0.775325132778" data-turbo-eval="false" defer></script>
     <script data-cfasync="false" src="../../../resources/js/retype.js?v=3.5.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" data-cfasync="false" src="../../../resources/js/lunr.js?v=3.5.0.775168954348" data-turbo-eval="false" defer></script>
-    <script id="prism-js" data-cfasync="false" src="../../../resources/js/prism.js?v=3.5.0.775168954348" defer></script>
+    <script id="lunr-js" data-cfasync="false" src="../../../resources/js/lunr.js?v=3.5.0.775325132778" data-turbo-eval="false" defer></script>
+    <script id="prism-js" data-cfasync="false" src="../../../resources/js/prism.js?v=3.5.0.775325132778" defer></script>
 </head>
 <body>
     <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -193,18 +193,71 @@
     </h1>
 </doc-anchor-target>
 <p>Keypress lets you handle key up and key down from server-side. It completely ignores if a <code v-pre>page</code> is open.</p>
+<doc-anchor-target id="on">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#on">#</doc-anchor-trigger>
+        <span>on</span>
+    </h2>
+</doc-anchor-target>
+<p>Each callback is called when the key is pressed down, and when the key is let go after being held down.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">const keypress = Rebar.useKeypress();
-
-keypress.on(
-    118,
-    (player: alt.Player) =&gt; {
-        console.log('up!');
+<pre class="language-typescript"><code v-pre class="language-typescript">// Uses the 'F3' key
+Rebar.systems.useKeypress().on(
+    114,
+    // on key up
+    (player) =&gt; {
+        alt.log('they let go of the key');
     },
-    (player: alt.Player) =&gt; {
-        console.log('down!');
+    // on key down
+    (player) =&gt; {
+        alt.log('they pressed the key down');
     },
 );</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="onhold">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#onhold">#</doc-anchor-trigger>
+        <span>onHold</span>
+    </h2>
+</doc-anchor-target>
+<p>The <code v-pre>onHold</code> callback is invoked after <code v-pre>2s</code> on client-side.</p>
+<p>Additionally, the callback time is verified server-side as well to ensure callback times are accurate and can&#x27;t be invoked manually.</p>
+<doc-anchor-target id="simple-usage">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#simple-usage">#</doc-anchor-trigger>
+        <span>Simple Usage</span>
+    </h3>
+</doc-anchor-target>
+<p>If you only want it to be invoked if the player holds a key long enough, then here&#x27;s the short form.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">// Uses the 'F4' key
+Rebar.systems.useKeypress().onHold(115, {
+    hold: (player) =&gt; {
+        console.log('player held the key long enough');
+    },
+});</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="advanced-usage">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#advanced-usage">#</doc-anchor-trigger>
+        <span>Advanced Usage</span>
+    </h3>
+</doc-anchor-target>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">function handleHoldUp(player: alt.Player) {
+    alt.log('just let go of held key');
+}
+
+function handleHoldDown(player: alt.Player) {
+    alt.log('just pressed held key down');
+}
+
+function handleHoldKey(player: alt.Player) {
+    alt.log('player held the key for a long time');
+}
+
+// Uses the 'F4' key
+Rebar.systems.useKeypress().onHold(115, { hold: handleHoldKey, up: handleHoldUp, down: handleHoldDown });</code></pre>
 </doc-codeblock></div>
 
                                 
