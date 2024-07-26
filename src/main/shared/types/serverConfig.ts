@@ -141,4 +141,12 @@ export interface ServerConfig {
      * @memberof ServerConfig
      */
     disableAmbientNoise?: boolean;
+
+    /**
+     * Disable weapon radial menu
+     *
+     * @type {boolean}
+     * @memberof ServerConfig
+     */
+    disableWeaponRadial?: boolean;
 }

@@ -325,7 +325,11 @@ export function useWebview(path = 'http://assets/webview/index.html') {
     }
 
     function onSyncedMetaChange(object: alt.Object, key: string, newValue: any) {
-        if (native.isEntityAPed(object.scriptID) && object.scriptID === alt.Player.local.scriptID) {
+        if (
+            typeof object.scriptID === 'number' &&
+            native.isEntityAPed(object.scriptID) &&
+            object.scriptID === alt.Player.local.scriptID
+        ) {
             webview.emit(Events.view.syncPartialCharacter, key, newValue);
             return;
         }
