@@ -90,18 +90,20 @@ alt.everyTick(() => {
     for (const key in keyStates) {
         const state = keyStates[key];
 
-        if (state.isPressed) {
-            state.pressDuration = currentTime - state.pressStartTime;
-
-            if (state.pressDuration >= requiredPressDuration) {
-                state.isPressed = false;
-                state.pressStartTime = 0;
-                state.pressDuration = 0;
-                alt.emitServer(Events.systems.keypress.invokeHold, parseInt(key));
-            }
-        } else {
+        if (!state.isPressed) {
             state.pressStartTime = 0;
             state.pressDuration = 0;
+            continue;
         }
+        
+        state.pressDuration = currentTime - state.pressStartTime;
+        if (state.pressDuration < requiredPressDuration) {
+            continue;
+        }
+        
+        state.isPressed = false;
+        state.pressStartTime = 0;
+        state.pressDuration = 0;
+        alt.emitServer(Events.systems.keypress.invokeHold, parseInt(key));
     }
 });
