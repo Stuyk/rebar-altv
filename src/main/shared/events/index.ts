@@ -122,6 +122,7 @@ export const Events = {
             update: 'systems:keypress:update',
             invokeUp: 'systems:keypress:invoke:keyup',
             invokeDown: 'systems:keypress:invoke:keydown',
+            invokeHold: 'systems:keypress:invoke:keyhold',
         },
         messenger: {
             process: 'systems:messenger:process',
