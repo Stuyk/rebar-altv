@@ -3,11 +3,11 @@ import { useRebar } from '../index.js';
 import { Events } from '../../shared/events/index.js';
 
 type OnKeybind = (player: alt.Player) => void;
-type KeybindInfo = { callback: OnKeybind; uid: string };
+type KeybindInfo = { callback: OnKeybind; uid: string};
 
 const Rebar = useRebar();
 const RebarEvents = Rebar.events.useEvents();
-const callbacks: { [key: string]: { down: KeybindInfo[]; up: KeybindInfo[] } } = {};
+const callbacks: { [key: string]: { down: KeybindInfo[]; up: KeybindInfo[], hold: KeybindInfo[] } } = {};
 
 function handleKeyUp(player: alt.Player, key: number) {
     if (!callbacks[key]) {
@@ -41,6 +41,22 @@ function handleKeyDown(player: alt.Player, key: number) {
     }
 }
 
+function handleKeyHold(player: alt.Player, key: number) {
+    if (!callbacks[key]) {
+        return;
+    }
+
+    const nextCall = (player.getMeta(`keybind-hold-${key}`) as number) ?? 0;
+    if (Date.now() < nextCall) {
+        return;
+    }
+
+    player.setMeta(`keybind-hold-${key}`, Date.now() + 500);
+    for (let kb of callbacks[key].hold) {
+        kb.callback(player);
+    }
+}
+
 function updateKeypressForPlayer(player: alt.Player) {
     player.emit(Events.systems.keypress.update, Object.keys(callbacks));
 }
@@ -52,18 +68,20 @@ function updateKeypresses() {
 }
 
 export function useKeypress() {
-    function on(key: number, callbackUp: OnKeybind, callbackDown: OnKeybind) {
+    function on(key: number, callbackUp: OnKeybind, callbackDown: OnKeybind, callbackHold: OnKeybind) {
         const uid = Rebar.utility.uid.generate();
 
         if (!callbacks[key]) {
             callbacks[key] = {
                 up: [],
                 down: [],
+                hold: [],
             };
         }
 
         callbacks[key].up.push({ uid, callback: callbackUp });
         callbacks[key].down.push({ uid, callback: callbackDown });
+        callbacks[key].hold.push({ uid, callback: callbackHold });
         updateKeypresses();
         return uid;
     }
@@ -83,7 +101,12 @@ export function useKeypress() {
             callbacks[key].up.splice(downIndex, 1);
         }
 
-        if (callbacks[key].up.length <= 0 && callbacks[key].down.length <= 0) {
+        const holdIndex = callbacks[key].hold.findIndex((x) => x.uid === uid );
+        if (holdIndex >= 0) {
+            callbacks[key].up.splice(holdIndex, 1);
+        }
+
+        if (callbacks[key].up.length <= 0 && callbacks[key].down.length <= 0 && callbacks[key].hold.length <= 0) {
             delete callbacks[key];
         }
 
@@ -101,3 +124,4 @@ RebarEvents.on('character-bound', updateKeypressForPlayer);
 
 alt.onClient(Events.systems.keypress.invokeUp, handleKeyUp);
 alt.onClient(Events.systems.keypress.invokeDown, handleKeyDown);
+alt.onClient(Events.systems.keypress.invokeHold, handleKeyHold);
