@@ -1,16 +1,16 @@
 import * as alt from 'alt-server';
 import { useRebar } from '../index.js';
-import { Events } from '../../shared/events/index.js';
+import { Events } from '@Shared/events/index.js';
 
 type OnKeybind = (player: alt.Player) => void;
-type KeybindInfo = { callback: OnKeybind; uid: string};
+type KeybindInfo = { callback: OnKeybind; uid: string };
 
 const Rebar = useRebar();
 const RebarEvents = Rebar.events.useEvents();
-const callbacks: { [key: string]: { down: KeybindInfo[]; up: KeybindInfo[], hold: KeybindInfo[] } } = {};
+const keyCallbacks: { [key: string]: { down: KeybindInfo[]; up: KeybindInfo[]; hold: KeybindInfo[] } } = {};
 
 function handleKeyUp(player: alt.Player, key: number) {
-    if (!callbacks[key]) {
+    if (!keyCallbacks[key]) {
         return;
     }
 
@@ -20,13 +20,13 @@ function handleKeyUp(player: alt.Player, key: number) {
     }
 
     player.setMeta(`keybind-up-${key}`, Date.now() + 500);
-    for (let kb of callbacks[key].up) {
+    for (let kb of keyCallbacks[key].up) {
         kb.callback(player);
     }
 }
 
 function handleKeyDown(player: alt.Player, key: number) {
-    if (!callbacks[key]) {
+    if (!keyCallbacks[key]) {
         return;
     }
 
@@ -36,13 +36,13 @@ function handleKeyDown(player: alt.Player, key: number) {
     }
 
     player.setMeta(`keybind-down-${key}`, Date.now() + 500);
-    for (let kb of callbacks[key].down) {
+    for (let kb of keyCallbacks[key].down) {
         kb.callback(player);
     }
 }
 
 function handleKeyHold(player: alt.Player, key: number) {
-    if (!callbacks[key]) {
+    if (!keyCallbacks[key]) {
         return;
     }
 
@@ -52,13 +52,13 @@ function handleKeyHold(player: alt.Player, key: number) {
     }
 
     player.setMeta(`keybind-hold-${key}`, Date.now() + 500);
-    for (let kb of callbacks[key].hold) {
+    for (let kb of keyCallbacks[key].hold) {
         kb.callback(player);
     }
 }
 
 function updateKeypressForPlayer(player: alt.Player) {
-    player.emit(Events.systems.keypress.update, Object.keys(callbacks));
+    player.emit(Events.systems.keypress.update, Object.keys(keyCallbacks));
 }
 
 function updateKeypresses() {
@@ -68,46 +68,94 @@ function updateKeypresses() {
 }
 
 export function useKeypress() {
-    function on(key: number, callbackUp: OnKeybind, callbackDown: OnKeybind, callbackHold: OnKeybind) {
+    function on(key: number, callbackUp: OnKeybind, callbackDown: OnKeybind) {
         const uid = Rebar.utility.uid.generate();
 
-        if (!callbacks[key]) {
-            callbacks[key] = {
+        if (!keyCallbacks[key]) {
+            keyCallbacks[key] = {
                 up: [],
                 down: [],
                 hold: [],
             };
         }
 
-        callbacks[key].up.push({ uid, callback: callbackUp });
-        callbacks[key].down.push({ uid, callback: callbackDown });
-        callbacks[key].hold.push({ uid, callback: callbackHold });
+        keyCallbacks[key].up.push({ uid, callback: callbackUp });
+        keyCallbacks[key].down.push({ uid, callback: callbackDown });
         updateKeypresses();
         return uid;
     }
 
+    function onHold(key: number, callback: OnKeybind) {
+        const uid = Rebar.utility.uid.generate();
+
+        if (!keyCallbacks[key]) {
+            keyCallbacks[key] = {
+                up: [],
+                down: [],
+                hold: [],
+            };
+        }
+
+        keyCallbacks[key].down.push({
+            uid,
+            callback: (player) => {
+                player.setMeta(`keyhold-${uid}`, Date.now() + 2000);
+            },
+        });
+
+        keyCallbacks[key].up.push({
+            uid,
+            callback: (player) => {
+                player.deleteMeta(`keyhold-${uid}`);
+            },
+        });
+
+        keyCallbacks[key].hold.push({
+            uid,
+            callback: (player) => {
+                const invokeTime = player.getMeta(`keyhold-${uid}`) as number;
+                if (!invokeTime) {
+                    return;
+                }
+
+                if (Date.now() < invokeTime) {
+                    return;
+                }
+
+                player.deleteMeta(`keyhold-${uid}`);
+                callback(player);
+            },
+        });
+
+        return uid;
+    }
+
     function off(key: number, uid: string) {
-        if (!callbacks[key]) {
+        if (!keyCallbacks[key]) {
             return;
         }
 
-        const upIndex = callbacks[key].up.findIndex((x) => x.uid === uid);
+        const upIndex = keyCallbacks[key].up.findIndex((x) => x.uid === uid);
         if (upIndex >= 0) {
-            callbacks[key].up.splice(upIndex, 1);
+            keyCallbacks[key].up.splice(upIndex, 1);
         }
 
-        const downIndex = callbacks[key].down.findIndex((x) => x.uid === uid);
+        const downIndex = keyCallbacks[key].down.findIndex((x) => x.uid === uid);
         if (downIndex >= 0) {
-            callbacks[key].up.splice(downIndex, 1);
+            keyCallbacks[key].up.splice(downIndex, 1);
         }
 
-        const holdIndex = callbacks[key].hold.findIndex((x) => x.uid === uid );
+        const holdIndex = keyCallbacks[key].hold.findIndex((x) => x.uid === uid);
         if (holdIndex >= 0) {
-            callbacks[key].up.splice(holdIndex, 1);
+            keyCallbacks[key].up.splice(holdIndex, 1);
         }
 
-        if (callbacks[key].up.length <= 0 && callbacks[key].down.length <= 0 && callbacks[key].hold.length <= 0) {
-            delete callbacks[key];
+        if (
+            keyCallbacks[key].up.length <= 0 &&
+            keyCallbacks[key].down.length <= 0 &&
+            keyCallbacks[key].hold.length <= 0
+        ) {
+            delete keyCallbacks[key];
         }
 
         updateKeypresses();
@@ -116,6 +164,7 @@ export function useKeypress() {
     return {
         off,
         on,
+        onHold,
         updateKeypressForPlayer,
     };
 }

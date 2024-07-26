@@ -4,6 +4,25 @@ order: 95
 
 # Changelog
 
+## Version 52
+
+### Code Changes
+
+-   Added ability to change database name through environment variables — @floydya
+-   Added door system controller — @floydya
+-   Added server config option for disabling weapon wheel menu — @mnkyarts
+-   Added onHold callback for `useKeypress` that invokes after `x` time has passed while holding a key — @koron
+-   Updated `useKeypress` to include `onHold`, which is invoked after `2s` of holding
+
+### Docs Changes
+
+-   Added door system docs @floydya
+-   Added `env` options for database name to useConfig page
+-   Updated server config docs @mnkyarts
+-   Updated `useKeypress` docs to include `onHold`
+
+---
+
 ## Version 51
 
 ### Code Changes

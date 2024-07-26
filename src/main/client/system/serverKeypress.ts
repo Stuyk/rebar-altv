@@ -1,18 +1,16 @@
 import * as alt from 'alt-client';
-import { Events } from '../../shared/events/index.js';
+import { Events } from '@Shared/events/index.js';
 import { useMessenger } from './messenger.js';
 
 const messenger = useMessenger();
 const validKeys: Map<number, boolean> = new Map();
 const nextValidUpPress: { [key: string]: number } = {};
 const nextValidDownPress: { [key: string]: number } = {};
-const keyStates: { [key: number]: { isPressed: boolean; pressStartTime: number; pressDuration: number } } = {};
+const keyPressTracker: { [key: number]: number } = {};
 const requiredPressDuration = 2000;
-
 
 function handleUpdate(keys: string[]) {
     validKeys.clear();
-
 
     for (let key of keys) {
         validKeys.set(parseInt(key), true);
@@ -28,6 +26,10 @@ function handleKeyup(key: number) {
         return;
     }
 
+    if (keyPressTracker[key]) {
+        delete keyPressTracker[key];
+    }
+
     if (messenger.isChatFocused()) {
         return;
     }
@@ -38,10 +40,6 @@ function handleKeyup(key: number) {
 
     if (nextValidUpPress[key] && Date.now() < nextValidUpPress[key]) {
         return;
-    }
-
-    if (keyStates[key]) {
-        keyStates[key].isPressed = false;
     }
 
     nextValidUpPress[key] = Date.now() + 500;
@@ -69,41 +67,44 @@ function handleKeyDown(key: number) {
         return;
     }
 
-    if (!keyStates[key]) {
-        keyStates[key] = { isPressed: false, pressStartTime: 0, pressDuration: 0 };
+    if (!keyPressTracker[key]) {
+        keyPressTracker[key] = Date.now() + requiredPressDuration;
     }
 
-    keyStates[key].isPressed = true;
-    keyStates[key].pressStartTime = Date.now();
     nextValidDownPress[key] = Date.now() + 500;
     alt.emitServer(Events.systems.keypress.invokeDown, key);
 }
 
-alt.onServer(Events.systems.keypress.update, handleUpdate);
-alt.on('keyup', handleKeyup);
-alt.on('keydown', handleKeyDown);
+function handleKeyHold() {
+    if (!alt.gameControlsEnabled()) {
+        return;
+    }
 
+    if (messenger.isChatFocused()) {
+        return;
+    }
 
-alt.everyTick(() => {
-    const currentTime = Date.now();
+    if (alt.isConsoleOpen()) {
+        return;
+    }
 
-    for (const key in keyStates) {
-        const state = keyStates[key];
+    const keyPresses = { ...keyPressTracker };
+    for (const key in keyPresses) {
+        const invokeTime = keyPressTracker[key];
 
-        if (!state.isPressed) {
-            state.pressStartTime = 0;
-            state.pressDuration = 0;
+        if (Date.now() < invokeTime) {
             continue;
         }
-        
-        state.pressDuration = currentTime - state.pressStartTime;
-        if (state.pressDuration < requiredPressDuration) {
-            continue;
+
+        if (keyPressTracker[key]) {
+            delete keyPressTracker[key];
         }
-        
-        state.isPressed = false;
-        state.pressStartTime = 0;
-        state.pressDuration = 0;
+
         alt.emitServer(Events.systems.keypress.invokeHold, parseInt(key));
     }
-});
+}
+
+alt.onServer(Events.systems.keypress.update, handleUpdate);
+alt.everyTick(handleKeyHold);
+alt.on('keyup', handleKeyup);
+alt.on('keydown', handleKeyDown);
