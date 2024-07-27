@@ -24,6 +24,7 @@ async function handleStart() {
         await import('./plugins.js');
         alt.log(':: Plugins Loaded');
     } catch (err) {
+        alt.logError(err);
         alt.logWarning(`Failed to load any plugins, a plugin has errors in it.`);
     }
 
