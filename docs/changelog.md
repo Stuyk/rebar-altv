@@ -4,6 +4,18 @@ order: 95
 
 # Changelog
 
+## Version 53
+
+### Code Changes
+
+-   Added more verbose error printing for plugin imports, should function like before again
+
+### Docs Changes
+
+-   N/A
+
+---
+
 ## Version 52
 
 ### Code Changes
