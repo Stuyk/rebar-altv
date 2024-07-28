@@ -110,7 +110,7 @@ export type Blip = {
      * @type {boolean}
      *
      */
-    shortRange: boolean;
+    shortRange?: boolean;
 
     /**
      * The blip appearance which is known as a 'sprite'.

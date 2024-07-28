@@ -46,6 +46,10 @@ export function useBlipGlobal(blipData: Blip) {
         blipData.color = BlipColor[blipData.color];
     }
 
+    if (typeof blipData.shortRange === 'undefined') {
+        blipData.shortRange = true;
+    }
+
     let blip: alt.PointBlip;
     let entity: alt.Entity;
 
@@ -197,6 +201,10 @@ export function useBlipLocal(player: alt.Player, blipData: Blip) {
 
     if (typeof blipData.color === 'string') {
         blipData.color = BlipColor[blipData.color];
+    }
+
+    if (typeof blipData.shortRange === 'undefined') {
+        blipData.shortRange = true;
     }
 
     function destroy() {

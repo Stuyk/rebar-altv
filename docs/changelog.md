@@ -13,6 +13,7 @@ order: 95
     -   Automatically converted to numerical
 -   Added ability to use string union for blip colors
     -   Automatically converted to numerical
+-   Made blips shortRange parameter optional, and default to true
 
 ### Docs Changes
 
