@@ -134,6 +134,80 @@ export function useWeapon(player: alt.Player) {
     }
 
     /**
+     * Add a component to the specified weapon and save to the database
+     *
+     * @param {number} model
+     * @param {number} component
+     * @return
+     */
+    async function addWeaponComponent(model: number, component: number) {
+        const document = Rebar.document.character.useCharacter(player);
+        if (!document.get()) {
+            return;
+        }
+
+        const weaponHash = model;
+        const weapons = document.getField('weapons') ?? [];
+
+        const weaponIndex = weapons.findIndex((w) => w.hash === weaponHash);
+        if (weaponIndex === -1) {
+            return;
+        }
+
+        const updatedWeapons = [...weapons];
+        const weapon = { ...updatedWeapons[weaponIndex] };
+
+        if (!weapon.components.includes(component)) {
+            weapon.components = [...weapon.components, component];
+        }
+
+        updatedWeapons[weaponIndex] = weapon;
+
+        player.addWeaponComponent(weaponHash, component);
+
+        await document.set('weapons', updatedWeapons);
+    }
+
+    /**
+     * Remove a component from the specified weapon and save to the database
+     *
+     * @param {number} model
+     * @param {number} component
+     * @return
+     */
+    async function removeWeaponComponent(model: number, component: number) {
+        const document = Rebar.document.character.useCharacter(player);
+        if (!document.get()) {
+            return;
+        }
+
+        const weaponHash = model;
+        const weapons = document.getField('weapons') ?? [];
+
+        const weaponIndex = weapons.findIndex((w) => w.hash === weaponHash);
+        if (weaponIndex === -1) {
+            return;
+        }
+
+        const updatedWeapons = [...weapons];
+        const weapon = { ...updatedWeapons[weaponIndex] };
+
+        const componentIndex = weapon.components.indexOf(component);
+        if (componentIndex !== -1) {
+            weapon.components = [
+                ...weapon.components.slice(0, componentIndex),
+                ...weapon.components.slice(componentIndex + 1),
+            ];
+        }
+
+        updatedWeapons[weaponIndex] = weapon;
+
+        player.removeWeaponComponent(weaponHash, component);
+
+        await document.set('weapons', updatedWeapons);
+    }
+
+    /**
      * Save current player weapons
      */
     function save() {
@@ -180,6 +254,8 @@ export function useWeapon(player: alt.Player) {
     return {
         add,
         addAmmo,
+        addWeaponComponent,
+        removeWeaponComponent,
         apply,
         clear,
         clearWeapon,
