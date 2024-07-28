@@ -183,14 +183,7 @@ export interface Character extends BaseCharacter {
     /**
      * Player weapons that the player currently has equipped
      *
-     * @type {alt.IWeapon[]}
+     * @type {(alt.IWeapon & { ammo: number })[]}
      */
-    weapons?: alt.IWeapon[];
-
-    /**
-     * Ammo the player has based on weapon hash
-     *
-     * @type {{ [weaponHash: string]: number }}
-     */
-    ammo?: { [weaponHash: string]: number };
+    weapons?: (alt.IWeapon & { ammo: number })[];
 }

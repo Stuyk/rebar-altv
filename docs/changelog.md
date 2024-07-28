@@ -14,10 +14,12 @@ order: 95
 -   Added ability to use string union for blip colors
     -   Automatically converted to numerical
 -   Made blips shortRange parameter optional, and default to true
+-   Updated `useWeapon` for `player` to properly save weapon data and ammo count
+-   **Removed** `ammo` from the database, and ammo is now stored on the individual weapon instead
 
 ### Docs Changes
 
--   N/A
+-   Document `getWeapons` and update documentation for `useWeapon` for the player
 
 ---
 

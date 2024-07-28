@@ -393,9 +393,6 @@ rebarPlayer.weapon.sync();
 // Save weapons & ammo
 await rebarPlayer.weapon.save();
 
-// Save just ammo
-await rebarPlayer.weapon.saveAmmo();
-
 // Add a weapon, and save to the database, and re-apply weapons
 await rebarPlayer.weapon.add('WEAPON_MINIGUN', 100);
 
@@ -408,17 +405,16 @@ await rebarPlayer.weapon.clear();
 // Remove a weapon and all ammo for the weapon
 await rebarPlayer.weapon.clearWeapon('WEAPON_MINIGUN');
 
+// Returns all weapons the database has stored for the player
+const weapons = rebarPlayer.weapon.getWeapons();
+
 // Override and apply weapons to a player
 const weapons = [
-    { hash: alt.hash('WEAPON_MINIGUN'), components: [], tintIndex: 0 },
-    { hash: alt.hash('WEAPON_RPG'), components: [], tintIndex: 0 },
+    { hash: alt.hash('WEAPON_MINIGUN'), components: [], tintIndex: 0, ammo: 255 },
+    { hash: alt.hash('WEAPON_RPG'), components: [], tintIndex: 0, ammo: 255 },
 ];
-const ammo = {
-    [alt.hash('WEAPON_MINIGUN')]: 999,
-    [alt.hash('WEAPON_RPG')]: 5,
-};
 
-rebarPlayer.weapon.apply(weapons, ammo);
+rebarPlayer.weapon.apply(weapons);
 ```
 
 ## Webview
