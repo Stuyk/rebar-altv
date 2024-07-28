@@ -1,7 +1,8 @@
 import * as alt from 'alt-server';
 import * as Utility from '@Shared/utility/index.js';
-import { Blip } from '@Shared/types/blip.js';
+import { Blip, BlipColor } from '@Shared/types/blip.js';
 import { Events } from '@Shared/events/index.js';
+import { BlipNames } from '../../shared/data/blipNames.js';
 
 let interval: number;
 
@@ -37,6 +38,14 @@ export function useBlipGlobal(blipData: Blip) {
         blipData.dimension = 0;
     }
 
+    if (typeof blipData.sprite === 'string') {
+        blipData.sprite = BlipNames[blipData.sprite];
+    }
+
+    if (typeof blipData.color === 'string') {
+        blipData.color = BlipColor[blipData.color];
+    }
+
     let blip: alt.PointBlip;
     let entity: alt.Entity;
 
@@ -55,8 +64,8 @@ export function useBlipGlobal(blipData: Blip) {
             blip.category = blipData.category;
         }
 
-        blip.sprite = blipData.sprite;
-        blip.color = blipData.color;
+        blip.sprite = blipData.sprite as number;
+        blip.color = blipData.color as number;
         blip.shortRange = blipData.shortRange;
         blip.name = blipData.text;
         blip.dimension = blipData.dimension ?? 0;
@@ -180,6 +189,14 @@ export function useBlipLocal(player: alt.Player, blipData: Blip) {
 
     if (!blipData.dimension) {
         blipData.dimension = player.dimension;
+    }
+
+    if (typeof blipData.sprite === 'string') {
+        blipData.sprite = BlipNames[blipData.sprite];
+    }
+
+    if (typeof blipData.color === 'string') {
+        blipData.color = BlipColor[blipData.color];
     }
 
     function destroy() {

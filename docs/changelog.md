@@ -9,6 +9,10 @@ order: 95
 ### Code Changes
 
 -   Added more verbose error printing for plugin imports, should function like before again
+-   Added ability to use string union for blip sprite types
+    -   Automatically converted to numerical
+-   Added ability to use string union for blip colors
+    -   Automatically converted to numerical
 
 ### Docs Changes
 
