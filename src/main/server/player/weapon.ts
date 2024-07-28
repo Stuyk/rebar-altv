@@ -136,8 +136,8 @@ export function useWeapon(player: alt.Player) {
     /**
      * Add a component to the specified weapon and save to the database
      *
-     * @param {string} model
-     * @param {string} component
+     * @param {number} model
+     * @param {number} component
      * @return
      */
     async function addWeaponComponent(model: number, component: number) {
@@ -171,8 +171,8 @@ export function useWeapon(player: alt.Player) {
     /**
      * Remove a component from the specified weapon and save to the database
      *
-     * @param {string} model
-     * @param {string} component
+     * @param {number} model
+     * @param {number} component
      * @return
      */
     async function removeWeaponComponent(model: number, component: number) {
