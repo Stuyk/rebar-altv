@@ -5,9 +5,11 @@ export interface ItemService {
     /**
      * Add an item to the given player with a given quantity based on a common id
      *
+     * Additionally, a sobject data may be passed if necessary.
+     *
      * @memberof ItemService
      */
-    add: (player: alt.Player, id: string, quantity: number) => Promise<boolean>;
+    add: (player: alt.Player, id: string, quantity: number, data?: Object) => Promise<boolean>;
 
     /**
      * Subtract an item quanatiy from the given player with a given quantity based on a common id
@@ -33,21 +35,21 @@ export interface ItemService {
 
 declare global {
     interface RebarServices {
-        items: Partial<ItemService>;
+        itemService: Partial<ItemService>;
     }
 }
 
 declare module 'alt-server' {
     export interface ICustomEmitEvent {
-        itemAdd: (...args: Parameters<ItemService['add']>) => void;
-        itemSub: (...args: Parameters<ItemService['sub']>) => void;
-        itemRemoved: (...args: Parameters<ItemService['remove']>) => void;
+        playerItemAdd: (...args: Parameters<ItemService['add']>) => void;
+        playerItemSub: (...args: Parameters<ItemService['sub']>) => void;
+        playerItemRemove: (...args: Parameters<ItemService['remove']>) => void;
     }
 }
 
 export function useItemService(): ItemService {
     async function add(...args: Parameters<ItemService['add']>) {
-        const services = useServices().get('items');
+        const services = useServices().get('itemService');
         if (services.length <= 0) {
             return false;
         }
@@ -63,12 +65,12 @@ export function useItemService(): ItemService {
             }
         }
 
-        alt.emit('itemAdd', ...args);
+        alt.emit('playerItemAdd', ...args);
         return true;
     }
 
     async function sub(...args: Parameters<ItemService['sub']>) {
-        const services = useServices().get('items');
+        const services = useServices().get('itemService');
         if (services.length <= 0) {
             return false;
         }
@@ -84,12 +86,12 @@ export function useItemService(): ItemService {
             }
         }
 
-        alt.emit('itemSub', ...args);
+        alt.emit('playerItemSub', ...args);
         return true;
     }
 
     async function has(...args: Parameters<ItemService['has']>) {
-        const services = useServices().get('items');
+        const services = useServices().get('itemService');
         if (services.length <= 0) {
             return false;
         }
@@ -109,7 +111,7 @@ export function useItemService(): ItemService {
     }
 
     async function remove(...args: Parameters<ItemService['remove']>) {
-        const services = useServices().get('items');
+        const services = useServices().get('itemService');
         if (services.length <= 0) {
             return false;
         }
@@ -125,7 +127,7 @@ export function useItemService(): ItemService {
             }
         }
 
-        alt.emit('itemRemoved', ...args);
+        alt.emit('playerItemRemove', ...args);
         return true;
     }
 

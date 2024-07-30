@@ -45,7 +45,7 @@ export interface WorldService {
 
 declare global {
     interface RebarServices {
-        world: WorldService;
+        worldService: WorldService;
     }
 }
 
@@ -73,7 +73,7 @@ export function useWorldService(): WorldService {
                 hour = 0;
             }
 
-            const services = useServices().get('world');
+            const services = useServices().get('worldService');
             for (let service of services) {
                 if (typeof service.setHour !== 'function') {
                     continue;
@@ -92,7 +92,7 @@ export function useWorldService(): WorldService {
                 minute = 0;
             }
 
-            const services = useServices().get('world');
+            const services = useServices().get('worldService');
             for (let service of services) {
                 if (typeof service.setMinute !== 'function') {
                     continue;
@@ -112,7 +112,7 @@ export function useWorldService(): WorldService {
                 second = 0;
             }
 
-            const services = useServices().get('world');
+            const services = useServices().get('worldService');
             for (let service of services) {
                 if (typeof service.setSecond !== 'function') {
                     continue;
@@ -128,7 +128,7 @@ export function useWorldService(): WorldService {
             alt.emit('timeChanged', time.hour, time.minute, time.second);
         },
         setWeatherForecast(weathers: Weathers[]) {
-            const services = useServices().get('world');
+            const services = useServices().get('worldService');
             for (let service of services) {
                 if (typeof service.setWeatherForecast !== 'function') {
                     continue;
@@ -141,7 +141,7 @@ export function useWorldService(): WorldService {
             alt.emit('weatherForecastChanged', weathers);
         },
         setWeather(weatherType: Weathers) {
-            const services = useServices().get('world');
+            const services = useServices().get('worldService');
             for (let service of services) {
                 if (typeof service.setWeather !== 'function') {
                     continue;

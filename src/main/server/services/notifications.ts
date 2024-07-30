@@ -20,7 +20,7 @@ export interface NotificationService {
 
 declare global {
     interface RebarServices {
-        notification: Partial<NotificationService>;
+        notificationService: Partial<NotificationService>;
     }
 }
 
@@ -34,7 +34,7 @@ declare module 'alt-server' {
 export function useNotificationService() {
     return {
         emit(...args: Parameters<NotificationService['emit']>) {
-            const services = useServices().get('notification');
+            const services = useServices().get('notificationService');
             const player = args[0];
             if (!player || !player.valid) {
                 return;
@@ -56,7 +56,7 @@ export function useNotificationService() {
             alt.emit('playerEmitNotification', ...args);
         },
         broadcast(...args: Parameters<NotificationService['broadcast']>) {
-            const services = useServices().get('notification');
+            const services = useServices().get('notificationService');
 
             if (services.length >= 1) {
                 for (let service of services) {

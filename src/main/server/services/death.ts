@@ -19,7 +19,7 @@ export interface DeathService {
 
 declare global {
     interface RebarServices {
-        death: Partial<DeathService>;
+        deathService: Partial<DeathService>;
     }
 }
 
@@ -33,7 +33,7 @@ declare module 'alt-server' {
 export function useDeathService() {
     return {
         respawn(...args: Parameters<DeathService['respawn']>) {
-            const services = useServices().get('death');
+            const services = useServices().get('deathService');
             if (services.length <= 0) {
                 return;
             }
@@ -49,7 +49,7 @@ export function useDeathService() {
             alt.emit('playerRespawn', ...args);
         },
         revive(...args: Parameters<DeathService['revive']>) {
-            const services = useServices().get('death');
+            const services = useServices().get('deathService');
             if (services.length <= 0) {
                 return;
             }
