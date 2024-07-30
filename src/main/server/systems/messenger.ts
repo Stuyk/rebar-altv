@@ -3,6 +3,13 @@ import { useRebar } from '../index.js';
 import { Events } from '../../shared/events/index.js';
 import { Message } from '../../shared/types/message.js';
 
+declare module 'alt-server' {
+    export interface ICustomEmitEvent {
+        playerSendMessage: (player: alt.Player, msg: string) => void;
+        playerCommand: (player: alt.Player, commandName: string) => void;
+    }
+}
+
 export type PlayerMessageCallback = (player: alt.Player, msg: string) => void;
 
 export type PermissionOptions = {
@@ -38,14 +45,11 @@ const tagOrComment = new RegExp(
 );
 
 const Rebar = useRebar();
-const RebarEvents = Rebar.events.useEvents();
-
 const commands: Command[] = [];
-const callbacks: PlayerMessageCallback[] = [];
 let endCommandRegistrationTime = Date.now();
 
 /**
- * 
+ *
  * @param {alt.Player} player Player to check permissions for.
  * @param {PermissionOptions} options Permission options to check against.
  * @returns {boolean} True if the player has access to the functionality.
@@ -53,17 +57,12 @@ let endCommandRegistrationTime = Date.now();
 function isAvailableForPlayer(player: alt.Player, options?: PermissionOptions): boolean {
     if (!player.valid) return false;
     if (!options) return true;
-    if (
-        !options.accountPermissions &&
-        !options.permissions &&
-        !options.groups &&
-        !options.accountGroups
-    ) {
+    if (!options.accountPermissions && !options.permissions && !options.groups && !options.accountGroups) {
         return true;
     }
 
     const rPlayer = Rebar.usePlayer(player);
-    
+
     if (rPlayer.account.groupPermissions.hasAtLeastOneGroupWithSpecificPerm(options.accountGroups)) {
         return true;
     }
@@ -71,7 +70,7 @@ function isAvailableForPlayer(player: alt.Player, options?: PermissionOptions): 
     if (rPlayer.character.groupPermissions.hasAtLeastOneGroupWithSpecificPerm(options.groups)) {
         return true;
     }
-    
+
     if (rPlayer.account.permissions.hasAnyPermission(options.accountPermissions)) {
         return true;
     }
@@ -97,10 +96,6 @@ export function useMessenger() {
         endCommandRegistrationTime = Date.now() + 5000;
     }
 
-    function onMessage(cb: PlayerMessageCallback) {
-        callbacks.push(cb);
-    }
-
     function hasCommandPermission(player: alt.Player, command: Command) {
         return isAvailableForPlayer(player, command.options);
     }
@@ -121,7 +116,7 @@ export function useMessenger() {
 
         try {
             await command.callback(player, ...args);
-            RebarEvents.invoke('on-command', player, cmdName);
+            alt.emit('playerCommand', player, cmdName);
             return true;
         } catch (err) {
             return false;
@@ -174,7 +169,6 @@ export function useMessenger() {
             hasCommandPermission,
         },
         message: {
-            on: onMessage,
             send: sendMessage,
             broadcast: broadcastMessage,
         },
@@ -214,11 +208,7 @@ function processMessage(player: alt.Player, msg: string) {
     const messageSystem = useMessenger();
     if (msg.charAt(0) !== '/') {
         msg = cleanMessage(msg);
-        for (let cb of callbacks) {
-            cb(player, msg);
-        }
-
-        Rebar.events.useEvents().invoke('message', player, msg);
+        alt.emit('playerSendMessage', player, msg);
         return;
     }
 

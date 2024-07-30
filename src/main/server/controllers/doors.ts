@@ -4,7 +4,13 @@ import { objectData } from '@Shared/utility/clone.js';
 import { Door, DoorsConfig, DoorState } from '@Shared/types/index.js';
 import { useAccount, useCharacter } from '@Server/document/index.js';
 import { distance2d } from '@Shared/utility/vector.js';
-import { useEvents } from '@Server/events/index.js';
+
+declare module 'alt-server' {
+    export interface ICustomEmitEvent {
+        doorLocked: (uid: string, initiator: alt.Player) => void;
+        doorUnlocked: (uid: string, initiator: alt.Player | null) => void;
+    }
+}
 
 const config = await useGlobal<DoorsConfig>('doors');
 const MAX_DOORS_TO_DRAW = 10;
@@ -12,7 +18,6 @@ const streamingDistance = 15;
 const doorEntityType = 'door';
 const doorGroup = new alt.VirtualEntityGroup(MAX_DOORS_TO_DRAW);
 const doors: (Door & { entity: alt.VirtualEntity })[] = [];
-const events = useEvents();
 
 /**
  * Door configuration that allows you to get and set the lock state of a door.
@@ -141,7 +146,7 @@ export function useDoor() {
 
         door.state = getNextState(door.state);
         doorConfig.setLockState(uid, door.state);
-        events.invoke(`door-${door.state}`, uid, player);
+        alt.emit(door.state === DoorState.LOCKED ? 'doorLocked' : 'doorUnlocked', uid, player);
         return true;
     }
 
@@ -160,7 +165,7 @@ export function useDoor() {
 
         door.state = state;
         doorConfig.setLockState(uid, door.state);
-        events.invoke(`door-${door.state}`, uid, null);
+        alt.emit(door.state === DoorState.LOCKED ? 'doorLocked' : 'doorUnlocked', uid, null);
         return true;
     }
 

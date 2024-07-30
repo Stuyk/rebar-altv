@@ -1,6 +1,7 @@
 import * as alt from 'alt-server';
 import * as Utility from '@Shared/utility/index.js';
 import './startup.js';
+import './systems/pageSystem.js';
 
 import { useApi } from './api/index.js';
 
@@ -31,13 +32,10 @@ import {
     useVirtual,
 } from './document/index.js';
 
-
 import { CollectionNames } from './document/shared.js';
 
 import { useProtectCallback } from './utility/protectCallback.js';
 import { useRateLimitCallback } from './utility/rateLimitCallback.js';
-
-import { useEvents } from './events/index.js';
 
 import { usePlayerGetter } from './getters/player.js';
 import { usePlayersGetter } from './getters/players.js';
@@ -67,8 +65,6 @@ import { sha256, sha256Random } from './utility/hash.js';
 import { check, hash } from './utility/password.js';
 import { useVehicle } from './vehicle/index.js';
 import { useVehicleHandling } from './vehicle/vehicleHandling.js';
-import { useServerTime } from './systems/serverTime.js';
-import { useServerWeather } from './systems/serverWeather.js';
 import { useProxyFetch } from './systems/proxyFetch.js';
 import { usePed } from './controllers/ped.js';
 import { useServerConfig } from './systems/serverConfig.js';
@@ -142,9 +138,6 @@ export function useRebar() {
                 useVirtual,
             },
         },
-        events: {
-            useEvents,
-        },
         get: {
             usePlayerGetter,
             usePlayersGetter,
@@ -181,16 +174,12 @@ export function useRebar() {
         usePlayer,
         useProxyFetch,
         useServerConfig,
-        useServerTime,
-        useServerWeather,
         systems: {
             useMessenger,
             useKeybinder,
             useKeypress,
             useProxyFetch,
             useServerConfig,
-            useServerTime,
-            useServerWeather,
             useStreamSyncedBinder,
         },
         utility: {
@@ -211,29 +200,3 @@ export function useRebar() {
         },
     };
 }
-
-declare module 'alt-server' {
-    // extending interface by interface merging
-    export interface ICustomGlobalMeta {
-        /**
-         * Used for getting plugin APIs
-         *
-         * Only available on server-side, server folder
-         *
-         * @type {ReturnType<typeof useRebar>}
-         * @memberof ICustomGlobalMeta
-         */
-        Rebar: ReturnType<typeof useRebar>;
-
-        /**
-         * Only available on server-side, server folder
-         *
-         * @type {ReturnType<typeof useApi>}
-         * @memberof ICustomGlobalMeta
-         */
-        RebarAPI: ReturnType<typeof useApi>;
-    }
-}
-
-alt.setMeta('Rebar', useRebar());
-alt.setMeta('RebarPluginAPI', useRebar().useApi());

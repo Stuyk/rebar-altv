@@ -8,7 +8,6 @@ import './rpc/index.js';
 import { useRebar } from './index.js';
 
 const Rebar = useRebar();
-const RebarEvents = Rebar.events.useEvents();
 const config = useConfig();
 const database = useDatabase();
 const { t } = useTranslate('en');
@@ -48,7 +47,7 @@ async function handleStart() {
         player.frozen = false;
 
         const character = rPlayer.character.get();
-        RebarEvents.invoke('character-bound', player, character);
+        alt.emit('playerCharacterBound', player, character);
     }
 }
 

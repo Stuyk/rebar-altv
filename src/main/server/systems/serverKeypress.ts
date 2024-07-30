@@ -6,7 +6,6 @@ type OnKeybind = (player: alt.Player) => void;
 type KeybindInfo = { callback: OnKeybind; uid: string };
 
 const Rebar = useRebar();
-const RebarEvents = Rebar.events.useEvents();
 const keyCallbacks: { [key: string]: { down: KeybindInfo[]; up: KeybindInfo[]; hold: KeybindInfo[] } } = {};
 
 function handleKeyUp(player: alt.Player, key: number) {
@@ -179,8 +178,7 @@ export function useKeypress() {
     };
 }
 
-RebarEvents.on('character-bound', updateKeypressForPlayer);
-
+alt.on('playerCharacterBound', updateKeypressForPlayer);
 alt.onClient(Events.systems.keypress.invokeUp, handleKeyUp);
 alt.onClient(Events.systems.keypress.invokeDown, handleKeyDown);
 alt.onClient(Events.systems.keypress.invokeHold, handleKeyHold);

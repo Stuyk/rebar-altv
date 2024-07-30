@@ -6,7 +6,12 @@ import { CollectionNames, KeyChangeCallback } from './shared.js';
 import { Vehicle } from 'main/shared/types/vehicle.js';
 import { useRebar } from '../index.js';
 import { usePermissionProxy } from '@Server/systems/permissionProxy.js';
-import { removeGroup } from 'natives';
+
+declare module 'alt-server' {
+    export interface ICustomEmitEvent {
+        playerCharacterBound: (player: alt.Player, document: Character) => void;
+    }
+}
 
 const Rebar = useRebar();
 const sessionKey = 'document:character';
@@ -202,7 +207,9 @@ export function useCharacter(player: alt.Player) {
          * @deprecated
          */
         hasAnyGroupPermission: (groupName: string, permissionNames: string[]) => {
-            alt.logWarning('Consider using useCharacter(...).permissions.hasAnyGroupPermission. This will be deprecated.');
+            alt.logWarning(
+                'Consider using useCharacter(...).permissions.hasAnyGroupPermission. This will be deprecated.',
+            );
             return groupPermissions.hasAtLeastOneGroupPerm(groupName, permissionNames);
         },
         /**
@@ -218,10 +225,21 @@ export function useCharacter(player: alt.Player) {
         removeGroupPerm: async (groupName: string, permissionName: string) => {
             alt.logWarning('Consider using useCharacter(...).permissions.removeGroupPerm. This will be deprecated.');
             return await groupPermissions.removePermissions(groupName, [permissionName]);
-        }
-    }
+        },
+    };
 
-    return { addIdentifier, get, getField, isValid, getVehicles, permission, permissions, groupPermissions, set, setBulk };
+    return {
+        addIdentifier,
+        get,
+        getField,
+        isValid,
+        getVehicles,
+        permission,
+        permissions,
+        groupPermissions,
+        set,
+        setBulk,
+    };
 }
 
 export function useCharacterBinder(player: alt.Player, syncPlayer = true) {
@@ -241,7 +259,7 @@ export function useCharacterBinder(player: alt.Player, syncPlayer = true) {
         }
 
         player.setMeta(sessionKey, document);
-        Rebar.events.useEvents().invoke('character-bound', player, document);
+        alt.emit('playerCharacterBound', player, document);
 
         if (syncPlayer) {
             Rebar.player.usePlayerAppearance(player).sync();

@@ -6,6 +6,35 @@ order: 95
 
 ## Version 53
 
+### Breaking Changes
+
+-   Removed alt.getMeta for Rebar Imports
+    -   This likely doesn't effect anyone
+-   Removed `useServerTime`
+    -   Replaced with `useWorldService`
+-   Removed `useServerWeather`
+    -   Replaced with `useWorldService`
+-   Removed `useMessenger.message.on`,
+    -   Same functionality can be achieved through `alt.on` with `playerSendMessage`
+-   Removed `useRebarEvents` and moved all events to `alt.on` and `alt.emit`
+    -   Custom delcarations are still possible.
+    -   Replaced all `rebar-event-names` with `camelCased` events
+    -   Event Name Changes:
+        -   Renamed `message` event to `playerSendMessage`
+        -   Renamed `on-command` event to `playerCommand`
+        -   Renamed `on-rpc-restart` event to `rpcRestart`
+        -   Renamed `account-bound` event to `playerAccountBound`
+        -   Renamed `character-bound` event to `playerCharacterBound`
+        -   Renamed `vehicle-bound` event to `vehicleBound`
+        -   Renamed `page-opened` event to `playerPageOpened`
+        -   Renamed `page-closed` event to `playerPageClosed`
+        -   Renamed `time-changed` event to `timeChanged`
+        -   Renamed `time-hour-changed` event to `timeHourChanged`
+        -   Renamed `time-minute-changed` event to `timeMinuteChanged`
+        -   Renamed `time-second-changed` event to `timeSecondChanged`
+        -   Renamed `weather-changed` event to `weatherChanged`
+        -   Renamed `weather-forecast-changed` event to `weatherForecastChanged`
+
 ### Code Changes
 
 -   Added more verbose error printing for plugin imports, should function like before again
@@ -16,6 +45,42 @@ order: 95
 -   Made blips shortRange parameter optional, and default to true
 -   Updated `useWeapon` for `player` to properly save weapon data and ammo count
 -   **Removed** `ammo` from the database, and ammo is now stored on the individual weapon instead
+-   Fix vehicle handler so setting `{}` will actually clear the vehicle handling
+-   Changed `Account` from `type` to `interface`
+-   Moved `Page Events` to `pageSystem` to keep functionality working
+-   Made it so emitting notifications from server-side defaults to a GTA:V Notification, until a library is added
+-   Added `useService`
+    -   Provides common APIs for common features to integrate custom functionality.
+    -   Services do nothing until a library registers itself under a service.
+-   Added `useDeathService`
+    -   All these functions do nothing until a library is registered
+    -   respawn (invoke a respawn)
+    -   revive (invoke a revive, in place)
+-   Added `useItemService`
+    -   All these functions do nothing until a library is registered
+    -   add (invoke an item add)
+    -   sub (invoke an item subtraction)
+    -   remove (invoke an item remove)
+    -   has (invoke if player has an item)
+-   Added `useNotificationService`
+    -   All these functions do nothing until a library is registered
+    -   emit (invoke a notification send)
+    -   broadcast (invoke a notification send, to all players)
+-   Added `useMessageService`
+    -   All these functions do nothing until a library is registered
+    -   emit (invoke a message send)
+    -   broadcast (invoke a message send, to all players)
+-   Added `useWorldService`
+    -   All these functions do nothing until a library is registered
+    -   setHour (set the hour for the server)
+    -   setMinute (set the minute for the server)
+    -   setSecond (set the second for the server)
+    -   setWeather (set the weather for the server)
+    -   setWeatherForecast (set weather forecast for the server)
+-   Added Custom alt.getMeta Keys for...
+    -   serverTime
+    -   serverWeather
+    -   serverWeatherForecast
 
 ### Docs Changes
 

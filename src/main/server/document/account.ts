@@ -8,6 +8,12 @@ import { Character } from '@Shared/types/character.js';
 import { useRebar } from '../index.js';
 import { usePermissionProxy } from '@Server/systems/permissionProxy.js';
 
+declare module 'alt-server' {
+    export interface ICustomEmitEvent {
+        playerAccountBound: (player: alt.Player, document: Account) => void;
+    }
+}
+
 const Rebar = useRebar();
 const sessionKey = 'document:account';
 const callbacks: { [key: string]: Array<KeyChangeCallback> } = {};
@@ -195,6 +201,7 @@ export function useAccount(player: alt.Player) {
         await setBulk({ id });
         return id;
     }
+
     const { permissions, groupPermissions } = usePermissionProxy(player, 'account', get, set);
 
     /**
@@ -206,21 +213,27 @@ export function useAccount(player: alt.Player) {
          * @deprecated
          */
         addPermission: async (permissionName: string) => {
-            alt.logWarning('Consider using useAccount(...).permissions.addPermission instead. This will be deprecated.');
+            alt.logWarning(
+                'Consider using useAccount(...).permissions.addPermission instead. This will be deprecated.',
+            );
             return permissions.addPermission(permissionName);
         },
         /**
          * @deprecated
          */
         removePermission: async (permissionName: string) => {
-            alt.logWarning('Consider using useAccount(...).permissions.removePermission instead. This will be deprecated.');
+            alt.logWarning(
+                'Consider using useAccount(...).permissions.removePermission instead. This will be deprecated.',
+            );
             return permissions.removePermission(permissionName);
         },
         /**
          * @deprecated
          */
         hasPermission: (permissionName: string) => {
-            alt.logWarning('Consider using useAccount(...).permissions.hasPermission instead. This will be deprecated.');
+            alt.logWarning(
+                'Consider using useAccount(...).permissions.hasPermission instead. This will be deprecated.',
+            );
             return permissions.hasPermission(permissionName);
         },
         /**
@@ -230,7 +243,7 @@ export function useAccount(player: alt.Player) {
             alt.logWarning('Consider using useAccount(...).setBanned instead. This will be deprecated.');
             return setBanned(reason);
         },
-    }
+    };
 
     return {
         permission,
@@ -263,7 +276,7 @@ export function useAccountBinder(player: alt.Player) {
         }
 
         player.setMeta(sessionKey, document);
-        Rebar.events.useEvents().invoke('account-bound', player, document);
+        alt.emit('playerAccountBound', player, document);
 
         const accountUse = useAccount(player);
         try {

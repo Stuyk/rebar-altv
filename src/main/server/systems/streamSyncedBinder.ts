@@ -8,7 +8,6 @@ type DataTypes = {
 };
 
 const Rebar = useRebar();
-const RebarEvents = Rebar.events.useEvents();
 
 const keys: { [K in keyof DataTypes]: DataTypes[K][] } = {
     Character: [],
@@ -62,13 +61,13 @@ export function useStreamSyncedBinder() {
     };
 }
 
-RebarEvents.on('character-bound', (player, document) => {
+alt.on('playerCharacterBound', (player, document) => {
     for (let key of keys.Character) {
         handleKeySet(player, key, document[key]);
     }
 });
 
-RebarEvents.on('vehicle-bound', (vehicle, document) => {
+alt.on('vehicleBound', (vehicle, document) => {
     for (let key of keys.Vehicle) {
         handleKeySet(vehicle, key, document[key]);
     }
