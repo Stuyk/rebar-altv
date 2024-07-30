@@ -81,6 +81,15 @@ order: 95
     -   serverTime
     -   serverWeather
     -   serverWeatherForecast
+-   Added support for interactions to
+    -   addBlip
+    -   addMarker
+    -   addTextLabel
+    -   getBlip
+    -   getMarker
+    -   getTextLabel
+    -   getPos
+    -   Destroy all of the above when interaction is destroyed
 
 ### Docs Changes
 
