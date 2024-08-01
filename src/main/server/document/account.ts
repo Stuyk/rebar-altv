@@ -38,26 +38,25 @@ export function useAccount(player: alt.Player) {
     /**
      * Return current player data and their associated account object.
      *
-     * @template T
-     * @return {(T & Account) | undefined}
+     * @return {(Account | undefined)}
      */
-    function get<T = {}>(): (T & Account) | undefined {
+    function get(): Account | undefined {
         if (!player.hasMeta(sessionKey)) {
             return undefined;
         }
 
-        return <T & Account>player.getMeta(sessionKey);
+        return <Account>player.getMeta(sessionKey);
     }
 
     /**
      * Get the current value of a specific field inside of the player data object.
      * Can be extended to obtain any value easily.
      *
-     * @template T
-     * @param {(keyof KnownKeys<Account & T>)} fieldName
-     * @return {ReturnType | undefined}
+     * @template K
+     * @param {K} fieldName
+     * @return {(Account[K] | undefined)}
      */
-    function getField<T = {}, ReturnType = any>(fieldName: keyof KnownKeys<Account & T>): ReturnType | undefined {
+    function getField<K extends keyof Account>(fieldName: K): Account[K] | undefined {
         if (!player.hasMeta(sessionKey)) {
             return undefined;
         }
@@ -69,18 +68,18 @@ export function useAccount(player: alt.Player) {
      * Sets a player document value, and saves it automatically to the selected account database.
      * Automatically calls all callbacks associated with the field name.
      *
-     * @template T
-     * @param {(keyof KnownKeys<Character & T>)} fieldName
-     * @param {*} value
-     * @return {void}
+     * @template K
+     * @param {K} fieldName
+     * @param {Account[K]} value
+     * @return
      */
-    async function set<T = {}, Keys = keyof KnownKeys<Account & T>>(fieldName: Keys, value: any) {
+    async function set<K extends keyof Account>(fieldName: K, value: Account[K]) {
         if (!player.hasMeta(sessionKey)) {
             return undefined;
         }
 
         const typeSafeFieldName = String(fieldName);
-        let data = player.getMeta(sessionKey) as T & Account;
+        let data = player.getMeta(sessionKey) as Account;
         let oldValue = undefined;
 
         if (data[typeSafeFieldName]) {
@@ -106,16 +105,15 @@ export function useAccount(player: alt.Player) {
      * Sets player document values, and saves it automatically to the selected Account's database.
      * Automatically calls all callbacks associated with the field name.
      *
-     * @template T
-     * @param {(Partial<Account & T>)} fields
-     * @returns {void}
+     * @param {Partial<Account>} fields
+     * @return
      */
-    async function setBulk<T = {}, Keys = Partial<Account & T>>(fields: Keys) {
+    async function setBulk(fields: Partial<Account>) {
         if (!player.hasMeta(sessionKey)) {
             return undefined;
         }
 
-        let data = player.getMeta(sessionKey) as Account & T;
+        let data = player.getMeta(sessionKey) as Account;
 
         const oldValues = {};
 
@@ -146,13 +144,12 @@ export function useAccount(player: alt.Player) {
     /**
      * Return all characters that belong to this account
      *
-     * @template T
-     * @return {(Promise<(Character & T)[]>)}
+     * @return {Promise<Character[]>}
      */
-    async function getCharacters<T = {}>(): Promise<(Character & T)[]> {
-        const data = player.getMeta(sessionKey) as Account & T;
+    async function getCharacters(): Promise<Character[]> {
+        const data = player.getMeta(sessionKey) as Character;
         const results = await db.getMany({ account_id: data._id }, CollectionNames.Characters);
-        return results as (Character & T)[];
+        return results as Character[];
     }
 
     /**

@@ -90,6 +90,10 @@ order: 95
     -   getTextLabel
     -   getPos
     -   Destroy all of the above when interaction is destroyed
+-   Updated Document Typings for ... to better handle module extension
+    -   Account
+    -   Character
+    -   Vehicle
 
 ### Docs Changes
 

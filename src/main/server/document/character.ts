@@ -37,28 +37,25 @@ export function useCharacter(player: alt.Player) {
     /**
      * Return current player data and their associated character object.
      *
-     * @template T
-     * @return {(T & Character) | undefined}
+     * @return {(Character | undefined)}
      */
-    function get<T = {}>(): (T & Character) | undefined {
+    function get(): Character | undefined {
         if (!player.hasMeta(sessionKey)) {
             return undefined;
         }
 
-        return <T & Character>player.getMeta(sessionKey);
+        return <Character>player.getMeta(sessionKey);
     }
 
     /**
      * Get the current value of a specific field inside of the player data object.
      * Can be extended to obtain any value easily.
      *
-     * @template T
-     * @param {(keyof KnownKeys<Character & T>)} fieldName
-     * @return {ReturnType | undefined}
+     * @template K
+     * @param {K} fieldName
+     * @return {(Character[K] | undefined)}
      */
-    function getField<T = {}, K extends keyof KnownKeys<Character & T> = keyof KnownKeys<Character & T>>(
-        fieldName: K,
-    ): (Character & T)[K] | undefined {
+    function getField<K extends keyof Character>(fieldName: K): Character[K] | undefined {
         if (!player.hasMeta(sessionKey)) {
             return undefined;
         }
@@ -70,18 +67,18 @@ export function useCharacter(player: alt.Player) {
      * Sets a player document value, and saves it automatically to the selected Character database.
      * Automatically calls all callbacks associated with the field name.
      *
-     * @template T
-     * @param {(keyof KnownKeys<Character & T>)} fieldName
-     * @param {*} value
-     * @return {void}
+     * @template K
+     * @param {K} fieldName
+     * @param {Character[K]} value
+     * @return
      */
-    async function set<T = {}, Keys = keyof KnownKeys<Character & T>>(fieldName: Keys, value: any) {
+    async function set<K extends keyof Character>(fieldName: K, value: Character[K]) {
         if (!player.hasMeta(sessionKey)) {
             return undefined;
         }
 
         const typeSafeFieldName = String(fieldName);
-        let data = player.getMeta(sessionKey) as T & Character;
+        let data = player.getMeta(sessionKey) as Character;
         let oldValue = undefined;
 
         if (data[typeSafeFieldName]) {
@@ -107,16 +104,15 @@ export function useCharacter(player: alt.Player) {
      * Sets player document values, and saves it automatically to the selected Character's database.
      * Automatically calls all callbacks associated with the field name.
      *
-     * @template T
-     * @param {(Partial<Character & T>)} fields
-     * @returns {void}
+     * @param {Partial<Character>} fields
+     * @return
      */
-    async function setBulk<T = {}, Keys = Partial<Character & T>>(fields: Keys) {
+    async function setBulk(fields: Partial<Character>) {
         if (!player.hasMeta(sessionKey)) {
             return undefined;
         }
 
-        let data = player.getMeta(sessionKey) as Character & T;
+        let data = player.getMeta(sessionKey) as Character;
 
         const oldValues = {};
 
@@ -147,13 +143,12 @@ export function useCharacter(player: alt.Player) {
     /**
      * Return all vehicles that belong to this account
      *
-     * @template T
-     * @return {(Promise<(Vehicle & T)[]>)}
+     * @return {Promise<Vehicle[]>}
      */
-    async function getVehicles<T = {}>(): Promise<(Vehicle & T)[]> {
-        const data = player.getMeta(sessionKey) as Vehicle & T;
+    async function getVehicles(): Promise<Vehicle[]> {
+        const data = player.getMeta(sessionKey) as Vehicle;
         const results = await db.getMany({ owner: data._id }, CollectionNames.Vehicles);
-        return results as (Vehicle & T)[];
+        return results as Vehicle[];
     }
 
     async function addIdentifier() {
