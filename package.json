@@ -38,7 +38,7 @@
     "dependencies": {
         "@hono/node-server": "^1.12.0",
         "@types/sjcl": "^1.0.34",
-        "@vitejs/plugin-vue": "^5.1.1",
+        "@vitejs/plugin-vue": "^5.1.2",
         "concurrently": "^8.2.2",
         "dotenv": "^16.4.5",
         "hono": "^4.5.3",
@@ -46,7 +46,7 @@
         "sjcl": "^1.0.8",
         "typescript": "^5.5.4",
         "vite": "^5.3.5",
-        "vue": "^3.4.34",
+        "vue": "^3.4.35",
         "vue-tsc": "^2.0.29"
     },
     "prettier": {
