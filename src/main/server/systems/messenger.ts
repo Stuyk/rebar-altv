@@ -1,9 +1,9 @@
 import * as alt from 'alt-server';
-import { Events } from '../../shared/events/index.js';
-import { Message } from '../../shared/types/message.js';
-import { usePlayer } from '../player/index.js';
 import { useWebview } from '../player/webview.js';
 import { useStatus } from '../player/status.js';
+import {Events} from '@Shared/events/index.js';
+import {Message, PermissionOptions} from '@Shared/types/index.js';
+import {useEntityPermission} from "@Server/systems/permissions/entityPermissions.js";
 
 declare module 'alt-server' {
     export interface ICustomEmitEvent {
@@ -11,15 +11,6 @@ declare module 'alt-server' {
         'rebar:playerCommand': (player: alt.Player, commandName: string) => void;
     }
 }
-
-export type PlayerMessageCallback = (player: alt.Player, msg: string) => void;
-
-export type PermissionOptions = {
-    permissions?: string[];
-    accountPermissions?: string[];
-    groups?: Record<string, string[]>;
-    accountGroups?: Record<string, string[]>;
-};
 
 export type Command = {
     name: string;
@@ -49,40 +40,6 @@ const tagOrComment = new RegExp(
 const commands: Command[] = [];
 let endCommandRegistrationTime = Date.now();
 
-/**
- *
- * @param {alt.Player} player Player to check permissions for.
- * @param {PermissionOptions} options Permission options to check against.
- * @returns {boolean} True if the player has access to the functionality.
- */
-function isAvailableForPlayer(player: alt.Player, options?: PermissionOptions): boolean {
-    if (!player.valid) return false;
-    if (!options) return true;
-    if (!options.accountPermissions && !options.permissions && !options.groups && !options.accountGroups) {
-        return true;
-    }
-
-    const rPlayer = usePlayer(player);
-
-    if (rPlayer.account.groupPermissions.hasAtLeastOneGroupWithSpecificPerm(options.accountGroups)) {
-        return true;
-    }
-
-    if (rPlayer.character.groupPermissions.hasAtLeastOneGroupWithSpecificPerm(options.groups)) {
-        return true;
-    }
-
-    if (rPlayer.account.permissions.hasAnyPermission(options.accountPermissions)) {
-        return true;
-    }
-
-    if (rPlayer.character.permissions.hasAnyPermission(options.permissions)) {
-        return true;
-    }
-
-    return false;
-}
-
 export function useMessenger() {
     function registerCommand(command: Command) {
         command.name = command.name.replaceAll('/', '');
@@ -98,7 +55,7 @@ export function useMessenger() {
     }
 
     function hasCommandPermission(player: alt.Player, command: Command) {
-        return isAvailableForPlayer(player, command.options);
+        return useEntityPermission(command.options).check(player);
     }
 
     async function invokeCommand(player: alt.Player, cmdName: string, ...args: any[]): Promise<boolean> {
@@ -131,7 +88,7 @@ export function useMessenger() {
 
     function broadcastMessage(message: Message, options?: PermissionOptions) {
         for (const player of alt.Player.all) {
-            if (isAvailableForPlayer(player, options)) {
+            if (!options || useEntityPermission(options).check(player)) {
                 sendMessage(player, message);
             }
         }

@@ -1,8 +1,7 @@
 import * as alt from 'alt-server';
-import { Character } from '@Shared/types/character.js';
+import {Character, Vehicle} from '@Shared/types/index.js';
 import { useDatabase } from '@Server/database/index.js';
 import { CollectionNames, KeyChangeCallback } from './shared.js';
-import { Vehicle } from 'main/shared/types/vehicle.js';
 import { usePermissionProxy } from '@Server/systems/permissionProxy.js';
 import { useIncrementalId } from './increment.js';
 import { usePlayerAppearance } from '../player/appearance.js';
@@ -173,76 +172,16 @@ export function useCharacter(player: alt.Player) {
         return id;
     }
 
-    const { permissions, groupPermissions } = usePermissionProxy(player, 'character', get, set);
-
-    /**
-     * Old permission system. Will be deprecated in the future.
-     * Use the new permission system instead.
-     * @deprecated
-     */
-    const permission = {
-        /**
-         * @deprecated
-         */
-        addPermission: async (permissionName: string) => {
-            alt.logWarning('Consider using useCharacter(...).permissions.addPermission. This will be deprecated.');
-            return await permissions.addPermission(permissionName);
-        },
-        /**
-         * @deprecated
-         */
-        removePermission: async (permissionName: string) => {
-            alt.logWarning('Consider using useCharacter(...).permissions.removePermission. This will be deprecated.');
-            return await permissions.removePermission(permissionName);
-        },
-        /**
-         * @deprecated
-         */
-        hasPermission: (permissionName: string) => {
-            alt.logWarning('Consider using useCharacter(...).permissions.hasPermission. This will be deprecated.');
-            return permissions.hasPermission(permissionName);
-        },
-        /**
-         * @deprecated
-         */
-        hasGroupPermission: (groupName: string, permissionName: string) => {
-            alt.logWarning('Consider using useCharacter(...).permissions.hasGroupPermission. This will be deprecated.');
-            return groupPermissions.hasGroupPerm(groupName, permissionName);
-        },
-        /**
-         * @deprecated
-         */
-        hasAnyGroupPermission: (groupName: string, permissionNames: string[]) => {
-            alt.logWarning(
-                'Consider using useCharacter(...).permissions.hasAnyGroupPermission. This will be deprecated.',
-            );
-            return groupPermissions.hasAtLeastOneGroupPerm(groupName, permissionNames);
-        },
-        /**
-         * @deprecated
-         */
-        addGroupPerm: async (groupName: string, permissionName: string) => {
-            alt.logWarning('Consider using useCharacter(...).permissions.addGroupPerm. This will be deprecated.');
-            return await groupPermissions.addPermissions(groupName, [permissionName]);
-        },
-        /**
-         * @deprecated
-         */
-        removeGroupPerm: async (groupName: string, permissionName: string) => {
-            alt.logWarning('Consider using useCharacter(...).permissions.removeGroupPerm. This will be deprecated.');
-            return await groupPermissions.removePermissions(groupName, [permissionName]);
-        },
-    };
+    const {permissions, groups} = usePermissionProxy<Character>(get, setBulk);
 
     return {
+        permissions,
+        groups,
         addIdentifier,
         get,
         getField,
         isValid,
         getVehicles,
-        permission,
-        permissions,
-        groupPermissions,
         set,
         setBulk,
     };

@@ -1,8 +1,8 @@
 import * as alt from 'alt-server';
 import * as Utility from '@Shared/utility/index.js';
-import { Blip, BlipColor } from '@Shared/types/blip.js';
+import {BlipNames} from '@Shared/data/blipNames.js';
 import { Events } from '@Shared/events/index.js';
-import { BlipNames } from '../../shared/data/blipNames.js';
+import {Blip, BlipColor} from '@Shared/types/index.js';
 
 let interval: number;
 

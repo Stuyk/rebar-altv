@@ -2,8 +2,8 @@ import * as alt from 'alt-server';
 import { useGlobal } from '@Server/document/global.js';
 import { objectData } from '@Shared/utility/clone.js';
 import { Door, DoorsConfig, DoorState } from '@Shared/types/index.js';
-import { useAccount, useCharacter } from '@Server/document/index.js';
 import { distance2d } from '@Shared/utility/vector.js';
+import {useEntityPermission} from "@Server/systems/permissions/entityPermissions.js";
 
 declare module 'alt-server' {
     export interface ICustomEmitEvent {
@@ -87,47 +87,6 @@ export function useDoor() {
         doors.push({ ...door, entity });
     }
 
-    /**
-     * Checks if the player has the required permissions to lock/unlock the door.
-     * For internal use only.
-     *
-     * @param {alt.Player} player
-     * @param {Door} door
-     * @returns {boolean}
-     */
-    function checkPermissions(player: alt.Player, door: Door): boolean {
-        if (
-            !door?.permissions?.character &&
-            !door?.permissions?.account &&
-            !door?.groups?.account &&
-            !door?.groups?.character
-        ) {
-            return true;
-        }
-        const rCharacter = useCharacter(player);
-        const rAccount = useAccount(player);
-        if (!rAccount.isValid() || !rCharacter.isValid()) return false;
-
-        let allowed = false;
-        if (door?.permissions?.character) {
-            allowed = rCharacter.permissions.hasAnyPermission(door?.permissions?.character ?? []);
-        }
-
-        if (door?.permissions?.account) {
-            allowed = rAccount.permissions.hasAnyPermission(door?.permissions?.account ?? []);
-        }
-
-        if (door?.groups?.character) {
-            allowed = rCharacter.groupPermissions.hasAtLeastOneGroupWithSpecificPerm(door?.groups?.character ?? {});
-        }
-
-        if (door?.groups?.account) {
-            allowed = rAccount.groupPermissions.hasAtLeastOneGroupWithSpecificPerm(door?.groups?.account ?? {});
-        }
-
-        return allowed;
-    }
-
     function getNextState(state: DoorState): DoorState {
         return state === DoorState.LOCKED ? DoorState.UNLOCKED : DoorState.LOCKED;
     }
@@ -142,7 +101,7 @@ export function useDoor() {
     function toggleLockState(player: alt.Player, uid: string): boolean {
         const door = doors.find((door) => door.uid === uid);
         if (!door) return false;
-        if (!checkPermissions(player, door)) return false;
+        if (!useEntityPermission(door).check(player)) return false;
 
         door.state = getNextState(door.state);
         doorConfig.setLockState(uid, door.state);
