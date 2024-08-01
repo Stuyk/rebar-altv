@@ -84,28 +84,20 @@ export function usePlainPermission<T extends PermissionsDocumentMixin>(document:
         return [true, {permissions: document.permissions, permissionsMeta: document.permissionsMeta}];
     }
 
-    /**
-     * Expires a temporary permission from a player.
-     *
-     * @param {string} permission The permission to expire.
-     * @return {[boolean, PermissionsDocumentMixin]} Whether the permission was expired and the document with the updated permissions.
-     */
-    function expire(permission: string): [boolean, PermissionsDocumentMixin] {
-        if (!document.permissions.includes(permission)) {
-            return [false, null];
+    function getExpired(): string[] {
+        const expiredPermissions = [];
+        for (const permission in document.permissionsMeta) {
+            if (Date.now() > document.permissionsMeta[permission].startAt + document.permissionsMeta[permission].duration) {
+                expiredPermissions.push(permission);
+            }
         }
-        if (!document.permissionsMeta[permission]) {
-            return [false, null];
-        }
-        delete document.permissionsMeta[permission];
-        document.permissions = document.permissions.filter((perm) => perm !== permission);
-        return [true, {permissions: document.permissions, permissionsMeta: document.permissionsMeta}];
+        return expiredPermissions;
     }
 
     return {
         grant,
         check,
         revoke,
-        expire,
+        getExpired,
     };
 }

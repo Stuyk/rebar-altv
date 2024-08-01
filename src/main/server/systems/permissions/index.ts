@@ -1,6 +1,7 @@
 import {usePlainPermission, type PlainPermissionOptions} from "@Server/systems/permissions/plainPermissions.js";
 import {usePermissionGroup} from "@Server/systems/permissions/groupPermissions.js";
 import {PermissionsDocumentMixin, GroupsDocumentMixin} from "@Shared/types/index.js";
+import {objectData} from "@Shared/utility/clone.js";
 
 type Document = PermissionsDocumentMixin & GroupsDocumentMixin;
 type DocumentGetter<T extends Document> = () => T | undefined;
@@ -63,11 +64,16 @@ export function usePermissionProxy<T extends Document>(
             }
             return false;
         },
-        expire: async (permission: string): Promise<boolean> => {
+        removeExpiredPermissions: async (): Promise<void> => {
             const document = getter();
-            const [expired, values] = usePlainPermission<T>(document).expire(permission);
-            if (expired) await bulkSetter(values as Partial<T>);
-            return expired;
+            const expiredPermissions = usePlainPermission(document).getExpired();
+            if (expiredPermissions.length === 0) return;
+            const newPermissions = document.permissions.filter((permission) => !expiredPermissions.includes(permission));
+            const newPermissionsMeta = objectData(document.permissionsMeta);
+            for (const permission of expiredPermissions) {
+                delete newPermissionsMeta[permission];
+            }
+            await bulkSetter({permissions: newPermissions, permissionsMeta: newPermissionsMeta} as Partial<T>);
         }
     };
 

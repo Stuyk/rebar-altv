@@ -1,7 +1,9 @@
+import {GroupsDocumentMixin, PermissionsDocumentMixin} from "@Shared/types/permissions.js";
+
 /**
  * Used to store Discord Information, IPs, and User Data
  */
-export interface Account {
+export interface Account extends PermissionsDocumentMixin, GroupsDocumentMixin {
     /**
      * A unique MongoDB identifier to identify the accoutn in the database.
      * @type {*}
