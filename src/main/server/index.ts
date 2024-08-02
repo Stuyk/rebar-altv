@@ -6,6 +6,8 @@ import { useApi } from './api/index.js';
 
 import { useConfig } from './config/index.js';
 
+import { useCronJob } from './cronjob/index.js';
+
 import { useBlipGlobal, useBlipLocal } from './controllers/blip.js';
 import { useDoor } from './controllers/doors.js';
 import { useInteraction } from './controllers/interaction.js';
@@ -93,6 +95,7 @@ export function useRebar() {
         useApi,
         useConfig,
         useHono,
+        useCronJob,
         controllers: {
             useBlipGlobal,
             useBlipLocal,
