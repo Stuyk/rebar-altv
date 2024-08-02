@@ -24,10 +24,7 @@ export interface PermissionOptions {
     /**
      * Permissions required to access this entity.
      *
-     * @type {Record<'account' | 'character', Permission>}
+     * @type {Permission}
      */
-    permissions?: {
-        account?: Permission;
-        character?: Permission;
-    };
+    permissions?: Permission;
 }

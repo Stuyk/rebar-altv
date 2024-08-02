@@ -1,9 +1,9 @@
 import * as alt from 'alt-server';
-import {useGlobal} from '@Server/document/global.js';
-import {usePlayersGetter} from "@Server/getters/players.js";
-import {useAccount, useCharacter} from "@Server/document/index.js";
-import {useDatabase} from "@Server/database/index.js";
-import {CollectionNames} from "@Server/document/shared.js";
+import { useGlobal } from '@Server/document/global.js';
+import { usePlayersGetter } from '@Server/getters/players.js';
+import { useAccount, useCharacter } from '@Server/document/index.js';
+import { useDatabase } from '@Server/database/index.js';
+import { CollectionNames } from '@Server/document/shared.js';
 
 interface PermissionGroup {
     permissions: Array<string>;
@@ -48,19 +48,20 @@ class InternalFunctions {
     }
 }
 
-
 export function usePermissionGroup() {
-
     async function add(groupName: string, options: PermissionGroup): Promise<boolean> {
         const existingGroup = permissionGroups.getField(groupName);
-        if (options.version && existingGroup.version && options.version <= existingGroup.version) {
-            // The version is lower than the existing version.
-            return false;
-        } else if (existingGroup.version && !options.version) {
-            // The existing group has a version, but the new group does not.
-            return false;
+        
+        if (existingGroup) {
+            if (!options.version && existingGroup.version) {
+                // We have no version in the new group, but we have a version in the existing group.
+                return false;
+            } else if (options.version && existingGroup.version && options.version <= existingGroup.version) {
+                // The version is lower than the existing version.
+                return false;
+            }
         }
-        // The new group has a version, and it is higher than the existing version.
+
         await permissionGroups.set(groupName, options);
         InternalFunctions.buildIndex();
         return true;
@@ -76,23 +77,28 @@ export function usePermissionGroup() {
         InternalFunctions.buildIndex();
 
         // Remove the group from all accounts that are online.
-        const accountPromises = usePlayersGetter().memberOfGroup('account', groupName).map(async (player: alt.Player) => {
-            const account = useAccount(player);
-            await account.groups.remove(groupName);
-        });
+        const accountPromises = usePlayersGetter()
+            .memberOfGroup('account', groupName)
+            .map(async (player: alt.Player) => {
+                const account = useAccount(player);
+                await account.groups.remove(groupName);
+            });
 
         // Remove the group from all characters that are online.
-        const characterPromises = usePlayersGetter().memberOfGroup('character', groupName).map(async (player: alt.Player) => {
-            const character = useCharacter(player);
-            await character.groups.remove(groupName);
-        });
+        const characterPromises = usePlayersGetter()
+            .memberOfGroup('character', groupName)
+            .map(async (player: alt.Player) => {
+                const character = useCharacter(player);
+                await character.groups.remove(groupName);
+            });
 
         await Promise.all([
-            ...accountPromises, ...characterPromises,
+            ...accountPromises,
+            ...characterPromises,
             // Remove the group from all accounts that are offline.
-            database.updateMany({groups: groupName}, {$pull: {groups: groupName}}, CollectionNames.Accounts),
+            database.updateMany({ groups: groupName }, { $pull: { groups: groupName } }, CollectionNames.Accounts),
             // Remove the group from all characters that are offline.
-            database.updateMany({groups: groupName}, {$pull: {groups: groupName}}, CollectionNames.Characters),
+            database.updateMany({ groups: groupName }, { $pull: { groups: groupName } }, CollectionNames.Characters),
         ]);
         return true;
     }
@@ -102,8 +108,14 @@ export function usePermissionGroup() {
         if (!existingGroup) {
             return false;
         }
-        const newPermissions = existingGroup.permissions.concat(permission.filter((x) => !existingGroup.permissions.includes(x)));
-        await permissionGroups.set(groupName, {...existingGroup, permissions: newPermissions});
+        const newPermissions = existingGroup.permissions.concat(
+            permission.filter((x) => !existingGroup.permissions.includes(x)),
+        );
+
+        let version = existingGroup.version || 0;
+        version++;
+
+        await permissionGroups.set(groupName, { ...existingGroup, permissions: newPermissions, version });
         InternalFunctions.buildIndex();
         return true;
     }
@@ -114,7 +126,11 @@ export function usePermissionGroup() {
             return false;
         }
         const newPermissions = existingGroup.permissions.filter((x) => !permissions.includes(x));
-        await permissionGroups.set(groupName, {...existingGroup, permissions: newPermissions});
+
+        let version = existingGroup.version || 0;
+        version++;
+
+        await permissionGroups.set(groupName, { ...existingGroup, permissions: newPermissions, version });
         InternalFunctions.buildIndex();
         return true;
     }
@@ -137,7 +153,7 @@ export function usePermissionGroup() {
         return [...permissions];
     }
 
-    return {add, remove, addPermissions, removePermissions, groupHasPermission, groupsToPlainPermissions};
+    return { add, remove, addPermissions, removePermissions, groupHasPermission, groupsToPlainPermissions };
 }
 
 if (!initialized) {

@@ -52,7 +52,7 @@ import { useWebview } from './player/webview.js';
 import { useWorld } from './player/world.js';
 
 import { useMessenger } from './systems/messenger.js';
-import {usePermissionGroup} from './systems/permissions/groupPermissions.js';
+import { usePermissionGroup, useEntityPermissions, usePermissions } from './systems/permissions/index.js';
 
 import { usePlayer } from './player/index.js';
 import { useState } from './player/state.js';
@@ -165,8 +165,10 @@ export function useRebar() {
         messenger: {
             useMessenger,
         },
-        permission: {
+        permissions: {
             usePermissionGroup,
+            useEntityPermissions,
+            usePermissions,
         },
         useKeybinder,
         useKeypress,

@@ -8,6 +8,10 @@ const db = useDatabase();
 export async function useVirtual<T extends BaseDocument = BaseDocument>(_id: string, collectionName: string) {
     let data = await db.get({_id}, collectionName) as T;
 
+    if (typeof data === 'undefined') {
+        return undefined
+    }
+
     /**
      * Get the current document data.
      *

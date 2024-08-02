@@ -3,7 +3,7 @@ import { useWebview } from '../player/webview.js';
 import { useStatus } from '../player/status.js';
 import {Events} from '@Shared/events/index.js';
 import {Message, PermissionOptions} from '@Shared/types/index.js';
-import {useEntityPermission} from "@Server/systems/permissions/entityPermissions.js";
+import {useEntityPermissions} from "@Server/systems/permissions/entityPermissions.js";
 
 declare module 'alt-server' {
     export interface ICustomEmitEvent {
@@ -55,7 +55,7 @@ export function useMessenger() {
     }
 
     function hasCommandPermission(player: alt.Player, command: Command) {
-        return useEntityPermission(command.options).check(player);
+        return useEntityPermissions(command.options).check(player);
     }
 
     async function invokeCommand(player: alt.Player, cmdName: string, ...args: any[]): Promise<boolean> {
@@ -88,7 +88,7 @@ export function useMessenger() {
 
     function broadcastMessage(message: Message, options?: PermissionOptions) {
         for (const player of alt.Player.all) {
-            if (!options || useEntityPermission(options).check(player)) {
+            if (!options || useEntityPermissions(options).check(player)) {
                 sendMessage(player, message);
             }
         }

@@ -3,7 +3,7 @@ import { useGlobal } from '@Server/document/global.js';
 import { objectData } from '@Shared/utility/clone.js';
 import { Door, DoorsConfig, DoorState } from '@Shared/types/index.js';
 import { distance2d } from '@Shared/utility/vector.js';
-import {useEntityPermission} from "@Server/systems/permissions/entityPermissions.js";
+import {useEntityPermissions} from "@Server/systems/permissions/entityPermissions.js";
 
 declare module 'alt-server' {
     export interface ICustomEmitEvent {
@@ -101,7 +101,7 @@ export function useDoor() {
     function toggleLockState(player: alt.Player, uid: string): boolean {
         const door = doors.find((door) => door.uid === uid);
         if (!door) return false;
-        if (!useEntityPermission(door).check(player)) return false;
+        if (!useEntityPermissions(door).check(player)) return false;
 
         door.state = getNextState(door.state);
         doorConfig.setLockState(uid, door.state);

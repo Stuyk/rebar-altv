@@ -1,7 +1,6 @@
-import {PermissionsDocumentMixin} from "@Shared/types/index.js";
+import { PermissionsDocumentMixin } from '@Shared/types/index.js';
 
 export function usePlainPermission<T extends PermissionsDocumentMixin>(document: T) {
-
     /**
      * Grants a permission to a player.
      *
@@ -17,7 +16,7 @@ export function usePlainPermission<T extends PermissionsDocumentMixin>(document:
         }
 
         document.permissions.push(permission);
-        return {permissions: document.permissions};
+        return { permissions: document.permissions };
     }
 
     /**
@@ -42,7 +41,7 @@ export function usePlainPermission<T extends PermissionsDocumentMixin>(document:
             return null;
         }
         document.permissions.splice(index, 1);
-        return {permissions: document.permissions};
+        return { permissions: document.permissions };
     }
 
     return {
