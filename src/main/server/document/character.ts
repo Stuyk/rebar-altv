@@ -172,7 +172,7 @@ export function useCharacter(player: alt.Player) {
         return id;
     }
 
-    const {permissions, groups} = usePermissionProxy<Character>(get, setBulk, player);
+    const {permissions, groups} = usePermissionProxy<Character>(get, setBulk, player, 'character');
 
     return {
         permissions,

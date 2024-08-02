@@ -69,7 +69,7 @@ export async function useVirtual<T extends BaseDocument = BaseDocument>(_id: str
         return false;
     }
 
-    const {permissions, groups} = usePermissionProxy(get, setBulk, undefined);
+    const {permissions, groups} = usePermissionProxy(get, setBulk, undefined, undefined);
 
     const proxyHandler: ProxyHandler<any> = {
         get(target, prop) {

@@ -205,7 +205,7 @@ export function useAccount(player: alt.Player) {
         return id;
     }
 
-    const {permissions, groups} = usePermissionProxy<Account>(get, setBulk, player);
+    const {permissions, groups} = usePermissionProxy<Account>(get, setBulk, player, 'account');
 
     return {
         permissions,

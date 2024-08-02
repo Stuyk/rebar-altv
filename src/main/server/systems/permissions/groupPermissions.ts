@@ -16,11 +16,18 @@ interface PermissionGroupConfig {
 }
 
 let initialized = false;
-let permissionGroups;
+let permissionGroups: Awaited<ReturnType<typeof useGlobal<PermissionGroupConfig>>>;
 const permissionIndex: Map<string, Set<string>> = new Map();
 const database = useDatabase();
 
 class InternalFunctions {
+    static async init() {
+        if (initialized) return;
+        initialized = true;
+        permissionGroups = await useGlobal<PermissionGroupConfig>('permissionGroups');
+        this.buildIndex();
+    }
+
     static addPermissionsToSet(groupName: string, permissions: Set<string>, visited: Set<string> = new Set()) {
         if (visited.has(groupName)) {
             throw new Error(`Cyclic dependency detected: ${[...visited, groupName].join(' -> ')}`);
@@ -29,6 +36,8 @@ class InternalFunctions {
 
         const group = permissionGroups.getField(groupName);
         if (!group) return;
+
+        alt.logError(group);
 
         for (const permission of group.permissions) {
             permissions.add(permission);
@@ -41,6 +50,8 @@ class InternalFunctions {
     static buildIndex() {
         permissionIndex.clear();
         for (const [groupName, group] of Object.entries(permissionGroups.get())) {
+            if (['_id', 'identifier'].includes(groupName)) continue;
+
             const permissions = new Set<string>();
             this.addPermissionsToSet(groupName, permissions);
             permissionIndex.set(groupName, permissions);
@@ -51,7 +62,7 @@ class InternalFunctions {
 export function usePermissionGroup() {
     async function add(groupName: string, options: PermissionGroup): Promise<boolean> {
         const existingGroup = permissionGroups.getField(groupName);
-        
+
         if (existingGroup) {
             if (!options.version && existingGroup.version) {
                 // We have no version in the new group, but we have a version in the existing group.
@@ -156,8 +167,4 @@ export function usePermissionGroup() {
     return { add, remove, addPermissions, removePermissions, groupHasPermission, groupsToPlainPermissions };
 }
 
-if (!initialized) {
-    permissionGroups = await useGlobal<PermissionGroupConfig>('permissionGroups');
-    InternalFunctions.buildIndex();
-    initialized = true;
-}
+InternalFunctions.init();
