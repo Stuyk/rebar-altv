@@ -123,7 +123,7 @@ export function useDatabase() {
             const result = await client
                 .collection(collection)
                 .findOneAndUpdate({_id: ObjectId.createFromHexString(data._id)}, {$set: dataClone});
-            return result.ok ? true : false;
+            return true;
         } catch (err) {
             return false;
         }

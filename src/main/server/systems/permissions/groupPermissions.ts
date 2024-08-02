@@ -37,8 +37,6 @@ class InternalFunctions {
         const group = permissionGroups.getField(groupName);
         if (!group) return;
 
-        alt.logError(group);
-
         for (const permission of group.permissions) {
             permissions.add(permission);
         }
@@ -66,13 +64,20 @@ export function usePermissionGroup() {
         if (existingGroup) {
             if (!options.version && existingGroup.version) {
                 // We have no version in the new group, but we have a version in the existing group.
+                alt.logWarning(
+                    `[Group: ${groupName}] Group was updated in runtime previously. Prefer to update the code to include all the changes in the group.`,
+                );
                 return false;
             } else if (options.version && existingGroup.version && options.version <= existingGroup.version) {
                 // The version is lower than the existing version.
+                if (options.version < existingGroup.version) {
+                    alt.logWarning(
+                        `[Group: ${groupName}] Group version is lower than the version in database. Prefer to update the code to include all the changes in the group.`,
+                    );
+                }
                 return false;
             }
         }
-
         await permissionGroups.set(groupName, options);
         InternalFunctions.buildIndex();
         return true;

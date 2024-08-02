@@ -105,7 +105,7 @@ export function usePermissionProxy<T extends Document>(
         },
         clear: async (): Promise<void> => {
             const document = getter();
-            const groups = { ...(document.groups || []) };
+            const groups = document.groups || [];
             await bulkSetter({ groups: [] } as Partial<T>);
             alt.emit('permissions:group:clear', entity, groups, target);
         },
