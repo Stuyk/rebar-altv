@@ -52,6 +52,11 @@ order: 95
 -   Added `useService`
     -   Provides common APIs for common features to integrate custom functionality.
     -   Services do nothing until a library registers itself under a service.
+-   Added `useCurrencyService`
+    -   All these functions do nothing until a library is registered\
+    -   add (invoke adding currency)
+    -   sub (invoke removing currency)
+    -   has (check if has enough currency)
 -   Added `useDeathService`
     -   All these functions do nothing until a library is registered
     -   respawn (invoke a respawn)

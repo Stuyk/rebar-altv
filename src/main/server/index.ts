@@ -83,6 +83,11 @@ import { useAttachment } from './player/attachment.js';
 import { useInteractionLocal } from './controllers/interactionLocal.js';
 import { useInstructionalButtons } from './controllers/instructionalButtons.js';
 import { useHono } from './rpc/index.js';
+import { useDeathService } from './services/death.js';
+import { useCurrencyService } from './services/currency.js';
+import { useItemService } from './services/items.js';
+import { useNotificationService } from './services/notifications.js';
+import { useWorldService } from './services/world.js';
 
 export function useRebar() {
     return {
@@ -174,6 +179,13 @@ export function useRebar() {
         usePlayer,
         useProxyFetch,
         useServerConfig,
+        services: {
+            useCurrencyService,
+            useDeathService,
+            useItemService,
+            useNotificationService,
+            useWorldService,
+        },
         systems: {
             useMessenger,
             useKeybinder,
