@@ -56,7 +56,7 @@ export function useTimeService() {
             }
 
             const service = useServiceRegister().get('timeService');
-            if (service.setHour) {
+            if (service && service.setHour) {
                 service.setHour(hour);
             }
 
@@ -72,7 +72,7 @@ export function useTimeService() {
             }
 
             const service = useServiceRegister().get('timeService');
-            if (service.setMinute) {
+            if (service && service.setMinute) {
                 service.setMinute(minute);
             }
 

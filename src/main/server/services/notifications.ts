@@ -40,7 +40,7 @@ export function useNotificationService() {
                 return;
             }
 
-            if (service.emit) {
+            if (service && service.emit) {
                 service.emit(...args);
             } else {
                 args.shift();
@@ -52,7 +52,7 @@ export function useNotificationService() {
         broadcast(...args: Parameters<NotificationService['broadcast']>) {
             const service = useServiceRegister().get('notificationService');
 
-            if (service.broadcast) {
+            if (service && service.broadcast) {
                 service.broadcast(...args);
             } else {
                 for (let player of alt.Player.all) {

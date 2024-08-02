@@ -47,7 +47,7 @@ export function useWeatherService() {
             alt.setMeta('serverWeatherForecast', weathers);
             alt.emit('rebar:weatherForecastChanged', weathers);
 
-            if (service.setWeatherForecast) {
+            if (service && service.setWeatherForecast) {
                 service.setWeatherForecast(weathers);
             }
         },
@@ -57,7 +57,7 @@ export function useWeatherService() {
             alt.setMeta('serverWeather', weatherType);
             alt.emit('rebarweatherChanged', weatherType);
 
-            if (service.setWeather) {
+            if (service && service.setWeather) {
                 service.setWeather(weatherType);
             }
         },
