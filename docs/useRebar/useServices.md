@@ -248,40 +248,20 @@ Rebar.services.useNotificationService().emit(somePlayer, 'hello person!', 'info'
 
 ```ts
 Rebar.services.useServiceRegister().register('timeService', {
-    setHour(hour) {
-        // should set the server in-game hour
-    },
-    setMinute(minute) {
-        // should set the server in-game minute
-    },
-    setSecond(second) {
-        // should set the server in-game second
+    setTime(hour, minute, second) {
+        // what to do when time is set
     },
 });
 ```
 
-### setHour
+### setTime
 
-Sets the in-game server hour.
+Sets the in-game time for the whole server.
 
-```ts
-Rebar.services.useTimeService().setHour(5);
-```
-
-### setMinute
-
-Sets the in-game server minute.
+`hour`,`minute`,`second`
 
 ```ts
-Rebar.services.useTimeService().setMinute(5);
-```
-
-### setSecond
-
-Sets the in-game server second.
-
-```ts
-Rebar.services.useTimeService().setSecond(5);
+Rebar.services.useTimeService().setTime(5, 0, 0);
 ```
 
 ### getTime

@@ -81,9 +81,7 @@ order: 95
     -   emits events when notification emitted, or broadcasted
 -   Added `useTimeService`
     -   All these functions do nothing until a library is registered
-    -   setHour (set the hour for the server)
-    -   setMinute (set the minute for the server)
-    -   setSecond (set the second for the server)
+    -   setTime (set the time for the whole server)
     -   getTime (get the current time for the server)
     -   emits events when time updated by hour, minute, or second
 -   Added `useWeatherService`
