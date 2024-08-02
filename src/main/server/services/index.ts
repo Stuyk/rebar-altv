@@ -5,9 +5,9 @@ declare global {
 }
 
 const Rebar = useRebar();
-const Services: Map<keyof RebarServices, Map<string, Object>> = new Map();
+const Services: Map<keyof RebarServices, Object> = new Map();
 
-export function useServices() {
+export function useServiceRegister() {
     /**
      * Add a service handler with a service name, and service handlers
      *
@@ -17,17 +17,17 @@ export function useServices() {
      * @return
      */
     function register<K extends keyof RebarServices>(serviceName: K, serviceHandler: RebarServices[K]) {
-        if (!Services.has(serviceName)) {
-            Services.set(serviceName, new Map());
+        if (Services.has(serviceName)) {
+            throw new Error(
+                `Service ${serviceName} is already registered. Services should only have one library handler.`,
+            );
         }
 
-        const servicesList = Services.get(serviceName);
-        const uid = Rebar.utility.uid.generate();
-        servicesList.set(uid, serviceHandler);
+        Services.set(serviceName, serviceHandler);
 
         return {
             remove: () => {
-                remove(serviceName, uid);
+                remove(serviceName);
             },
         };
     }
@@ -40,17 +40,12 @@ export function useServices() {
      * @param {string} uid
      * @return
      */
-    function remove<K extends keyof RebarServices>(serviceName: K, uid: string) {
+    function remove<K extends keyof RebarServices>(serviceName: K) {
         if (!Services.has(serviceName)) {
             return;
         }
 
-        const servicesList = Services.get(serviceName);
-        if (!servicesList.has(uid)) {
-            return;
-        }
-
-        servicesList.delete(uid);
+        Services.delete(serviceName);
     }
 
     /**
@@ -62,10 +57,10 @@ export function useServices() {
      */
     function get<K extends keyof RebarServices>(serviceName: K) {
         if (!Services.has(serviceName)) {
-            return [] as Partial<RebarServices[K]>[];
+            return undefined as Partial<RebarServices[K]>;
         }
 
-        return [...Services.get(serviceName).values()] as Partial<RebarServices[K]>[];
+        return Services.get(serviceName) as Partial<RebarServices[K]>;
     }
 
     return {

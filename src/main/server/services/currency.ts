@@ -1,5 +1,5 @@
 import * as alt from 'alt-server';
-import { useServices } from './index.js';
+import { useServiceRegister } from './index.js';
 
 export interface CurrencyService {
     /**
@@ -7,26 +7,26 @@ export interface CurrencyService {
      *
      * @memberof CurrencyService
      */
-    add: (player: alt.Player, type: string, quantity: number) => void;
+    add: (player: alt.Player, type: string, quantity: number) => Promise<boolean>;
 
     /**
      * Called when you want to remove a currency from a player
      *
      * @memberof CurrencyService
      */
-    sub: (player: alt.Player, type: string, quantity: number) => void;
+    sub: (player: alt.Player, type: string, quantity: number) => Promise<boolean>;
 
     /**
      * Called when you want to check if the player has enough currency
      *
      * @memberof CurrencyService
      */
-    has: (player: alt.Player, type: string, quantity: number) => boolean;
+    has: (player: alt.Player, type: string, quantity: number) => Promise<boolean>;
 }
 
 declare global {
     interface RebarServices {
-        currencyService: Partial<CurrencyService>;
+        currencyService: CurrencyService;
     }
 }
 
@@ -40,55 +40,38 @@ declare module 'alt-server' {
 export function useCurrencyService() {
     return {
         add(...args: Parameters<CurrencyService['add']>) {
-            const services = useServices().get('currencyService');
-            if (services.length <= 0) {
-                return;
-            }
-
-            for (let service of services) {
-                if (typeof service.add !== 'function') {
-                    continue;
-                }
-
-                service.add(...args);
-            }
-
-            alt.emit('playerCurrencyAdd', ...args);
-        },
-        sub(...args: Parameters<CurrencyService['sub']>) {
-            const services = useServices().get('currencyService');
-            if (services.length <= 0) {
-                return;
-            }
-
-            for (let service of services) {
-                if (typeof service.sub !== 'function') {
-                    continue;
-                }
-
-                service.sub(...args);
-            }
-
-            alt.emit('playerCurrencySub', ...args);
-        },
-        has(...args: Parameters<CurrencyService['has']>) {
-            const services = useServices().get('currencyService');
-            if (services.length <= 0) {
+            const service = useServiceRegister().get('currencyService');
+            if (!service || !service.add) {
                 return false;
             }
 
-            for (let service of services) {
-                if (typeof service.sub !== 'function') {
-                    continue;
-                }
-
-                const result = service.has(...args);
-                if (!result) {
-                    return false;
-                }
+            const result = service.add(...args);
+            if (result) {
+                alt.emit('playerCurrencyAdd', ...args);
             }
 
-            return true;
+            return result;
+        },
+        sub(...args: Parameters<CurrencyService['sub']>) {
+            const service = useServiceRegister().get('currencyService');
+            if (!service || !service.sub) {
+                return false;
+            }
+
+            const result = service.sub(...args);
+            if (result) {
+                alt.emit('playerCurrencySub', ...args);
+            }
+
+            return result;
+        },
+        has(...args: Parameters<CurrencyService['has']>) {
+            const service = useServiceRegister().get('currencyService');
+            if (!service || !service.has) {
+                return false;
+            }
+
+            return service.has(...args);
         },
     };
 }

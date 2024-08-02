@@ -1,64 +1,46 @@
 import * as alt from 'alt-server';
-import { useServices } from './index.js';
-import { Weathers } from '../../shared/data/weathers.js';
+import { useServiceRegister } from './index.js';
+import { Weathers } from '@Shared/data/weathers.js';
 
 const DEFAULT_TIME = { hour: 8, minute: 0, second: 0 };
 const DEFAULT_WEATHER: Weathers = 'EXTRASUNNY';
 const DEFAULT_WEATHER_FORECAST: Weathers[] = ['EXTRASUNNY', 'CLOUDS', 'RAIN', 'THUNDER', 'CLOUDS', 'CLEARING'];
 
-export interface WorldService {
+export interface TimeService {
     /**
      * Set the current hour in the server
      *
-     * @memberof WorldService
+     * @memberof TimeService
      */
     setHour: (hour: number) => void;
 
     /**
      * Set the current minute in the server
      *
-     * @memberof WorldService
+     * @memberof TimeService
      */
     setMinute: (minute: number) => void;
 
     /**
      * Set the current second in the server
      *
-     * @memberof WorldService
+     * @memberof TimeService
      */
     setSecond: (second: number) => void;
-
-    /**
-     * Set the current weather for a player
-     *
-     * @memberof WorldService
-     */
-    setWeather: (type: Weathers) => void;
-
-    /**
-     * Set the current weather forecast
-     *
-     * @memberof WorldService
-     */
-    setWeatherForecast: (type: Weathers[]) => void;
 }
 
 declare global {
     interface RebarServices {
-        worldService: WorldService;
+        timeService: TimeService;
     }
 }
 
 declare module 'alt-server' {
     export interface ICustomGlobalMeta {
         serverTime: { hour: number; minute: number; second: number };
-        serverWeather: Weathers;
-        serverWeatherForecast: Weathers[];
     }
 
     export interface ICustomEmitEvent {
-        weatherForecastChanged: (weather: Weathers[]) => void;
-        weatherChanged: (weather: Weathers) => void;
         timeChanged: (hour: number, minute: number, second: number) => void;
         timeSecondChanged: (minute: number) => void;
         timeMinuteChanged: (minute: number) => void;
@@ -66,19 +48,15 @@ declare module 'alt-server' {
     }
 }
 
-export function useWorldService(): WorldService {
+export function useTimeService() {
     return {
         setHour(hour: number) {
             if (hour >= 24) {
                 hour = 0;
             }
 
-            const services = useServices().get('worldService');
-            for (let service of services) {
-                if (typeof service.setHour !== 'function') {
-                    continue;
-                }
-
+            const service = useServiceRegister().get('timeService');
+            if (service.setHour) {
                 service.setHour(hour);
             }
 
@@ -92,12 +70,8 @@ export function useWorldService(): WorldService {
                 minute = 0;
             }
 
-            const services = useServices().get('worldService');
-            for (let service of services) {
-                if (typeof service.setMinute !== 'function') {
-                    continue;
-                }
-
+            const service = useServiceRegister().get('timeService');
+            if (service.setMinute) {
                 service.setMinute(minute);
             }
 
@@ -112,12 +86,8 @@ export function useWorldService(): WorldService {
                 second = 0;
             }
 
-            const services = useServices().get('worldService');
-            for (let service of services) {
-                if (typeof service.setSecond !== 'function') {
-                    continue;
-                }
-
+            const service = useServiceRegister().get('timeService');
+            if (service.setSecond) {
                 service.setSecond(second);
             }
 
@@ -127,31 +97,8 @@ export function useWorldService(): WorldService {
             alt.emit('timeSecondChanged', second);
             alt.emit('timeChanged', time.hour, time.minute, time.second);
         },
-        setWeatherForecast(weathers: Weathers[]) {
-            const services = useServices().get('worldService');
-            for (let service of services) {
-                if (typeof service.setWeatherForecast !== 'function') {
-                    continue;
-                }
-
-                service.setWeatherForecast(weathers);
-            }
-
-            alt.setMeta('serverWeatherForecast', weathers);
-            alt.emit('weatherForecastChanged', weathers);
-        },
-        setWeather(weatherType: Weathers) {
-            const services = useServices().get('worldService');
-            for (let service of services) {
-                if (typeof service.setWeather !== 'function') {
-                    continue;
-                }
-
-                service.setWeather(weatherType);
-            }
-
-            alt.setMeta('serverWeather', weatherType);
-            alt.emit('weatherChanged', weatherType);
+        getTime() {
+            return alt.getMeta('serverTime');
         },
     };
 }

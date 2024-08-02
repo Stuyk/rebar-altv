@@ -87,7 +87,9 @@ import { useDeathService } from './services/death.js';
 import { useCurrencyService } from './services/currency.js';
 import { useItemService } from './services/items.js';
 import { useNotificationService } from './services/notifications.js';
-import { useWorldService } from './services/world.js';
+import { useTimeService } from './services/time.js';
+import { useWeatherService } from './services/weather.js';
+import { useServiceRegister } from './services/index.js';
 
 export function useRebar() {
     return {
@@ -184,7 +186,9 @@ export function useRebar() {
             useDeathService,
             useItemService,
             useNotificationService,
-            useWorldService,
+            useServiceRegister,
+            useTimeService,
+            useWeatherService,
         },
         systems: {
             useMessenger,

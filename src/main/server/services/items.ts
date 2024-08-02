@@ -1,5 +1,5 @@
 import * as alt from 'alt-server';
-import { useServices } from './index.js';
+import { useServiceRegister } from './index.js';
 
 export interface ItemService {
     /**
@@ -35,7 +35,7 @@ export interface ItemService {
 
 declare global {
     interface RebarServices {
-        itemService: Partial<ItemService>;
+        itemService: ItemService;
     }
 }
 
@@ -47,88 +47,56 @@ declare module 'alt-server' {
     }
 }
 
-export function useItemService(): ItemService {
+export function useItemService() {
     async function add(...args: Parameters<ItemService['add']>) {
-        const services = useServices().get('itemService');
-        if (services.length <= 0) {
+        const service = useServiceRegister().get('itemService');
+        if (!service || !service.add) {
             return false;
         }
 
-        for (let service of services) {
-            if (typeof service.add !== 'function') {
-                continue;
-            }
-
-            const result = await service.add(...args);
-            if (!result) {
-                return false;
-            }
+        const result = await service.add(...args);
+        if (result) {
+            alt.emit('playerItemAdd', ...args);
         }
 
-        alt.emit('playerItemAdd', ...args);
-        return true;
+        return result;
     }
 
     async function sub(...args: Parameters<ItemService['sub']>) {
-        const services = useServices().get('itemService');
-        if (services.length <= 0) {
+        const service = useServiceRegister().get('itemService');
+        if (!service || !service.sub) {
             return false;
         }
 
-        for (let service of services) {
-            if (typeof service.sub !== 'function') {
-                continue;
-            }
-
-            const result = await service.sub(...args);
-            if (!result) {
-                return false;
-            }
+        const result = await service.sub(...args);
+        if (result) {
+            alt.emit('playerItemSub', ...args);
         }
 
-        alt.emit('playerItemSub', ...args);
-        return true;
+        return result;
     }
 
     async function has(...args: Parameters<ItemService['has']>) {
-        const services = useServices().get('itemService');
-        if (services.length <= 0) {
+        const service = useServiceRegister().get('itemService');
+        if (!service || !service.has) {
             return false;
         }
 
-        for (let service of services) {
-            if (typeof service.has !== 'function') {
-                continue;
-            }
-
-            const result = await service.has(...args);
-            if (!result) {
-                return false;
-            }
-        }
-
-        return true;
+        return await service.has(...args);
     }
 
     async function remove(...args: Parameters<ItemService['remove']>) {
-        const services = useServices().get('itemService');
-        if (services.length <= 0) {
+        const service = useServiceRegister().get('itemService');
+        if (!service || !service.remove) {
             return false;
         }
 
-        for (let service of services) {
-            if (typeof service.remove !== 'function') {
-                continue;
-            }
-
-            const result = await service.remove(...args);
-            if (!result) {
-                return false;
-            }
+        const result = await service.remove(...args);
+        if (result) {
+            alt.emit('playerItemRemove', ...args);
         }
 
-        alt.emit('playerItemRemove', ...args);
-        return true;
+        return result;
     }
 
     return {

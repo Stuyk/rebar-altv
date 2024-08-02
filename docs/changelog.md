@@ -49,7 +49,7 @@ order: 95
 -   Changed `Account` from `type` to `interface`
 -   Moved `Page Events` to `pageSystem` to keep functionality working
 -   Made it so emitting notifications from server-side defaults to a GTA:V Notification, until a library is added
--   Added `useService`
+-   Added `useServiceRegister`
     -   Provides common APIs for common features to integrate custom functionality.
     -   Services do nothing until a library registers itself under a service.
 -   Added `useCurrencyService`
@@ -75,13 +75,17 @@ order: 95
     -   All these functions do nothing until a library is registered
     -   emit (invoke a message send)
     -   broadcast (invoke a message send, to all players)
--   Added `useWorldService`
+-   Added `useTimeService`
     -   All these functions do nothing until a library is registered
     -   setHour (set the hour for the server)
     -   setMinute (set the minute for the server)
     -   setSecond (set the second for the server)
+    -   getTime (get the current time for the server)
+-   Added `useWeatherService`
     -   setWeather (set the weather for the server)
     -   setWeatherForecast (set weather forecast for the server)
+    -   getWeather (get the current weather for the server)
+    -   getWeatherForecast (get weather forecast for the server)
 -   Added Custom alt.getMeta Keys for...
     -   serverTime
     -   serverWeather
@@ -103,6 +107,8 @@ order: 95
 ### Docs Changes
 
 -   Document `getWeapons` and update documentation for `useWeapon` for the player
+-   Document all services under `useService`
+-   Document all event changes, and update events page
 
 ---
 

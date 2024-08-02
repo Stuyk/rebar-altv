@@ -2,9 +2,11 @@
 order: 700
 ---
 
-# useEvents
+# events
 
 These events are unique to the Rebar framework, and help provide information about when something happens.
+
+A lot of these events can only be invoked by using the [Services](./useServices.md) functionality.
 
 ## Usage
 
@@ -14,66 +16,122 @@ import { useRebar } from '@Server/index.js';
 const RebarEvents = useRebar().events.useEvents();
 
 // Called when an account is bound to a player
-RebarEvents.on('account-bound', (player, document) => {
+
+// Called when an account is bound to a player
+alt.on('playerAccountBound', (player, document) => {
     console.log(document);
 });
 
 // Called when a character is bound to a player
-RebarEvents.on('character-bound', (player, document) => {
+alt.on('playerCharacterBound', (player, document) => {
     console.log(document);
 });
 
 // Called when a vehicle document is bound to a vehicle
-RebarEvents.on('vehicle-bound', (vehicle, document) => {
+alt.on('vehicleBound', (vehicle, document) => {
     console.log(document);
 });
 
 // Called when a player sends a message
-RebarEvents.on('message', (player, msg) => {
+alt.on('playerSendMessage', (player, msg) => {
     console.log(msg);
 });
 
 // Called whenever the time changes
-RebarEvents.on('time-changed', (hour, minute, second) => {
+alt.on('timeChanged', (hour, minute, second) => {
     console.log(hour, minute, second);
 });
 
 // Called whenever the hour increments by 1
-RebarEvents.on('time-hour-changed', (hour) => {
+alt.on('timeHourChanged', (hour) => {
     console.log(hour);
 });
 
 // Called whenever the minute increments by 1
-RebarEvents.on('time-minute-changed', (minute) => {
+alt.on('timeMinuteChanged', (minute) => {
     console.log(minute);
 });
 
 // Called whenever the second increments by 1
-RebarEvents.on('time-second-changed', (second) => {
+alt.on('timeSecondChanged', (second) => {
     console.log(second);
 });
 
 // Called when a page is opened
-RebarEvents.on('page-opened', (player, pageName) => {
+alt.on('playerPageOpened', (player, pageName) => {
     console.log('page opened');
     console.log(pageName);
 });
 
 // Called when a page is closed
-RebarEvents.on('page-closed', (player, pageName) => {
+alt.on('playerPageClosed', (player, pageName) => {
     console.log('page closed');
     console.log(pageName);
+});
+
+// Called when currency is added to a player
+alt.on('playerCurrencyAdd', (player, type, quantity) => {
+    console.log(`Added ${type} of ${quantity}`);
+});
+
+// Called when currency is added to a player
+alt.on('playerCurrencySub', (player, type, quantity) => {
+    console.log(`Subtracted ${type} of ${quantity}`);
+});
+
+// Called when server weather is changed
+alt.on('weatherChanged', (weather) => {
+    console.log(`Weather is now ${weather}`);
+});
+
+// Called when a door is locked
+alt.on('doorLocked', (uid, initiator: alt.Player) => {
+    console.log(`Door ${uid} was locked...`);
+});
+
+// Called when a door is locked
+alt.on('doorUnlocked', (uid, initiator: alt.Player | null) => {
+    console.log(`Door ${uid} was unlocked...`);
+});
+
+// Called when a notification is emitted to a player
+alt.on('playerEmitNotification', (player, msg, type) => {
+    console.log(msg);
+});
+
+// Called when a notification is broadcast to all players
+alt.on('broadcastNotification', (msg, type) => {
+    console.log(msg);
+});
+
+// Called when the server invokes a respawn for a given player
+alt.on('playerRespawn', (player, pos) => {
+    console.log(`Respawning player...`);
+});
+
+// Called when the server invokes a revive for a given player in the same position
+alt.on('playerRevive', (player) => {
+    console.log(`Reviving player in position...`);
+});
+
+// Called when the server invokes the hot reload functionality
+// 99% of devs will not be using this
+alt.on('rpcRestart', () => {
+    console.log(`Invoked when hot reload is invoked...`);
 });
 ```
 
 ## Custom Events
 
-You can declare global custom events in your plugin like this.
+You can declare custom `alt.on` events in your plugin like this.
+
+You can invoke them with `alt.emit`.
 
 ```ts
-declare global {
-    export interface RebarEvents {
-        'character-select-done': (player: alt.Player) => void;
+declare module 'alt-server' {
+    export interface ICustomEmitEvent {
+        weatherForecastChanged: (weather: Weathers[]) => void;
+        weatherChanged: (weather: Weathers) => void;
     }
 }
 ```

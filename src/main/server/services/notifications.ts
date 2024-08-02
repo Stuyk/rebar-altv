@@ -1,6 +1,6 @@
 import * as alt from 'alt-server';
-import { useServices } from './index.js';
-import { Events } from '../../shared/events/index.js';
+import { useServiceRegister } from './index.js';
+import { Events } from '@Shared/events/index.js';
 
 export interface NotificationService {
     /**
@@ -20,7 +20,7 @@ export interface NotificationService {
 
 declare global {
     interface RebarServices {
-        notificationService: Partial<NotificationService>;
+        notificationService: NotificationService;
     }
 }
 
@@ -34,20 +34,14 @@ declare module 'alt-server' {
 export function useNotificationService() {
     return {
         emit(...args: Parameters<NotificationService['emit']>) {
-            const services = useServices().get('notificationService');
+            const service = useServiceRegister().get('notificationService');
             const player = args[0];
             if (!player || !player.valid) {
                 return;
             }
 
-            if (services.length <= 1) {
-                for (let service of services) {
-                    if (typeof service.emit !== 'function') {
-                        continue;
-                    }
-
-                    service.emit(...args);
-                }
+            if (service.emit) {
+                service.emit(...args);
             } else {
                 args.shift();
                 player.emit(Events.player.notify.notification.create, ...args);
@@ -56,16 +50,10 @@ export function useNotificationService() {
             alt.emit('playerEmitNotification', ...args);
         },
         broadcast(...args: Parameters<NotificationService['broadcast']>) {
-            const services = useServices().get('notificationService');
+            const service = useServiceRegister().get('notificationService');
 
-            if (services.length >= 1) {
-                for (let service of services) {
-                    if (typeof service.broadcast !== 'function') {
-                        continue;
-                    }
-
-                    service.broadcast(...args);
-                }
+            if (service.broadcast) {
+                service.broadcast(...args);
             } else {
                 for (let player of alt.Player.all) {
                     player.emit(Events.player.notify.notification.create, ...args);
