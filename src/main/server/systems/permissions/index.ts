@@ -1,15 +1,28 @@
-import {usePlainPermission, type PlainPermissionOptions} from "@Server/systems/permissions/plainPermissions.js";
+import * as alt from 'alt-server';
+import {usePlainPermission} from "@Server/systems/permissions/plainPermissions.js";
 import {usePermissionGroup} from "@Server/systems/permissions/groupPermissions.js";
 import {PermissionsDocumentMixin, GroupsDocumentMixin} from "@Shared/types/index.js";
-import {objectData} from "@Shared/utility/clone.js";
 
+type DocumentGetterResult<T> = T | undefined;
 type Document = PermissionsDocumentMixin & GroupsDocumentMixin;
-type DocumentGetter<T extends Document> = () => T | undefined;
-type DocumentBulkSetter<T extends Document> = (fields: Partial<T>) => Promise<void>;
+type DocumentGetter<T extends Document> = () => DocumentGetterResult<T>;
+type DocumentBulkSetter<T extends Document> = (fields: Partial<T>) => Promise<any>;
+
+declare module 'alt-server' {
+    export interface ICustomEmitEvent {
+        ['permissions:grant']: (entity: alt.Player, permission: string) => void;
+        ['permissions:revoke']: (entity: alt.Player, permission: string) => void;
+        ['permissions:clear']: (entity: alt.Player, removedPermissions: string[]) => void;
+        ['permissions:group:add']: (entity: alt.Player, groupName: string) => void;
+        ['permissions:group:remove']: (entity: alt.Player, groupName: string) => void;
+        ['permissions:group:clear']: (entity: alt.Player, removedGroups: string[]) => void;
+    }
+}
 
 export function usePermissionProxy<T extends Document>(
     getter: DocumentGetter<T>,
-    bulkSetter: DocumentBulkSetter<T>
+    bulkSetter: DocumentBulkSetter<T>,
+    entity: alt.Player = undefined,
 ) {
     const permissionsList = (): string[] => {
         const document = getter();
@@ -20,33 +33,36 @@ export function usePermissionProxy<T extends Document>(
     }
 
     const permissions = {
-        grant: async (permission: string, options: PlainPermissionOptions = undefined): Promise<boolean> => {
+        grant: async (permission: string): Promise<boolean> => {
             const document = getter();
-            const [granted, values] = usePlainPermission<T>(document).grant(permission, options);
-            if (!granted) return false;
-            await bulkSetter(values as Partial<T>);
-            return granted;
+            const _permissions = usePlainPermission<T>(document).grant(permission);
+            if (!_permissions) return false;
+            await bulkSetter(_permissions as Partial<T>);
+            if (entity) {
+                alt.emit('permissions:grant', entity, permission);
+            }
+            return true;
         },
         revoke: async (permission: string): Promise<boolean> => {
             const document = getter();
-            const [revoked, values] = usePlainPermission<T>(document).revoke(permission);
-            if (!revoked) return false;
-            await bulkSetter(values as Partial<T>);
-            return revoked;
+            const _permissions = usePlainPermission<T>(document).revoke(permission);
+            if (!_permissions) return false;
+            await bulkSetter(_permissions as Partial<T>);
+            if (entity) {
+                alt.emit('permissions:revoke', entity, permission);
+            }
+            return true;
         },
         clear: async (): Promise<void> => {
-            return await bulkSetter({permissions: [], permissionsMeta: {}} as Partial<T>);
+            const document = getter();
+            const permissions = [...(document.permissions || [])];
+            await bulkSetter({permissions: []} as Partial<T>);
+            alt.emit('permissions:clear', entity, permissions);
         },
         list: permissionsList,
         has: (permission: string): boolean => {
-            const document = getter();
-            const hasPlainPermission = usePlainPermission(document).check(permission);
-            if (hasPlainPermission) return true;
-            if (!document.groups) return false;
-            for (const group of document.groups) {
-                if (usePermissionGroup().groupHasPermission(group, permission)) return true;
-            }
-            return false;
+            const permissions = permissionsList();
+            return permissions.includes(permission);
         },
         hasAll: (permissions: string[]): boolean => {
             const permissionsToCheck = permissionsList();
@@ -64,17 +80,6 @@ export function usePermissionProxy<T extends Document>(
             }
             return false;
         },
-        removeExpiredPermissions: async (): Promise<void> => {
-            const document = getter();
-            const expiredPermissions = usePlainPermission(document).getExpired();
-            if (expiredPermissions.length === 0) return;
-            const newPermissions = document.permissions.filter((permission) => !expiredPermissions.includes(permission));
-            const newPermissionsMeta = objectData(document.permissionsMeta);
-            for (const permission of expiredPermissions) {
-                delete newPermissionsMeta[permission];
-            }
-            await bulkSetter({permissions: newPermissions, permissionsMeta: newPermissionsMeta} as Partial<T>);
-        }
     };
 
     const groups = {
@@ -84,6 +89,7 @@ export function usePermissionProxy<T extends Document>(
             else if (document.groups.includes(groupName)) return false;
             document.groups.push(groupName);
             await bulkSetter({groups: document.groups} as Partial<T>);
+            alt.emit('permissions:group:add', entity, groupName);
             return true;
         },
         remove: async (groupName: string): Promise<boolean> => {
@@ -91,13 +97,18 @@ export function usePermissionProxy<T extends Document>(
             if (!document.groups || !document.groups.includes(groupName)) return false;
             document.groups = document.groups.filter((group) => group !== groupName);
             await bulkSetter({groups: document.groups} as Partial<T>);
+            alt.emit('permissions:group:remove', entity, groupName);
             return true;
         },
-        set: async (groupNames: string[]): Promise<void> => {
-            return await bulkSetter({groups: groupNames} as Partial<T>);
-        },
         clear: async (): Promise<void> => {
-            return await bulkSetter({groups: []} as Partial<T>);
+            const document = getter();
+            const groups = {...(document.groups || [])};
+            await bulkSetter({groups: []} as Partial<T>);
+            alt.emit('permissions:group:clear', entity, groups);
+        },
+        list: (): string[] => {
+            const document = getter();
+            return document.groups || [];
         },
         memberOf: (groupName: string): boolean => {
             const document = getter();
