@@ -1,5 +1,5 @@
 import * as alt from 'alt-server';
-import {MongoClient, Db, InsertOneResult, ObjectId, AggregateOptions} from 'mongodb';
+import {MongoClient, Db, InsertOneResult, ObjectId, AggregateOptions, UpdateFilter} from 'mongodb';
 import * as Utility from '@Shared/utility/index.js';
 import {CollectionNames} from '../document/shared.js';
 import {useConfig} from '@Server/config/index.js';
@@ -124,6 +124,25 @@ export function useDatabase() {
                 .collection(collection)
                 .findOneAndUpdate({_id: ObjectId.createFromHexString(data._id)}, {$set: dataClone});
             return result.ok ? true : false;
+        } catch (err) {
+            return false;
+        }
+    }
+
+    /**
+     * Update many documents by a filter.
+     *
+     * @export
+     * @template T
+     * @param {T} filter
+     * @param {UpdateFilter<any>} update
+     * @param {string} collection
+     */
+    async function updateMany<T extends { [key: string]: any }>(filter: T, update: UpdateFilter<T>, collection: string): Promise<boolean> {
+        const client = await getClient();
+        try {
+            const result = await client.collection(collection).updateMany(filter, update);
+            return result.acknowledged;
         } catch (err) {
             return false;
         }
@@ -327,6 +346,7 @@ export function useDatabase() {
         isConnected() {
             return isConnected;
         },
+        updateMany,
         update,
         aggregate,
         unset,

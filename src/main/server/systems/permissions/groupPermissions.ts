@@ -1,4 +1,9 @@
+import * as alt from 'alt-server';
 import {useGlobal} from '@Server/document/global.js';
+import {usePlayersGetter} from "@Server/getters/players.js";
+import {useAccount, useCharacter} from "@Server/document/index.js";
+import {useDatabase} from "@Server/database/index.js";
+import {CollectionNames} from "@Server/document/shared.js";
 
 interface PermissionGroup {
     permissions: Array<string>;
@@ -13,7 +18,7 @@ interface PermissionGroupConfig {
 let initialized = false;
 let permissionGroups;
 const permissionIndex: Map<string, Set<string>> = new Map();
-
+const database = useDatabase();
 
 class InternalFunctions {
     static addPermissionsToSet(groupName: string, permissions: Set<string>, visited: Set<string> = new Set()) {
@@ -67,7 +72,28 @@ export function usePermissionGroup() {
             return false;
         }
         await permissionGroups.unset(groupName);
+
         InternalFunctions.buildIndex();
+
+        // Remove the group from all accounts that are online.
+        const accountPromises = usePlayersGetter().memberOfGroup('account', groupName).map(async (player: alt.Player) => {
+            const account = useAccount(player);
+            await account.groups.remove(groupName);
+        });
+
+        // Remove the group from all characters that are online.
+        const characterPromises = usePlayersGetter().memberOfGroup('character', groupName).map(async (player: alt.Player) => {
+            const character = useCharacter(player);
+            await character.groups.remove(groupName);
+        });
+
+        await Promise.all([
+            ...accountPromises, ...characterPromises,
+            // Remove the group from all accounts that are offline.
+            database.updateMany({groups: groupName}, {$pull: {groups: groupName}}, CollectionNames.Accounts),
+            // Remove the group from all characters that are offline.
+            database.updateMany({groups: groupName}, {$pull: {groups: groupName}}, CollectionNames.Characters),
+        ]);
         return true;
     }
 
