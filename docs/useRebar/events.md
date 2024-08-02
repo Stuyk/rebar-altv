@@ -131,6 +131,26 @@ alt.on('rebar:playerRevive', (player) => {
 alt.on('rebar:rpcRestart', () => {
     console.log(`Invoked when hot reload is invoked...`);
 });
+
+// Called when any field in the character document is updated for a player
+alt.on('rebar:playerCharacterUpdated', (player, fieldName, value) => {
+    if (fieldName !== 'armour') {
+        return;
+    }
+});
+// Called when any field in the account document is updated for a player
+alt.on('rebar:playerAccountUpdated', (player, fieldName, value) => {
+    if (fieldName !== 'email') {
+        return;
+    }
+});
+
+// Called when any field in the vehicle document is updated for a vehicle
+alt.on('rebar:vehicleUpdated', (vehicle, fieldName, value) => {
+    if (fieldName !== 'fuel') {
+        return;
+    }
+});
 ```
 
 ## Custom Events

@@ -10,6 +10,11 @@ import { usePermissionProxy } from '@Server/systems/permissionProxy.js';
 declare module 'alt-server' {
     export interface ICustomEmitEvent {
         'rebar:playerCharacterBound': (player: alt.Player, document: Character) => void;
+        'rebar:playerCharacterUpdated': <K extends keyof Character>(
+            player: alt.Player,
+            fieldName: K,
+            value: Character[K],
+        ) => void;
     }
 }
 
@@ -91,6 +96,8 @@ export function useCharacter(player: alt.Player) {
         player.setMeta(sessionKey, data);
         await db.update({ _id: data._id, [typeSafeFieldName]: value }, CollectionNames.Characters);
 
+        alt.emit('rebar:playerCharacterUpdated', player, fieldName, value);
+
         if (typeof callbacks[typeSafeFieldName] === 'undefined') {
             return;
         }
@@ -130,6 +137,8 @@ export function useCharacter(player: alt.Player) {
         await db.update({ _id: data._id, ...fields }, CollectionNames.Characters);
 
         Object.keys(fields).forEach((key) => {
+            alt.emit('rebar:playerCharacterUpdated', player, key as keyof Character, data[key]);
+
             if (typeof callbacks[key] === 'undefined') {
                 return;
             }
@@ -285,28 +294,5 @@ export function useCharacterBinder(player: alt.Player, syncPlayer = true) {
     return {
         bind,
         unbind,
-    };
-}
-
-export function useCharacterEvents() {
-    /**
-     * Listen for individual player document changes.
-     *
-     * @param {string} fieldName
-     * @param {KeyChangeCallback} callback
-     * @return {void}
-     */
-    function on<T = {}>(fieldName: keyof KnownKeys<Character & T>, callback: KeyChangeCallback) {
-        const actualFieldName = String(fieldName);
-
-        if (typeof callbacks[actualFieldName] === 'undefined') {
-            callbacks[actualFieldName] = [callback];
-        } else {
-            callbacks[actualFieldName].push(callback);
-        }
-    }
-
-    return {
-        on,
     };
 }

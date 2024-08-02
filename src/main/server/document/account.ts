@@ -11,6 +11,11 @@ import { usePermissionProxy } from '@Server/systems/permissionProxy.js';
 declare module 'alt-server' {
     export interface ICustomEmitEvent {
         'rebar:playerAccountBound': (player: alt.Player, document: Account) => void;
+        'rebar:playerAccountUpdated': <K extends keyof Account>(
+            player: alt.Player,
+            fieldName: K,
+            value: Account[K],
+        ) => void;
     }
 }
 
@@ -92,6 +97,8 @@ export function useAccount(player: alt.Player) {
         player.setMeta(sessionKey, data);
         await db.update({ _id: data._id, [typeSafeFieldName]: value }, CollectionNames.Accounts);
 
+        alt.emit('rebar:playerAccountUpdated', player, fieldName, value);
+
         if (typeof callbacks[typeSafeFieldName] === 'undefined') {
             return;
         }
@@ -131,6 +138,8 @@ export function useAccount(player: alt.Player) {
         await db.update({ _id: data._id, ...fields }, CollectionNames.Accounts);
 
         Object.keys(fields).forEach((key) => {
+            alt.emit('rebar:playerAccountUpdated', player, key as keyof Account, data[key]);
+
             if (typeof callbacks[key] === 'undefined') {
                 return;
             }
@@ -297,28 +306,5 @@ export function useAccountBinder(player: alt.Player) {
     return {
         bind,
         unbind,
-    };
-}
-
-export function useAccountEvents() {
-    /**
-     * Listen for individual player document changes.
-     *
-     * @param {string} fieldName
-     * @param {KeyChangeCallback} callback
-     * @return {void}
-     */
-    function on<T = {}>(fieldName: keyof KnownKeys<Account & T>, callback: KeyChangeCallback) {
-        const actualFieldName = String(fieldName);
-
-        if (typeof callbacks[actualFieldName] === 'undefined') {
-            callbacks[actualFieldName] = [callback];
-        } else {
-            callbacks[actualFieldName].push(callback);
-        }
-    }
-
-    return {
-        on,
     };
 }

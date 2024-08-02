@@ -20,15 +20,12 @@ import { useDatabase } from './database/index.js';
 import {
     useAccount,
     useAccountBinder,
-    useAccountEvents,
     useCharacter,
     useCharacterBinder,
-    useCharacterEvents,
     useGlobal,
     useIncrementalId,
     useVehicleBinder,
     useVehicle as useVehicleDocument,
-    useVehicleEvents,
     useVirtual,
 } from './document/index.js';
 
@@ -126,12 +123,10 @@ export function useRebar() {
             account: {
                 useAccount,
                 useAccountBinder,
-                useAccountEvents,
             },
             character: {
                 useCharacter,
                 useCharacterBinder,
-                useCharacterEvents,
             },
             global: {
                 useGlobal,
@@ -139,7 +134,6 @@ export function useRebar() {
             vehicle: {
                 useVehicle: useVehicleDocument,
                 useVehicleBinder,
-                useVehicleEvents,
             },
             virtual: {
                 useVirtual,

@@ -8,6 +8,8 @@ order: 95
 
 ### Breaking Changes
 
+-   Removed `useVehicleEvents`, `useCharacterEvents`, and `useAccountEvents`
+    -   Replaced with `alt.on('rebar:vehicleUpdated')`, `alt.on('rebar:playerCharacterUpdated')`, and `alt.on('rebar:playerAccountUpdated')`.
 -   Removed alt.getMeta for Rebar Imports
     -   This likely doesn't effect anyone
 -   Removed `useServerTime`
@@ -59,35 +61,37 @@ order: 95
     -   add (invoke adding currency)
     -   sub (invoke removing currency)
     -   has (check if has enough currency)
+    -   emits events when currency added or subtracted
 -   Added `useDeathService`
     -   All these functions do nothing until a library is registered
     -   respawn (invoke a respawn)
     -   revive (invoke a revive, in place)
+    -   emits events when respawned, or revived
 -   Added `useItemService`
     -   All these functions do nothing until a library is registered
     -   add (invoke an item add)
     -   sub (invoke an item subtraction)
     -   remove (invoke an item remove)
     -   has (invoke if player has an item)
+    -   emits events when items added, subtracted, or removed
 -   Added `useNotificationService`
     -   All these functions do nothing until a library is registered
     -   emit (invoke a notification send)
     -   broadcast (invoke a notification send, to all players)
--   Added `useMessageService`
-    -   All these functions do nothing until a library is registered
-    -   emit (invoke a message send)
-    -   broadcast (invoke a message send, to all players)
+    -   emits events when notification emitted, or broadcasted
 -   Added `useTimeService`
     -   All these functions do nothing until a library is registered
     -   setHour (set the hour for the server)
     -   setMinute (set the minute for the server)
     -   setSecond (set the second for the server)
     -   getTime (get the current time for the server)
+    -   emits events when time updated by hour, minute, or second
 -   Added `useWeatherService`
     -   setWeather (set the weather for the server)
     -   setWeatherForecast (set weather forecast for the server)
     -   getWeather (get the current weather for the server)
     -   getWeatherForecast (get weather forecast for the server)
+    -   emits events when weather updated, or forecast updated
 -   Added Custom alt.getMeta Keys for...
     -   serverTime
     -   serverWeather

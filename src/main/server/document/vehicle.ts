@@ -7,6 +7,11 @@ import { useRebar } from '../index.js';
 declare module 'alt-server' {
     export interface ICustomEmitEvent {
         'rebar:vehicleBound': (vehicle: alt.Vehicle, document: VehicleDocument) => void;
+        'rebar:vehicleUpdated': <K extends keyof VehicleDocument>(
+            vehicle: alt.Vehicle,
+            fieldName: K,
+            value: VehicleDocument[K],
+        ) => void;
     }
 }
 
@@ -89,6 +94,8 @@ export function useVehicle(vehicle: alt.Vehicle) {
         vehicle.setMeta(sessionKey, data);
         await db.update({ _id: data._id, [typeSafeFieldName]: value }, CollectionNames.Vehicles);
 
+        alt.emit('rebar:vehicleUpdated', vehicle, fieldName, value);
+
         if (typeof callbacks[typeSafeFieldName] === 'undefined') {
             return;
         }
@@ -129,6 +136,8 @@ export function useVehicle(vehicle: alt.Vehicle) {
         await db.update({ _id: data._id, ...fields }, CollectionNames.Vehicles);
 
         Object.keys(fields).forEach((key) => {
+            alt.emit('rebar:vehicleUpdated', vehicle, key as keyof VehicleDocument, data[key]);
+
             if (typeof callbacks[key] === 'undefined') {
                 return;
             }
@@ -196,28 +205,5 @@ export function useVehicleBinder(vehicle: alt.Vehicle) {
     return {
         bind,
         unbind,
-    };
-}
-
-export function useVehicleEvents() {
-    /**
-     * Listen for individual vehicle document changes.
-     *
-     * @param {string} fieldName
-     * @param {KeyChangeCallback<alt.Vehicle>} callback
-     * @return {void}
-     */
-    function on<K extends keyof VehicleDocument>(fieldName: K, callback: KeyChangeCallback<alt.Vehicle>) {
-        const actualFieldName = String(fieldName);
-
-        if (typeof callbacks[actualFieldName] === 'undefined') {
-            callbacks[actualFieldName] = [callback];
-        } else {
-            callbacks[actualFieldName].push(callback);
-        }
-    }
-
-    return {
-        on,
     };
 }
