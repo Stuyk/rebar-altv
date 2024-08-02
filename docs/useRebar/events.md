@@ -145,6 +145,33 @@ alt.on('rebar:vehicleUpdated', (vehicle, fieldName, value) => {
         return;
     }
 });
+
+// Called when an item is added to an entity's document, such as a player.
+alt.on('rebar:entityItemAdd', (entity, id, quantity, data) => {
+    if (!(entity instanceof alt.Player)) {
+        return;
+    }
+
+    // Listening for player only item add events
+});
+
+// Called when an item quantity is subtracted from an entity's document, such as a player.
+alt.on('rebar:entityItemSub', (entity, id, quantity) => {
+    if (!(entity instanceof alt.Player)) {
+        return;
+    }
+
+    // Listening for player only item sub events
+});
+
+// Called when an item is removed from entity's document, such as a player
+alt.on('rebar:entityItemRemove', (entity, uid) => {
+    if (!(entity instanceof alt.Player)) {
+        return;
+    }
+
+    // Listening for player only item remove events
+});
 ```
 
 ## Custom Events

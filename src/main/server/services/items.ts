@@ -3,34 +3,34 @@ import { useServiceRegister } from './index.js';
 
 export interface ItemService {
     /**
-     * Add an item to the given player with a given quantity based on a common id
+     * Add an item to the given entity with a given quantity based on a common id
      *
      * Additionally, a sobject data may be passed if necessary.
      *
      * @memberof ItemService
      */
-    add: (player: alt.Player, id: string, quantity: number, data?: Object) => Promise<boolean>;
+    add: (entity: alt.Entity, id: string, quantity: number, data?: any) => Promise<boolean>;
 
     /**
-     * Subtract an item quanatiy from the given player with a given quantity based on a common id
+     * Subtract an item quanatiy from the given entity with a given quantity based on a common id
      *
      * @memberof ItemService
      */
-    sub: (player: alt.Player, id: string, quantity: number) => Promise<boolean>;
+    sub: (entity: alt.Entity, id: string, quantity: number) => Promise<boolean>;
 
     /**
-     * Check if the player has enough of an item based on a common id
+     * Check if the entity has enough of an item based on a common id
      *
      * @memberof ItemService
      */
-    has: (player: alt.Player, id: string, quantity: number) => Promise<boolean>;
+    has: (entity: alt.Entity, id: string, quantity: number) => Promise<boolean>;
 
     /**
-     * Remove an item from the player based on a unique identifier
+     * Remove an item from the entity based on a unique identifier
      *
      * @memberof ItemService
      */
-    remove: (player: alt.Player, uid: string) => Promise<boolean>;
+    remove: (entity: alt.Entity, uid: string) => Promise<boolean>;
 }
 
 declare global {
@@ -41,9 +41,9 @@ declare global {
 
 declare module 'alt-server' {
     export interface ICustomEmitEvent {
-        'rebar:playerItemAdd': (...args: Parameters<ItemService['add']>) => void;
-        'rebar:playerItemSub': (...args: Parameters<ItemService['sub']>) => void;
-        'rebar:playerItemRemove': (...args: Parameters<ItemService['remove']>) => void;
+        'rebar:entityItemAdd': (entity: alt.Entity, id: string, quantity: number, data?: any) => void;
+        'rebar:entityItemSub': (entity: alt.Entity, id: string, quantity: number) => void;
+        'rebar:entityItemRemove': (entity: alt.Entity, uid: string) => void;
     }
 }
 
@@ -56,7 +56,7 @@ export function useItemService() {
 
         const result = await service.add(...args);
         if (result) {
-            alt.emit('rebar:playerItemAdd', ...args);
+            alt.emit('rebar:entityItemAdd', ...args);
         }
 
         return result;
@@ -70,7 +70,7 @@ export function useItemService() {
 
         const result = await service.sub(...args);
         if (result) {
-            alt.emit('rebar:playerItemSub', ...args);
+            alt.emit('rebar:entityItemSub', ...args);
         }
 
         return result;
@@ -93,7 +93,7 @@ export function useItemService() {
 
         const result = await service.remove(...args);
         if (result) {
-            alt.emit('rebar:playerItemRemove', ...args);
+            alt.emit('rebar:entityItemRemove', ...args);
         }
 
         return result;
