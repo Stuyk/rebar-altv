@@ -23,19 +23,13 @@ declare module 'alt-server' {
 ## Usage
 
 ```ts
-import { useRebar } from '@Server/index.js';
-
-const RebarEvents = useRebar().events.useEvents();
-
-// Called when an account is bound to a player
-
 // Called when an account is bound to a player
 alt.on('rebar:playerAccountBound', (player, document) => {
     console.log(document);
 });
 
 // Called when a character is bound to a player
-alt.on('playerCharacterBound', (player, document) => {
+alt.on('rebar:playerCharacterBound', (player, document) => {
     console.log(document);
 });
 
