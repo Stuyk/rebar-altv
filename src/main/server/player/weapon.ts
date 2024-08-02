@@ -1,8 +1,5 @@
 import * as alt from 'alt-server';
 import { useCharacter } from '../document/character.js';
-import { useRebar } from '../index.js';
-
-const Rebar = useRebar();
 
 export function useWeapon(player: alt.Player) {
     /**
@@ -33,14 +30,13 @@ export function useWeapon(player: alt.Player) {
     async function clear() {
         player.removeAllWeapons();
 
-        const document = Rebar.document.character.useCharacter(player);
+        const document = useCharacter(player);
         if (!document.get()) {
             return;
         }
 
         await document.setBulk({
             weapons: [],
-            ammo: {},
         });
 
         sync();
@@ -54,7 +50,7 @@ export function useWeapon(player: alt.Player) {
      */
     async function clearWeapon(model: string) {
         const weaponHash = alt.hash(model);
-        const document = Rebar.document.character.useCharacter(player);
+        const document = useCharacter(player);
         player.removeWeapon(weaponHash);
         if (!document.get()) {
             return;
@@ -76,7 +72,7 @@ export function useWeapon(player: alt.Player) {
      * @return
      */
     function getWeapons() {
-        const document = Rebar.document.character.useCharacter(player);
+        const document = useCharacter(player);
         if (!document.get()) {
             return [];
         }
@@ -93,7 +89,7 @@ export function useWeapon(player: alt.Player) {
      * @return
      */
     async function add(model: string, ammoCount: number) {
-        const document = Rebar.document.character.useCharacter(player);
+        const document = useCharacter(player);
         player.giveWeapon(model, ammoCount, true);
         if (!document.get()) {
             return;
@@ -115,7 +111,7 @@ export function useWeapon(player: alt.Player) {
      * @return
      */
     async function addAmmo(model: string, ammoCount: number) {
-        const document = Rebar.document.character.useCharacter(player);
+        const document = useCharacter(player);
         if (!document.get()) {
             return false;
         }
@@ -142,7 +138,7 @@ export function useWeapon(player: alt.Player) {
      * @return
      */
     async function addWeaponComponent(model: number, component: number) {
-        const document = Rebar.document.character.useCharacter(player);
+        const document = useCharacter(player);
         if (!document.get()) {
             return;
         }
@@ -177,7 +173,7 @@ export function useWeapon(player: alt.Player) {
      * @return
      */
     async function removeWeaponComponent(model: number, component: number) {
-        const document = Rebar.document.character.useCharacter(player);
+        const document = useCharacter(player);
         if (!document.get()) {
             return;
         }
@@ -212,7 +208,7 @@ export function useWeapon(player: alt.Player) {
      * Save current player weapons
      */
     function save() {
-        const document = Rebar.document.character.useCharacter(player);
+        const document = useCharacter(player);
         if (!document.get()) {
             return;
         }

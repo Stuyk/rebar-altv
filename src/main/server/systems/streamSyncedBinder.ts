@@ -1,13 +1,10 @@
 import * as alt from 'alt-server';
 import { Character, Vehicle } from '@Shared/types/index.js';
-import { useRebar } from '../index.js';
 
 type DataTypes = {
     Character: keyof Character;
     Vehicle: keyof Vehicle;
 };
-
-const Rebar = useRebar();
 
 const keys: { [K in keyof DataTypes]: DataTypes[K][] } = {
     Character: [],
@@ -33,9 +30,6 @@ export function useStreamSyncedBinder() {
         }
 
         keys.Character.push(key);
-        Rebar.document.character
-            .useCharacterEvents()
-            .on(key, (entity, newValue) => handleKeySet(entity, key, newValue));
     }
 
     /**
@@ -52,7 +46,6 @@ export function useStreamSyncedBinder() {
         }
 
         keys.Vehicle.push(key);
-        Rebar.document.vehicle.useVehicleEvents().on(key, (entity, newValue) => handleKeySet(entity, key, newValue));
     }
 
     return {
@@ -71,4 +64,20 @@ alt.on('vehicleBound', (vehicle, document) => {
     for (let key of keys.Vehicle) {
         handleKeySet(vehicle, key, document[key]);
     }
+});
+
+alt.on('rebar:vehicleUpdated', (vehicle, key, value) => {
+    if (keys.Vehicle.findIndex((x) => key == x) <= -1) {
+        return;
+    }
+
+    handleKeySet(vehicle, key, value);
+});
+
+alt.on('rebar:playerCharacterUpdated', (player, key, value) => {
+    if (keys.Character.findIndex((x) => key == x) <= -1) {
+        return;
+    }
+
+    handleKeySet(player, key, value);
 });

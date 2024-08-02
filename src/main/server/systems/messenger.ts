@@ -1,7 +1,9 @@
 import * as alt from 'alt-server';
-import { useRebar } from '../index.js';
 import { Events } from '../../shared/events/index.js';
 import { Message } from '../../shared/types/message.js';
+import { usePlayer } from '../player/index.js';
+import { useWebview } from '../player/webview.js';
+import { useStatus } from '../player/status.js';
 
 declare module 'alt-server' {
     export interface ICustomEmitEvent {
@@ -44,7 +46,6 @@ const tagOrComment = new RegExp(
     'gi',
 );
 
-const Rebar = useRebar();
 const commands: Command[] = [];
 let endCommandRegistrationTime = Date.now();
 
@@ -61,7 +62,7 @@ function isAvailableForPlayer(player: alt.Player, options?: PermissionOptions): 
         return true;
     }
 
-    const rPlayer = Rebar.usePlayer(player);
+    const rPlayer = usePlayer(player);
 
     if (rPlayer.account.groupPermissions.hasAtLeastOneGroupWithSpecificPerm(options.accountGroups)) {
         return true;
@@ -124,7 +125,7 @@ export function useMessenger() {
     }
 
     function sendMessage(player: alt.Player, message: Message) {
-        const webview = Rebar.player.useWebview(player);
+        const webview = useWebview(player);
         webview.emit(Events.systems.messenger.send, message);
     }
 
@@ -201,7 +202,7 @@ function processMessage(player: alt.Player, msg: string) {
         return;
     }
 
-    if (!Rebar.player.useStatus(player).hasCharacter()) {
+    if (!useStatus(player).hasCharacter()) {
         return;
     }
 

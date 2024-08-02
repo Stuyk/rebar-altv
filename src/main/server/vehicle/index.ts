@@ -1,12 +1,14 @@
 import * as alt from 'alt-server';
-import { useRebar } from '../index.js';
 import { Vehicle, WheelState } from '../../shared/types/vehicle.js';
 import * as Utility from '@Shared/utility/index.js';
 import { Events } from '../../shared/events/index.js';
 import { useVehicleHandling } from './vehicleHandling.js';
+import { useDatabase } from '../database/index.js';
+import { useVehicleBinder, useVehicle as useVehicleDocument } from '../document/vehicle.js';
+import { CollectionNames } from '../document/shared.js';
+import { usePlayer } from '../player/index.js';
 
-const Rebar = useRebar();
-const db = Rebar.database.useDatabase();
+const db = useDatabase();
 
 export function useVehicle(vehicle: alt.Vehicle) {
     /**
@@ -139,7 +141,7 @@ export function useVehicle(vehicle: alt.Vehicle) {
             return undefined;
         }
 
-        const document = Rebar.document.vehicle.useVehicle(vehicle);
+        const document = useVehicleDocument(vehicle);
         if (document.get()) {
             return undefined;
         }
@@ -153,11 +155,11 @@ export function useVehicle(vehicle: alt.Vehicle) {
                 pos: vehicle.pos,
                 rot: vehicle.rot,
             },
-            Rebar.database.CollectionNames.Vehicles,
+            CollectionNames.Vehicles,
         );
 
-        const vehicleDocument = await db.get<Vehicle>({ _id: id }, Rebar.database.CollectionNames.Vehicles);
-        Rebar.document.vehicle.useVehicleBinder(vehicle).bind(vehicleDocument);
+        const vehicleDocument = await db.get<Vehicle>({ _id: id }, CollectionNames.Vehicles);
+        useVehicleBinder(vehicle).bind(vehicleDocument);
         return vehicleDocument;
     }
 
@@ -173,11 +175,11 @@ export function useVehicle(vehicle: alt.Vehicle) {
             return false;
         }
 
-        if (Rebar.document.vehicle.useVehicle(vehicle).get()) {
+        if (useVehicleDocument(vehicle).get()) {
             return false;
         }
 
-        Rebar.document.vehicle.useVehicleBinder(vehicle).bind(document);
+        useVehicleBinder(vehicle).bind(document);
         return true;
     }
 
@@ -187,7 +189,7 @@ export function useVehicle(vehicle: alt.Vehicle) {
      * @return
      */
     function isBound() {
-        return Rebar.document.vehicle.useVehicle(vehicle).get() ? true : false;
+        return useVehicleDocument(vehicle).get() ? true : false;
     }
 
     /**
@@ -197,7 +199,7 @@ export function useVehicle(vehicle: alt.Vehicle) {
      * @return
      */
     async function repair(): Promise<alt.Vehicle> {
-        const document = Rebar.document.vehicle.useVehicle(vehicle);
+        const document = useVehicleDocument(vehicle);
         const model = vehicle.model;
         const pos = vehicle.pos;
         const rot = vehicle.rot;
@@ -212,7 +214,7 @@ export function useVehicle(vehicle: alt.Vehicle) {
             return vehicle;
         }
 
-        Rebar.document.vehicle.useVehicleBinder(vehicle).bind(document.get(), false);
+        useVehicleBinder(vehicle).bind(document.get(), false);
         await save();
         sync();
 
@@ -225,7 +227,7 @@ export function useVehicle(vehicle: alt.Vehicle) {
      * @return
      */
     function save() {
-        const document = Rebar.document.vehicle.useVehicle(vehicle);
+        const document = useVehicleDocument(vehicle);
         if (!document.get()) {
             return;
         }
@@ -285,7 +287,7 @@ export function useVehicle(vehicle: alt.Vehicle) {
      * @return
      */
     function hasOwner() {
-        const document = Rebar.document.vehicle.useVehicle(vehicle);
+        const document = useVehicleDocument(vehicle);
         return document.get() ? true : false;
     }
 
@@ -371,7 +373,7 @@ export function useVehicle(vehicle: alt.Vehicle) {
      * @return
      */
     async function addKey(owner_document_id: string) {
-        const document = Rebar.document.vehicle.useVehicle(vehicle);
+        const document = useVehicleDocument(vehicle);
         if (!document.get()) {
             return false;
         }
@@ -394,7 +396,7 @@ export function useVehicle(vehicle: alt.Vehicle) {
      * @return
      */
     async function removeKey(owner_document_id: string) {
-        const document = Rebar.document.vehicle.useVehicle(vehicle);
+        const document = useVehicleDocument(vehicle);
         if (!document.get()) {
             return false;
         }
@@ -416,7 +418,7 @@ export function useVehicle(vehicle: alt.Vehicle) {
      * @return
      */
     async function clearKeys() {
-        const document = Rebar.document.vehicle.useVehicle(vehicle);
+        const document = useVehicleDocument(vehicle);
         if (!document.get()) {
             return false;
         }
@@ -435,12 +437,12 @@ export function useVehicle(vehicle: alt.Vehicle) {
      * @param {alt.Player} player
      */
     function verifyOwner(player: alt.Player, requireOwnership: boolean, ownerOnly = false) {
-        const document = Rebar.document.vehicle.useVehicle(vehicle);
+        const document = useVehicleDocument(vehicle);
         if (!document.get()) {
             return requireOwnership ? false : true;
         }
 
-        const rPlayer = Rebar.usePlayer(player);
+        const rPlayer = usePlayer(player);
         const _id = rPlayer.character.getField('_id');
         if (!_id) {
             return false;
@@ -479,7 +481,7 @@ export function useVehicle(vehicle: alt.Vehicle) {
      * If the vehicle has a `document` bound to it, it will apply the appearance.
      */
     function sync() {
-        const document = Rebar.document.vehicle.useVehicle(vehicle);
+        const document = useVehicleDocument(vehicle);
         if (!document.get()) {
             return;
         }

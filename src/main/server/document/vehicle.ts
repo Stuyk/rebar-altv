@@ -2,7 +2,8 @@ import * as alt from 'alt-server';
 import { Vehicle as VehicleDocument } from '@Shared/types/vehicle.js';
 import { useDatabase } from '@Server/database/index.js';
 import { CollectionNames, KeyChangeCallback } from './shared.js';
-import { useRebar } from '../index.js';
+import { useIncrementalId } from './increment.js';
+import { useVehicle as useVehicleRebar } from '../vehicle/index.js';
 
 declare module 'alt-server' {
     export interface ICustomEmitEvent {
@@ -15,7 +16,6 @@ declare module 'alt-server' {
     }
 }
 
-const Rebar = useRebar();
 const sessionKey = 'document:vehicle';
 const callbacks: { [key: string]: Array<KeyChangeCallback<alt.Vehicle>> } = {};
 const db = useDatabase();
@@ -153,7 +153,7 @@ export function useVehicle(vehicle: alt.Vehicle) {
             return getField('id');
         }
 
-        const identifier = await Rebar.database.useIncrementalId(Rebar.database.CollectionNames.Vehicles);
+        const identifier = await useIncrementalId(CollectionNames.Vehicles);
         const id = await identifier.getNext();
         await setBulk({ id });
         return id;
@@ -179,7 +179,7 @@ export function useVehicleBinder(vehicle: alt.Vehicle) {
         alt.emit('rebar:vehicleBound', vehicle, document);
 
         if (syncVehicle) {
-            Rebar.vehicle.useVehicle(vehicle).sync();
+            useVehicleRebar(vehicle).sync();
         }
 
         const vehicleUse = useVehicle(vehicle);

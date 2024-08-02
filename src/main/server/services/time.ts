@@ -62,6 +62,7 @@ export function useTimeService() {
             time.hour = hour;
             time.minute = minute;
             time.second = second;
+            alt.setMeta('serverTime', time);
             alt.emit('rebar:timeChanged', time.hour, time.minute, time.second);
         },
         getTime() {

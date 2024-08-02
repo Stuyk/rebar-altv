@@ -1,11 +1,10 @@
 import * as alt from 'alt-server';
-import { useRebar } from '../index.js';
 import { Events } from '../../shared/events/index.js';
+import * as Utility from '@Shared/utility/index.js';
 
 type OnKeybind = (player: alt.Player) => void;
 type KeybindInfo = { callback: OnKeybind; uid: string };
 
-const Rebar = useRebar();
 const callbacks: { [key: string]: KeybindInfo[] } = {};
 
 function handleKeybind(player: alt.Player, key: number) {
@@ -36,7 +35,7 @@ function updateKeybinds() {
 
 export function useKeybinder() {
     function on(key: number, callback: OnKeybind) {
-        const uid = Rebar.utility.uid.generate();
+        const uid = Utility.uid.generate();
 
         if (!callbacks[key]) {
             callbacks[key] = [];

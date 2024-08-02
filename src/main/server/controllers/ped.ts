@@ -3,7 +3,6 @@ import * as native from 'natives';
 import { PedOptions } from '@Shared/types/pedOptions.js';
 import { Events } from '../../shared/events/index.js';
 import * as Utility from '@Shared/utility/index.js';
-import { useRebar } from '../index.js';
 import { OmitFirstArg } from '../../shared/types/omitFirstArg.js';
 
 const sessionKey = 'ped:uid';

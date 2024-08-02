@@ -1,12 +1,11 @@
 import * as alt from 'alt-server';
 import * as Utility from '../utility/index.js';
 import { Account } from '@Shared/types/account.js';
-import { KnownKeys } from '@Shared/utilityTypes/index.js';
 import { useDatabase } from '@Server/database/index.js';
 import { CollectionNames, KeyChangeCallback } from './shared.js';
 import { Character } from '@Shared/types/character.js';
-import { useRebar } from '../index.js';
 import { usePermissionProxy } from '@Server/systems/permissionProxy.js';
+import { useIncrementalId } from './increment.js';
 
 declare module 'alt-server' {
     export interface ICustomEmitEvent {
@@ -19,7 +18,6 @@ declare module 'alt-server' {
     }
 }
 
-const Rebar = useRebar();
 const sessionKey = 'document:account';
 const callbacks: { [key: string]: Array<KeyChangeCallback> } = {};
 const db = useDatabase();
@@ -202,7 +200,7 @@ export function useAccount(player: alt.Player) {
             return getField('id');
         }
 
-        const identifier = await Rebar.database.useIncrementalId(Rebar.database.CollectionNames.Accounts);
+        const identifier = await useIncrementalId(CollectionNames.Accounts);
         const id = await identifier.getNext();
         await setBulk({ id });
         return id;

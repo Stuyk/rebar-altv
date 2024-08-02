@@ -1,10 +1,7 @@
-import { useRebar } from '../index.js';
-
 declare global {
     interface RebarServices {}
 }
 
-const Rebar = useRebar();
 const Services: Map<keyof RebarServices, Object> = new Map();
 
 export function useServiceRegister() {

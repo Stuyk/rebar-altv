@@ -1,11 +1,14 @@
 import * as alt from 'alt-server';
 import { Character } from '@Shared/types/character.js';
-import { KnownKeys } from '@Shared/utilityTypes/index.js';
 import { useDatabase } from '@Server/database/index.js';
 import { CollectionNames, KeyChangeCallback } from './shared.js';
 import { Vehicle } from 'main/shared/types/vehicle.js';
-import { useRebar } from '../index.js';
 import { usePermissionProxy } from '@Server/systems/permissionProxy.js';
+import { useIncrementalId } from './increment.js';
+import { usePlayerAppearance } from '../player/appearance.js';
+import { useClothing } from '../player/clothing.js';
+import { useWeapon } from '../player/weapon.js';
+import { useState } from '../player/state.js';
 
 declare module 'alt-server' {
     export interface ICustomEmitEvent {
@@ -18,7 +21,6 @@ declare module 'alt-server' {
     }
 }
 
-const Rebar = useRebar();
 const sessionKey = 'document:character';
 const callbacks: { [key: string]: Array<KeyChangeCallback> } = {};
 const db = useDatabase();
@@ -165,7 +167,7 @@ export function useCharacter(player: alt.Player) {
             return getField('id');
         }
 
-        const identifier = Rebar.database.useIncrementalId(Rebar.database.CollectionNames.Characters);
+        const identifier = useIncrementalId(CollectionNames.Characters);
         const id = await identifier.getNext();
         await setBulk({ id });
         return id;
@@ -266,10 +268,10 @@ export function useCharacterBinder(player: alt.Player, syncPlayer = true) {
         alt.emit('rebar:playerCharacterBound', player, document);
 
         if (syncPlayer) {
-            Rebar.player.usePlayerAppearance(player).sync();
-            Rebar.player.useClothing(player).sync();
-            Rebar.player.useWeapon(player).sync();
-            Rebar.player.useState(player).sync();
+            usePlayerAppearance(player).sync();
+            useClothing(player).sync();
+            useWeapon(player).sync();
+            useState(player).sync();
         }
 
         const characterUse = useCharacter(player);
