@@ -2,7 +2,7 @@ import {useGlobal} from '@Server/document/global.js';
 
 interface PermissionGroup {
     permissions: Array<string>;
-    inherits: string;
+    inherits?: string;
     version?: number;
 }
 
@@ -11,7 +11,7 @@ interface PermissionGroupConfig {
 }
 
 let initialized = false;
-const permissionGroups = await useGlobal<PermissionGroupConfig>('permissionGroups');
+let permissionGroups;
 const permissionIndex: Map<string, Set<string>> = new Map();
 
 
@@ -28,7 +28,9 @@ class InternalFunctions {
         for (const permission of group.permissions) {
             permissions.add(permission);
         }
-        this.addPermissionsToSet(group.inherits, permissions, new Set(visited));
+        if (group.inherits) {
+            this.addPermissionsToSet(group.inherits, permissions, new Set(visited));
+        }
     }
 
     static buildIndex() {
@@ -113,6 +115,7 @@ export function usePermissionGroup() {
 }
 
 if (!initialized) {
+    permissionGroups = await useGlobal<PermissionGroupConfig>('permissionGroups');
     InternalFunctions.buildIndex();
     initialized = true;
 }
