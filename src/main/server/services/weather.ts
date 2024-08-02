@@ -34,8 +34,8 @@ declare module 'alt-server' {
     }
 
     export interface ICustomEmitEvent {
-        weatherForecastChanged: (weather: Weathers[]) => void;
-        weatherChanged: (weather: Weathers) => void;
+        'rebar:weatherForecastChanged': (weather: Weathers[]) => void;
+        'rebar:weatherChanged': (weather: Weathers) => void;
     }
 }
 
@@ -45,7 +45,7 @@ export function useWeatherService() {
             const service = useServiceRegister().get('weatherService');
 
             alt.setMeta('serverWeatherForecast', weathers);
-            alt.emit('weatherForecastChanged', weathers);
+            alt.emit('rebar:weatherForecastChanged', weathers);
 
             if (service.setWeatherForecast) {
                 service.setWeatherForecast(weathers);
@@ -55,7 +55,7 @@ export function useWeatherService() {
             const service = useServiceRegister().get('weatherService');
 
             alt.setMeta('serverWeather', weatherType);
-            alt.emit('weatherChanged', weatherType);
+            alt.emit('rebarweatherChanged', weatherType);
 
             if (service.setWeather) {
                 service.setWeather(weatherType);

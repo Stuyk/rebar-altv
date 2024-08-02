@@ -4,17 +4,17 @@ import { PageNames } from '@Shared/webview/index.js';
 
 declare module 'alt-server' {
     export interface ICustomEmitEvent {
-        playerPageClosed: (player: alt.Player, page: PageNames) => void;
-        playerPageOpened: (player: alt.Player, page: PageNames) => void;
+        'rebar:playerPageClosed': (player: alt.Player, page: PageNames) => void;
+        'rebar:playerPageOpened': (player: alt.Player, page: PageNames) => void;
     }
 }
 
 // Listens for when a page is opened
 alt.onClient(Events.view.onPageOpen, (player: alt.Player, pageName: PageNames) =>
-    alt.emit('playerPageOpened', player, pageName),
+    alt.emit('rebar:playerPageOpened', player, pageName),
 );
 
 // Listens for when a page is closed
 alt.onClient(Events.view.onPageClose, (player: alt.Player, pageName: PageNames) =>
-    alt.emit('playerPageClosed', player, pageName),
+    alt.emit('rebar:playerPageClosed', player, pageName),
 );

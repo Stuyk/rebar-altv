@@ -41,10 +41,10 @@ declare module 'alt-server' {
     }
 
     export interface ICustomEmitEvent {
-        timeChanged: (hour: number, minute: number, second: number) => void;
-        timeSecondChanged: (minute: number) => void;
-        timeMinuteChanged: (minute: number) => void;
-        timeHourChanged: (hour: number) => void;
+        'rebar:timeChanged': (hour: number, minute: number, second: number) => void;
+        'rebar:timeSecondChanged': (minute: number) => void;
+        'rebar:timeMinuteChanged': (minute: number) => void;
+        'rebar:timeHourChanged': (hour: number) => void;
     }
 }
 
@@ -63,7 +63,8 @@ export function useTimeService() {
             const time = alt.hasMeta('serverTime') ? alt.getMeta('serverTime') : DEFAULT_TIME;
             time.hour = hour;
             alt.setMeta('serverTime', time);
-            alt.emit('timeHourChanged', hour);
+            alt.emit('rebar:timeHourChanged', hour);
+            alt.emit('rebar:timeChanged', time.hour, time.minute, time.second);
         },
         setMinute(minute: number) {
             if (minute >= 60) {
@@ -78,8 +79,8 @@ export function useTimeService() {
             const time = alt.hasMeta('serverTime') ? alt.getMeta('serverTime') : DEFAULT_TIME;
             time.minute = minute;
             alt.setMeta('serverTime', time);
-            alt.emit('timeMinuteChanged', minute);
-            alt.emit('timeChanged', time.hour, time.minute, time.second);
+            alt.emit('rebar:timeMinuteChanged', minute);
+            alt.emit('rebar:timeChanged', time.hour, time.minute, time.second);
         },
         setSecond(second: number) {
             if (second >= 60) {
@@ -94,8 +95,8 @@ export function useTimeService() {
             const time = alt.hasMeta('serverTime') ? alt.getMeta('serverTime') : DEFAULT_TIME;
             time.second = second;
             alt.setMeta('serverTime', time);
-            alt.emit('timeSecondChanged', second);
-            alt.emit('timeChanged', time.hour, time.minute, time.second);
+            alt.emit('rebar:timeSecondChanged', second);
+            alt.emit('rebar:timeChanged', time.hour, time.minute, time.second);
         },
         getTime() {
             return alt.getMeta('serverTime');

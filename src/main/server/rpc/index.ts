@@ -21,7 +21,7 @@ if (alt.debug) {
     app.route('/transmitter', Transmitter.get());
 }
 
-alt.on('rpcRestart', () => {
+alt.on('rebar:rpcRestart', () => {
     if (!server) {
         return;
     }

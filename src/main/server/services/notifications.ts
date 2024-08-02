@@ -26,8 +26,8 @@ declare global {
 
 declare module 'alt-server' {
     export interface ICustomEmitEvent {
-        playerEmitNotification: (...args: Parameters<NotificationService['emit']>) => void;
-        broadcastNotification: (...args: Parameters<NotificationService['broadcast']>) => void;
+        'rebar:playerEmitNotification': (...args: Parameters<NotificationService['emit']>) => void;
+        'rebar:broadcastNotification': (...args: Parameters<NotificationService['broadcast']>) => void;
     }
 }
 
@@ -47,7 +47,7 @@ export function useNotificationService() {
                 player.emit(Events.player.notify.notification.create, ...args);
             }
 
-            alt.emit('playerEmitNotification', ...args);
+            alt.emit('rebar:playerEmitNotification', ...args);
         },
         broadcast(...args: Parameters<NotificationService['broadcast']>) {
             const service = useServiceRegister().get('notificationService');
@@ -60,7 +60,7 @@ export function useNotificationService() {
                 }
             }
 
-            alt.emit('broadcastNotification', ...args);
+            alt.emit('rebar:broadcastNotification', ...args);
         },
     };
 }

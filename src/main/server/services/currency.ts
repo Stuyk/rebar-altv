@@ -32,8 +32,8 @@ declare global {
 
 declare module 'alt-server' {
     export interface ICustomEmitEvent {
-        playerCurrencyAdd: (...args: Parameters<CurrencyService['add']>) => void;
-        playerCurrencySub: (...args: Parameters<CurrencyService['sub']>) => void;
+        'rebar:playerCurrencyAdd': (...args: Parameters<CurrencyService['add']>) => void;
+        'rebar:playerCurrencySub': (...args: Parameters<CurrencyService['sub']>) => void;
     }
 }
 
@@ -47,7 +47,7 @@ export function useCurrencyService() {
 
             const result = service.add(...args);
             if (result) {
-                alt.emit('playerCurrencyAdd', ...args);
+                alt.emit('rebar:playerCurrencyAdd', ...args);
             }
 
             return result;
@@ -60,7 +60,7 @@ export function useCurrencyService() {
 
             const result = service.sub(...args);
             if (result) {
-                alt.emit('playerCurrencySub', ...args);
+                alt.emit('rebar:playerCurrencySub', ...args);
             }
 
             return result;

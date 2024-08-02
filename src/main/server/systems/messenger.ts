@@ -5,8 +5,8 @@ import { Message } from '../../shared/types/message.js';
 
 declare module 'alt-server' {
     export interface ICustomEmitEvent {
-        playerSendMessage: (player: alt.Player, msg: string) => void;
-        playerCommand: (player: alt.Player, commandName: string) => void;
+        'rebar:playerSendMessage': (player: alt.Player, msg: string) => void;
+        'rebar:playerCommand': (player: alt.Player, commandName: string) => void;
     }
 }
 
@@ -116,7 +116,7 @@ export function useMessenger() {
 
         try {
             await command.callback(player, ...args);
-            alt.emit('playerCommand', player, cmdName);
+            alt.emit('rebar:playerCommand', player, cmdName);
             return true;
         } catch (err) {
             return false;
@@ -208,7 +208,7 @@ function processMessage(player: alt.Player, msg: string) {
     const messageSystem = useMessenger();
     if (msg.charAt(0) !== '/') {
         msg = cleanMessage(msg);
-        alt.emit('playerSendMessage', player, msg);
+        alt.emit('rebar:playerSendMessage', player, msg);
         return;
     }
 

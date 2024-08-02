@@ -11,7 +11,7 @@ let isInit = false;
 let database: Db;
 let client: MongoClient;
 
-alt.on('rpcRestart', () => {
+alt.on('rebar:rpcRestart', () => {
     if (!client) {
         return;
     }

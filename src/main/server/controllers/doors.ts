@@ -7,8 +7,8 @@ import { distance2d } from '@Shared/utility/vector.js';
 
 declare module 'alt-server' {
     export interface ICustomEmitEvent {
-        doorLocked: (uid: string, initiator: alt.Player) => void;
-        doorUnlocked: (uid: string, initiator: alt.Player | null) => void;
+        'rebar:doorLocked': (uid: string, initiator: alt.Player) => void;
+        'rebar:doorUnlocked': (uid: string, initiator: alt.Player | null) => void;
     }
 }
 
@@ -146,7 +146,7 @@ export function useDoor() {
 
         door.state = getNextState(door.state);
         doorConfig.setLockState(uid, door.state);
-        alt.emit(door.state === DoorState.LOCKED ? 'doorLocked' : 'doorUnlocked', uid, player);
+        alt.emit(door.state === DoorState.LOCKED ? 'rebar:doorLocked' : 'rebar:doorUnlocked', uid, player);
         return true;
     }
 
@@ -165,7 +165,7 @@ export function useDoor() {
 
         door.state = state;
         doorConfig.setLockState(uid, door.state);
-        alt.emit(door.state === DoorState.LOCKED ? 'doorLocked' : 'doorUnlocked', uid, null);
+        alt.emit(door.state === DoorState.LOCKED ? 'rebar:doorLocked' : 'rebar:doorUnlocked', uid, null);
         return true;
     }
 

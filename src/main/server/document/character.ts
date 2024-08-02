@@ -9,7 +9,7 @@ import { usePermissionProxy } from '@Server/systems/permissionProxy.js';
 
 declare module 'alt-server' {
     export interface ICustomEmitEvent {
-        playerCharacterBound: (player: alt.Player, document: Character) => void;
+        'rebar:playerCharacterBound': (player: alt.Player, document: Character) => void;
     }
 }
 
@@ -254,7 +254,7 @@ export function useCharacterBinder(player: alt.Player, syncPlayer = true) {
         }
 
         player.setMeta(sessionKey, document);
-        alt.emit('playerCharacterBound', player, document);
+        alt.emit('rebar:playerCharacterBound', player, document);
 
         if (syncPlayer) {
             Rebar.player.usePlayerAppearance(player).sync();

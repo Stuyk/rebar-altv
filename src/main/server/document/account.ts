@@ -10,7 +10,7 @@ import { usePermissionProxy } from '@Server/systems/permissionProxy.js';
 
 declare module 'alt-server' {
     export interface ICustomEmitEvent {
-        playerAccountBound: (player: alt.Player, document: Account) => void;
+        'rebar:playerAccountBound': (player: alt.Player, document: Account) => void;
     }
 }
 
@@ -273,7 +273,7 @@ export function useAccountBinder(player: alt.Player) {
         }
 
         player.setMeta(sessionKey, document);
-        alt.emit('playerAccountBound', player, document);
+        alt.emit('rebar:playerAccountBound', player, document);
 
         const accountUse = useAccount(player);
         try {

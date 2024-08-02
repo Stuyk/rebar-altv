@@ -41,9 +41,9 @@ declare global {
 
 declare module 'alt-server' {
     export interface ICustomEmitEvent {
-        playerItemAdd: (...args: Parameters<ItemService['add']>) => void;
-        playerItemSub: (...args: Parameters<ItemService['sub']>) => void;
-        playerItemRemove: (...args: Parameters<ItemService['remove']>) => void;
+        'rebar:playerItemAdd': (...args: Parameters<ItemService['add']>) => void;
+        'rebar:playerItemSub': (...args: Parameters<ItemService['sub']>) => void;
+        'rebar:playerItemRemove': (...args: Parameters<ItemService['remove']>) => void;
     }
 }
 
@@ -56,7 +56,7 @@ export function useItemService() {
 
         const result = await service.add(...args);
         if (result) {
-            alt.emit('playerItemAdd', ...args);
+            alt.emit('rebar:playerItemAdd', ...args);
         }
 
         return result;
@@ -70,7 +70,7 @@ export function useItemService() {
 
         const result = await service.sub(...args);
         if (result) {
-            alt.emit('playerItemSub', ...args);
+            alt.emit('rebar:playerItemSub', ...args);
         }
 
         return result;
@@ -93,7 +93,7 @@ export function useItemService() {
 
         const result = await service.remove(...args);
         if (result) {
-            alt.emit('playerItemRemove', ...args);
+            alt.emit('rebar:playerItemRemove', ...args);
         }
 
         return result;

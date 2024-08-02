@@ -20,20 +20,22 @@ order: 95
     -   Custom delcarations are still possible.
     -   Replaced all `rebar-event-names` with `camelCased` events
     -   Event Name Changes:
-        -   Renamed `message` event to `playerSendMessage`
-        -   Renamed `on-command` event to `playerCommand`
-        -   Renamed `on-rpc-restart` event to `rpcRestart`
-        -   Renamed `account-bound` event to `playerAccountBound`
-        -   Renamed `character-bound` event to `playerCharacterBound`
-        -   Renamed `vehicle-bound` event to `vehicleBound`
-        -   Renamed `page-opened` event to `playerPageOpened`
-        -   Renamed `page-closed` event to `playerPageClosed`
-        -   Renamed `time-changed` event to `timeChanged`
-        -   Renamed `time-hour-changed` event to `timeHourChanged`
-        -   Renamed `time-minute-changed` event to `timeMinuteChanged`
-        -   Renamed `time-second-changed` event to `timeSecondChanged`
-        -   Renamed `weather-changed` event to `weatherChanged`
-        -   Renamed `weather-forecast-changed` event to `weatherForecastChanged`
+        -   Renamed `message` event to `rebar:playerSendMessage`
+        -   Renamed `on-command` event to `rebar:playerCommand`
+        -   Renamed `on-rpc-restart` event to `rebar:rpcRestart`
+        -   Renamed `account-bound` event to `rebar:playerAccountBound`
+        -   Renamed `character-bound` event to `rebar:playerCharacterBound`
+        -   Renamed `vehicle-bound` event to `rebar:vehicleBound`
+        -   Renamed `page-opened` event to `rebar:playerPageOpened`
+        -   Renamed `page-closed` event to `rebar:playerPageClosed`
+        -   Renamed `time-changed` event to `rebar:timeChanged`
+        -   Renamed `time-hour-changed` event to `rebar:timeHourChanged`
+        -   Renamed `time-minute-changed` event to `rebar:timeMinuteChanged`
+        -   Renamed `time-second-changed` event to `rebar:timeSecondChanged`
+        -   Renamed `weather-changed` event to `rebar:weatherChanged`
+        -   Renamed `weather-forecast-changed` event to `rebar:weatherForecastChanged`
+        -   Renamed `doorLocked` event to `rebar:doorLocked`
+        -   Renamed `doorUnlocked` event to `rebar:doorUnlocked`
 
 ### Code Changes
 

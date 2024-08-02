@@ -25,8 +25,8 @@ declare global {
 
 declare module 'alt-server' {
     export interface ICustomEmitEvent {
-        playerRespawn: (...args: Parameters<DeathService['respawn']>) => void;
-        playerRevive: (...args: Parameters<DeathService['revive']>) => void;
+        'rebar:playerRespawn': (...args: Parameters<DeathService['respawn']>) => void;
+        'rebar:playerRevive': (...args: Parameters<DeathService['revive']>) => void;
     }
 }
 
@@ -38,7 +38,7 @@ export function useDeathService() {
                 service.respawn(...args);
             }
 
-            alt.emit('playerRespawn', ...args);
+            alt.emit('rebar:playerRespawn', ...args);
         },
         revive(...args: Parameters<DeathService['revive']>) {
             const service = useServiceRegister().get('deathService');
@@ -46,7 +46,7 @@ export function useDeathService() {
                 service.revive(...args);
             }
 
-            alt.emit('playerRevive', ...args);
+            alt.emit('rebar:playerRevive', ...args);
         },
     };
 }

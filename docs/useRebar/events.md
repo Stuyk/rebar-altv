@@ -8,6 +8,18 @@ These events are unique to the Rebar framework, and help provide information abo
 
 A lot of these events can only be invoked by using the [Services](./useServices.md) functionality.
 
+## Event Formatting
+
+The syntax for any custom events should be as follows:
+
+```ts
+declare module 'alt-server' {
+    export interface ICustomEmitEvent {
+        'rebar:pluginName:eventName': (something: string) => void;
+    }
+}
+```
+
 ## Usage
 
 ```ts
@@ -18,7 +30,7 @@ const RebarEvents = useRebar().events.useEvents();
 // Called when an account is bound to a player
 
 // Called when an account is bound to a player
-alt.on('playerAccountBound', (player, document) => {
+alt.on('rebar:playerAccountBound', (player, document) => {
     console.log(document);
 });
 
@@ -28,95 +40,95 @@ alt.on('playerCharacterBound', (player, document) => {
 });
 
 // Called when a vehicle document is bound to a vehicle
-alt.on('vehicleBound', (vehicle, document) => {
+alt.on('rebar:vehicleBound', (vehicle, document) => {
     console.log(document);
 });
 
 // Called when a player sends a message
-alt.on('playerSendMessage', (player, msg) => {
+alt.on('rebar:playerSendMessage', (player, msg) => {
     console.log(msg);
 });
 
 // Called whenever the time changes
-alt.on('timeChanged', (hour, minute, second) => {
+alt.on('rebar:timeChanged', (hour, minute, second) => {
     console.log(hour, minute, second);
 });
 
 // Called whenever the hour increments by 1
-alt.on('timeHourChanged', (hour) => {
+alt.on('rebar:timeHourChanged', (hour) => {
     console.log(hour);
 });
 
 // Called whenever the minute increments by 1
-alt.on('timeMinuteChanged', (minute) => {
+alt.on('rebar:timeMinuteChanged', (minute) => {
     console.log(minute);
 });
 
 // Called whenever the second increments by 1
-alt.on('timeSecondChanged', (second) => {
+alt.on('rebar:timeSecondChanged', (second) => {
     console.log(second);
 });
 
 // Called when a page is opened
-alt.on('playerPageOpened', (player, pageName) => {
+alt.on('rebar:playerPageOpened', (player, pageName) => {
     console.log('page opened');
     console.log(pageName);
 });
 
 // Called when a page is closed
-alt.on('playerPageClosed', (player, pageName) => {
+alt.on('rebar:playerPageClosed', (player, pageName) => {
     console.log('page closed');
     console.log(pageName);
 });
 
 // Called when currency is added to a player
-alt.on('playerCurrencyAdd', (player, type, quantity) => {
+alt.on('rebar:playerCurrencyAdd', (player, type, quantity) => {
     console.log(`Added ${type} of ${quantity}`);
 });
 
 // Called when currency is added to a player
-alt.on('playerCurrencySub', (player, type, quantity) => {
+alt.on('rebar:playerCurrencySub', (player, type, quantity) => {
     console.log(`Subtracted ${type} of ${quantity}`);
 });
 
 // Called when server weather is changed
-alt.on('weatherChanged', (weather) => {
+alt.on('rebar:weatherChanged', (weather) => {
     console.log(`Weather is now ${weather}`);
 });
 
 // Called when a door is locked
-alt.on('doorLocked', (uid, initiator: alt.Player) => {
+alt.on('rebar:doorLocked', (uid, initiator: alt.Player) => {
     console.log(`Door ${uid} was locked...`);
 });
 
 // Called when a door is locked
-alt.on('doorUnlocked', (uid, initiator: alt.Player | null) => {
+alt.on('rebar:doorUnlocked', (uid, initiator: alt.Player | null) => {
     console.log(`Door ${uid} was unlocked...`);
 });
 
 // Called when a notification is emitted to a player
-alt.on('playerEmitNotification', (player, msg, type) => {
+alt.on('rebar:playerEmitNotification', (player, msg, type) => {
     console.log(msg);
 });
 
 // Called when a notification is broadcast to all players
-alt.on('broadcastNotification', (msg, type) => {
+alt.on('rebar:broadcastNotification', (msg, type) => {
     console.log(msg);
 });
 
 // Called when the server invokes a respawn for a given player
-alt.on('playerRespawn', (player, pos) => {
+alt.on('rebar:playerRespawn', (player, pos) => {
     console.log(`Respawning player...`);
 });
 
 // Called when the server invokes a revive for a given player in the same position
-alt.on('playerRevive', (player) => {
+alt.on('rebar:playerRevive', (player) => {
     console.log(`Reviving player in position...`);
 });
 
 // Called when the server invokes the hot reload functionality
 // 99% of devs will not be using this
-alt.on('rpcRestart', () => {
+alt.on('rebar:rpcRestart', () => {
     console.log(`Invoked when hot reload is invoked...`);
 });
 ```

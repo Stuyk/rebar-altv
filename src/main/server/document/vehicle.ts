@@ -6,7 +6,7 @@ import { useRebar } from '../index.js';
 
 declare module 'alt-server' {
     export interface ICustomEmitEvent {
-        vehicleBound: (vehicle: alt.Vehicle, document: VehicleDocument) => void;
+        'rebar:vehicleBound': (vehicle: alt.Vehicle, document: VehicleDocument) => void;
     }
 }
 
@@ -167,7 +167,7 @@ export function useVehicleBinder(vehicle: alt.Vehicle) {
         }
 
         vehicle.setMeta(sessionKey, document);
-        alt.emit('vehicleBound', vehicle, document);
+        alt.emit('rebar:vehicleBound', vehicle, document);
 
         if (syncVehicle) {
             Rebar.vehicle.useVehicle(vehicle).sync();
