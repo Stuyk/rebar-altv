@@ -7,12 +7,15 @@ declare global {
 const registeredJobs = new Map<string, { job: cron.ScheduledTask, cronExpression: string, tasks: (() => void)[] }>();
 
 export function useCronJob() {
-    function create(jobName: string, cronExpression: string, tasks: (() => void)[], overwrite = false) {
+    function create(jobName: string, cronExpression: string, tasks: (() => void)[], overwrite = false): boolean {
         if (!cron.validate(cronExpression)) {
-            return;
+            return false;
         }
 
-        if (registeredJobs.has(jobName) && overwrite) {
+        if (registeredJobs.has(jobName)) {
+            if (!overwrite) {
+                return false;
+            }
             const { job } = registeredJobs.get(jobName);
             job.stop();
             registeredJobs.delete(jobName);
@@ -23,6 +26,8 @@ export function useCronJob() {
         });
 
         registeredJobs.set(jobName, { job, cronExpression, tasks });
+
+        return true;
     }
 
     function remove(jobName: string) {
