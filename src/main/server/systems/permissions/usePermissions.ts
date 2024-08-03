@@ -7,13 +7,13 @@ export function usePermissions(player: alt.Player) {
 
     const hasPermission = (permission: string): boolean => {
         if (account.isValid()) {
-            if (rAccount.permissions.has(permission)) {
+            if (account.permissions.has(permission)) {
                 return true;
             }
         }
 
         if (character.isValid()) {
-            if (rCharacter.permissions.has(permission)) {
+            if (character.permissions.has(permission)) {
                 return true;
             }
         }

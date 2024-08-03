@@ -17,7 +17,7 @@ function evaluatePermission(permission: Permission, hasPermission: (perm: string
 }
 
 export function useEntityPermissions<T extends PermissionOptions>(entity: T) {
-    async function check(player: alt.Player): Promise<boolean> {
+    function check(player: alt.Player): boolean {
         const rCharacter = useCharacter(player);
         const rAccount = useAccount(player);
         if (!rAccount.isValid() && !rCharacter.isValid()) return false;
