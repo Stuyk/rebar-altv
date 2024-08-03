@@ -41,14 +41,15 @@ export function useCronJob() {
     }
 
     function addTaskToCron<K extends keyof CronJobs>(jobName: K, task: () => void) {
-        if (registeredJobs.has(jobName)) {
-            const { job, cronExpression, tasks } = registeredJobs.get(jobName);
-            job.stop();
-
-            tasks.push(task);
-
-            create(jobName, cronExpression, tasks, true);
+        if (!registeredJobs.has(jobName)) {
+            return;
         }
+        
+        const { job, cronExpression, tasks } = registeredJobs.get(jobName);
+        job.stop();
+
+        tasks.push(task);
+        create(jobName, cronExpression, tasks, true);
     }
 
     function removeTaskFromCron<K extends keyof CronJobs>(jobName: K, task: () => void) {
