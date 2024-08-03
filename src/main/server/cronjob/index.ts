@@ -31,11 +31,13 @@ export function useCronJob() {
     }
 
     function remove(jobName: string) {
-        if (registeredJobs.has(jobName)) {
-            const { job } = registeredJobs.get(jobName);
-            job.stop();
-            registeredJobs.delete(jobName);
+        if (!registeredJobs.has(jobName)) {
+            return;
         }
+        
+        const { job } = registeredJobs.get(jobName);
+        job.stop();
+        registeredJobs.delete(jobName);
     }
 
     function addTaskToCron<K extends keyof CronJobs>(jobName: K, task: () => void) {
