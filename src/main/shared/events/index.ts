@@ -62,6 +62,9 @@ export const Events = {
             play: {
                 local: 'audio:player:sound:2d',
             },
+            stop: {
+                local: 'udio:player:sound:2d:stop',
+            },
         },
         controls: {
             set: 'player:controls:set',
