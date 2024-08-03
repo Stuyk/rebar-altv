@@ -15,8 +15,13 @@ export function useAudio(player: alt.Player) {
         webview.emit(Events.player.audio.play.local, soundPath, volume);
     }
 
+    function stopAudio() {
+        webview.emit(Events.player.audio.stop.local);
+    }
+    
     return {
         playFrontendSound,
         playSound,
+        stopAudio,
     };
 }
