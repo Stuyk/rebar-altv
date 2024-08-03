@@ -1,8 +1,7 @@
 import * as alt from 'alt-server';
 import * as Utility from '@Shared/utility/index.js';
-import { TextLabel } from '@Shared/types/textLabel.js';
 import { Events } from '@Shared/events/index.js';
-import { iObject } from '@Shared/types/object.js';
+import {iObject} from '@Shared/types/index.js';
 
 /**
  * Create an object globally

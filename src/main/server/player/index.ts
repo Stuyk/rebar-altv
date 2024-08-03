@@ -18,6 +18,7 @@ import { useRaycast } from './raycast.js';
 import { useAccount } from '../document/account.js';
 import { useScreenshot } from '../systems/screenshot.js';
 import { useAttachment } from './attachment.js';
+import { usePermissions } from '../systems/permissions/index.js';
 
 const playerGetter = usePlayerGetter();
 const vehicleGetter = useVehicleGetter();
@@ -62,5 +63,6 @@ export function usePlayer(player: alt.Player) {
         weapon: useWeapon(player),
         webview: useWebview(player),
         world: useWorld(player),
+        permissions: usePermissions(player),
     };
 }

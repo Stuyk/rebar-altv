@@ -1,9 +1,8 @@
 import * as alt from 'alt-server';
 import * as Utility from '../utility/index.js';
-import { Account } from '@Shared/types/account.js';
+import { Character, Account } from '@Shared/types/index.js';
 import { useDatabase } from '@Server/database/index.js';
 import { CollectionNames, KeyChangeCallback } from './shared.js';
-import { Character } from '@Shared/types/character.js';
 import { usePermissionProxy } from '@Server/systems/permissionProxy.js';
 import { useIncrementalId } from './increment.js';
 
@@ -206,51 +205,11 @@ export function useAccount(player: alt.Player) {
         return id;
     }
 
-    const { permissions, groupPermissions } = usePermissionProxy(player, 'account', get, set);
-
-    /**
-     * Old permission system. Will be deprecated.
-     * @deprecated
-     */
-    const permission = {
-        /**
-         * @deprecated
-         */
-        addPermission: async (permissionName: string) => {
-            alt.logWarning(
-                'Consider using useAccount(...).permissions.addPermission instead. This will be deprecated.',
-            );
-            return permissions.addPermission(permissionName);
-        },
-        /**
-         * @deprecated
-         */
-        removePermission: async (permissionName: string) => {
-            alt.logWarning(
-                'Consider using useAccount(...).permissions.removePermission instead. This will be deprecated.',
-            );
-            return permissions.removePermission(permissionName);
-        },
-        /**
-         * @deprecated
-         */
-        hasPermission: (permissionName: string) => {
-            alt.logWarning(
-                'Consider using useAccount(...).permissions.hasPermission instead. This will be deprecated.',
-            );
-            return permissions.hasPermission(permissionName);
-        },
-        /**
-         * @deprecated
-         */
-        setBanned: async (reason: string) => {
-            alt.logWarning('Consider using useAccount(...).setBanned instead. This will be deprecated.');
-            return setBanned(reason);
-        },
-    };
+    const {permissions, groups} = usePermissionProxy<Account>(get, setBulk, player, 'account');
 
     return {
-        permission,
+        permissions,
+        groups,
         addIdentifier,
         get,
         getCharacters,
@@ -261,8 +220,6 @@ export function useAccount(player: alt.Player) {
         setPassword,
         checkPassword,
         setBanned,
-        permissions,
-        groupPermissions,
     };
 }
 
