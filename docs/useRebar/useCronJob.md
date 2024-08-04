@@ -8,7 +8,7 @@ Allow plugins to create cronjobs.
 
 Details on how to create the cron expression can be found in the node-cron documentation:
 
-https://www.npmjs.com/package/node-cron#allowed-fields
+[Cron Syntax](https://www.npmjs.com/package/node-cron#cron-syntax)
 
 ## How to create new Cronjob
 
