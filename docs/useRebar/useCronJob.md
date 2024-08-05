@@ -4,7 +4,7 @@ order: 930
 
 # useCronJob
 
-Allow plugins to create cronjobs.
+This API allows you to create timed events that happen at different intervals based on server time. Such as every 5th minute of the hour, every hour, etc. 
 
 Details on how to create the cron expression can be found in the node-cron documentation:
 
