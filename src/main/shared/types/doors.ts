@@ -1,4 +1,5 @@
 import * as alt from 'alt-shared';
+import {PermissionOptions} from "@Shared/types/index.js";
 
 
 export enum DoorState {
@@ -7,7 +8,7 @@ export enum DoorState {
 }
 
 
-export interface Door {
+export interface Door extends PermissionOptions {
     /**
      * Unique identifier for the door.
      * 
@@ -35,30 +36,6 @@ export interface Door {
      * @type {number}
      */
     model: number;
-
-    /**
-     * The permissions that are allowed to lock/unlock the door.
-     * 
-     * @type {Record<'account' | 'character', string[]>}
-     */
-    permissions: {
-        account: string[];
-        character: string[];
-    }
-
-    /**
-     * The groups that are allowed to lock/unlock the door.
-     * 
-     * @type {Record<string, string[]>}
-     */
-    groups: {
-        account: {
-            [key: string]: string[];
-        };
-        character: {
-            [key: string]: string[];
-        };
-    }
 }
 
 export interface DoorsConfig {

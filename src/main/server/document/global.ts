@@ -61,10 +61,16 @@ export async function useGlobal<T extends Object = Object>(identifier: string) {
         return await db.update({ _id: data[identifier]._id, ...newData }, CollectionNames.Global);
     }
 
+    async function unset(fieldName: string): Promise<boolean> {
+        delete data[identifier][fieldName];
+        return await db.unset(identifier, [fieldName], CollectionNames.Global);
+    }
+
     return {
         get,
         getField,
         set,
         setBulk,
+        unset,
     };
 }

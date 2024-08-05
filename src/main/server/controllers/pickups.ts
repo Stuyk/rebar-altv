@@ -1,7 +1,7 @@
 import * as alt from 'alt-server';
 import * as Utility from '@Shared/utility/index.js';
-import { WeaponPickup } from '@Shared/types/pickup.js';
-import { WeaponPickups } from '../../shared/data/pickups.js';
+import {WeaponPickup} from '@Shared/types/index.js';
+import {WeaponPickups} from '@Shared/data/pickups.js';
 
 type PlayerCallback = (player: alt.Player, pickup: WeaponPickup, destroy: Function) => void;
 type InternalPickup = { colshape: alt.Colshape; entity: alt.Object; invoke: (player: alt.Player) => void };

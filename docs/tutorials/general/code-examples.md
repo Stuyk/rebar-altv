@@ -28,35 +28,6 @@ import * as alt from 'alt-server';
 const Rebar = alt.getMeta('Rebar');
 ```
 
-## Rebar Events
-
-Rebar has a handful of events that can be used in tandem with alt:V events.
-
-These become more useful when a character select, or auth plugins are installed.
-
-```ts
-import { useRebar } from '@Server/index.js';
-
-const Rebar = useRebar();
-const RebarEvents = Rebar.events.useEvents();
-
-RebarEvents.on('character-bound', (player) => {
-    // do something when they've selected a character
-});
-```
-
-```ts
-RebarEvents.on('account-bound', (player) => {
-    // do something when they've logged into an account
-});
-```
-
-```ts
-RebarEvents.on('time-changed', (hour, minute, second) => {
-    // Do something when the time changes in-game
-});
-```
-
 ## Notifying a Player
 
 Send a default GTA:V notification to the player.
@@ -65,9 +36,8 @@ Send a default GTA:V notification to the player.
 import { useRebar } from '@Server/index.js';
 
 const Rebar = useRebar();
-const RebarEvents = Rebar.events.useEvents();
 
-RebarEvents.on('character-bound', (player) => {
+alt.on('playerConnect', (player) => {
     const rPlayer = Rebar.usePlayer(player);
     rPlayer.notify.showNotification('Welcome to the server!');
 });
@@ -82,9 +52,8 @@ import * as alt from 'alt-server';
 import { useRebar } from '@Server/index.js';
 
 const Rebar = useRebar();
-const RebarEvents = Rebar.events.useEvents();
 
-RebarEvents.on('character-bound', (player) => {
+alt.on('playerConnect', (player) => {
     const rPlayer = Rebar.usePlayer(player);
     rPlayer.notify.showShard({
         title: 'Welcome to the Server',
@@ -102,9 +71,8 @@ import * as alt from 'alt-server';
 import { useRebar } from '@Server/index.js';
 
 const Rebar = useRebar();
-const RebarEvents = Rebar.events.useEvents();
 
-RebarEvents.on('character-bound', (player) => {
+alt.on('playerConnect', (player) => {
     const rPlayer = Rebar.usePlayer(player);
     rPlayer.notify.showMissionText('Visit our website at https://rebarv.com');
 });

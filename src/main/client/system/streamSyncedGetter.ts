@@ -1,6 +1,5 @@
 import * as alt from 'alt-client';
-import { Vehicle } from '../../shared/types/vehicle.js';
-import { Character } from '@Shared/types/character.js';
+import {Character, Vehicle} from '@Shared/types/index.js';
 
 export function useStreamSyncedGetter() {
     /**

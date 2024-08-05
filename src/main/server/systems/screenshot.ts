@@ -2,10 +2,9 @@ import * as alt from 'alt-server';
 import fs from 'fs';
 import { Events } from '@Shared/events/index.js';
 import { useBuffer } from '@Shared/utility/buffer.js';
-import { useRebar } from '../index.js';
 import * as Clothing from '@Shared/data/clothing.js';
+import { usePlayer } from '../player/index.js';
 
-const Rebar = useRebar();
 const BufferHelper = useBuffer();
 
 const cache: { [id: string]: { data: Array<string>; isComplete: boolean } } = {};
@@ -85,7 +84,7 @@ export function useScreenshot(player: alt.Player) {
      * @return
      */
     async function takeVehicleScreenshot(pos: alt.Vector3, name: string, model: number) {
-        const rPlayer = Rebar.usePlayer(player);
+        const rPlayer = usePlayer(player);
         rPlayer.world.setWeather('EXTRASUNNY', 0);
         rPlayer.world.setTime(12, 0, 0);
 
@@ -124,7 +123,7 @@ export function useScreenshot(player: alt.Player) {
      * @return
      */
     async function takeWeaponScreenshot(name: string) {
-        const rPlayer = Rebar.usePlayer(player);
+        const rPlayer = usePlayer(player);
         rPlayer.world.setWeather('EXTRASUNNY', 0);
         rPlayer.world.setTime(12, 0, 0);
 
@@ -159,7 +158,7 @@ export function useScreenshot(player: alt.Player) {
     ) {
         let isMale = dlcName.toLowerCase().includes('mp_m') || dlcName.includes('Male_');
 
-        const rPlayer = Rebar.usePlayer(player);
+        const rPlayer = usePlayer(player);
         rPlayer.world.setWeather('EXTRASUNNY', 0);
         rPlayer.world.setTime(12, 0, 0);
 

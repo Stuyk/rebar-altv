@@ -191,12 +191,18 @@ export function useWorld(player: alt.Player) {
         zone: string;
         crossingRoad: string;
     }> {
-        if (!player || !player.valid) return;
+        if (!player || !player.valid) {
+            return undefined;
+        }
+
         return await player.emitRpc(Events.systems.world.pointDetails, point);
     }
 
     async function getTravelDistance(point1: alt.Vector3, point2: alt.Vector3 = undefined): Promise<number> {
-        if (!player || !player.valid) return;
+        if (!player || !player.valid) {
+            return 0;
+        }
+
         point2 = point2 ?? player.pos;
         const result = await player.emitRpc(Events.systems.world.travelDistance, point1, point2);
         return result;

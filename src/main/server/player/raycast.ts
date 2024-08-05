@@ -39,9 +39,29 @@ export function useRaycast(player: alt.Player) {
         return await player.emitRpc(Events.systems.raycast.getFocusedPosition, debug);
     }
 
+    async function getFocusedCustom(flag: number, debug = false) {
+        const validValues = [0, 1, 2, 4, 8, 16, 32, 128, 256, 4294967295];
+
+        if (flag !== -1) {
+            let flagcalc = flag;
+            for (const value of validValues) {
+                if ((flagcalc & value) === value) {
+                    flagcalc -= value;
+                }
+            }
+
+            if (flagcalc !== 0) {
+                return undefined;
+            }
+        }
+
+        return await player.emitRpc(Events.systems.raycast.getFocusedCustom, flag, debug);
+    }
+
     return {
         getFocusedEntity,
         getFocusedObject,
         getFocusedPosition,
+        getFocusedCustom,
     };
 }

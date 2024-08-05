@@ -1,7 +1,6 @@
 import * as alt from 'alt-server';
 import { useCharacter } from '@Server/document/character.js';
-import { Character } from '@Shared/types/character.js';
-import { ClothingComponent } from '@Shared/types/clothingComponent.js';
+import {Character, ClothingComponent} from '@Shared/types/index.js';
 
 const fModel = alt.hash('mp_f_freemode_01');
 const mModel = alt.hash(`mp_m_freemode_01`);

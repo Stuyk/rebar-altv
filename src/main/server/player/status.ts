@@ -1,15 +1,13 @@
 import * as alt from 'alt-server';
-import { useRebar } from '../index.js';
-
-const Rebar = useRebar();
+import { useAccount, useCharacter } from '../document/index.js';
 
 export function useStatus(player: alt.Player) {
     function hasAccount() {
-        return Rebar.document.account.useAccount(player).isValid();
+        return useAccount(player).isValid();
     }
 
     function hasCharacter() {
-        return Rebar.document.character.useCharacter(player).isValid();
+        return useCharacter(player).isValid();
     }
 
     return {

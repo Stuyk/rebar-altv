@@ -1,6 +1,9 @@
 import * as alt from 'alt-server';
 import { Events } from '@Shared/events/index.js';
 import * as Utility from '@Shared/utility/index.js';
+import { useBlipGlobal } from './blip.js';
+import { useMarkerGlobal } from './markers.js';
+import { useD2DTextLabel } from './d2dTextLabel.js';
 
 export type InteractionCallback = (entity: alt.Player, colshape: alt.Colshape, uid: string) => void;
 
@@ -104,6 +107,10 @@ export function useInteraction(colshape: alt.Colshape, type: 'vehicle' | 'player
     let msgEnter = undefined;
     let msgLeave = undefined;
 
+    let blip: ReturnType<typeof useBlipGlobal>;
+    let marker: ReturnType<typeof useMarkerGlobal>;
+    let label: ReturnType<typeof useD2DTextLabel>;
+
     function handleEnter(player: alt.Player) {
         player.emit(Events.controllers.interaction.set, uid, msgEnter, colshape.pos);
 
@@ -158,7 +165,7 @@ export function useInteraction(colshape: alt.Colshape, type: 'vehicle' | 'player
     }
 
     /**
-     * Destroy the interaction point
+     * Destroy the interaction point, and any attached label, blip, or marker
      *
      */
     function destroy() {
@@ -170,6 +177,18 @@ export function useInteraction(colshape: alt.Colshape, type: 'vehicle' | 'player
         try {
             shape.destroy();
         } catch (err) {}
+
+        if (label) {
+            label.destroy();
+        }
+
+        if (blip) {
+            blip.destroy();
+        }
+
+        if (marker) {
+            marker.destroy();
+        }
     }
 
     /**
@@ -194,6 +213,42 @@ export function useInteraction(colshape: alt.Colshape, type: 'vehicle' | 'player
     interactions.push({ handleEnter, handleLeave, handleInteract, uid, type });
 
     return {
+        addBlip: (...args: Parameters<typeof useBlipGlobal>) => {
+            if (blip) {
+                blip.destroy();
+            }
+
+            blip = useBlipGlobal(...args);
+            return blip;
+        },
+        addMarker: (...args: Parameters<typeof useMarkerGlobal>) => {
+            if (marker) {
+                marker.destroy();
+            }
+
+            marker = useMarkerGlobal(...args);
+            return marker;
+        },
+        addTextLabel: (...args: Parameters<typeof useD2DTextLabel>) => {
+            if (label) {
+                label.destroy();
+            }
+
+            label = useD2DTextLabel(...args);
+            return label;
+        },
+        getPos() {
+            return colshape.pos;
+        },
+        getBlip() {
+            return blip;
+        },
+        getMarker() {
+            return marker;
+        },
+        getTextLabel() {
+            return label;
+        },
         on,
         onEnter,
         onLeave,

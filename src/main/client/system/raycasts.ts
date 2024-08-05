@@ -79,6 +79,8 @@ export function useRaycast() {
         return undefined;
     }
 
+
+
     /**
      * Get the object the player is looking at
      *
@@ -118,10 +120,27 @@ export function useRaycast() {
         return results.coords;
     }
 
+    function getFocusedCustom(flag: number, debug = false) {
+        const results = performRaycast(flag, debug);
+        if (!results.result || !results.didHit) {
+            return undefined;
+        }
+        const type = native.getEntityType(results.entity);
+        const entityPos = native.getEntityCoords(results.entity, false);
+
+        return {
+            scriptId: results.entity,
+            type,
+            pos: results.coords,
+            entityPos,
+        };
+    }
+
     return {
         getFocusedEntity,
         getFocusedObject,
         getFocusedPosition,
+        getFocusedCustom,
     };
 }
 
@@ -130,3 +149,4 @@ const raycast = useRaycast();
 alt.onRpc(Events.systems.raycast.getFocusedEntity, raycast.getFocusedEntity);
 alt.onRpc(Events.systems.raycast.getFocusedObject, raycast.getFocusedObject);
 alt.onRpc(Events.systems.raycast.getFocusedPosition, raycast.getFocusedPosition);
+alt.onRpc(Events.systems.raycast.getFocusedCustom, raycast.getFocusedCustom);

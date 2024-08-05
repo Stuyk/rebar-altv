@@ -23,8 +23,8 @@ export function useMyCoolAPI() {
 ```
 
 2. Create a global declaration for your API.
-   +++ Without arguments
 
++++ Without arguments
 ```ts
 import { useClientApi } from '@Client/api/index.js';
 
@@ -119,6 +119,7 @@ function someFunction(somePlayer: alt.Player) {
     useMyCoolAPI(somePlayer).logPlayerName();
 }
 ```
++++
 
 If you do not want to worry about load order. Consider the following pattern:
 

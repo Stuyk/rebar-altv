@@ -1,6 +1,7 @@
 import * as alt from 'alt-shared';
 import { Appearance } from './appearance.js';
 import { ClothingComponent } from './clothingComponent.js';
+import {GroupsDocumentMixin, PermissionsDocumentMixin} from "@Shared/types/index.js";
 
 export interface BaseCharacter {
     /**
@@ -56,7 +57,7 @@ export interface BaseCharacter {
  *
  * @interface Character
  */
-export interface Character extends BaseCharacter {
+export interface Character extends BaseCharacter, PermissionsDocumentMixin, GroupsDocumentMixin {
     /**
      * The character identifier in the database.
      * @type {*}
@@ -137,14 +138,6 @@ export interface Character extends BaseCharacter {
     interior?: number | undefined;
 
     /**
-     * Permissions for a given user.
-     *
-     * @type {Array<string>}
-     *
-     */
-    permissions?: Array<string>;
-
-    /**
      * Clothes that will be applied to the player last.
      * Uniforms should be used in tandem with typical inventory clothing.
      *
@@ -173,24 +166,9 @@ export interface Character extends BaseCharacter {
     skin?: string | number;
 
     /**
-     * A key value pair that contains a list of permissions a character has for a group.
-     *
-     * @type {{ [key: string]: Array<string> }}
-     * @memberof Character
-     */
-    groups?: { [key: string]: Array<string> };
-
-    /**
      * Player weapons that the player currently has equipped
      *
-     * @type {alt.IWeapon[]}
+     * @type {(alt.IWeapon & { ammo: number })[]}
      */
-    weapons?: alt.IWeapon[];
-
-    /**
-     * Ammo the player has based on weapon hash
-     *
-     * @type {{ [weaponHash: string]: number }}
-     */
-    ammo?: { [weaponHash: string]: number };
+    weapons?: (alt.IWeapon & { ammo: number })[];
 }

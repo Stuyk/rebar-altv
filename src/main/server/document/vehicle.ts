@@ -1,11 +1,21 @@
 import * as alt from 'alt-server';
-import { Vehicle } from '@Shared/types/vehicle.js';
-import { KnownKeys } from '@Shared/utilityTypes/index.js';
+import {Vehicle as VehicleDocument} from '@Shared/types/index.js';
 import { useDatabase } from '@Server/database/index.js';
 import { CollectionNames, KeyChangeCallback } from './shared.js';
-import { useRebar } from '../index.js';
+import { useIncrementalId } from './increment.js';
+import { useVehicle as useVehicleRebar } from '../vehicle/index.js';
 
-const Rebar = useRebar();
+declare module 'alt-server' {
+    export interface ICustomEmitEvent {
+        'rebar:vehicleBound': (vehicle: alt.Vehicle, document: VehicleDocument) => void;
+        'rebar:vehicleUpdated': <K extends keyof VehicleDocument>(
+            vehicle: alt.Vehicle,
+            fieldName: K,
+            value: VehicleDocument[K],
+        ) => void;
+    }
+}
+
 const sessionKey = 'document:vehicle';
 const callbacks: { [key: string]: Array<KeyChangeCallback<alt.Vehicle>> } = {};
 const db = useDatabase();
@@ -30,14 +40,14 @@ export function useVehicle(vehicle: alt.Vehicle) {
      * Return current vehicle data and their associated Vehicle object.
      *
      * @template T
-     * @return {(T & Vehicle) | undefined}
+     * @return {VehicleDocument | undefined}
      */
-    function get<T = {}>(): (T & Vehicle) | undefined {
+    function get(): VehicleDocument | undefined {
         if (!vehicle.hasMeta(sessionKey)) {
             return undefined;
         }
 
-        return <T & Vehicle>vehicle.getMeta(sessionKey);
+        return <VehicleDocument>vehicle.getMeta(sessionKey);
     }
 
     /**
@@ -48,7 +58,7 @@ export function useVehicle(vehicle: alt.Vehicle) {
      * @param {(keyof KnownKeys<Vehicle & T>)} fieldName
      * @return {ReturnType | undefined}
      */
-    function getField<T = {}, ReturnType = any>(fieldName: keyof KnownKeys<Vehicle & T>): ReturnType | undefined {
+    function getField<K extends keyof VehicleDocument>(fieldName: K): VehicleDocument[K] | undefined {
         if (!vehicle.hasMeta(sessionKey)) {
             return undefined;
         }
@@ -65,13 +75,13 @@ export function useVehicle(vehicle: alt.Vehicle) {
      * @param {*} value
      * @return {void}
      */
-    async function set<T = {}, Keys = keyof KnownKeys<Vehicle & T>>(fieldName: Keys, value: any) {
+    async function set<K extends keyof VehicleDocument>(fieldName: K, value: VehicleDocument[K]) {
         if (!vehicle.hasMeta(sessionKey)) {
             return undefined;
         }
 
         const typeSafeFieldName = String(fieldName);
-        let data = vehicle.getMeta(sessionKey) as T & Vehicle;
+        let data = vehicle.getMeta(sessionKey) as VehicleDocument;
         let oldValue = undefined;
 
         if (data[typeSafeFieldName]) {
@@ -83,6 +93,8 @@ export function useVehicle(vehicle: alt.Vehicle) {
         data = Object.assign(data, newData);
         vehicle.setMeta(sessionKey, data);
         await db.update({ _id: data._id, [typeSafeFieldName]: value }, CollectionNames.Vehicles);
+
+        alt.emit('rebar:vehicleUpdated', vehicle, fieldName, value);
 
         if (typeof callbacks[typeSafeFieldName] === 'undefined') {
             return;
@@ -101,12 +113,12 @@ export function useVehicle(vehicle: alt.Vehicle) {
      * @param {(Partial<Vehicle & T>)} fields
      * @returns {void}
      */
-    async function setBulk<T = {}, Keys = Partial<Vehicle & T>>(fields: Keys) {
+    async function setBulk(fields: Partial<VehicleDocument>) {
         if (!vehicle.hasMeta(sessionKey)) {
             return undefined;
         }
 
-        let data = vehicle.getMeta(sessionKey) as Vehicle & T;
+        let data = vehicle.getMeta(sessionKey) as VehicleDocument;
 
         const oldValues = {};
 
@@ -124,6 +136,8 @@ export function useVehicle(vehicle: alt.Vehicle) {
         await db.update({ _id: data._id, ...fields }, CollectionNames.Vehicles);
 
         Object.keys(fields).forEach((key) => {
+            alt.emit('rebar:vehicleUpdated', vehicle, key as keyof VehicleDocument, data[key]);
+
             if (typeof callbacks[key] === 'undefined') {
                 return;
             }
@@ -139,7 +153,7 @@ export function useVehicle(vehicle: alt.Vehicle) {
             return getField('id');
         }
 
-        const identifier = await Rebar.database.useIncrementalId(Rebar.database.CollectionNames.Vehicles);
+        const identifier = await useIncrementalId(CollectionNames.Vehicles);
         const id = await identifier.getNext();
         await setBulk({ id });
         return id;
@@ -156,16 +170,16 @@ export function useVehicleBinder(vehicle: alt.Vehicle) {
      *
      * @param {Vehicle & T} document
      */
-    function bind<T = {}>(document: Vehicle & T, syncVehicle = true): ReturnType<typeof useVehicle> | undefined {
+    function bind(document: VehicleDocument, syncVehicle = true): ReturnType<typeof useVehicle> | undefined {
         if (!vehicle.valid) {
             return undefined;
         }
 
         vehicle.setMeta(sessionKey, document);
-        Rebar.events.useEvents().invoke('vehicle-bound', vehicle, document);
+        alt.emit('rebar:vehicleBound', vehicle, document);
 
         if (syncVehicle) {
-            Rebar.vehicle.useVehicle(vehicle).sync();
+            useVehicleRebar(vehicle).sync();
         }
 
         const vehicleUse = useVehicle(vehicle);
@@ -191,28 +205,5 @@ export function useVehicleBinder(vehicle: alt.Vehicle) {
     return {
         bind,
         unbind,
-    };
-}
-
-export function useVehicleEvents() {
-    /**
-     * Listen for individual vehicle document changes.
-     *
-     * @param {string} fieldName
-     * @param {KeyChangeCallback<alt.Vehicle>} callback
-     * @return {void}
-     */
-    function on<T = {}>(fieldName: keyof KnownKeys<Vehicle & T>, callback: KeyChangeCallback<alt.Vehicle>) {
-        const actualFieldName = String(fieldName);
-
-        if (typeof callbacks[actualFieldName] === 'undefined') {
-            callbacks[actualFieldName] = [callback];
-        } else {
-            callbacks[actualFieldName].push(callback);
-        }
-    }
-
-    return {
-        on,
     };
 }

@@ -1,8 +1,6 @@
 import * as alt from 'alt-server';
-import { BaseCharacter, Character } from '../../shared/types/character.js';
-import { useRebar } from '../index.js';
-
-const Rebar = useRebar();
+import { BaseCharacter } from '../../shared/types/character.js';
+import { useCharacter } from '../document/character.js';
 
 export function useState(player: alt.Player) {
     /**
@@ -40,7 +38,7 @@ export function useState(player: alt.Player) {
      * Save current player position, rot, health, armor, etc.
      */
     function save() {
-        const document = Rebar.document.character.useCharacter(player);
+        const document = useCharacter(player);
         if (!document.get()) {
             return;
         }
@@ -60,7 +58,7 @@ export function useState(player: alt.Player) {
      * @return
      */
     function sync() {
-        const document = Rebar.document.character.useCharacter(player);
+        const document = useCharacter(player);
         const data = document.get();
         if (!data) {
             return;

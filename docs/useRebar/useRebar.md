@@ -19,11 +19,3 @@ const Rebar = useRebar();
 const document = Rebar.document.account.useAccount();
 const audioInstance = Rebar.player.useAudio(somePlayer);
 ```
-
-## alt:V Based Import
-
-```ts
-import * as alt from 'alt-server';
-
-const Rebar = alt.getMeta('Rebar');
-```

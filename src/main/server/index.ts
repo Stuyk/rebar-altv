@@ -1,10 +1,13 @@
 import * as alt from 'alt-server';
 import * as Utility from '@Shared/utility/index.js';
 import './startup.js';
+import './systems/pageSystem.js';
 
 import { useApi } from './api/index.js';
 
 import { useConfig } from './config/index.js';
+
+import { useCronJob } from './cronjob/index.js';
 
 import { useBlipGlobal, useBlipLocal } from './controllers/blip.js';
 import { useDoor } from './controllers/doors.js';
@@ -19,25 +22,19 @@ import { useDatabase } from './database/index.js';
 import {
     useAccount,
     useAccountBinder,
-    useAccountEvents,
     useCharacter,
     useCharacterBinder,
-    useCharacterEvents,
     useGlobal,
     useIncrementalId,
     useVehicleBinder,
     useVehicle as useVehicleDocument,
-    useVehicleEvents,
     useVirtual,
 } from './document/index.js';
-
 
 import { CollectionNames } from './document/shared.js';
 
 import { useProtectCallback } from './utility/protectCallback.js';
 import { useRateLimitCallback } from './utility/rateLimitCallback.js';
-
-import { useEvents } from './events/index.js';
 
 import { usePlayerGetter } from './getters/player.js';
 import { usePlayersGetter } from './getters/players.js';
@@ -57,8 +54,7 @@ import { useWebview } from './player/webview.js';
 import { useWorld } from './player/world.js';
 
 import { useMessenger } from './systems/messenger.js';
-import { usePermission } from './systems/permission.js';
-import { usePermissionGroup } from './systems/permissionGroup.js';
+import { usePermissionGroup, useEntityPermissions, usePermissions } from './systems/permissions/index.js';
 
 import { usePlayer } from './player/index.js';
 import { useState } from './player/state.js';
@@ -67,8 +63,6 @@ import { sha256, sha256Random } from './utility/hash.js';
 import { check, hash } from './utility/password.js';
 import { useVehicle } from './vehicle/index.js';
 import { useVehicleHandling } from './vehicle/vehicleHandling.js';
-import { useServerTime } from './systems/serverTime.js';
-import { useServerWeather } from './systems/serverWeather.js';
 import { useProxyFetch } from './systems/proxyFetch.js';
 import { usePed } from './controllers/ped.js';
 import { useServerConfig } from './systems/serverConfig.js';
@@ -87,12 +81,20 @@ import { useAttachment } from './player/attachment.js';
 import { useInteractionLocal } from './controllers/interactionLocal.js';
 import { useInstructionalButtons } from './controllers/instructionalButtons.js';
 import { useHono } from './rpc/index.js';
+import { useDeathService } from './services/death.js';
+import { useCurrencyService } from './services/currency.js';
+import { useItemService } from './services/items.js';
+import { useNotificationService } from './services/notifications.js';
+import { useTimeService } from './services/time.js';
+import { useWeatherService } from './services/weather.js';
+import { useServiceRegister } from './services/index.js';
 
 export function useRebar() {
     return {
         useApi,
         useConfig,
         useHono,
+        useCronJob,
         controllers: {
             useBlipGlobal,
             useBlipLocal,
@@ -123,12 +125,10 @@ export function useRebar() {
             account: {
                 useAccount,
                 useAccountBinder,
-                useAccountEvents,
             },
             character: {
                 useCharacter,
                 useCharacterBinder,
-                useCharacterEvents,
             },
             global: {
                 useGlobal,
@@ -136,14 +136,10 @@ export function useRebar() {
             vehicle: {
                 useVehicle: useVehicleDocument,
                 useVehicleBinder,
-                useVehicleEvents,
             },
             virtual: {
                 useVirtual,
             },
-        },
-        events: {
-            useEvents,
         },
         get: {
             usePlayerGetter,
@@ -172,25 +168,31 @@ export function useRebar() {
         messenger: {
             useMessenger,
         },
-        permission: {
-            usePermission,
+        permissions: {
             usePermissionGroup,
+            useEntityPermissions,
+            usePermissions,
         },
         useKeybinder,
         useKeypress,
         usePlayer,
         useProxyFetch,
         useServerConfig,
-        useServerTime,
-        useServerWeather,
+        services: {
+            useCurrencyService,
+            useDeathService,
+            useItemService,
+            useNotificationService,
+            useServiceRegister,
+            useTimeService,
+            useWeatherService,
+        },
         systems: {
             useMessenger,
             useKeybinder,
             useKeypress,
             useProxyFetch,
             useServerConfig,
-            useServerTime,
-            useServerWeather,
             useStreamSyncedBinder,
         },
         utility: {
@@ -211,29 +213,3 @@ export function useRebar() {
         },
     };
 }
-
-declare module 'alt-server' {
-    // extending interface by interface merging
-    export interface ICustomGlobalMeta {
-        /**
-         * Used for getting plugin APIs
-         *
-         * Only available on server-side, server folder
-         *
-         * @type {ReturnType<typeof useRebar>}
-         * @memberof ICustomGlobalMeta
-         */
-        Rebar: ReturnType<typeof useRebar>;
-
-        /**
-         * Only available on server-side, server folder
-         *
-         * @type {ReturnType<typeof useApi>}
-         * @memberof ICustomGlobalMeta
-         */
-        RebarAPI: ReturnType<typeof useApi>;
-    }
-}
-
-alt.setMeta('Rebar', useRebar());
-alt.setMeta('RebarPluginAPI', useRebar().useApi());

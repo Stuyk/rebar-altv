@@ -1,5 +1,5 @@
 import * as alt from 'alt-client';
-import { TextLabel } from '@Shared/types/textLabel.js';
+import {TextLabel} from '@Shared/types/index.js';
 import * as ScreenText from '../screen/textlabel.js';
 
 const GroupType = 'textlabel';

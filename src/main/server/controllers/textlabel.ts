@@ -1,7 +1,7 @@
-import { Events } from '@Shared/events/index.js';
-import { TextLabel } from '@Shared/types/textLabel.js';
-import * as Utility from '@Shared/utility/index.js';
 import * as alt from 'alt-server';
+import { Events } from '@Shared/events/index.js';
+import {TextLabel} from '@Shared/types/index.js';
+import * as Utility from '@Shared/utility/index.js';
 
 const GroupType = 'textlabel';
 const MAX_LABELS = 10;

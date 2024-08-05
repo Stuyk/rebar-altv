@@ -692,6 +692,9 @@ async function showSomeMenu(player: alt.Player) {
 
 Doors are objects that can be opened and closed. When they are locked, no one can bypass them.
 
+Permissions can be set on doors to allow certain players to lock/unlock them.
+More details about how to use permissions can be found [here](/userebar/systems/permissions/useEntityPermissions.md).
+
 ### useDoor
 
 ```ts

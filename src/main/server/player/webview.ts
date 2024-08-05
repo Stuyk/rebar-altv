@@ -1,7 +1,7 @@
 import * as alt from 'alt-server';
 import { Events } from '@Shared/events/index.js';
 import { PageNames, PageType } from '@Shared/webview/index.js';
-import { PageInfo } from '@Shared/types/webview.js';
+import {PageInfo} from '@Shared/types/index.js';
 
 const SessionKeys = {
     WebviewPage: 'webview:page',

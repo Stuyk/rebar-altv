@@ -1,6 +1,6 @@
 import * as alt from 'alt-client';
 import { Events } from '@Shared/events/index.js';
-import { iObject } from '@Shared/types/object.js';
+import {iObject} from '@Shared/types/index.js';
 import { distance2d } from '@Shared/utility/vector.js';
 
 const MAX_DISTANCE = 50;

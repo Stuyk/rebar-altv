@@ -1,12 +1,10 @@
-import { useRebar } from '../index.js';
+import { useGlobal } from './global.js';
 
-const Rebar = useRebar();
-
-let incremental: Awaited<ReturnType<typeof Rebar.document.global.useGlobal<{ [key: string]: number }>>>;
+let incremental: Awaited<ReturnType<typeof useGlobal<{ [key: string]: number }>>>;
 
 async function init() {
     try {
-        incremental = await Rebar.document.global.useGlobal('incrementals');
+        incremental = await useGlobal('incrementals');
     } catch (err) {}
 }
 

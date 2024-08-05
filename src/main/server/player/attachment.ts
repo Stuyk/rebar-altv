@@ -1,5 +1,5 @@
 import * as alt from 'alt-server';
-import { Attachment } from '@Shared/types/attachment.js';
+import {Attachment} from '@Shared/types/index.js';
 
 declare module 'alt-shared' {
     export interface ICustomEntityStreamSyncedMeta {

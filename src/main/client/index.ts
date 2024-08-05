@@ -79,31 +79,3 @@ export function useRebarClient() {
         },
     };
 }
-
-declare module 'alt-shared' {
-    // extending interface by interface merging
-    export interface ICustomGlobalMeta {
-        /**
-         * Only available client-side, client folder
-         *
-         * @type {ReturnType<typeof useRebarClient>}
-         * @memberof ICustomGlobalMeta
-         */
-        RebarClient: ReturnType<typeof useRebarClient>;
-
-        /**
-         * Used for getting plugin APIs
-         *
-         * Only available client-side, client folder
-         *
-         * @type {ReturnType<typeof useClientApi>}
-         * @memberof ICustomGlobalMeta
-         */
-        RebarClientPluginAPI: ReturnType<typeof useClientApi>;
-    }
-}
-
-alt.setMeta('RebarClient', useRebarClient());
-alt.setMeta('RebarClientPluginAPI', useRebarClient().useClientApi());
-
-alt.getMeta('');

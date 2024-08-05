@@ -1,7 +1,7 @@
-import { Events } from '@Shared/events/index.js';
-import { Marker, MarkerType } from '@Shared/types/marker.js';
-import * as Utility from '@Shared/utility/index.js';
 import * as alt from 'alt-server';
+import { Events } from '@Shared/events/index.js';
+import {Marker, MarkerType} from '@Shared/types/index.js';
+import * as Utility from '@Shared/utility/index.js';
 
 const GroupType = 'marker';
 const MAX_MARKERS = 10;
