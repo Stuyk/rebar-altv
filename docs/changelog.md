@@ -50,6 +50,8 @@ order: 95
 -   Updated `useWeapon` for `player` to properly save weapon data and ammo count
 -   **Removed** `ammo` from the database, and ammo is now stored on the individual weapon instead
 -   Fix vehicle handler so setting `{}` will actually clear the vehicle handling
+-   Fix issue where removing attachements was not working correctly
+-   Replaced in-house get closest entity function with `alt.getClosestEntities`
 -   Changed `Account` from `type` to `interface`
 -   Moved `Page Events` to `pageSystem` to keep functionality working
 -   Made it so emitting notifications from server-side defaults to a GTA:V Notification, until a library is added
