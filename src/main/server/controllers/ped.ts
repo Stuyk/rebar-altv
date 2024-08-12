@@ -1,9 +1,8 @@
 import * as alt from 'alt-server';
 import * as native from 'natives';
-import { PedOptions } from '@Shared/types/pedOptions.js';
+import {PedOptions, OmitFirstArg} from '@Shared/types/index.js';
 import { Events } from '../../shared/events/index.js';
 import * as Utility from '@Shared/utility/index.js';
-import { OmitFirstArg } from '../../shared/types/omitFirstArg.js';
 
 const sessionKey = 'ped:uid';
 

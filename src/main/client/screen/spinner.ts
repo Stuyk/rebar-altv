@@ -1,6 +1,6 @@
 import * as alt from 'alt-client';
 import * as native from 'natives';
-import { Spinner } from '@Shared/types/spinner.js';
+import {Spinner} from '@Shared/types/index.js';
 import { Events } from '@Shared/events/index.js';
 
 let timeout: number;

@@ -7,6 +7,8 @@ import { useApi } from './api/index.js';
 
 import { useConfig } from './config/index.js';
 
+import { useCronJob } from './cronjob/index.js';
+
 import { useBlipGlobal, useBlipLocal } from './controllers/blip.js';
 import { useDoor } from './controllers/doors.js';
 import { useInteraction } from './controllers/interaction.js';
@@ -52,8 +54,7 @@ import { useWebview } from './player/webview.js';
 import { useWorld } from './player/world.js';
 
 import { useMessenger } from './systems/messenger.js';
-import { usePermission } from './systems/permission.js';
-import { usePermissionGroup } from './systems/permissionGroup.js';
+import { usePermissionGroup, useEntityPermissions, usePermissions } from './systems/permissions/index.js';
 
 import { usePlayer } from './player/index.js';
 import { useState } from './player/state.js';
@@ -93,6 +94,7 @@ export function useRebar() {
         useApi,
         useConfig,
         useHono,
+        useCronJob,
         controllers: {
             useBlipGlobal,
             useBlipLocal,
@@ -166,9 +168,10 @@ export function useRebar() {
         messenger: {
             useMessenger,
         },
-        permission: {
-            usePermission,
+        permissions: {
             usePermissionGroup,
+            useEntityPermissions,
+            usePermissions,
         },
         useKeybinder,
         useKeypress,

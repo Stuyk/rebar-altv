@@ -34,6 +34,7 @@ async function start() {
             serverFolders.push(pluginFolder + '/server');
         }
     }
+    
 
     // Propogate server import paths
     for (let serverFolder of serverFolders) {
