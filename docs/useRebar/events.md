@@ -172,6 +172,11 @@ alt.on('rebar:entityItemRemove', (entity, uid) => {
 
     // Listening for player only item remove events
 });
+
+// Called every 1s based on server time, there at 60 ticks in a minute.
+alt.on('rebar:onTick', (tick: number) => {
+    console.log(tick);
+});
 ```
 
 ## Custom Events

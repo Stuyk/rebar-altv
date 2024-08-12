@@ -109,6 +109,7 @@ order: 95
     -   Account
     -   Character
     -   Vehicle
+-   Added `rebar:onTick` which just emits a tick every 1 second for general usage
 
 ### Docs Changes
 

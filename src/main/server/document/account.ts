@@ -3,7 +3,7 @@ import * as Utility from '../utility/index.js';
 import { Character, Account } from '@Shared/types/index.js';
 import { useDatabase } from '@Server/database/index.js';
 import { CollectionNames, KeyChangeCallback } from './shared.js';
-import { usePermissionProxy } from '@Server/systems/permissionProxy.js';
+import { usePermissionProxy } from '@Server/systems/permissions/permissionProxy.js';
 import { useIncrementalId } from './increment.js';
 
 declare module 'alt-server' {
@@ -205,7 +205,7 @@ export function useAccount(player: alt.Player) {
         return id;
     }
 
-    const {permissions, groups} = usePermissionProxy<Account>(get, setBulk, player, 'account');
+    const { permissions, groups } = usePermissionProxy<Account>(get, setBulk, player, 'account');
 
     return {
         permissions,

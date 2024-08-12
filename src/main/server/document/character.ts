@@ -1,8 +1,8 @@
 import * as alt from 'alt-server';
-import {Character, Vehicle} from '@Shared/types/index.js';
+import { Character, Vehicle } from '@Shared/types/index.js';
 import { useDatabase } from '@Server/database/index.js';
 import { CollectionNames, KeyChangeCallback } from './shared.js';
-import { usePermissionProxy } from '@Server/systems/permissionProxy.js';
+import { usePermissionProxy } from '@Server/systems/permissions/permissionProxy.js';
 import { useIncrementalId } from './increment.js';
 import { usePlayerAppearance } from '../player/appearance.js';
 import { useClothing } from '../player/clothing.js';
@@ -172,7 +172,7 @@ export function useCharacter(player: alt.Player) {
         return id;
     }
 
-    const {permissions, groups} = usePermissionProxy<Character>(get, setBulk, player, 'character');
+    const { permissions, groups } = usePermissionProxy<Character>(get, setBulk, player, 'character');
 
     return {
         permissions,

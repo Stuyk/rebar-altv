@@ -5,6 +5,7 @@ import { useTranslate } from '@Shared/translate.js';
 import { useConfig } from './config/index.js';
 import { useDatabase } from './database/index.js';
 import './rpc/index.js';
+import './systems/tick.js';
 import { useRebar } from './index.js';
 
 const Rebar = useRebar();
