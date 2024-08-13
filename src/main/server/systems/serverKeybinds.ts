@@ -72,5 +72,5 @@ export function useKeybinder() {
     };
 }
 
-alt.on('playerCharacterBound', updateKeybindForPlayer);
+alt.on('rebar:playerCharacterBound', updateKeybindForPlayer);
 alt.onClient(Events.systems.keybinds.invoke, handleKeybind);

@@ -54,13 +54,13 @@ export function useStreamSyncedBinder() {
     };
 }
 
-alt.on('playerCharacterBound', (player, document) => {
+alt.on('rebar:playerCharacterBound', (player, document) => {
     for (let key of keys.Character) {
         handleKeySet(player, key, document[key]);
     }
 });
 
-alt.on('vehicleBound', (vehicle, document) => {
+alt.on('rebar:vehicleBound', (vehicle, document) => {
     for (let key of keys.Vehicle) {
         handleKeySet(vehicle, key, document[key]);
     }

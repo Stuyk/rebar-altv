@@ -177,7 +177,7 @@ export function useKeypress() {
     };
 }
 
-alt.on('playerCharacterBound', updateKeypressForPlayer);
+alt.on('rebar:playerCharacterBound', updateKeypressForPlayer);
 alt.onClient(Events.systems.keypress.invokeUp, handleKeyUp);
 alt.onClient(Events.systems.keypress.invokeDown, handleKeyDown);
 alt.onClient(Events.systems.keypress.invokeHold, handleKeyHold);

@@ -48,7 +48,7 @@ async function handleStart() {
         player.frozen = false;
 
         const character = rPlayer.character.get();
-        alt.emit('playerCharacterBound', player, character);
+        alt.emit('rebar:playerCharacterBound', player, character);
     }
 }
 
