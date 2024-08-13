@@ -31,6 +31,15 @@ export interface ItemService {
      * @memberof ItemService
      */
     remove: (entity: alt.Entity, uid: string) => Promise<boolean>;
+
+    /**
+     * Use an item if it can be used, based on unique identifier
+     *
+     * @param entity
+     * @param uid
+     * @returns
+     */
+    use: (entity: alt.Entity, uid: string) => Promise<boolean>;
 }
 
 declare global {
@@ -44,6 +53,7 @@ declare module 'alt-server' {
         'rebar:entityItemAdd': (entity: alt.Entity, id: string, quantity: number, data?: any) => void;
         'rebar:entityItemSub': (entity: alt.Entity, id: string, quantity: number) => void;
         'rebar:entityItemRemove': (entity: alt.Entity, uid: string) => void;
+        'rebar:entityItemUse': (entity: alt.Entity, uid: string) => void;
     }
 }
 
@@ -99,10 +109,25 @@ export function useItemService() {
         return result;
     }
 
+    async function use(...args: Parameters<ItemService['use']>) {
+        const service = useServiceRegister().get('itemService');
+        if (!service || !service.use) {
+            return false;
+        }
+
+        const result = await service.use(...args);
+        if (result) {
+            alt.emit('rebar:entityItemUse', ...args);
+        }
+
+        return result;
+    }
+
     return {
         add,
         sub,
         has,
         remove,
+        use,
     };
 }
