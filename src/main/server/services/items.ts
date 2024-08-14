@@ -40,6 +40,20 @@ export interface ItemService {
      * @returns
      */
     use: (entity: alt.Entity, uid: string) => Promise<boolean>;
+
+    /**
+     * Create an item in the database if it does not exist
+     *
+     * @memberof ItemService
+     */
+    itemCreate: (data: RebarBaseItem) => Promise<void>;
+
+    /**
+     * Remove an item from the database if it exists
+     *
+     * @memberof ItemService
+     */
+    itemRemove: (id: keyof RebarItems) => Promise<void>;
 }
 
 declare global {
@@ -123,10 +137,30 @@ export function useItemService() {
         return result;
     }
 
+    async function itemCreate(...args: Parameters<ItemService['itemCreate']>) {
+        const service = useServiceRegister().get('itemService');
+        if (!service || !service.itemCreate) {
+            return;
+        }
+
+        await service.itemCreate(...args);
+    }
+
+    async function itemRemove(...args: Parameters<ItemService['itemRemove']>) {
+        const service = useServiceRegister().get('itemService');
+        if (!service || !service.itemRemove) {
+            return;
+        }
+
+        await service.itemRemove(...args);
+    }
+
     return {
         add,
         sub,
         has,
+        itemCreate,
+        itemRemove,
         remove,
         use,
     };

@@ -75,6 +75,8 @@ order: 95
     -   sub (invoke an item subtraction)
     -   remove (invoke an item remove)
     -   has (invoke if player has an item)
+    -   itemCreate (create an item to add to the database)
+    -   itemRemove (remove an item from the database)
     -   emits events when items added, subtracted, or removed
 -   Added `useNotificationService`
     -   All these functions do nothing until a library is registered
