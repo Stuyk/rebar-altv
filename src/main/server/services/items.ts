@@ -1,6 +1,6 @@
 import * as alt from 'alt-server';
 import { useServiceRegister } from './index.js';
-import { RebarBaseItem } from '@Shared/types/items.js';
+import { Item, RebarBaseItem } from '@Shared/types/items.js';
 
 export interface ItemService {
     /**
@@ -41,6 +41,13 @@ export interface ItemService {
      * @returns
      */
     use: (entity: alt.Entity, uid: string) => Promise<boolean>;
+
+    /**
+     * Verify if an entity has enough space to store the item
+     *
+     * @memberof ItemService
+     */
+    hasSpace: (entity: alt.Entity, item: Item) => Promise<boolean>;
 
     /**
      * Create an item in the database if it does not exist
@@ -138,6 +145,15 @@ export function useItemService() {
         return result;
     }
 
+    async function hasSpace(...args: Parameters<ItemService['hasSpace']>) {
+        const service = useServiceRegister().get('itemService');
+        if (!service || !service.hasSpace) {
+            return false;
+        }
+
+        return await service.hasSpace(...args);
+    }
+
     async function itemCreate(...args: Parameters<ItemService['itemCreate']>) {
         const service = useServiceRegister().get('itemService');
         if (!service || !service.itemCreate) {
@@ -160,6 +176,7 @@ export function useItemService() {
         add,
         sub,
         has,
+        hasSpace,
         itemCreate,
         itemRemove,
         remove,
