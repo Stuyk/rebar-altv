@@ -79,3 +79,13 @@ async function init() {
 
 init();
 ```
+
+4. Using a sperate api.ts
+## How to put the API into a seperate file
+
+If you want to write your API in a separate file like an 'api.ts' then you have to import it in your index.ts because only the 'index.ts' is loaded by default. You can then use the API in any other plugin
+
+```ts
+import ‘path_to_file/api.js’;
+```
+
