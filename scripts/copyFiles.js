@@ -24,10 +24,21 @@ const disabledPlugins = glob.sync('src/plugins/**/.disable').map((x) => {
 
 console.log(disabledPlugins);
 
+/**
+ * Changes html tags to rml tags
+ *
+ * @param {string} content
+ * @return
+ */
 function fixRmluiFile(content) {
     return content.replaceAll(/html>/gm, 'rml>');
 }
 
+/**
+ * Moves rmlui files to resources/rmlui/plugins
+ *
+ * Making all rmlui files accessible under @rmlui/plugins/plugin-name/file.rmlui
+ */
 function moveRmluiFiles() {
     const pluginPath = 'resources/rmlui/plugins';
     if (fs.existsSync(pluginPath)) {
@@ -56,6 +67,11 @@ function moveRmluiFiles() {
     }
 }
 
+/**
+ * Returns the name of the plugin
+ *
+ * @param {Array<string>} splitPath
+ */
 function getPluginName(splitPath) {
     let index = splitPath.findIndex((x) => x.includes('plugins'));
     if (splitPath[index + 1].startsWith('[') && splitPath[index + 1].endsWith(']')) {
