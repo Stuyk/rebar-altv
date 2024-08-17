@@ -47,25 +47,30 @@ async function start() {
         }
     }
 
-    for (let { folder: serverFolder, category } of serverFolders) {
-        const path = getIndexPath(serverFolder);
-        if (!path) {
-            continue;
-        }
-        const folderSlice = serverFolder.split('/');
-        const folderName = folderSlice[folderSlice.length - 2];
+    function getSortedEntries(folders) {
+        return folders
+            .map(({ folder, category }) => {
+                const path = getIndexPath(folder);
+                if (!path) {
+                    return null;
+                }
+                const folderSlice = folder.split('/');
+                const folderName = folderSlice[folderSlice.length - 2];
+                return { folderName, category, path };
+            })
+            .filter((entry) => entry !== null)
+            .sort((a, b) => a.folderName.localeCompare(b.folderName));
+    }
+
+    const sortedServerEntries = getSortedEntries(serverFolders);
+    for (const { folderName, category, path } of sortedServerEntries) {
         fs.appendFileSync(serverImportsPath, `alt.log('::: Plugin: ${folderName} | Category: ${category}');` + '\r\n');
         const importLine = `import '${path}';`;
         fs.appendFileSync(serverImportsPath, importLine + '\r\n');
     }
 
-    for (let { folder: clientFolder, category } of clientFolders) {
-        const path = getIndexPath(clientFolder);
-        if (!path) {
-            continue;
-        }
-        const folderSlice = clientFolder.split('/');
-        const folderName = folderSlice[folderSlice.length - 2];
+    const sortedClientEntries = getSortedEntries(clientFolders);
+    for (const { folderName, category, path } of sortedClientEntries) {
         fs.appendFileSync(clientImportsPath, `alt.log('::: Plugin: ${folderName} | Category: ${category}');` + '\r\n');
         const importLine = `import '${path}';`;
         fs.appendFileSync(clientImportsPath, importLine + '\r\n');
