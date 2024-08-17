@@ -113,6 +113,7 @@ order: 95
     -   Vehicle
 -   Added `rebar:onTick` which just emits a tick every 1 second for general usage
 -   Added `isOverlayOpen` and `isPersistentPageOpen` to client-side for checking if a page is open
+-   Made dev menu from the `webview:dev` command scrollable
 
 ### Docs Changes
 
