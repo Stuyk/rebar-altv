@@ -38,6 +38,9 @@ order: 95
         -   Renamed `weather-forecast-changed` event to `rebar:weatherForecastChanged`
         -   Renamed `doorLocked` event to `rebar:doorLocked`
         -   Renamed `doorUnlocked` event to `rebar:doorUnlocked`
+-   Reworked permission system:
+    -   Removed `permission` and `groupPermissions` properties from `useAccount` and `useCharacter`.
+    -   When you check for players' permissions, it will automatically check both groups and plain permissions.
 
 ### Code Changes
 
@@ -114,12 +117,19 @@ order: 95
 -   Added `rebar:onTick` which just emits a tick every 1 second for general usage
 -   Added `isOverlayOpen` and `isPersistentPageOpen` to client-side for checking if a page is open
 -   Made dev menu from the `webview:dev` command scrollable
+-   Groups are now created globally, and you can assign players' documents to the group.
+-   You can inherit a new group from another one; it will inherit all permissions from the parent.
+-   You can now access permissions/groups of character/account via `useVirtual`.
+-   Two new player-getters:
+    -   `withPermission(documentType: 'account' | 'character' | 'any', permission: string)`
+    -   `memberOfGroup(documentType: 'account' | 'character' | 'any', groupName: string)`
 
 ### Docs Changes
 
 -   Document `getWeapons` and update documentation for `useWeapon` for the player
 -   Document all services under `useService`
 -   Document all event changes, and update events page
+-   Document the new permission system.
 
 ---
 
