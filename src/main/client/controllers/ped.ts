@@ -8,14 +8,9 @@ alt.on('gameEntityCreate', (entity) => {
     }
 
     if (entity.getStreamSyncedMeta('makeStupid')) {
-        native.taskStandStill(entity, -1);
         native.setPedCanPlayAmbientAnims(entity, false);
-        native.setPedCanRagdoll(entity, false);
         native.setPedFleeAttributes(entity, 0, true);
         native.setPedCombatAttributes(entity, 46, true);
-        native.setBlockingOfNonTemporaryEvents(entity, true);
-        native.setPedSeeingRange(entity, 0.0);
-        native.setPedHearingRange(entity, 0.0);
         native.disablePedPainAudio(entity, true);
         native.setPedCanBeTargetted(entity, false);
         native.setPedAsEnemy(entity, false);
@@ -31,6 +26,9 @@ alt.everyTick(() => {
         if (ped.getStreamSyncedMeta('makeStupid')) {
             native.setPedCanRagdoll(ped, false);
             native.setBlockingOfNonTemporaryEvents(ped, true);
+            native.taskStandStill(ped, -1);
+            native.setPedSeeingRange(ped, 0.0);
+            native.setPedHearingRange(ped, 0.0);
         }
         native.setPedResetFlag(ped, 458, true);
         native.setPedResetFlag(ped, 64, true);
