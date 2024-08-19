@@ -8,7 +8,17 @@ alt.on('gameEntityCreate', (entity) => {
     }
 
     if (entity.getStreamSyncedMeta('makeStupid')) {
+        native.taskStandStill(entity, -1);
+        native.setPedCanPlayAmbientAnims(entity, false);
+        native.setPedCanRagdoll(entity, false);
+        native.setPedFleeAttributes(entity, 0, true);
+        native.setPedCombatAttributes(entity, 46, true);
+        native.setBlockingOfNonTemporaryEvents(entity, true);
+        native.setPedSeeingRange(entity, 0.0);
+        native.setPedHearingRange(entity, 0.0);
         native.disablePedPainAudio(entity, true);
+        native.setPedCanBeTargetted(entity, false);
+        native.setPedAsEnemy(entity, false);
     }
 
     if (entity.getStreamSyncedMeta('invincible')) {
