@@ -108,6 +108,13 @@ pnpm install
 pnpm binaries
 ```
 
+### Grant execute permissions
+
+```bash
+sudo chmod +x altv-server
+sudo chmod +x altv-crash-handler
+```
+
 ### Start
 
 ```
