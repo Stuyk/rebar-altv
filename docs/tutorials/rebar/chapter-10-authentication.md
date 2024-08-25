@@ -363,7 +363,7 @@ We can build validation by using the `watch` function from `vue`. What this will
 watch(username, (value) => {
     usernameValid.value = false;
 
-    // If the length of the username is less than 2, return
+    // If the length of the username is less than 3, return
     if (value.length <= 2) {
         return;
     }
@@ -374,7 +374,7 @@ watch(username, (value) => {
 watch(password, (value) => {
     passwordValid.value = false;
 
-    // If the length of the password is less than 2, return
+    // If the length of the password is less than 3, return
     if (value.length <= 2) {
         return;
     }
@@ -407,7 +407,7 @@ Now we're going to sanitize the username input further, and only allow `A-Z` and
 watch(username, (value) => {
     usernameValid.value = false;
 
-    // If the length of the username is less than 2, return
+    // If the length of the username is less than 3, return
     if (value.length <= 2) {
         return;
     }
