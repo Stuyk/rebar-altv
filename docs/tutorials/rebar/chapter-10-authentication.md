@@ -759,6 +759,7 @@ Let's take a moment to remember that we:
 -   Changed their Dimension
 -   Made them invisible
 -   Blurred the screen
+-   Disabled the controls
 
 ### Finish Loading
 
@@ -781,6 +782,7 @@ function finish(player: alt.Player) {
     const rPlayer = Rebar.usePlayer(player);
     rPlayer.world.freezeCamera(false);
     rPlayer.world.clearScreenBlur(200);
+    rPlayer.world.enableControls();
     rPlayer.webview.hide('Authentication');
 }
 ```
