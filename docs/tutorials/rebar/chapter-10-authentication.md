@@ -153,6 +153,16 @@ We're also going to blur the screen so it's a little more pleasing to look at.
 rPlayer.world.setScreenBlur(200);
 ```
 
+### Disable the player controls
+
+Since we don't want the player to accidentally opening the pausemenu if their Username or password contains the letter 'P' we're going to disable the controls. Just remember to enable them again, when releasing the player into the world.
+
+```ts
+// server/index.ts
+
+rPlayer.world.disableControls();
+```
+
 ### Initial Result
 
 You should see a `hello world` in the top-left of your screen.
