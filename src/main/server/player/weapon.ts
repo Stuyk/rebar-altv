@@ -48,16 +48,19 @@ export function useWeapon(player: alt.Player) {
      * @param {string} model
      * @return
      */
-    async function clearWeapon(model: string) {
-        const weaponHash = alt.hash(model);
+    async function clearWeapon(model: string | number) {
+        if (typeof model === 'string') {
+            model = alt.hash(model);
+        }
+
         const document = useCharacter(player);
-        player.removeWeapon(weaponHash);
+        player.removeWeapon(model);
         if (!document.get()) {
             return;
         }
 
         const weapons = document.getField('weapons') ?? [];
-        const index = weapons.findIndex((x) => x.hash === weaponHash);
+        const index = weapons.findIndex((x) => x.hash === model);
         if (index >= 0) {
             weapons.splice(index, 1);
         }
@@ -84,11 +87,11 @@ export function useWeapon(player: alt.Player) {
     /**
      * Add a weapon to the player
      *
-     * @param {string} model
+     * @param {string | number} model
      * @param {number} ammo
      * @return
      */
-    async function add(model: string, ammoCount: number) {
+    async function add(model: string | number, ammoCount: number) {
         const document = useCharacter(player);
         player.giveWeapon(model, ammoCount, true);
         if (!document.get()) {
@@ -97,7 +100,12 @@ export function useWeapon(player: alt.Player) {
 
         const weapons = document.getField('weapons') ?? [];
 
-        weapons.push({ components: [], hash: alt.hash(model), tintIndex: 0, ammo: ammoCount });
+        weapons.push({
+            components: [],
+            hash: typeof model === 'string' ? alt.hash(model) : model,
+            tintIndex: 0,
+            ammo: ammoCount,
+        });
 
         await document.set('weapons', weapons);
         sync();
@@ -106,17 +114,17 @@ export function useWeapon(player: alt.Player) {
     /**
      * Add ammo for the current given weapon, and save to the database
      *
-     * @param {string} model
+     * @param {string | number} model
      * @param {number} ammoCount
      * @return
      */
-    async function addAmmo(model: string, ammoCount: number) {
+    async function addAmmo(model: string | number, ammoCount: number) {
         const document = useCharacter(player);
         if (!document.get()) {
             return false;
         }
 
-        const modelHash = alt.hash(model);
+        const modelHash = typeof model === 'string' ? alt.hash(model) : model;
         const weapons = document.getField('weapons') ?? [];
 
         const index = weapons.findIndex((x) => x.hash === modelHash);
@@ -133,17 +141,17 @@ export function useWeapon(player: alt.Player) {
     /**
      * Add a component to the specified weapon and save to the database
      *
-     * @param {number} model
+     * @param {string | number} model
      * @param {number} component
      * @return
      */
-    async function addWeaponComponent(model: number, component: number) {
+    async function addWeaponComponent(model: string | number, component: number) {
         const document = useCharacter(player);
         if (!document.get()) {
             return;
         }
 
-        const weaponHash = model;
+        const weaponHash = typeof model === 'string' ? alt.hash(model) : model;
         const weapons = document.getField('weapons') ?? [];
 
         const weaponIndex = weapons.findIndex((w) => w.hash === weaponHash);
@@ -168,17 +176,17 @@ export function useWeapon(player: alt.Player) {
     /**
      * Remove a component from the specified weapon and save to the database
      *
-     * @param {number} model
+     * @param {number | string} model
      * @param {number} component
      * @return
      */
-    async function removeWeaponComponent(model: number, component: number) {
+    async function removeWeaponComponent(model: number | string, component: number) {
         const document = useCharacter(player);
         if (!document.get()) {
             return;
         }
 
-        const weaponHash = model;
+        const weaponHash = typeof model === 'string' ? alt.hash(model) : model;
         const weapons = document.getField('weapons') ?? [];
 
         const weaponIndex = weapons.findIndex((w) => w.hash === weaponHash);
