@@ -123,6 +123,7 @@ order: 95
 -   Two new player-getters:
     -   `withPermission(documentType: 'account' | 'character' | 'any', permission: string)`
     -   `memberOfGroup(documentType: 'account' | 'character' | 'any', groupName: string)`
+-   Updated weapon helpers to allow for `hash` or `string` models
 
 ### Docs Changes
 
