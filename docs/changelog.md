@@ -124,6 +124,8 @@ order: 95
     -   `withPermission(documentType: 'account' | 'character' | 'any', permission: string)`
     -   `memberOfGroup(documentType: 'account' | 'character' | 'any', groupName: string)`
 -   Updated weapon helpers to allow for `hash` or `string` models
+-   Added `invokeWithResult` for player natives, to invoke a native and get a result
+-   Added vehicle door sync for open / shut states
 
 ### Docs Changes
 
