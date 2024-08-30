@@ -31,8 +31,16 @@ export function useNative(player: alt.Player) {
         }
     }
 
+    async function invokeWithResult<T extends keyof typeof native>(
+        nativeName: T,
+        ...args: Parameters<(typeof native)[T]>
+    ) {
+        return player.emitRpc(Events.player.native.invokeWithResult, nativeName, ...args);
+    }
+
     return {
         invoke,
         invokeMany,
+        invokeWithResult,
     };
 }

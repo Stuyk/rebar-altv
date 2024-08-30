@@ -74,6 +74,7 @@ export const Events = {
         },
         native: {
             invoke: 'player:native:invoke',
+            invokeWithResult: 'player:native:invoke:with:result',
         },
         notify: {
             notification: {

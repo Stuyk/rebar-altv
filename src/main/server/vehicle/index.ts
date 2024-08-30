@@ -304,7 +304,12 @@ export function useVehicle(vehicle: alt.Vehicle) {
      * @param {number} door
      */
     function toggleDoor(door: number) {
-        vehicle.setDoorState(door, vehicle.getDoorState(door) === 0 ? 7 : 0);
+        if (door < 0 || door > 5) {
+            throw new Error('Toggle door values must be 0 - 5');
+        }
+
+        const state = vehicle.getStreamSyncedMeta(`door-${door}`) ? false : true;
+        vehicle.setStreamSyncedMeta(`door-${door}`, state);
     }
 
     /**
