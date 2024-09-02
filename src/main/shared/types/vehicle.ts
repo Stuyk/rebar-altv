@@ -195,6 +195,7 @@ export interface Vehicle {
             right: boolean;
         };
     };
+
     color: {
         /**
          * Set a primary color based on GTAV colors
