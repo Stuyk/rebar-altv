@@ -177,6 +177,7 @@ export interface Vehicle {
          * @memberof Vehicle
          */
         color: alt.RGBA;
+
         /**
          * Where the placement of the neon is
          *
