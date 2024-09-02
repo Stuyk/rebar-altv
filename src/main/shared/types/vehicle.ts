@@ -244,6 +244,14 @@ export interface Vehicle {
     pearlColor?: number;
 
     /**
+     * The xenon (headlight) color to set on the vehicle (0-13)
+     *
+     * @type {number}
+     * @memberof Vehicle
+     */
+    xenonColor?: number;
+
+    /**
      * The number plate text for the vehicle
      *
      * @type {string}

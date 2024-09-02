@@ -93,6 +93,11 @@ export function useVehicle(vehicle: alt.Vehicle) {
             vehicle.pearlColor = document.pearlColor;
         }
 
+        // Synchronize xenonColor
+        if (typeof document.xenonColor !== 'undefined') {
+            vehicle.headlightColor = document.xenonColor;
+        }
+
         // Synchronize vehicle extras
         if (document.extras) {
             for (let key of Object.keys(document.extras)) {
