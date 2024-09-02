@@ -58,44 +58,44 @@ export function useVehicle(vehicle: alt.Vehicle) {
         }
 
         // Synchronize neon
-        if (document.neonPlacement && document.neonColor) {
-            vehicle.neon = document.neonPlacement;
-            vehicle.neonColor = document.neonColor;
+        if (document.neon && document.neon.color) {
+            vehicle.neon = document.neon.placement;
+            vehicle.neonColor = document.neon.color;
         }
 
         // Synchronize primary custom paint job
-        if (typeof document.customPrimaryColor !== 'undefined') {
-            vehicle.customPrimaryColor = document.customPrimaryColor;
+        if (typeof document.color.primaryCustom !== 'undefined') {
+            vehicle.customPrimaryColor = document.color.primaryCustom;
         }
 
         // Synchronize secondary custom paint job
-        if (typeof document.customSecondaryColor !== 'undefined') {
-            vehicle.customSecondaryColor = document.customSecondaryColor;
+        if (typeof document.color.secondaryCustom !== 'undefined') {
+            vehicle.customSecondaryColor = document.color.secondaryCustom;
         }
 
         // Synchronize primary paint job
-        if (typeof document.primaryColor !== 'undefined') {
-            vehicle.primaryColor = document.primaryColor;
+        if (typeof document.color.primary !== 'undefined') {
+            vehicle.primaryColor = document.color.primary;
         }
 
         // Synchronize secondary paint job
-        if (typeof document.secondaryColor !== 'undefined') {
-            vehicle.secondaryColor = document.secondaryColor;
+        if (typeof document.color.secondary !== 'undefined') {
+            vehicle.secondaryColor = document.color.secondary;
         }
 
         // Synchronize wheelColor
-        if (typeof document.wheelColor !== 'undefined') {
-            vehicle.wheelColor = document.wheelColor;
+        if (typeof document.color.wheel !== 'undefined') {
+            vehicle.wheelColor = document.color.wheel;
         }
 
         // Synchronize pearlColor
-        if (typeof document.pearlColor !== 'undefined') {
-            vehicle.pearlColor = document.pearlColor;
+        if (typeof document.color.pearl !== 'undefined') {
+            vehicle.pearlColor = document.color.pearl;
         }
 
         // Synchronize xenonColor
-        if (typeof document.xenonColor !== 'undefined') {
-            vehicle.headlightColor = document.xenonColor;
+        if (typeof document.color.xenon !== 'undefined') {
+            vehicle.headlightColor = document.color.xenon;
         }
 
         // Synchronize vehicle extras
