@@ -2,6 +2,8 @@ import * as alt from 'alt-server';
 import { useRebar } from '../index.js';
 import { Vehicle, WheelState } from '../../shared/types/vehicle.js';
 import * as Utility from '@Shared/utility/index.js';
+import { Events } from '../../shared/events/index.js';
+import { useVehicleHandling } from './vehicleHandling.js';
 
 const Rebar = useRebar();
 const db = Rebar.database.useDatabase();
@@ -82,12 +84,12 @@ export function useVehicle(vehicle: alt.Vehicle) {
         }
 
         // Synchronize wheelColor
-        if(typeof document.wheelColor !== 'undefined') {
+        if (typeof document.wheelColor !== 'undefined') {
             vehicle.wheelColor = document.wheelColor;
         }
 
         // Synchronize pearlColor
-        if(typeof document.pearlColor !== 'undefined') {
+        if (typeof document.pearlColor !== 'undefined') {
             vehicle.pearlColor = document.pearlColor;
         }
 
@@ -496,11 +498,26 @@ export function useVehicle(vehicle: alt.Vehicle) {
         return Utility.vehicleHashes.getNameFromHash(vehicle.model);
     }
 
+    /**
+     * Set the RPM for the vehicle
+     *
+     * @param {number} value
+     * @return
+     */
+    function setRpm(value: number) {
+        if (!vehicle.driver) {
+            return;
+        }
+
+        alt.emitClient(vehicle.driver, Events.vehicle.set.rpm, value);
+    }
+
     return {
         apply,
         bind,
         create,
         getVehicleModelName,
+        handling: useVehicleHandling(vehicle),
         hasOwner,
         isBound,
         keys: {
@@ -510,6 +527,7 @@ export function useVehicle(vehicle: alt.Vehicle) {
         },
         repair,
         save,
+        setRpm,
         sync,
         toggleDoor,
         toggleDoorAsPlayer,
@@ -517,6 +535,7 @@ export function useVehicle(vehicle: alt.Vehicle) {
         toggleEngineAsPlayer,
         toggleLock,
         toggleLockAsPlayer,
+        vehicle,
         verifyOwner,
     };
 }

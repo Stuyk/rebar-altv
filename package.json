@@ -1,12 +1,13 @@
 {
     "author": "stuyk",
     "type": "module",
-    "version": "39",
+    "version": "52",
     "scripts": {
-        "dev": "nodemon -x pnpm start",
-        "dev:linux": "nodemon -x pnpm start:linux",
+        "dev": "nodemon --config ./nodemon-dev.json -x pnpm start",
+        "dev:linux": "nodemon --config ./nodemon-dev.json -x pnpm start:linux",
         "start": "node ./scripts/compile.js && altv-server",
         "start:linux": "node ./scripts/compile.js && ./altv-server",
+        "dev:hot": "pnpm build:docker && concurrently --raw \"nodemon -C --config ./nodemon-hot.json -x pnpm build:docker\" \"altv-server\"",
         "build:docker": "node ./scripts/compile.js -- docker",
         "binaries": "pnpm altv-pkg",
         "rebar:upgrade": "node ./scripts/upgrade.js",
@@ -16,33 +17,36 @@
     "devDependencies": {
         "@altv/types-client": "^16.2.3",
         "@altv/types-natives": "^16.2.0",
-        "@altv/types-server": "^16.2.1",
+        "@altv/types-server": "^16.2.2",
         "@altv/types-shared": "^16.2.1",
         "@altv/types-webview": "^16.2.1",
         "@altv/types-worker": "^16.2.0",
-        "@types/node": "^20.14.6",
+        "@types/node": "^20.14.11",
         "altv-pkg": "^2.7.5",
         "autoprefixer": "^10.4.19",
         "fast-glob": "^3.3.2",
         "fkill": "^9.0.0",
         "nodemon": "^3.1.4",
-        "postcss": "^8.4.38",
-        "prettier": "^3.3.2",
+        "postcss": "^8.4.39",
+        "prettier": "^3.3.3",
         "prettier-plugin-tailwindcss": "^0.5.14",
         "retypeapp": "^3.5.0",
         "shx": "^0.3.4",
         "sucrase": "^3.35.0",
-        "tailwindcss": "^3.4.4"
+        "tailwindcss": "^3.4.6"
     },
     "dependencies": {
+        "@hono/node-server": "^1.12.0",
         "@vitejs/plugin-vue": "^5.0.5",
+        "concurrently": "^8.2.2",
         "dotenv": "^16.4.5",
-        "mongodb": "^6.7.0",
+        "hono": "^4.5.0",
+        "mongodb": "^6.8.0",
         "sjcl": "^1.0.8",
-        "typescript": "^5.5.2",
-        "vite": "^5.3.1",
-        "vue": "^3.4.29",
-        "vue-tsc": "^2.0.21"
+        "typescript": "^5.5.3",
+        "vite": "^5.3.4",
+        "vue": "^3.4.32",
+        "vue-tsc": "^2.0.26"
     },
     "prettier": {
         "tabWidth": 4,
@@ -51,24 +55,6 @@
         "printWidth": 120,
         "plugins": [
             "prettier-plugin-tailwindcss"
-        ]
-    },
-    "nodemonConfig": {
-        "verbose": false,
-        "ext": "ts, vue",
-        "watch": [
-            "./src",
-            "./webview"
-        ],
-        "ignore": [
-            "webview/pages/*",
-            "webview/vite.config.*",
-            "*/package.json",
-            "*.mjs",
-            "ignore*.ts",
-            "autogen*.ts",
-            "webview/src/main.ts",
-            "src/scratchpad"
         ]
     }
 }

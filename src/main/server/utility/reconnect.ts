@@ -14,7 +14,11 @@ export function useDevReconnect() {
             return;
         }
 
-        const data = await result.text();
+        if (alt.getMeta('hotreload')) {
+            return;
+        }
+
+        await result.text();
 
         try {
             alt.log('Invoking local reconnection...');

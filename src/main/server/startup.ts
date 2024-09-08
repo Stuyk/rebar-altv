@@ -4,8 +4,11 @@ import '../translate/index.js';
 import { useTranslate } from '@Shared/translate.js';
 import { useConfig } from './config/index.js';
 import { useDatabase } from './database/index.js';
-import './systems/vscodeTransmitter.js';
+import './rpc/index.js';
+import { useRebar } from './index.js';
 
+const Rebar = useRebar();
+const RebarEvents = Rebar.events.useEvents();
 const config = useConfig();
 const database = useDatabase();
 const { t } = useTranslate('en');
@@ -17,8 +20,12 @@ async function handleStart() {
 
     // Handle plugin loading
     alt.log(':: Loading Plugins');
-    await import('./plugins.js');
-    alt.log(':: Plugins Loaded');
+    try {
+        await import('./plugins.js');
+        alt.log(':: Plugins Loaded');
+    } catch (err) {
+        alt.logWarning(`Failed to load any plugins, a plugin has errors in it.`);
+    }
 
     // Handle local client reconnection, should always be called last...
     if (alt.debug) {
@@ -26,6 +33,22 @@ async function handleStart() {
     }
 
     alt.log(t('system.server.started'));
+
+    if (!alt.getMeta('hotreload')) {
+        return;
+    }
+
+    alt.log('Reloaded Core Resource');
+    const onlinePlayers = Rebar.get.usePlayersGetter().online();
+
+    for (let player of onlinePlayers) {
+        const rPlayer = Rebar.usePlayer(player);
+        rPlayer.notify.showNotification(`Reloaded Core Resource`);
+        player.frozen = false;
+
+        const character = rPlayer.character.get();
+        RebarEvents.invoke('character-bound', player, character);
+    }
 }
 
-alt.on('serverStarted', handleStart);
+handleStart();

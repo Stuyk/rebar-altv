@@ -1,23 +1,34 @@
 import * as alt from 'alt-server';
-import { MongoClient, Db, InsertOneResult, ObjectId } from 'mongodb';
+import { MongoClient, Db, InsertOneResult, ObjectId, AggregateOptions } from 'mongodb';
 import * as Utility from '@Shared/utility/index.js';
 import { CollectionNames } from '../document/shared.js';
+import { useConfig } from '@Server/config/index.js';
 
-const DatabaseName = 'Rebar';
+const config = useConfig();
 
 let isConnected = false;
 let isInit = false;
 let database: Db;
+let client: MongoClient;
+
+alt.on('on-rpc-restart', () => {
+    if (!client) {
+        return;
+    }
+
+    alt.log(`RPC - Stopping MongoDB Connection`);
+    client.close(true);
+});
 
 export function useDatabase() {
     async function init(connectionString: string): Promise<boolean> {
         if (isInit) {
-            return false;
+            return true;
         }
 
         isInit = true;
 
-        const client: MongoClient = await MongoClient.connect(connectionString).catch((err) => {
+        client = await MongoClient.connect(connectionString).catch((err) => {
             console.warn(`Could not connect to MongoDB instance. Incorrect credentials? Service not running?`, err);
             return undefined;
         });
@@ -27,7 +38,7 @@ export function useDatabase() {
             return false;
         }
 
-        database = client.db(DatabaseName);
+        database = client.db(config.getField('database_name'));
         isInit = false;
         isConnected = true;
         alt.log('Connected to MongoDB Successfully');
@@ -161,7 +172,7 @@ export function useDatabase() {
             const dataLookup: any = { ...dataToMatch };
 
             if (dataToMatch._id) {
-                dataLookup._id = ObjectId.createFromHexString(dataToMatch._id)
+                dataLookup._id = ObjectId.createFromHexString(dataToMatch._id);
             }
 
             const document = await client.collection(collection).findOne<T>(dataLookup);
@@ -253,6 +264,35 @@ export function useDatabase() {
         }
     }
 
+    /**
+     * Runs an aggregation query
+     *
+     * If the collection does not exist it will return `undefined`
+     *
+     * @export
+     * @param {string} collection
+     * @param {any[]} pipeline
+     * @param {AggregateOptions} options
+     * @return {Promise<T[] | undefined>}
+     */
+    async function aggregate<T extends { _id: string }>(
+        collection: string,
+        pipeline: any[],
+        options?: AggregateOptions,
+    ): Promise<T[] | undefined> {
+        const client = await getClient();
+
+        try {
+            const cursor = await client.collection(collection).aggregate(pipeline, options);
+            const documents = await cursor.toArray();
+            return documents.map((x) => {
+                return { ...x, _id: String(x._id) };
+            }) as (T & { _id: string })[];
+        } catch (err) {
+            return undefined;
+        }
+    }
+
     return {
         create,
         createCollection,
@@ -267,5 +307,6 @@ export function useDatabase() {
             return isConnected;
         },
         update,
+        aggregate,
     };
 }

@@ -123,13 +123,13 @@ const ClothingCameras = {
     },
     // 11
     [CLOTHING_IDS.TOP]: {
-        fov: 50,
+        fov: 60,
         rotation: {
             x: 0,
             y: 0,
             z: -165,
         },
-        zPos: 0.03,
+        zPos: 0.05,
     },
 };
 

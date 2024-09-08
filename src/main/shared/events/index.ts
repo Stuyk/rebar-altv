@@ -5,6 +5,13 @@ export const Events = {
             trigger: 'interaction:trigger',
             clear: 'interaction:on:clear',
         },
+        interactionLocal: {
+            create: 'interaction:local:create',
+            destroy: 'interaction:local:destroy',
+            onEnter: 'interaction:local:onEnter',
+            onLeave: 'interaction:local:onLeave',
+            on: 'interaction:local:on',
+        },
         blip: {
             create: 'blip:create',
             destroy: 'blip:destroy',
@@ -29,6 +36,10 @@ export const Events = {
         textlabel: {
             create: 'textlabel:create',
             destroy: 'textlabel:destroy',
+        },
+        dxgilabel: {
+            create: 'dxgilabel:create',
+            destroy: 'dxgilabel:destroy',
         },
     },
     events: {
@@ -84,6 +95,11 @@ export const Events = {
             ped: {
                 show: 'player:show:ped:on:screen',
             },
+            instructionalButtons: {
+                create: 'player:screen:instructionalButtons:create',
+                destroy: 'player:screen:instructionalButtons:destroy',
+                get: 'player:screen:instructionalButtons:get',
+            },
         },
         webview: {
             set: {
@@ -94,9 +110,19 @@ export const Events = {
         },
     },
     systems: {
+        world: {
+            pointDetails: 'systems:world:pointDetails',
+            travelDistance: 'systems:world:routeLength',
+        },
         keybinds: {
             update: 'systems:keybinds:update',
             invoke: 'systems:keybinds:invoke',
+        },
+        keypress: {
+            update: 'systems:keypress:update',
+            invokeUp: 'systems:keypress:invoke:keyup',
+            invokeDown: 'systems:keypress:invoke:keydown',
+            invokeHold: 'systems:keypress:invoke:keyhold',
         },
         messenger: {
             process: 'systems:messenger:process',
@@ -127,6 +153,11 @@ export const Events = {
             execute: 'systems:transmitter:execute',
         },
     },
+    vehicle: {
+        set: {
+            rpm: 'vehicle:set:rpm',
+        },
+    },
     view: {
         onServer: 'webview:on:server',
         onEmit: 'webview:emit:on',
@@ -149,5 +180,9 @@ export const Events = {
         localStorageDelete: 'webview:localstorage:delete',
         onPageClose: 'webview:page:close',
         onPageOpen: 'webview:page:open',
+        syncCharacter: 'webview:sync:character',
+        syncPartialCharacter: 'webview:sync:partial:character',
+        syncVehicle: 'webview:sync:vehicle',
+        syncPartialVehicle: 'webview:sync:partial:vehicle',
     },
 };

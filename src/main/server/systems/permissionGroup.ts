@@ -167,9 +167,34 @@ export function usePermissionGroup<T>(document: T & PermissionGroup) {
         return false;
     }
 
+    function hasAtLeastOneGroupWithSpecificPerm(groups: Record<string, string[]>): boolean {
+        if (!document.groups) {
+            return false;
+        }
+
+        for (const groupName in groups) {
+            if (!groups.hasOwnProperty(groupName)) {
+                continue;
+            }
+
+            if (!document.groups[groupName]) {
+                continue;
+            }
+
+            for (const permission of groups[groupName]) {
+                if (hasGroupPerm(groupName, permission)) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
     return {
         addGroupPerm,
         hasAtLeastOneGroupPerm,
+        hasAtLeastOneGroupWithSpecificPerm,
         hasGroup,
         hasGroupPerm,
         removeGroup,

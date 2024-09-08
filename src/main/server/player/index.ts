@@ -17,6 +17,7 @@ import { useVehicleGetter } from '../getters/vehicle.js';
 import { useRaycast } from './raycast.js';
 import { useAccount } from '../document/account.js';
 import { useScreenshot } from '../systems/screenshot.js';
+import { useAttachment } from './attachment.js';
 
 const playerGetter = usePlayerGetter();
 const vehicleGetter = useVehicleGetter();
@@ -26,6 +27,7 @@ export function usePlayer(player: alt.Player) {
         account: useAccount(player),
         animation: useAnimation(player),
         appearance: usePlayerAppearance(player),
+        attachment: useAttachment(player),
         audio: useAudio(player),
         clothing: useClothing(player),
         character: useCharacter(player),
@@ -50,6 +52,7 @@ export function usePlayer(player: alt.Player) {
         },
         native: useNative(player),
         notify: useNotify(player),
+        player,
         raycast: useRaycast(player),
         screenshot: useScreenshot(player),
         sound: useAudio(player),

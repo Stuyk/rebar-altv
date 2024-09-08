@@ -1,4 +1,195 @@
+---
+order: 95
+---
+
 # Changelog
+
+## Version 52
+
+### Code Changes
+
+-   Added ability to change database name through environment variables — @floydya
+-   Added door system controller — @floydya
+-   Added server config option for disabling weapon wheel menu — @mnkyarts
+-   Added onHold callback for `useKeypress` that invokes after `x` time has passed while holding a key — @koron
+-   Updated `useKeypress` to include `onHold`, which is invoked after `2s` of holding
+
+### Docs Changes
+
+-   Added door system docs @floydya
+-   Added `env` options for database name to useConfig page
+-   Updated server config docs @mnkyarts
+-   Updated `useKeypress` docs to include `onHold`
+
+---
+
+## Version 51
+
+### Code Changes
+
+-   Auto copy `nodemon-dev` and `nodemon-hot` files during script updates
+
+---
+
+## Version 50
+
+### Code Changes
+
+-   Permission system was redone by @floydya for better performance and usage
+-   Added hot reloading option for `core and webview` resources, accessible through `dev:hot`
+    -   This keeps you connected to the server while the resource itself reloads, it's quite fast
+-   Split nodemon into two configurations, added new script for reloading
+
+### Docs Changes
+
+-   Permission system was updated / documented by @floydya
+-   Documented `dev:hot` for install
+
+---
+
+## Version 49
+
+### Code Changes
+
+-   Updated Virtual Document to use a generic at the base level for the whole document
+    -   This changes how Virtual Documents are constructed, and may break some things if you use virtual documents.
+-   Added `useMessenger` to systems pathway
+-   Fix vehicle handling so it always returns streamSyncedMeta data
+-   Added `handling` to `useVehicle`
+-   Added `vehicle` to `useVehicle`, makes it so you can do `rPlayer.player.pos`
+-   Added `player` to `usePlayer`, makes it so you can do `rVehicle.vehicle.pos`
+-   Changed Rebar endpoints to use Hono, and deprecated old server utility @floydya
+
+### Docs Changes
+
+-   Restructured the documentation
+-   Documented `useCharacterEvents` and `useAccountEvents`
+-   Combined getters documentation
+-   Combined controllers documentation
+-   Combined vehicle documentation
+
+---
+
+## Version 48
+
+### Code Changes
+
+-   Updated RPC endpoints
+-   Began structuring new RPC endpoint functions
+-   Server-side instructional buttons integrated by floydya
+
+---
+
+## Version 47
+
+### Code Changes
+
+-   Added an RPC endpoint under `http://127.0.0.1:8787` with endpoints `/restart`, `/`, and `/health`.
+-   Fixed issue where reconnecting too early would cause client to be frozen on reconnecting
+-   Restarting server now kicks all players while in dev mode only
+
+---
+
+## Version 46
+
+### Code Changes
+
+-   Added `useInteractionLocal` to create local interactions for individual players
+
+### Docs Changes
+
+-   Updated `useInteraction` to include `useInteractionLocal`
+
+---
+
+## Version 45
+
+### Code Changes
+
+-   Added `useVehicleHandling` function that lets you adjust handling per vehicle
+-   Added object attachments for players, see `useAttachment` under the player endpoint
+
+### Docs Changes
+
+-   Documented `useVehicleHandling`
+-   Documented `useAttachment`
+
+---
+
+## Version 44
+
+### Code Changes
+
+-   Fixed issue with setting global document data
+-   Additionally, improved type casting support for global documents
+
+### Docs Changes
+
+-   Updated object document api to clarify generics usage
+
+---
+
+## Version 43
+
+### Code Changes
+
+-   Fixed local object initialization
+
+### Docs Changes
+
+-   N/A
+
+---
+
+## Version 42
+
+### Code Changes
+
+-   Added near perfect Torso, Top, and Undershirt data for 99% of tops
+-   Added helper functions in shared clothing script to help obtain clothing data
+-   Fixed bug where local objects were not being destroyed
+-   Fixed bug where disabled plugins were copying files
+-   Fixed bug where previous files were not cleaned up properly
+
+### Docs Changes
+
+-   N/A
+
+---
+
+## Version 41
+
+### Code Changes
+
+-   Added `useStreamSyncedBinder` to automatically synchronize document data from server to client for vehicles and characters
+-   Added `useSyncedMeta` composable to the webview, to get data synced from `useStreamSyncedBinder`
+-   Added `useStreamSyncedGetter` to client-side to get type safe responses for stream synced meta data
+
+### Docs Changes
+
+-   Documented `useStreamSyncedBinder`, `useSyncedMeta`, and `useStreamSyncedGetter`
+
+---
+
+## Version 40
+
+### Code Changes
+
+-   Added new dlc clothing maximums for 2024 DLC
+-   Added `keypress` api that lets you bind functions to keyup/keydown from server-side
+-   Added `setRpm` to vehicle API
+-   Added new `fonts` resource, which may need to be imported in your `server.toml`; for custom fonts
+-   Lower distance for all Text Labels; max distance now capped at 20
+-   Failing readiness check on an API will now return the failing API's name
+-   Added `D2D` text labels with global and local support
+
+### Docs Changes
+
+-   Documented keypress
+-   Documented keypress in vehicle api
+-   Documented fonts folder
+
+---
 
 ## Version 39
 

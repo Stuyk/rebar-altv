@@ -57,4 +57,7 @@ export type MarkerBase = {
 
 export type Marker = {
     type: number | keyof typeof MarkerType;
+    bobUpAndDown?: boolean;
+    faceCamera?: boolean;
+    rotate?: boolean;
 } & MarkerBase;

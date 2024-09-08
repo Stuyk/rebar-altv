@@ -67,11 +67,13 @@ function onEnter(colshape: alt.Colshape, entity: alt.Entity) {
 function onLeave(colshape: alt.Colshape, entity: alt.Entity) {
     const index = getIndex(colshape);
     if (index <= -1) {
+        if (entity instanceof alt.Player) entity.emit(Events.controllers.interaction.clear);
         return;
     }
 
     const interaction = interactions[index];
     if (!isValid(entity, interaction)) {
+        if (entity instanceof alt.Player) entity.emit(Events.controllers.interaction.clear);
         return;
     }
 

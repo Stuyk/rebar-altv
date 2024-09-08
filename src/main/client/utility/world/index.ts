@@ -22,8 +22,9 @@ export function getPreviousWeatherType() {
     return WeatherHashes[native.getPrevWeatherTypeHashName()];
 }
 
-export function getStreetInfo(entity: alt.Player | alt.Vehicle) {
-    const [_, streetNameHash, crossingRoadHash] = native.getStreetNameAtCoord(entity.pos.x, entity.pos.y, entity.pos.z);
+
+export function getStreetInfo(pos: alt.Vector3) {
+    const [_, streetNameHash, crossingRoadHash] = native.getStreetNameAtCoord(pos.x, pos.y, pos.z);
 
     const streetName = native.getStreetNameFromHashKey(streetNameHash);
     const crossingRoad = native.getStreetNameFromHashKey(crossingRoadHash);
@@ -38,6 +39,6 @@ export function getDirection(entity: alt.Player | alt.Vehicle) {
     return directions[index];
 }
 
-export function getZone() {
-    return ZoneNames[native.getNameOfZone(alt.Player.local.pos.x, alt.Player.local.pos.y, alt.Player.local.pos.z)];
+export function getZone(pos: alt.Vector3) {
+    return ZoneNames[native.getNameOfZone(pos.x, pos.y, pos.z)];
 }

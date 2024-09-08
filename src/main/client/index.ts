@@ -10,6 +10,7 @@ import { useNativeMenu } from './menus/native/index.js';
 import { useClonedPed } from './ped/clone.js';
 
 import { useCamera } from './player/camera.js';
+import { useControls } from './player/controls.js';
 
 import * as math from './utility/math/index.js';
 import * as text from './utility/text/index.js';
@@ -23,6 +24,7 @@ import { useRaycast } from './system/raycasts.js';
 import { isWorldMenuOpen, useWorldMenu } from './menus/world/index.js';
 import { drawText2D, drawText3D } from './screen/textlabel.js';
 import { draw, drawSimple } from './screen/marker.js';
+import { useStreamSyncedGetter } from './system/streamSyncedGetter.js';
 
 export function useRebarClient() {
     return {
@@ -51,6 +53,7 @@ export function useRebarClient() {
         player: {
             useCamera,
             useRaycast,
+            useControls,
         },
         screen: {
             text: {
@@ -62,7 +65,10 @@ export function useRebarClient() {
                 drawSimple,
             },
         },
-        useProxyFetch,
+        systems: {
+            useStreamSyncedGetter,
+            useProxyFetch,
+        },
         utility: {
             math,
             text,

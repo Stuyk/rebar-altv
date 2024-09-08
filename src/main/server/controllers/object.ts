@@ -90,11 +90,19 @@ export function useObjectLocal(player: alt.Player, objectData: iObject) {
         objectData.uid = Utility.uid.generate();
     }
 
-    function destroy() {
-        player.emit(Events.controllers.textlabel.destroy, objectData.uid);
+    if (!objectData.dimension) {
+        objectData.dimension = 0;
     }
 
-    function update(newObjectData: Partial<TextLabel>) {
+    if (!objectData.rot) {
+        objectData.rot = alt.Vector3.zero;
+    }
+
+    function destroy() {
+        player.emit(Events.controllers.object.destroy, objectData.uid);
+    }
+
+    function update(newObjectData: Partial<iObject>) {
         objectData = Object.assign(objectData, newObjectData);
 
         for (let key of Object.keys(newObjectData)) {

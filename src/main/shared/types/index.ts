@@ -4,6 +4,8 @@ export * from './blip.js';
 export * from './character.js';
 export * from './clothingComponent.js';
 export * from './credits.js';
+export * from './doors.js';
+export * from './instructionalButtons.js';
 export * from './marker.js';
 export * from './nativeMenu.js';
 export * from './object.js';

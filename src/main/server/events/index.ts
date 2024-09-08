@@ -19,6 +19,8 @@ declare global {
         'vehicle-bound': (vehicle: alt.Vehicle, document: Vehicle) => void;
         'page-closed': (player: alt.Player, page: PageNames) => void;
         'page-opened': (player: alt.Player, page: PageNames) => void;
+        'door-locked': (uid: string, initiator: alt.Player) => void;
+        'door-unlocked': (uid: string, initiator: alt.Player | null) => void;
         'on-command': (player: alt.Player, commandName: string) => void;
         message: (player: alt.Player, message: string) => void;
     }

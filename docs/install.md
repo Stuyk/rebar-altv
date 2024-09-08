@@ -1,5 +1,5 @@
 ---
-order: 1
+order: 98
 ---
 
 # Install & Upgrade
@@ -75,6 +75,12 @@ Alternatively, development mode can be started with
 
 ```
 pnpm dev
+```
+
+If you want to use an even faster development mode, try out hot reloading. This one simply reloads the resource.
+
+```
+pnpm dev:hot
 ```
 
 ---

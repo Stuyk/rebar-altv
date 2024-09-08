@@ -17,7 +17,7 @@ function draw() {
             }
 
             try {
-                objectsDrawn[object.uid].destroy;
+                objectsDrawn[object.uid].destroy();
             } catch (err) {}
 
             delete objectsDrawn[object.uid];
@@ -35,7 +35,7 @@ function draw() {
             true,
             false,
             false,
-            50
+            50,
         );
 
         objectsDrawn[object.uid].frozen = true;
@@ -59,7 +59,7 @@ async function handleCreate(object: iObject) {
 
     if (objectsDrawn[object.uid]) {
         try {
-            objectsDrawn[object.uid].destroy;
+            objectsDrawn[object.uid].destroy();
         } catch (err) {}
 
         delete objectsDrawn[object.uid];
@@ -75,7 +75,7 @@ function handleDestroy(uid: string) {
 
     if (objectsDrawn[uid]) {
         try {
-            objectsDrawn[uid].destroy;
+            objectsDrawn[uid].destroy();
         } catch (err) {}
 
         delete objectsDrawn[uid];
