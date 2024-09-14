@@ -1,8 +1,17 @@
 const translations = {};
 
+type TranslationContext = Record<string, string | number>;
+
 export function useTranslate(lang: string = 'en') {
-    function replaceVariables(text: string, vars: { [key: string]: string }): string {
-        return text.replace(/{{\s*([^}]+)\s*}}/g, (_, key) => vars[key.trim()] || '');
+    /**
+     * Replace variables in the translation text
+     *
+     * @param {string} text The template text with variables {{ var }}
+     * @param {TranslationContext} vars The variables to replace in the text
+     * @returns {string} The text with the variables replaced
+     */
+    function replaceVariables(text: string, vars: TranslationContext): string {
+        return text.replace(/{{\s*([^}]+)\s*}}/g, (_, key) => vars[key.trim()]?.toString() || '');
     }
 
     /**
@@ -12,7 +21,7 @@ export function useTranslate(lang: string = 'en') {
      * @param context
      * @return
      */
-    function t(key: string, context?: Record<string, any>) {
+    function t(key: string, context?: TranslationContext) {
         if (!translations[lang]) {
             return `${key} has no translation for '${lang}'`;
         }
