@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.5.0.775325132778">
+    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.6.0.780325170702">
 
     <!-- See retype.com -->
-    <meta name="generator" content="Retype 3.5.0">
+    <meta name="generator" content="Retype 3.6.0">
 
     <!-- Primary Meta Tags -->
     <title>Virtual Document</title>
@@ -30,12 +30,12 @@
 
     <script data-cfasync="false">(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
-    <link href="../../../resources/css/retype.css?v=3.5.0.775325132778" rel="stylesheet">
+    <link href="../../../resources/css/retype.css?v=3.6.0.780325170702" rel="stylesheet">
 
-    <script data-cfasync="false" src="../../../resources/js/config.js?v=3.5.0.775325132778" data-turbo-eval="false" defer></script>
-    <script data-cfasync="false" src="../../../resources/js/retype.js?v=3.5.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" data-cfasync="false" src="../../../resources/js/lunr.js?v=3.5.0.775325132778" data-turbo-eval="false" defer></script>
-    <script id="prism-js" data-cfasync="false" src="../../../resources/js/prism.js?v=3.5.0.775325132778" defer></script>
+    <script data-cfasync="false" src="../../../resources/js/config.js?v=3.6.0.780325170702" data-turbo-eval="false" defer></script>
+    <script data-cfasync="false" src="../../../resources/js/retype.js?v=3.6.0" data-turbo-eval="false" defer></script>
+    <script id="lunr-js" data-cfasync="false" src="../../../resources/js/lunr.js?v=3.6.0.780325170702" data-turbo-eval="false" defer></script>
+    <script id="prism-js" data-cfasync="false" src="../../../resources/js/prism.js?v=3.6.0.780325170702" defer></script>
 </head>
 <body>
     <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -199,6 +199,7 @@
         <span>useVirtual</span>
     </h2>
 </doc-anchor-target>
+<p>If document is not found in the database, it will return <code v-pre>undefined</code>.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-typescript"><code v-pre class="language-typescript">import { useRebar } from '@Server/index.js';
 
@@ -210,7 +211,7 @@ interface CustomDocument {
     test2: string;
 }
 
-const virtualDocument = Rebar.document.virtual.useVirtual&lt;CustomDocument&gt;('663ce39eb270106cf02fb7e3', 'SomeCollection');</code></pre>
+const virtualDocument = await Rebar.document.virtual.useVirtual&lt;CustomDocument&gt;('663ce39eb270106cf02fb7e3', 'SomeCollection');</code></pre>
 </doc-codeblock></div>
 <doc-anchor-target id="get">
     <h3>
@@ -221,11 +222,14 @@ const virtualDocument = Rebar.document.virtual.useVirtual&lt;CustomDocument&gt;(
 <p>Get all data for a document</p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-typescript"><code v-pre class="language-typescript">async function someFunction() {
-    const virtualDocument = Rebar.document.virtual.useVirtual&lt;CustomDocument&gt;(
+    const virtualDocument = await Rebar.document.virtual.useVirtual&lt;CustomDocument&gt;(
         '663ce39eb270106cf02fb7e3',
         'SomeCollection',
     );
-    const data = await virtualDocument.get();
+    if (!virtualDocument) {
+        return;
+    }
+    const data = virtualDocument.get();
     console.log(data);
 }</code></pre>
 </doc-codeblock></div>
@@ -238,11 +242,14 @@ const virtualDocument = Rebar.document.virtual.useVirtual&lt;CustomDocument&gt;(
 <p>Get a specific field from a document</p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-typescript"><code v-pre class="language-typescript">async function someFunction() {
-    const virtualDocument = Rebar.document.virtual.useVirtual&lt;CustomDocument&gt;(
+    const virtualDocument = await Rebar.document.virtual.useVirtual&lt;CustomDocument&gt;(
         '663ce39eb270106cf02fb7e3',
         'SomeCollection',
     );
-    const test1 = await virtualDocument.getField('test1');
+    if (!virtualDocument) {
+        return;
+    }
+    const test1 = virtualDocument.getField('test1');
     console.log(test1);
 }</code></pre>
 </doc-codeblock></div>
@@ -255,11 +262,13 @@ const virtualDocument = Rebar.document.virtual.useVirtual&lt;CustomDocument&gt;(
 <p>Set a specific field for the document, and save to the database</p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-typescript"><code v-pre class="language-typescript">async function someFunction() {
-    const virtualDocument = Rebar.document.virtual.useVirtual&lt;CustomDocument&gt;(
+    const virtualDocument = await Rebar.document.virtual.useVirtual&lt;CustomDocument&gt;(
         '663ce39eb270106cf02fb7e3',
         'SomeCollection',
     );
-
+    if (!virtualDocument) {
+        return;
+    }
     await virtualDocument.set('test1', 'hi');
 }</code></pre>
 </doc-codeblock></div>
@@ -272,14 +281,53 @@ const virtualDocument = Rebar.document.virtual.useVirtual&lt;CustomDocument&gt;(
 <p>Set multiple fields for the document, and save to the database</p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-typescript"><code v-pre class="language-typescript">async function someFunction() {
-    const virtualDocument = Rebar.document.virtual.useVirtual&lt;CustomDocument&gt;(
+    const virtualDocument = await Rebar.document.virtual.useVirtual&lt;CustomDocument&gt;(
         '663ce39eb270106cf02fb7e3',
         'SomeCollection',
     );
-
+    if (!virtualDocument) {
+        return;
+    }
     await virtualDocument.setBulk({ test1: 'hi', test2: 'hi' });
 }</code></pre>
 </doc-codeblock></div>
+<doc-anchor-target id="refresh">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#refresh">#</doc-anchor-trigger>
+        <span>refresh</span>
+    </h3>
+</doc-anchor-target>
+<p>Refresh the document from the database</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">async function someFunction() {
+    const virtualDocument = await Rebar.document.virtual.useVirtual&lt;CustomDocument&gt;(
+        '663ce39eb270106cf02fb7e3',
+        'SomeCollection',
+    );
+    if (!virtualDocument) {
+        return;
+    }
+    await virtualDocument.refresh();
+}</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="permissions">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#permissions">#</doc-anchor-trigger>
+        <span><a href="../../systems/permissions/playerpermissions/#usevirtual">permissions</a></span>
+    </h3>
+</doc-anchor-target>
+<p>If you want to modify permissions for a document, you can use the <code v-pre>permissions</code> property.</p>
+<p>It is available only for <code v-pre>Accounts</code> and <code v-pre>Characters</code> collections.</p>
+<p>Click the link above(heading) to see more details on how to use this property.</p>
+<doc-anchor-target id="groups">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#groups">#</doc-anchor-trigger>
+        <span><a href="../../systems/permissions/playergroups/#usevirtual">groups</a></span>
+    </h3>
+</doc-anchor-target>
+<p>If you want to modify groups for a document, you can use the <code v-pre>groups</code> property.</p>
+<p>It is available only for <code v-pre>Accounts</code> and <code v-pre>Characters</code> collections.</p>
+<p>Click the link above(heading) to see more details on how to use this property.</p>
 
                                 
                                 <!-- Required only on API pages -->
@@ -299,10 +347,10 @@ const virtualDocument = Rebar.document.virtual.useVirtual&lt;CustomDocument&gt;(
                                     </div>
                             
                                     <div class="w-1/2">
-                                        <a class="px-5 py-4 -mx-px h-full flex items-center justify-end break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-r-lg transition-colors duration-150 relative hover:z-5" href="../../../userebar/useevents/">
+                                        <a class="px-5 py-4 -mx-px h-full flex items-center justify-end break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-r-lg transition-colors duration-150 relative hover:z-5" href="../../../userebar/events/">
                                             <span>
                                                 <span class="block text-xs font-normal text-right text-gray-400 dark:text-dark-400">Next</span>
-                                                <span class="block mt-1">use​Events</span>
+                                                <span class="block mt-1">events</span>
                                             </span>
                                             <svg xmlns="http://www.w3.org/2000/svg" class="ml-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19.92 12.38a1 1 0 00-.22-1.09l-7-7a.996.996 0 10-1.41 1.41l5.3 5.3H5c-.55 0-1 .45-1 1s.45 1 1 1h11.59l-5.29 5.29a.996.996 0 000 1.41c.19.2.44.3.7.3s.51-.1.71-.29l7-7c.09-.09.16-.21.21-.33z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
                                         </a>

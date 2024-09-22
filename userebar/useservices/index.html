@@ -3,39 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.5.0.775325132778">
+    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.6.0.780325170702">
 
     <!-- See retype.com -->
-    <meta name="generator" content="Retype 3.5.0">
+    <meta name="generator" content="Retype 3.6.0">
 
     <!-- Primary Meta Tags -->
-    <title>useEvents</title>
-    <meta name="title" content="useEvents">
-    <meta name="description" content="These events are unique to the Rebar framework, and help provide information about when something happens.">
+    <title>useServices</title>
+    <meta name="title" content="useServices">
+    <meta name="description" content="Services provide a way for plugin developers to call a shared interface handled by Rebar to handle common place functionality.">
 
     <!-- Canonical -->
-    <link rel="canonical" href="https://rebarv.com/userebar/useevents/">
+    <link rel="canonical" href="https://rebarv.com/userebar/useservices/">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://rebarv.com/userebar/useevents/">
-    <meta property="og:title" content="useEvents">
-    <meta property="og:description" content="These events are unique to the Rebar framework, and help provide information about when something happens.">
+    <meta property="og:url" content="https://rebarv.com/userebar/useservices/">
+    <meta property="og:title" content="useServices">
+    <meta property="og:description" content="Services provide a way for plugin developers to call a shared interface handled by Rebar to handle common place functionality.">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://rebarv.com/userebar/useevents/">
-    <meta property="twitter:title" content="useEvents">
-    <meta property="twitter:description" content="These events are unique to the Rebar framework, and help provide information about when something happens.">
+    <meta property="twitter:url" content="https://rebarv.com/userebar/useservices/">
+    <meta property="twitter:title" content="useServices">
+    <meta property="twitter:description" content="Services provide a way for plugin developers to call a shared interface handled by Rebar to handle common place functionality.">
 
     <script data-cfasync="false">(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
-    <link href="../../resources/css/retype.css?v=3.5.0.775325132778" rel="stylesheet">
+    <link href="../../resources/css/retype.css?v=3.6.0.780325170702" rel="stylesheet">
 
-    <script data-cfasync="false" src="../../resources/js/config.js?v=3.5.0.775325132778" data-turbo-eval="false" defer></script>
-    <script data-cfasync="false" src="../../resources/js/retype.js?v=3.5.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" data-cfasync="false" src="../../resources/js/lunr.js?v=3.5.0.775325132778" data-turbo-eval="false" defer></script>
-    <script id="prism-js" data-cfasync="false" src="../../resources/js/prism.js?v=3.5.0.775325132778" defer></script>
+    <script data-cfasync="false" src="../../resources/js/config.js?v=3.6.0.780325170702" data-turbo-eval="false" defer></script>
+    <script data-cfasync="false" src="../../resources/js/retype.js?v=3.6.0" data-turbo-eval="false" defer></script>
+    <script id="lunr-js" data-cfasync="false" src="../../resources/js/lunr.js?v=3.6.0.780325170702" data-turbo-eval="false" defer></script>
+    <script id="prism-js" data-cfasync="false" src="../../resources/js/prism.js?v=3.6.0.780325170702" defer></script>
 </head>
 <body>
     <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -186,89 +186,408 @@
                                 <!-- Rendered if sidebar right is enabled -->
                                 <div id="docs-sidebar-right-toggle"></div>
                                 <!-- Page content  -->
-<doc-anchor-target id="useevents" class="break-words">
+<doc-anchor-target id="useservices" class="break-words">
     <h1>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#useevents">#</doc-anchor-trigger>
-        <span>useEvents</span>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#useservices">#</doc-anchor-trigger>
+        <span>useServices</span>
     </h1>
 </doc-anchor-target>
-<p>These events are unique to the Rebar framework, and help provide information about when something happens.</p>
-<doc-anchor-target id="usage">
+<p>Services provide a way for plugin developers to call a shared interface handled by Rebar to handle common place functionality.</p>
+<p>Examples being...</p>
+<ul>
+<li>Adding Currency</li>
+<li>Subtracting Currency</li>
+<li>Adding an Item</li>
+<li>Removing an Item</li>
+<li>Checking if an Item Exists</li>
+<li>Changing Weather</li>
+<li>Getting Weather</li>
+<li>Changing Time</li>
+<li>Getting Time</li>
+<li>etc.</li>
+</ul>
+<doc-anchor-target id="example">
     <h2>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#usage">#</doc-anchor-trigger>
-        <span>Usage</span>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#example">#</doc-anchor-trigger>
+        <span>Example</span>
     </h2>
 </doc-anchor-target>
+<doc-anchor-target id="service-register-example">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#service-register-example">#</doc-anchor-trigger>
+        <span>Service Register Example</span>
+    </h3>
+</doc-anchor-target>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">import { useRebar } from '@Server/index.js';
+<pre class="language-typescript"><code v-pre class="language-typescript">Rebar.services.useServiceRegister().register('items', {
+    add: async (player, id, quantity) =&gt; {
+        // Do standard add items to inventory, and whatever else is necessary
+        // such as inventory checks, weight checks, etc.
+        // Return false if added incorrectly
 
-const RebarEvents = useRebar().events.useEvents();
+        // Return true if added correctly
+        return true;
+    },
+    sub: async (player, id quantity) =&gt; {
 
-// Called when an account is bound to a player
-RebarEvents.on('account-bound', (player, document) =&gt; {
-    console.log(document);
-});
 
-// Called when a character is bound to a player
-RebarEvents.on('character-bound', (player, document) =&gt; {
-    console.log(document);
-});
-
-// Called when a vehicle document is bound to a vehicle
-RebarEvents.on('vehicle-bound', (vehicle, document) =&gt; {
-    console.log(document);
-});
-
-// Called when a player sends a message
-RebarEvents.on('message', (player, msg) =&gt; {
-    console.log(msg);
-});
-
-// Called whenever the time changes
-RebarEvents.on('time-changed', (hour, minute, second) =&gt; {
-    console.log(hour, minute, second);
-});
-
-// Called whenever the hour increments by 1
-RebarEvents.on('time-hour-changed', (hour) =&gt; {
-    console.log(hour);
-});
-
-// Called whenever the minute increments by 1
-RebarEvents.on('time-minute-changed', (minute) =&gt; {
-    console.log(minute);
-});
-
-// Called whenever the second increments by 1
-RebarEvents.on('time-second-changed', (second) =&gt; {
-    console.log(second);
-});
-
-// Called when a page is opened
-RebarEvents.on('page-opened', (player, pageName) =&gt; {
-    console.log('page opened');
-    console.log(pageName);
-});
-
-// Called when a page is closed
-RebarEvents.on('page-closed', (player, pageName) =&gt; {
-    console.log('page closed');
-    console.log(pageName);
+        // Return true if subtracted enough
+        return true;
+    },
+    has: async (player, id, quantity) =&gt; {
+        // Return true if has enough of an item
+    },
+    remove: async (player, uid) =&gt; {
+        // return true if removed an item entirely
+    }
 });</code></pre>
 </doc-codeblock></div>
-<doc-anchor-target id="custom-events">
+<doc-anchor-target id="service-invoke-example">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#service-invoke-example">#</doc-anchor-trigger>
+        <span>Service Invoke Example</span>
+    </h3>
+</doc-anchor-target>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">async function addFishingRod(player: alt.Player) {
+    const didAdd = await useItemService().add(player, 'fishingrod', 1);
+    if (!didAdd) {
+        // fishing rod was not added
+        return;
+    }
+
+    // fishing rod was added, do something here...
+}</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="usecurrencyservice">
     <h2>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#custom-events">#</doc-anchor-trigger>
-        <span>Custom Events</span>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#usecurrencyservice">#</doc-anchor-trigger>
+        <span>useCurrencyService</span>
     </h2>
 </doc-anchor-target>
-<p>You can declare global custom events in your plugin like this.</p>
+<doc-anchor-target id="register">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#register">#</doc-anchor-trigger>
+        <span>Register</span>
+    </h3>
+</doc-anchor-target>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">declare global {
-    export interface RebarEvents {
-        'character-select-done': (player: alt.Player) =&gt; void;
-    }
-}</code></pre>
+<pre class="language-typescript"><code v-pre class="language-typescript">Rebar.services.useServiceRegister().register('currencyService', {
+    async add(player, type, quantity) {
+        // Handle add logic...
+        // Return true if added successfully
+        return true;
+    },
+    async sub(player, type, quantity) {
+        // Handle sub logic...
+        // Return true if added successfully
+        return true;
+    },
+    async has(player, type, quantity) {
+        // Handle has logic...
+        // Return true if has enough of a currency type
+        return true;
+    },
+});</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="add">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#add">#</doc-anchor-trigger>
+        <span>add</span>
+    </h3>
+</doc-anchor-target>
+<p>Adds a specified currency type to a given player with a specific quantity.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">const didAdd = await Rebar.services.useCurrencyService().add(somePlayer, 'cash', 5);</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="sub">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#sub">#</doc-anchor-trigger>
+        <span>sub</span>
+    </h3>
+</doc-anchor-target>
+<p>Subtracts a specified currency type to a given player with a specific quantity.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">const didSub = await Rebar.services.useCurrencyService().sub(somePlayer, 'cash', 5);</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="has">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#has">#</doc-anchor-trigger>
+        <span>has</span>
+    </h3>
+</doc-anchor-target>
+<p>Checks if the player has enough of a specified currency type.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">const has = await Rebar.services.useCurrencyService().has(somePlayer, 'cash');</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="usedeathservice">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#usedeathservice">#</doc-anchor-trigger>
+        <span>useDeathService</span>
+    </h2>
+</doc-anchor-target>
+<doc-anchor-target id="register-1">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#register-1">#</doc-anchor-trigger>
+        <span>Register</span>
+    </h3>
+</doc-anchor-target>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">Rebar.services.useServiceRegister().register('deathService', {
+    respawn(player, pos) {
+        // handle respawning a player somewhere
+    },
+    revive(player) {
+        // handle reviving a player in the same position
+    },
+});</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="respawn">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#respawn">#</doc-anchor-trigger>
+        <span>respawn</span>
+    </h3>
+</doc-anchor-target>
+<p>Respawn is meant to be used as a way to respawn the player through some other means in your game mode.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">Rebar.services.useDeathService().respawn(somePlayer, new alt.Vector3(0, 0, 0));</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="revive">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#revive">#</doc-anchor-trigger>
+        <span>revive</span>
+    </h3>
+</doc-anchor-target>
+<p>Revive is meant to be used to respawn the player in their same position</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">Rebar.services.useDeathService().revive(somePlayer);</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="useitemservice">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#useitemservice">#</doc-anchor-trigger>
+        <span>useItemService</span>
+    </h2>
+</doc-anchor-target>
+<doc-anchor-target id="register-2">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#register-2">#</doc-anchor-trigger>
+        <span>Register</span>
+    </h3>
+</doc-anchor-target>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">Rebar.services.useServiceRegister().register('itemService', {
+    async add(player, id, quantity, data) {
+        // this should try and add an item quantity to the given player, with optional specified data
+        // Return false if they run out of room, or exceed weight. Up to library creator.
+
+        return true;
+    },
+    async sub(player, id, quantity) {
+        // This should try and subtract item quantity from the given player, with optional specified data
+        // Return false if they don't have enough
+
+        return true;
+    },
+    async has(player, id, quantity) {
+        // This should try and see if the player has a specified item, and a given quantity
+        // Return false if they do not
+
+        return true;
+    },
+    async remove(player, uid) {
+        // This should return true if the item can successfully be removed entirely by a unique identifier
+        // Every item should have some form of uid for easy removal
+        // Return false if the uid item does not exist
+
+        return true;
+    },
+});</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="add-1">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#add-1">#</doc-anchor-trigger>
+        <span>add</span>
+    </h3>
+</doc-anchor-target>
+<p>This should try and add an item quantity to the given player.</p>
+<p>This will return <code v-pre>false</code> if the item cannot be added.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">const didAdd = Rebar.services.useItemService().add(somePlayer, 'fishing-rod', 1, { customData: 'here' });</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="sub-1">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#sub-1">#</doc-anchor-trigger>
+        <span>sub</span>
+    </h3>
+</doc-anchor-target>
+<p>This should try and subtract an item quantity from the given player.</p>
+<p>This will return <code v-pre>false</code> if the item quantity cannot be subtracted.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">const didSub = Rebar.services.useItemService().sub(somePlayer, 'fishing-rod', 1);</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="has-1">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#has-1">#</doc-anchor-trigger>
+        <span>has</span>
+    </h3>
+</doc-anchor-target>
+<p>This should try and return <code v-pre>true/false</code> if the player has a specific item and a given quantity.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">const hasEnough = Rebar.services.useItemService().has(somePlayer, 'cabbage-seeds', 100);</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="remove">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#remove">#</doc-anchor-trigger>
+        <span>remove</span>
+    </h3>
+</doc-anchor-target>
+<p>This should try and remove any item with a given <code v-pre>uid</code> and remove it entirely from the inventory.</p>
+<p><em>UID stands for unique identifier.</em></p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">const isRemoved = await Rebar.services.useItemService().remove(somePlayer, 'c03b9f08-dd85-46fe-ba07-429b0f79deaf');</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="usenotificationservice">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#usenotificationservice">#</doc-anchor-trigger>
+        <span>useNotificationService</span>
+    </h2>
+</doc-anchor-target>
+<doc-anchor-target id="register-3">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#register-3">#</doc-anchor-trigger>
+        <span>Register</span>
+    </h3>
+</doc-anchor-target>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">Rebar.services.useServiceRegister().register('notificationService', {
+    broadcast(msg, type) {
+        // Should send a message to all logged in players in the form of a notification
+        // Type can literally be anything you want
+    },
+    emit(player, msg, type) {
+        // Should send a message to the given player in the form of a notification
+        // Type can literally be anything you want
+    },
+});</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="broadcast">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#broadcast">#</doc-anchor-trigger>
+        <span>broadcast</span>
+    </h3>
+</doc-anchor-target>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">Rebar.services.useNotificationService().broadcast('hello everyone!', 'announcement');</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="emit">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#emit">#</doc-anchor-trigger>
+        <span>emit</span>
+    </h3>
+</doc-anchor-target>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">Rebar.services.useNotificationService().emit(somePlayer, 'hello person!', 'info');</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="usetimeservice">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#usetimeservice">#</doc-anchor-trigger>
+        <span>useTimeService</span>
+    </h2>
+</doc-anchor-target>
+<doc-anchor-target id="register-4">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#register-4">#</doc-anchor-trigger>
+        <span>Register</span>
+    </h3>
+</doc-anchor-target>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">Rebar.services.useServiceRegister().register('timeService', {
+    setTime(hour, minute, second) {
+        // what to do when time is set
+    },
+});</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="settime">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#settime">#</doc-anchor-trigger>
+        <span>setTime</span>
+    </h3>
+</doc-anchor-target>
+<p>Sets the in-game time for the whole server.</p>
+<p><code v-pre>hour</code>,<code v-pre>minute</code>,<code v-pre>second</code></p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">Rebar.services.useTimeService().setTime(5, 0, 0);</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="gettime">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#gettime">#</doc-anchor-trigger>
+        <span>getTime</span>
+    </h3>
+</doc-anchor-target>
+<p>Returns the current server time.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">const currentTime = Rebar.services.useTimeService().getTime();
+console.log(currentTime.hour);</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="useweatherservice">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#useweatherservice">#</doc-anchor-trigger>
+        <span>useWeatherService</span>
+    </h2>
+</doc-anchor-target>
+<doc-anchor-target id="register-5">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#register-5">#</doc-anchor-trigger>
+        <span>Register</span>
+    </h3>
+</doc-anchor-target>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">Rebar.services.useServiceRegister().register('weatherService', {
+    setWeather(type) {
+        // Passes a single weather type compatible for the game
+    },
+    setWeatherForecast(types) {
+        // Passes an array of weather types to loop through
+    },
+});</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="setweather">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#setweather">#</doc-anchor-trigger>
+        <span>setWeather</span>
+    </h3>
+</doc-anchor-target>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">Rebar.services.useWeatherService().setWeather('EXTRASUNNY');</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="setweatherforecast">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#setweatherforecast">#</doc-anchor-trigger>
+        <span>setWeatherForecast</span>
+    </h3>
+</doc-anchor-target>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">Rebar.services
+    .useWeatherService()
+    .setWeather(['EXTRASUNNY', 'CLEARING', 'OVERCAST', 'THUNDER', 'OVERCAST', 'CLEARING']);</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="getweather">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#getweather">#</doc-anchor-trigger>
+        <span>getWeather</span>
+    </h3>
+</doc-anchor-target>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">const currentWeather = Rebar.services.useWeatherService().getWeather();</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="getweatherforecast">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#getweatherforecast">#</doc-anchor-trigger>
+        <span>getWeatherForecast</span>
+    </h3>
+</doc-anchor-target>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">const weatherForecast = Rebar.services.useWeatherService().getWeatherForecast();</code></pre>
 </doc-codeblock></div>
 
                                 
@@ -279,20 +598,20 @@ RebarEvents.on('page-closed', (player, pageName) =&gt; {
                             
                                 <nav class="flex mt-14">
                                     <div class="w-1/2">
-                                        <a class="px-5 py-4 h-full flex items-center break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-l-lg transition-colors duration-150 relative hover:z-5" href="../../userebar/document/document-virtual/">
+                                        <a class="px-5 py-4 h-full flex items-center break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-l-lg transition-colors duration-150 relative hover:z-5" href="../../userebar/systems/usestreamsyncedbinder/">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="mr-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19 11H7.41l5.29-5.29a.996.996 0 10-1.41-1.41l-7 7a1 1 0 000 1.42l7 7a1.024 1.024 0 001.42-.01.996.996 0 000-1.41L7.41 13H19c.55 0 1-.45 1-1s-.45-1-1-1z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
                                             <span>
                                                 <span class="block text-xs font-normal text-gray-400 dark:text-dark-400">Previous</span>
-                                                <span class="block mt-1">Virtual Document</span>
+                                                <span class="block mt-1">use​Stream​Synced​Binder</span>
                                             </span>
                                         </a>
                                     </div>
                             
                                     <div class="w-1/2">
-                                        <a class="px-5 py-4 -mx-px h-full flex items-center justify-end break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-r-lg transition-colors duration-150 relative hover:z-5" href="../../userebar/get/">
+                                        <a class="px-5 py-4 -mx-px h-full flex items-center justify-end break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-r-lg transition-colors duration-150 relative hover:z-5" href="../../userebar/utility/">
                                             <span>
                                                 <span class="block text-xs font-normal text-right text-gray-400 dark:text-dark-400">Next</span>
-                                                <span class="block mt-1">get</span>
+                                                <span class="block mt-1">utility</span>
                                             </span>
                                             <svg xmlns="http://www.w3.org/2000/svg" class="ml-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19.92 12.38a1 1 0 00-.22-1.09l-7-7a.996.996 0 10-1.41 1.41l5.3 5.3H5c-.55 0-1 .45-1 1s.45 1 1 1h11.59l-5.29 5.29a.996.996 0 000 1.41c.19.2.44.3.7.3s.51-.1.71-.29l7-7c.09-.09.16-.21.21-.33z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
                                         </a>
@@ -336,6 +655,6 @@ RebarEvents.on('page-closed', (player, pageName) =&gt; {
 
     <div id="docs-overlay-target"></div>
 
-    <script data-cfasync="false">window.__DOCS__ = { "title": "useEvents", level: 2, icon: "file", hasPrism: true, hasMermaid: false, hasMath: false, tocDepth: 23 }</script>
+    <script data-cfasync="false">window.__DOCS__ = { "title": "useServices", level: 2, icon: "file", hasPrism: true, hasMermaid: false, hasMath: false, tocDepth: 23 }</script>
 </body>
 </html>

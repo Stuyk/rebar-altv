@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.5.0.775325132778">
+    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.6.0.780325170702">
 
     <!-- See retype.com -->
-    <meta name="generator" content="Retype 3.5.0">
+    <meta name="generator" content="Retype 3.6.0">
 
     <!-- Primary Meta Tags -->
     <title>Chapter 10. Authentication Plugin</title>
@@ -32,12 +32,12 @@
 
     <script data-cfasync="false">(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
-    <link href="../../../resources/css/retype.css?v=3.5.0.775325132778" rel="stylesheet">
+    <link href="../../../resources/css/retype.css?v=3.6.0.780325170702" rel="stylesheet">
 
-    <script data-cfasync="false" src="../../../resources/js/config.js?v=3.5.0.775325132778" data-turbo-eval="false" defer></script>
-    <script data-cfasync="false" src="../../../resources/js/retype.js?v=3.5.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" data-cfasync="false" src="../../../resources/js/lunr.js?v=3.5.0.775325132778" data-turbo-eval="false" defer></script>
-    <script id="prism-js" data-cfasync="false" src="../../../resources/js/prism.js?v=3.5.0.775325132778" defer></script>
+    <script data-cfasync="false" src="../../../resources/js/config.js?v=3.6.0.780325170702" data-turbo-eval="false" defer></script>
+    <script data-cfasync="false" src="../../../resources/js/retype.js?v=3.6.0" data-turbo-eval="false" defer></script>
+    <script id="lunr-js" data-cfasync="false" src="../../../resources/js/lunr.js?v=3.6.0.780325170702" data-turbo-eval="false" defer></script>
+    <script id="prism-js" data-cfasync="false" src="../../../resources/js/prism.js?v=3.6.0.780325170702" defer></script>
 </head>
 <body>
     <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -385,6 +385,18 @@ rPlayer.webview.show('Authentication', 'page');</code></pre>
 
 rPlayer.world.setScreenBlur(200);</code></pre>
 </doc-codeblock></div>
+<doc-anchor-target id="disable-the-player-controls">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#disable-the-player-controls">#</doc-anchor-trigger>
+        <span>Disable the player controls</span>
+    </h3>
+</doc-anchor-target>
+<p>Since we don&#x27;t want the player to accidentally opening the pausemenu if their Username or password contains the letter &#x27;P&#x27; we&#x27;re going to disable the controls. Just remember to enable them again, when releasing the player into the world.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">// server/index.ts
+
+rPlayer.world.disableControls();</code></pre>
+</doc-codeblock></div>
 <doc-anchor-target id="initial-result">
     <h3>
         <doc-anchor-trigger class="header-anchor-trigger" to="#initial-result">#</doc-anchor-trigger>
@@ -614,7 +626,7 @@ const passwordValid = ref(false);</code></pre>
 <pre class="language-typescript"><code v-pre class="language-typescript">watch(username, (value) =&gt; {
     usernameValid.value = false;
 
-    // If the length of the username is less than 2, return
+    // If the length of the username is less than 3, return
     if (value.length &lt;= 2) {
         return;
     }
@@ -625,7 +637,7 @@ const passwordValid = ref(false);</code></pre>
 watch(password, (value) =&gt; {
     passwordValid.value = false;
 
-    // If the length of the password is less than 2, return
+    // If the length of the password is less than 3, return
     if (value.length &lt;= 2) {
         return;
     }
@@ -662,7 +674,7 @@ watch(password, (value) =&gt; {
 <pre class="language-typescript"><code v-pre class="language-typescript">watch(username, (value) =&gt; {
     usernameValid.value = false;
 
-    // If the length of the username is less than 2, return
+    // If the length of the username is less than 3, return
     if (value.length &lt;= 2) {
         return;
     }
@@ -1014,6 +1026,7 @@ Rebar.document.character.useCharacterBinder(player).bind(characters[0]);</code><
 <li>Changed their Dimension</li>
 <li>Made them invisible</li>
 <li>Blurred the screen</li>
+<li>Disabled the controls</li>
 </ul>
 <doc-anchor-target id="finish-loading">
     <h3>
@@ -1039,6 +1052,7 @@ Rebar.document.character.useCharacterBinder(player).bind(characters[0]);</code><
     const rPlayer = Rebar.usePlayer(player);
     rPlayer.world.freezeCamera(false);
     rPlayer.world.clearScreenBlur(200);
+    rPlayer.world.enableControls();
     rPlayer.webview.hide('Authentication');
 }</code></pre>
 </doc-codeblock></div>

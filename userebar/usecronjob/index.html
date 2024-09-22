@@ -3,39 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.5.0.775325132778">
+    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.6.0.780325170702">
 
     <!-- See retype.com -->
-    <meta name="generator" content="Retype 3.5.0">
+    <meta name="generator" content="Retype 3.6.0">
 
     <!-- Primary Meta Tags -->
-    <title>useServerWeather</title>
-    <meta name="title" content="useServerWeather">
-    <meta name="description" content="This stores server weather during runtime, and allows for weather to be shared to other plugins.">
+    <title>useCronJob</title>
+    <meta name="title" content="useCronJob">
+    <meta name="description" content="This API allows you to create timed events that happen at different intervals based on server time.">
 
     <!-- Canonical -->
-    <link rel="canonical" href="https://rebarv.com/userebar/systems/useserverweather/">
+    <link rel="canonical" href="https://rebarv.com/userebar/usecronjob/">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://rebarv.com/userebar/systems/useserverweather/">
-    <meta property="og:title" content="useServerWeather">
-    <meta property="og:description" content="This stores server weather during runtime, and allows for weather to be shared to other plugins.">
+    <meta property="og:url" content="https://rebarv.com/userebar/usecronjob/">
+    <meta property="og:title" content="useCronJob">
+    <meta property="og:description" content="This API allows you to create timed events that happen at different intervals based on server time.">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://rebarv.com/userebar/systems/useserverweather/">
-    <meta property="twitter:title" content="useServerWeather">
-    <meta property="twitter:description" content="This stores server weather during runtime, and allows for weather to be shared to other plugins.">
+    <meta property="twitter:url" content="https://rebarv.com/userebar/usecronjob/">
+    <meta property="twitter:title" content="useCronJob">
+    <meta property="twitter:description" content="This API allows you to create timed events that happen at different intervals based on server time.">
 
     <script data-cfasync="false">(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
-    <link href="../../../resources/css/retype.css?v=3.5.0.775325132778" rel="stylesheet">
+    <link href="../../resources/css/retype.css?v=3.6.0.780325170702" rel="stylesheet">
 
-    <script data-cfasync="false" src="../../../resources/js/config.js?v=3.5.0.775325132778" data-turbo-eval="false" defer></script>
-    <script data-cfasync="false" src="../../../resources/js/retype.js?v=3.5.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" data-cfasync="false" src="../../../resources/js/lunr.js?v=3.5.0.775325132778" data-turbo-eval="false" defer></script>
-    <script id="prism-js" data-cfasync="false" src="../../../resources/js/prism.js?v=3.5.0.775325132778" defer></script>
+    <script data-cfasync="false" src="../../resources/js/config.js?v=3.6.0.780325170702" data-turbo-eval="false" defer></script>
+    <script data-cfasync="false" src="../../resources/js/retype.js?v=3.6.0" data-turbo-eval="false" defer></script>
+    <script id="lunr-js" data-cfasync="false" src="../../resources/js/lunr.js?v=3.6.0.780325170702" data-turbo-eval="false" defer></script>
+    <script id="prism-js" data-cfasync="false" src="../../resources/js/prism.js?v=3.6.0.780325170702" defer></script>
 </head>
 <body>
     <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -50,10 +50,10 @@
                 <!-- Logo -->
                 <div class="flex items-center justify-between h-full py-2 md:w-75">
                     <div class="flex items-center px-2 md:px-6">
-                        <a id="docs-site-logo" href="../../../" class="flex items-center leading-snug text-xl">
+                        <a id="docs-site-logo" href="../../" class="flex items-center leading-snug text-xl">
                             <span class="w-10 mr-2 grow-0 shrink-0 overflow-hidden">
-                                <img class="max-h-10 dark:hidden md:inline-block" src="../../../static/logo_dark.svg">
-                                <img class="max-h-10 hidden dark:inline-block" src="../../../static/logo_light.svg">
+                                <img class="max-h-10 dark:hidden md:inline-block" src="../../static/logo_dark.svg">
+                                <img class="max-h-10 hidden dark:inline-block" src="../../static/logo_light.svg">
                             </span>
                             <span class="dark:text-white font-semibold line-clamp-1 md:line-clamp-2">Rebar for alt:V</span>
                         </a>
@@ -186,32 +186,77 @@
                                 <!-- Rendered if sidebar right is enabled -->
                                 <div id="docs-sidebar-right-toggle"></div>
                                 <!-- Page content  -->
-<doc-anchor-target id="useserverweather" class="break-words">
+<doc-anchor-target id="usecronjob" class="break-words">
     <h1>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#useserverweather">#</doc-anchor-trigger>
-        <span>useServerWeather</span>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#usecronjob">#</doc-anchor-trigger>
+        <span>useCronJob</span>
     </h1>
 </doc-anchor-target>
-<p>This stores server weather during runtime, and allows for weather to be shared to other plugins.</p>
-<p>Additionally, when these functions are used the internal RebarEvents for weather changes are invoked.</p>
+<p>This API allows you to create timed events that happen at different intervals based on server time. Such as every 5th minute of the hour, every hour, etc.</p>
+<p>Details on how to create the cron expression can be found in the node-cron documentation:</p>
+<p><a href="https://www.npmjs.com/package/node-cron#cron-syntax">Cron Syntax</a></p>
+<doc-anchor-target id="how-to-create-new-cronjob">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#how-to-create-new-cronjob">#</doc-anchor-trigger>
+        <span>How to create new Cronjob</span>
+    </h2>
+</doc-anchor-target>
+<p>To create a new cron job, you need a unique name, a cron expression that defines the time of execution and one or more functions that are executed.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">import * as alt from 'alt-server';
-import { useRebar } from '@Server/index.js';
+<pre class="language-typescript"><code v-pre class="language-typescript">import { useRebar } from '@Server/index.js';
 
 const Rebar = useRebar();
-const serverWeather = Rebar.useServerWeather();
+const cronJob = Rebar.useCronJob();
 
-function whatever() {
-    // Used as a way to store the current weather on server-side for other plugins
-    serverWeather.set('CLEARING');
+declare global {
+    export interface CronJobs {
+        'my-cronjob': {
+            cronExpression: string;
+            tasks: any[];
+        };
+    }
+}
 
-    // Used as a way to show a weather forecast for the upcoming weather events
-    serverWeather.setForecast(['CLEAR', 'CLOUDS', 'RAIN', 'THUNDER', 'FOGGY', 'CLOUDS', 'CLEARING', 'EXTRASUNNY'])
+export function task1() {
+    alt.log('Task 1');
+}
 
-    const currentWeather = serverWeather.get();
+cronJob.create('my-cronjob', '*/5 * * * * *', [task1]);</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="how-to-remove-a-cronjob">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#how-to-remove-a-cronjob">#</doc-anchor-trigger>
+        <span>How to remove a Cronjob</span>
+    </h2>
+</doc-anchor-target>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">cronJob.remove('my-cronjob');</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="how-to-add-a-function-to-an-existing-cronjob">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#how-to-add-a-function-to-an-existing-cronjob">#</doc-anchor-trigger>
+        <span>How to add a function to an existing cronjob</span>
+    </h2>
+</doc-anchor-target>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">export function task2() {
+    alt.log('Task 2');
+}
 
-    const currentForecast = serverWeather.getForecast();
-}</code></pre>
+cronJob.addTaskToCron('my-cronjob', task2);</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="how-to-remove-a-function-to-an-existing-cronjob">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#how-to-remove-a-function-to-an-existing-cronjob">#</doc-anchor-trigger>
+        <span>How to remove a function to an existing cronjob</span>
+    </h2>
+</doc-anchor-target>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">export function task2() {
+    alt.log('Task 2');
+}
+
+cronJob.removeTaskFromCron('my-cronjob', task2);</code></pre>
 </doc-codeblock></div>
 
                                 
@@ -222,20 +267,20 @@ function whatever() {
                             
                                 <nav class="flex mt-14">
                                     <div class="w-1/2">
-                                        <a class="px-5 py-4 h-full flex items-center break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-l-lg transition-colors duration-150 relative hover:z-5" href="../../../userebar/systems/useservertime/">
+                                        <a class="px-5 py-4 h-full flex items-center break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-l-lg transition-colors duration-150 relative hover:z-5" href="../../userebar/useapi/">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="mr-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19 11H7.41l5.29-5.29a.996.996 0 10-1.41-1.41l-7 7a1 1 0 000 1.42l7 7a1.024 1.024 0 001.42-.01.996.996 0 000-1.41L7.41 13H19c.55 0 1-.45 1-1s-.45-1-1-1z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
                                             <span>
                                                 <span class="block text-xs font-normal text-gray-400 dark:text-dark-400">Previous</span>
-                                                <span class="block mt-1">use​Server​Time</span>
+                                                <span class="block mt-1">use​Api</span>
                                             </span>
                                         </a>
                                     </div>
                             
                                     <div class="w-1/2">
-                                        <a class="px-5 py-4 -mx-px h-full flex items-center justify-end break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-r-lg transition-colors duration-150 relative hover:z-5" href="../../../userebar/systems/usestreamsyncedbinder/">
+                                        <a class="px-5 py-4 -mx-px h-full flex items-center justify-end break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-r-lg transition-colors duration-150 relative hover:z-5" href="../../userebar/useconfig/">
                                             <span>
                                                 <span class="block text-xs font-normal text-right text-gray-400 dark:text-dark-400">Next</span>
-                                                <span class="block mt-1">use​Stream​Synced​Binder</span>
+                                                <span class="block mt-1">use​Config</span>
                                             </span>
                                             <svg xmlns="http://www.w3.org/2000/svg" class="ml-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19.92 12.38a1 1 0 00-.22-1.09l-7-7a.996.996 0 10-1.41 1.41l5.3 5.3H5c-.55 0-1 .45-1 1s.45 1 1 1h11.59l-5.29 5.29a.996.996 0 000 1.41c.19.2.44.3.7.3s.51-.1.71-.29l7-7c.09-.09.16-.21.21-.33z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
                                         </a>
@@ -279,6 +324,6 @@ function whatever() {
 
     <div id="docs-overlay-target"></div>
 
-    <script data-cfasync="false">window.__DOCS__ = { "title": "useServerWeather", level: 3, icon: "file", hasPrism: true, hasMermaid: false, hasMath: false, tocDepth: 23 }</script>
+    <script data-cfasync="false">window.__DOCS__ = { "title": "useCronJob", level: 2, icon: "file", hasPrism: true, hasMermaid: false, hasMath: false, tocDepth: 23 }</script>
 </body>
 </html>

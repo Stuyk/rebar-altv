@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.5.0.775325132778">
+    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.6.0.780325170702">
 
     <!-- See retype.com -->
-    <meta name="generator" content="Retype 3.5.0">
+    <meta name="generator" content="Retype 3.6.0">
 
     <!-- Primary Meta Tags -->
     <title>Changelog</title>
     <meta name="title" content="Changelog">
-    <meta name="description" content="Added ability to change database name through environment variables — @floydya">
+    <meta name="description" content="Removed useVehicleEvents, useCharacterEvents, and useAccountEvents">
 
     <!-- Canonical -->
     <link rel="canonical" href="https://rebarv.com/changelog/">
@@ -20,21 +20,21 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://rebarv.com/changelog/">
     <meta property="og:title" content="Changelog">
-    <meta property="og:description" content="Added ability to change database name through environment variables — @floydya">
+    <meta property="og:description" content="Removed useVehicleEvents, useCharacterEvents, and useAccountEvents">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://rebarv.com/changelog/">
     <meta property="twitter:title" content="Changelog">
-    <meta property="twitter:description" content="Added ability to change database name through environment variables — @floydya">
+    <meta property="twitter:description" content="Removed useVehicleEvents, useCharacterEvents, and useAccountEvents">
 
     <script data-cfasync="false">(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
-    <link href="../resources/css/retype.css?v=3.5.0.775325132778" rel="stylesheet">
+    <link href="../resources/css/retype.css?v=3.6.0.780325170702" rel="stylesheet">
 
-    <script data-cfasync="false" src="../resources/js/config.js?v=3.5.0.775325132778" data-turbo-eval="false" defer></script>
-    <script data-cfasync="false" src="../resources/js/retype.js?v=3.5.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" data-cfasync="false" src="../resources/js/lunr.js?v=3.5.0.775325132778" data-turbo-eval="false" defer></script>
+    <script data-cfasync="false" src="../resources/js/config.js?v=3.6.0.780325170702" data-turbo-eval="false" defer></script>
+    <script data-cfasync="false" src="../resources/js/retype.js?v=3.6.0" data-turbo-eval="false" defer></script>
+    <script id="lunr-js" data-cfasync="false" src="../resources/js/lunr.js?v=3.6.0.780325170702" data-turbo-eval="false" defer></script>
 </head>
 <body>
     <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -191,15 +191,228 @@
         <span>Changelog</span>
     </h1>
 </doc-anchor-target>
+<doc-anchor-target id="version-53">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#version-53">#</doc-anchor-trigger>
+        <span>Version 53</span>
+    </h2>
+</doc-anchor-target>
+<doc-anchor-target id="breaking-changes">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#breaking-changes">#</doc-anchor-trigger>
+        <span>Breaking Changes</span>
+    </h3>
+</doc-anchor-target>
+<ul>
+<li>Removed <code v-pre>useVehicleEvents</code>, <code v-pre>useCharacterEvents</code>, and <code v-pre>useAccountEvents</code>
+<ul>
+<li>Replaced with <code v-pre>alt.on('rebar:vehicleUpdated')</code>, <code v-pre>alt.on('rebar:playerCharacterUpdated')</code>, and <code v-pre>alt.on('rebar:playerAccountUpdated')</code>.</li>
+</ul>
+</li>
+<li>Removed alt.getMeta for Rebar Imports
+<ul>
+<li>This likely doesn&#x27;t effect anyone</li>
+</ul>
+</li>
+<li>Removed <code v-pre>useServerTime</code>
+<ul>
+<li>Replaced with <code v-pre>useWorldService</code></li>
+</ul>
+</li>
+<li>Removed <code v-pre>useServerWeather</code>
+<ul>
+<li>Replaced with <code v-pre>useWorldService</code></li>
+</ul>
+</li>
+<li>Removed <code v-pre>useMessenger.message.on</code>,
+<ul>
+<li>Same functionality can be achieved through <code v-pre>alt.on</code> with <code v-pre>playerSendMessage</code></li>
+</ul>
+</li>
+<li>Removed <code v-pre>useRebarEvents</code> and moved all events to <code v-pre>alt.on</code> and <code v-pre>alt.emit</code>
+<ul>
+<li>Custom delcarations are still possible.</li>
+<li>Replaced all <code v-pre>rebar-event-names</code> with <code v-pre>camelCased</code> events</li>
+<li>Event Name Changes:
+<ul>
+<li>Renamed <code v-pre>message</code> event to <code v-pre>rebar:playerSendMessage</code></li>
+<li>Renamed <code v-pre>on-command</code> event to <code v-pre>rebar:playerCommand</code></li>
+<li>Renamed <code v-pre>on-rpc-restart</code> event to <code v-pre>rebar:rpcRestart</code></li>
+<li>Renamed <code v-pre>account-bound</code> event to <code v-pre>rebar:playerAccountBound</code></li>
+<li>Renamed <code v-pre>character-bound</code> event to <code v-pre>rebar:playerCharacterBound</code></li>
+<li>Renamed <code v-pre>vehicle-bound</code> event to <code v-pre>rebar:vehicleBound</code></li>
+<li>Renamed <code v-pre>page-opened</code> event to <code v-pre>rebar:playerPageOpened</code></li>
+<li>Renamed <code v-pre>page-closed</code> event to <code v-pre>rebar:playerPageClosed</code></li>
+<li>Renamed <code v-pre>time-changed</code> event to <code v-pre>rebar:timeChanged</code></li>
+<li>Renamed <code v-pre>time-hour-changed</code> event to <code v-pre>rebar:timeHourChanged</code></li>
+<li>Renamed <code v-pre>time-minute-changed</code> event to <code v-pre>rebar:timeMinuteChanged</code></li>
+<li>Renamed <code v-pre>time-second-changed</code> event to <code v-pre>rebar:timeSecondChanged</code></li>
+<li>Renamed <code v-pre>weather-changed</code> event to <code v-pre>rebar:weatherChanged</code></li>
+<li>Renamed <code v-pre>weather-forecast-changed</code> event to <code v-pre>rebar:weatherForecastChanged</code></li>
+<li>Renamed <code v-pre>doorLocked</code> event to <code v-pre>rebar:doorLocked</code></li>
+<li>Renamed <code v-pre>doorUnlocked</code> event to <code v-pre>rebar:doorUnlocked</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Reworked permission system:
+<ul>
+<li>Removed <code v-pre>permission</code> and <code v-pre>groupPermissions</code> properties from <code v-pre>useAccount</code> and <code v-pre>useCharacter</code>.</li>
+<li>When you check for players&#x27; permissions, it will automatically check both groups and plain permissions.</li>
+</ul>
+</li>
+</ul>
+<doc-anchor-target id="code-changes">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes">#</doc-anchor-trigger>
+        <span>Code Changes</span>
+    </h3>
+</doc-anchor-target>
+<ul>
+<li>Added more verbose error printing for plugin imports, should function like before again</li>
+<li>Added ability to use string union for blip sprite types
+<ul>
+<li>Automatically converted to numerical</li>
+</ul>
+</li>
+<li>Added ability to use string union for blip colors
+<ul>
+<li>Automatically converted to numerical</li>
+</ul>
+</li>
+<li>Made blips shortRange parameter optional, and default to true</li>
+<li>Updated <code v-pre>useWeapon</code> for <code v-pre>player</code> to properly save weapon data and ammo count</li>
+<li><strong>Removed</strong> <code v-pre>ammo</code> from the database, and ammo is now stored on the individual weapon instead</li>
+<li>Fix vehicle handler so setting <code v-pre>{}</code> will actually clear the vehicle handling</li>
+<li>Fix issue where removing attachements was not working correctly</li>
+<li>Replaced in-house get closest entity function with <code v-pre>alt.getClosestEntities</code></li>
+<li>Changed <code v-pre>Account</code> from <code v-pre>type</code> to <code v-pre>interface</code></li>
+<li>Moved <code v-pre>Page Events</code> to <code v-pre>pageSystem</code> to keep functionality working</li>
+<li>Made it so emitting notifications from server-side defaults to a GTA:V Notification, until a library is added</li>
+<li>Added <code v-pre>useServiceRegister</code>
+<ul>
+<li>Provides common APIs for common features to integrate custom functionality.</li>
+<li>Services do nothing until a library registers itself under a service.</li>
+</ul>
+</li>
+<li>Added <code v-pre>useCurrencyService</code>
+<ul>
+<li>All these functions do nothing until a library is registered\</li>
+<li>add (invoke adding currency)</li>
+<li>sub (invoke removing currency)</li>
+<li>has (check if has enough currency)</li>
+<li>emits events when currency added or subtracted</li>
+</ul>
+</li>
+<li>Added <code v-pre>useDeathService</code>
+<ul>
+<li>All these functions do nothing until a library is registered</li>
+<li>respawn (invoke a respawn)</li>
+<li>revive (invoke a revive, in place)</li>
+<li>emits events when respawned, or revived</li>
+</ul>
+</li>
+<li>Added <code v-pre>useItemService</code>
+<ul>
+<li>All these functions do nothing until a library is registered</li>
+<li>add (invoke an item add)</li>
+<li>sub (invoke an item subtraction)</li>
+<li>remove (invoke an item remove)</li>
+<li>has (invoke if player has an item)</li>
+<li>itemCreate (create an item to add to the database)</li>
+<li>itemRemove (remove an item from the database)</li>
+<li>emits events when items added, subtracted, or removed</li>
+</ul>
+</li>
+<li>Added <code v-pre>useNotificationService</code>
+<ul>
+<li>All these functions do nothing until a library is registered</li>
+<li>emit (invoke a notification send)</li>
+<li>broadcast (invoke a notification send, to all players)</li>
+<li>emits events when notification emitted, or broadcasted</li>
+</ul>
+</li>
+<li>Added <code v-pre>useTimeService</code>
+<ul>
+<li>All these functions do nothing until a library is registered</li>
+<li>setTime (set the time for the whole server)</li>
+<li>getTime (get the current time for the server)</li>
+<li>emits events when time updated by hour, minute, or second</li>
+</ul>
+</li>
+<li>Added <code v-pre>useWeatherService</code>
+<ul>
+<li>setWeather (set the weather for the server)</li>
+<li>setWeatherForecast (set weather forecast for the server)</li>
+<li>getWeather (get the current weather for the server)</li>
+<li>getWeatherForecast (get weather forecast for the server)</li>
+<li>emits events when weather updated, or forecast updated</li>
+</ul>
+</li>
+<li>Added Custom alt.getMeta Keys for...
+<ul>
+<li>serverTime</li>
+<li>serverWeather</li>
+<li>serverWeatherForecast</li>
+</ul>
+</li>
+<li>Added support for interactions to
+<ul>
+<li>addBlip</li>
+<li>addMarker</li>
+<li>addTextLabel</li>
+<li>getBlip</li>
+<li>getMarker</li>
+<li>getTextLabel</li>
+<li>getPos</li>
+<li>Destroy all of the above when interaction is destroyed</li>
+</ul>
+</li>
+<li>Updated Document Typings for ... to better handle module extension
+<ul>
+<li>Account</li>
+<li>Character</li>
+<li>Vehicle</li>
+</ul>
+</li>
+<li>Added <code v-pre>rebar:onTick</code> which just emits a tick every 1 second for general usage</li>
+<li>Added <code v-pre>isOverlayOpen</code> and <code v-pre>isPersistentPageOpen</code> to client-side for checking if a page is open</li>
+<li>Made dev menu from the <code v-pre>webview:dev</code> command scrollable</li>
+<li>Groups are now created globally, and you can assign players&#x27; documents to the group.</li>
+<li>You can inherit a new group from another one; it will inherit all permissions from the parent.</li>
+<li>You can now access permissions/groups of character/account via <code v-pre>useVirtual</code>.</li>
+<li>Two new player-getters:
+<ul>
+<li><code v-pre>withPermission(documentType: 'account' | 'character' | 'any', permission: string)</code></li>
+<li><code v-pre>memberOfGroup(documentType: 'account' | 'character' | 'any', groupName: string)</code></li>
+</ul>
+</li>
+<li>Updated weapon helpers to allow for <code v-pre>hash</code> or <code v-pre>string</code> models</li>
+<li>Added <code v-pre>invokeWithResult</code> for player natives, to invoke a native and get a result</li>
+<li>Added vehicle door sync for open / shut states</li>
+</ul>
+<doc-anchor-target id="docs-changes">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#docs-changes">#</doc-anchor-trigger>
+        <span>Docs Changes</span>
+    </h3>
+</doc-anchor-target>
+<ul>
+<li>Document <code v-pre>getWeapons</code> and update documentation for <code v-pre>useWeapon</code> for the player</li>
+<li>Document all services under <code v-pre>useService</code></li>
+<li>Document all event changes, and update events page</li>
+<li>Document the new permission system.</li>
+</ul>
+<hr>
 <doc-anchor-target id="version-52">
     <h2>
         <doc-anchor-trigger class="header-anchor-trigger" to="#version-52">#</doc-anchor-trigger>
         <span>Version 52</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="code-changes">
+<doc-anchor-target id="code-changes-1">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-1">#</doc-anchor-trigger>
         <span>Code Changes</span>
     </h3>
 </doc-anchor-target>
@@ -210,9 +423,9 @@
 <li>Added onHold callback for <code v-pre>useKeypress</code> that invokes after <code v-pre>x</code> time has passed while holding a key — @koron</li>
 <li>Updated <code v-pre>useKeypress</code> to include <code v-pre>onHold</code>, which is invoked after <code v-pre>2s</code> of holding</li>
 </ul>
-<doc-anchor-target id="docs-changes">
+<doc-anchor-target id="docs-changes-1">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#docs-changes">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#docs-changes-1">#</doc-anchor-trigger>
         <span>Docs Changes</span>
     </h3>
 </doc-anchor-target>
@@ -229,9 +442,9 @@
         <span>Version 51</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="code-changes-1">
+<doc-anchor-target id="code-changes-2">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-1">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-2">#</doc-anchor-trigger>
         <span>Code Changes</span>
     </h3>
 </doc-anchor-target>
@@ -245,9 +458,9 @@
         <span>Version 50</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="code-changes-2">
+<doc-anchor-target id="code-changes-3">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-2">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-3">#</doc-anchor-trigger>
         <span>Code Changes</span>
     </h3>
 </doc-anchor-target>
@@ -260,9 +473,9 @@
 </li>
 <li>Split nodemon into two configurations, added new script for reloading</li>
 </ul>
-<doc-anchor-target id="docs-changes-1">
+<doc-anchor-target id="docs-changes-2">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#docs-changes-1">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#docs-changes-2">#</doc-anchor-trigger>
         <span>Docs Changes</span>
     </h3>
 </doc-anchor-target>
@@ -277,9 +490,9 @@
         <span>Version 49</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="code-changes-3">
+<doc-anchor-target id="code-changes-4">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-3">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-4">#</doc-anchor-trigger>
         <span>Code Changes</span>
     </h3>
 </doc-anchor-target>
@@ -296,9 +509,9 @@
 <li>Added <code v-pre>player</code> to <code v-pre>usePlayer</code>, makes it so you can do <code v-pre>rVehicle.vehicle.pos</code></li>
 <li>Changed Rebar endpoints to use Hono, and deprecated old server utility @floydya</li>
 </ul>
-<doc-anchor-target id="docs-changes-2">
+<doc-anchor-target id="docs-changes-3">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#docs-changes-2">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#docs-changes-3">#</doc-anchor-trigger>
         <span>Docs Changes</span>
     </h3>
 </doc-anchor-target>
@@ -316,9 +529,9 @@
         <span>Version 48</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="code-changes-4">
+<doc-anchor-target id="code-changes-5">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-4">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-5">#</doc-anchor-trigger>
         <span>Code Changes</span>
     </h3>
 </doc-anchor-target>
@@ -334,9 +547,9 @@
         <span>Version 47</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="code-changes-5">
+<doc-anchor-target id="code-changes-6">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-5">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-6">#</doc-anchor-trigger>
         <span>Code Changes</span>
     </h3>
 </doc-anchor-target>
@@ -352,18 +565,18 @@
         <span>Version 46</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="code-changes-6">
+<doc-anchor-target id="code-changes-7">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-6">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-7">#</doc-anchor-trigger>
         <span>Code Changes</span>
     </h3>
 </doc-anchor-target>
 <ul>
 <li>Added <code v-pre>useInteractionLocal</code> to create local interactions for individual players</li>
 </ul>
-<doc-anchor-target id="docs-changes-3">
+<doc-anchor-target id="docs-changes-4">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#docs-changes-3">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#docs-changes-4">#</doc-anchor-trigger>
         <span>Docs Changes</span>
     </h3>
 </doc-anchor-target>
@@ -377,9 +590,9 @@
         <span>Version 45</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="code-changes-7">
+<doc-anchor-target id="code-changes-8">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-7">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-8">#</doc-anchor-trigger>
         <span>Code Changes</span>
     </h3>
 </doc-anchor-target>
@@ -387,9 +600,9 @@
 <li>Added <code v-pre>useVehicleHandling</code> function that lets you adjust handling per vehicle</li>
 <li>Added object attachments for players, see <code v-pre>useAttachment</code> under the player endpoint</li>
 </ul>
-<doc-anchor-target id="docs-changes-4">
+<doc-anchor-target id="docs-changes-5">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#docs-changes-4">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#docs-changes-5">#</doc-anchor-trigger>
         <span>Docs Changes</span>
     </h3>
 </doc-anchor-target>
@@ -404,9 +617,9 @@
         <span>Version 44</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="code-changes-8">
+<doc-anchor-target id="code-changes-9">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-8">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-9">#</doc-anchor-trigger>
         <span>Code Changes</span>
     </h3>
 </doc-anchor-target>
@@ -414,9 +627,9 @@
 <li>Fixed issue with setting global document data</li>
 <li>Additionally, improved type casting support for global documents</li>
 </ul>
-<doc-anchor-target id="docs-changes-5">
+<doc-anchor-target id="docs-changes-6">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#docs-changes-5">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#docs-changes-6">#</doc-anchor-trigger>
         <span>Docs Changes</span>
     </h3>
 </doc-anchor-target>
@@ -430,18 +643,18 @@
         <span>Version 43</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="code-changes-9">
+<doc-anchor-target id="code-changes-10">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-9">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-10">#</doc-anchor-trigger>
         <span>Code Changes</span>
     </h3>
 </doc-anchor-target>
 <ul>
 <li>Fixed local object initialization</li>
 </ul>
-<doc-anchor-target id="docs-changes-6">
+<doc-anchor-target id="docs-changes-7">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#docs-changes-6">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#docs-changes-7">#</doc-anchor-trigger>
         <span>Docs Changes</span>
     </h3>
 </doc-anchor-target>
@@ -455,9 +668,9 @@
         <span>Version 42</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="code-changes-10">
+<doc-anchor-target id="code-changes-11">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-10">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-11">#</doc-anchor-trigger>
         <span>Code Changes</span>
     </h3>
 </doc-anchor-target>
@@ -468,9 +681,9 @@
 <li>Fixed bug where disabled plugins were copying files</li>
 <li>Fixed bug where previous files were not cleaned up properly</li>
 </ul>
-<doc-anchor-target id="docs-changes-7">
+<doc-anchor-target id="docs-changes-8">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#docs-changes-7">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#docs-changes-8">#</doc-anchor-trigger>
         <span>Docs Changes</span>
     </h3>
 </doc-anchor-target>
@@ -484,9 +697,9 @@
         <span>Version 41</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="code-changes-11">
+<doc-anchor-target id="code-changes-12">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-11">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-12">#</doc-anchor-trigger>
         <span>Code Changes</span>
     </h3>
 </doc-anchor-target>
@@ -495,9 +708,9 @@
 <li>Added <code v-pre>useSyncedMeta</code> composable to the webview, to get data synced from <code v-pre>useStreamSyncedBinder</code></li>
 <li>Added <code v-pre>useStreamSyncedGetter</code> to client-side to get type safe responses for stream synced meta data</li>
 </ul>
-<doc-anchor-target id="docs-changes-8">
+<doc-anchor-target id="docs-changes-9">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#docs-changes-8">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#docs-changes-9">#</doc-anchor-trigger>
         <span>Docs Changes</span>
     </h3>
 </doc-anchor-target>
@@ -511,9 +724,9 @@
         <span>Version 40</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="code-changes-12">
+<doc-anchor-target id="code-changes-13">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-12">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-13">#</doc-anchor-trigger>
         <span>Code Changes</span>
     </h3>
 </doc-anchor-target>
@@ -526,9 +739,9 @@
 <li>Failing readiness check on an API will now return the failing API&#x27;s name</li>
 <li>Added <code v-pre>D2D</code> text labels with global and local support</li>
 </ul>
-<doc-anchor-target id="docs-changes-9">
+<doc-anchor-target id="docs-changes-10">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#docs-changes-9">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#docs-changes-10">#</doc-anchor-trigger>
         <span>Docs Changes</span>
     </h3>
 </doc-anchor-target>
@@ -544,9 +757,9 @@
         <span>Version 39</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="code-changes-13">
+<doc-anchor-target id="code-changes-14">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-13">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-14">#</doc-anchor-trigger>
         <span>Code Changes</span>
     </h3>
 </doc-anchor-target>
@@ -555,9 +768,9 @@
 <li>Fixes a <code v-pre>hasGroupPermission</code> function bug</li>
 <li>Modified client side player camera with some new functions</li>
 </ul>
-<doc-anchor-target id="docs-changes-10">
+<doc-anchor-target id="docs-changes-11">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#docs-changes-10">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#docs-changes-11">#</doc-anchor-trigger>
         <span>Docs Changes</span>
     </h3>
 </doc-anchor-target>
@@ -571,9 +784,9 @@
         <span>Version 38</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="code-changes-14">
+<doc-anchor-target id="code-changes-15">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-14">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-15">#</doc-anchor-trigger>
         <span>Code Changes</span>
     </h3>
 </doc-anchor-target>
@@ -582,9 +795,9 @@
 <li>Added <code v-pre>rPlayer.sound</code> pathway, works the same as <code v-pre>rPlayer.audio</code></li>
 <li>Moved images to <a href="https://github.com/Stuyk/gtav-image-archive/">https://github.com/Stuyk/gtav-image-archive/</a></li>
 </ul>
-<doc-anchor-target id="docs-changes-11">
+<doc-anchor-target id="docs-changes-12">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#docs-changes-11">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#docs-changes-12">#</doc-anchor-trigger>
         <span>Docs Changes</span>
     </h3>
 </doc-anchor-target>
@@ -598,18 +811,18 @@
         <span>Version 37</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="code-changes-15">
+<doc-anchor-target id="code-changes-16">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-15">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-16">#</doc-anchor-trigger>
         <span>Code Changes</span>
     </h3>
 </doc-anchor-target>
 <ul>
 <li>Introduced method for clothing screeshots</li>
 </ul>
-<doc-anchor-target id="docs-changes-12">
+<doc-anchor-target id="docs-changes-13">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#docs-changes-12">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#docs-changes-13">#</doc-anchor-trigger>
         <span>Docs Changes</span>
     </h3>
 </doc-anchor-target>
@@ -622,18 +835,18 @@
         <span>Version 36</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="code-changes-16">
+<doc-anchor-target id="code-changes-17">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-16">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-17">#</doc-anchor-trigger>
         <span>Code Changes</span>
     </h3>
 </doc-anchor-target>
 <ul>
 <li>Added screenshot utility for weapons</li>
 </ul>
-<doc-anchor-target id="docs-changes-13">
+<doc-anchor-target id="docs-changes-14">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#docs-changes-13">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#docs-changes-14">#</doc-anchor-trigger>
         <span>Docs Changes</span>
     </h3>
 </doc-anchor-target>
@@ -647,18 +860,18 @@
         <span>Version 35</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="code-changes-17">
+<doc-anchor-target id="code-changes-18">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-17">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-18">#</doc-anchor-trigger>
         <span>Code Changes</span>
     </h3>
 </doc-anchor-target>
 <ul>
 <li>Added screenshot utility for taking screenshot of vehicle</li>
 </ul>
-<doc-anchor-target id="docs-changes-14">
+<doc-anchor-target id="docs-changes-15">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#docs-changes-14">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#docs-changes-15">#</doc-anchor-trigger>
         <span>Docs Changes</span>
     </h3>
 </doc-anchor-target>
@@ -672,9 +885,9 @@
         <span>Version 34</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="code-changes-18">
+<doc-anchor-target id="code-changes-19">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-18">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-19">#</doc-anchor-trigger>
         <span>Code Changes</span>
     </h3>
 </doc-anchor-target>
@@ -692,9 +905,9 @@
 <li>Modify <code v-pre>getByAccount</code> and <code v-pre>getByCharacter</code> to also take <code v-pre>numbers</code> for their <code v-pre>id</code> getter</li>
 <li>Change <code v-pre>vehicle</code> <code v-pre>getByDatabaseId</code> to <code v-pre>byId('_id');</code></li>
 </ul>
-<doc-anchor-target id="docs-changes-15">
+<doc-anchor-target id="docs-changes-16">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#docs-changes-15">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#docs-changes-16">#</doc-anchor-trigger>
         <span>Docs Changes</span>
     </h3>
 </doc-anchor-target>
@@ -711,9 +924,9 @@
         <span>Version 33</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="code-changes-19">
+<doc-anchor-target id="code-changes-20">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-19">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-20">#</doc-anchor-trigger>
         <span>Code Changes</span>
     </h3>
 </doc-anchor-target>
@@ -726,9 +939,9 @@
 </ul>
 </li>
 </ul>
-<doc-anchor-target id="docs-changes-16">
+<doc-anchor-target id="docs-changes-17">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#docs-changes-16">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#docs-changes-17">#</doc-anchor-trigger>
         <span>Docs Changes</span>
     </h3>
 </doc-anchor-target>
@@ -742,9 +955,9 @@
         <span>Version 32</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="code-changes-20">
+<doc-anchor-target id="code-changes-21">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-20">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-21">#</doc-anchor-trigger>
         <span>Code Changes</span>
     </h3>
 </doc-anchor-target>
@@ -752,9 +965,9 @@
 <li>Added function to attach blips to entities, because alt:V&#x27;s one is broken</li>
 <li>Additionally, when a blip or the entity becomes invalid the blip is automatically destroyed.</li>
 </ul>
-<doc-anchor-target id="docs-changes-17">
+<doc-anchor-target id="docs-changes-18">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#docs-changes-17">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#docs-changes-18">#</doc-anchor-trigger>
         <span>Docs Changes</span>
     </h3>
 </doc-anchor-target>
@@ -768,9 +981,9 @@
         <span>Version 31</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="code-changes-21">
+<doc-anchor-target id="code-changes-22">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-21">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-22">#</doc-anchor-trigger>
         <span>Code Changes</span>
     </h3>
 </doc-anchor-target>
@@ -779,9 +992,9 @@
 <li>Fixed issue with local progress bars not clearing</li>
 <li>Fixed issue with <code v-pre>gif</code> files not being copied correctly</li>
 </ul>
-<doc-anchor-target id="docs-changes-18">
+<doc-anchor-target id="docs-changes-19">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#docs-changes-18">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#docs-changes-19">#</doc-anchor-trigger>
         <span>Docs Changes</span>
     </h3>
 </doc-anchor-target>
@@ -795,9 +1008,9 @@
         <span>Version 30</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="code-changes-22">
+<doc-anchor-target id="code-changes-23">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-22">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-23">#</doc-anchor-trigger>
         <span>Code Changes</span>
     </h3>
 </doc-anchor-target>
@@ -808,9 +1021,9 @@
 </ul>
 </li>
 </ul>
-<doc-anchor-target id="docs-changes-19">
+<doc-anchor-target id="docs-changes-20">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#docs-changes-19">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#docs-changes-20">#</doc-anchor-trigger>
         <span>Docs Changes</span>
     </h3>
 </doc-anchor-target>
@@ -824,9 +1037,9 @@
         <span>Version 29</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="code-changes-23">
+<doc-anchor-target id="code-changes-24">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-23">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-24">#</doc-anchor-trigger>
         <span>Code Changes</span>
     </h3>
 </doc-anchor-target>
@@ -834,9 +1047,9 @@
 <li>Custom <code v-pre>rmlui</code> get distributed to <code v-pre>resources/rmlui/plugins</code> folder</li>
 <li>Additionally <code v-pre>html</code> files act as <code v-pre>rmlui</code> and are converted into <code v-pre>rmlui</code> during the compile process</li>
 </ul>
-<doc-anchor-target id="docs-changes-20">
+<doc-anchor-target id="docs-changes-21">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#docs-changes-20">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#docs-changes-21">#</doc-anchor-trigger>
         <span>Docs Changes</span>
     </h3>
 </doc-anchor-target>
@@ -850,9 +1063,9 @@
         <span>Version 28</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="code-changes-24">
+<doc-anchor-target id="code-changes-25">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-24">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-25">#</doc-anchor-trigger>
         <span>Code Changes</span>
     </h3>
 </doc-anchor-target>
@@ -867,9 +1080,9 @@
 <li>Fix vehicle stop server config bug, flag was incorrect</li>
 <li>Added server configs for disabling prop knockoff, cover, drivebys, and scuba gear removal</li>
 </ul>
-<doc-anchor-target id="docs-changes-21">
+<doc-anchor-target id="docs-changes-22">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#docs-changes-21">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#docs-changes-22">#</doc-anchor-trigger>
         <span>Docs Changes</span>
     </h3>
 </doc-anchor-target>
@@ -885,9 +1098,9 @@
         <span>Version 27</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="code-changes-25">
+<doc-anchor-target id="code-changes-26">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-25">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-26">#</doc-anchor-trigger>
         <span>Code Changes</span>
     </h3>
 </doc-anchor-target>
@@ -900,9 +1113,9 @@
 </li>
 <li>Added <code v-pre>RebarEvent</code> for page open and page close on server-side</li>
 </ul>
-<doc-anchor-target id="docs-changes-22">
+<doc-anchor-target id="docs-changes-23">
     <h2>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#docs-changes-22">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#docs-changes-23">#</doc-anchor-trigger>
         <span>Docs Changes</span>
     </h2>
 </doc-anchor-target>
@@ -917,9 +1130,9 @@
         <span>Version 26</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="code-changes-26">
+<doc-anchor-target id="code-changes-27">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-26">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-27">#</doc-anchor-trigger>
         <span>Code Changes</span>
     </h3>
 </doc-anchor-target>
@@ -930,9 +1143,9 @@
 <li>Added <code v-pre>useWorldMenu</code> controller for building quick selection menus</li>
 <li>Fixed bug where keybinds could be invoked if certain menus were open</li>
 </ul>
-<doc-anchor-target id="docs-changes-23">
+<doc-anchor-target id="docs-changes-24">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#docs-changes-23">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#docs-changes-24">#</doc-anchor-trigger>
         <span>Docs Changes</span>
     </h3>
 </doc-anchor-target>
@@ -948,9 +1161,9 @@
         <span>Version 25</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="code-changes-27">
+<doc-anchor-target id="code-changes-28">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-27">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-28">#</doc-anchor-trigger>
         <span>Code Changes</span>
     </h3>
 </doc-anchor-target>
@@ -961,9 +1174,9 @@
 <li>Added toggle controls to <code v-pre>usePlayer().world</code> to control controls state</li>
 <li>Fixed small bug where hotkeys could be invoked when game controls are disabled</li>
 </ul>
-<doc-anchor-target id="docs-changes-24">
+<doc-anchor-target id="docs-changes-25">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#docs-changes-24">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#docs-changes-25">#</doc-anchor-trigger>
         <span>Docs Changes</span>
     </h3>
 </doc-anchor-target>
@@ -979,9 +1192,9 @@
         <span>Version 24</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="code-changes-28">
+<doc-anchor-target id="code-changes-29">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-28">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-29">#</doc-anchor-trigger>
         <span>Code Changes</span>
     </h3>
 </doc-anchor-target>
@@ -990,9 +1203,9 @@
 <li>Added <code v-pre>useKeybinder</code> to bind hotkeys from server-side, enabling users to call from their client</li>
 <li>Adjusted world space checker to delay by 100ms before checking, fixing colshape creation times</li>
 </ul>
-<doc-anchor-target id="docs-changes-25">
+<doc-anchor-target id="docs-changes-26">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#docs-changes-25">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#docs-changes-26">#</doc-anchor-trigger>
         <span>Docs Changes</span>
     </h3>
 </doc-anchor-target>
@@ -1007,18 +1220,18 @@
         <span>Version 23</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="code-changes-29">
+<doc-anchor-target id="code-changes-30">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-29">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-30">#</doc-anchor-trigger>
         <span>Code Changes</span>
     </h3>
 </doc-anchor-target>
 <ul>
 <li>Added <code v-pre>Draggable</code> Component to WebView</li>
 </ul>
-<doc-anchor-target id="docs-changes-26">
+<doc-anchor-target id="docs-changes-27">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#docs-changes-26">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#docs-changes-27">#</doc-anchor-trigger>
         <span>Docs Changes</span>
     </h3>
 </doc-anchor-target>
@@ -1026,9 +1239,9 @@
 <li>Added <code v-pre>Draggable</code> to <code v-pre>webview/components</code> section with an example on making draggables</li>
 <li>Added <code v-pre>Draggable</code> Component to WebView</li>
 </ul>
-<doc-anchor-target id="docs-changes-27">
+<doc-anchor-target id="docs-changes-28">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#docs-changes-27">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#docs-changes-28">#</doc-anchor-trigger>
         <span>Docs Changes</span>
     </h3>
 </doc-anchor-target>
@@ -1042,9 +1255,9 @@
         <span>Version 22</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="code-changes-30">
+<doc-anchor-target id="code-changes-31">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-30">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-31">#</doc-anchor-trigger>
         <span>Code Changes</span>
     </h3>
 </doc-anchor-target>
@@ -1053,9 +1266,9 @@
 <li>Added <code v-pre>onEnter</code> and <code v-pre>onLeave</code> to interaction callbacks</li>
 <li>Added <code v-pre>disablePistolWhip</code> to <code v-pre>useServerConfig</code> that prevents pistol whipping one-hits</li>
 </ul>
-<doc-anchor-target id="docs-changes-28">
+<doc-anchor-target id="docs-changes-29">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#docs-changes-28">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#docs-changes-29">#</doc-anchor-trigger>
         <span>Docs Changes</span>
     </h3>
 </doc-anchor-target>
@@ -1081,9 +1294,9 @@
         <span>Version 20</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="code-changes-31">
+<doc-anchor-target id="code-changes-32">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-31">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-32">#</doc-anchor-trigger>
         <span>Code Changes</span>
     </h3>
 </doc-anchor-target>
@@ -1094,9 +1307,9 @@
 <li>Added <code v-pre>debug</code> option to <code v-pre>raycast</code> functions to draw lines when a raycast is invoked</li>
 <li>Added <code v-pre>useServerConfig</code> to change what HUD elements, and other on screen elements a player sees</li>
 </ul>
-<doc-anchor-target id="docs-changes-29">
+<doc-anchor-target id="docs-changes-30">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#docs-changes-29">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#docs-changes-30">#</doc-anchor-trigger>
         <span>Docs Changes</span>
     </h3>
 </doc-anchor-target>
@@ -1112,9 +1325,9 @@
         <span>Version 19</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="code-changes-32">
+<doc-anchor-target id="code-changes-33">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-32">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-33">#</doc-anchor-trigger>
         <span>Code Changes</span>
     </h3>
 </doc-anchor-target>
@@ -1123,9 +1336,9 @@
 <li>Added function to add named models to list at runtime as well</li>
 <li>Added neon synchronization to vehicle document sync</li>
 </ul>
-<doc-anchor-target id="docs-changes-30">
+<doc-anchor-target id="docs-changes-31">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#docs-changes-30">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#docs-changes-31">#</doc-anchor-trigger>
         <span>Docs Changes</span>
     </h3>
 </doc-anchor-target>
@@ -1139,9 +1352,9 @@
         <span>Version 18</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="code-changes-33">
+<doc-anchor-target id="code-changes-34">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-33">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-34">#</doc-anchor-trigger>
         <span>Code Changes</span>
     </h3>
 </doc-anchor-target>
@@ -1194,9 +1407,9 @@
 </ul>
 </li>
 </ul>
-<doc-anchor-target id="docs-changes-31">
+<doc-anchor-target id="docs-changes-32">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#docs-changes-31">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#docs-changes-32">#</doc-anchor-trigger>
         <span>Docs Changes</span>
     </h3>
 </doc-anchor-target>
@@ -1213,9 +1426,9 @@
         <span>Version 17</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="code-changes-34">
+<doc-anchor-target id="code-changes-35">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-34">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-35">#</doc-anchor-trigger>
         <span>Code Changes</span>
     </h3>
 </doc-anchor-target>
@@ -1225,9 +1438,9 @@
 <li>Fixed character interface not being extended correctly</li>
 <li>Added <code v-pre>preinstall</code> script to download binaries, and build codebase once</li>
 </ul>
-<doc-anchor-target id="docs-changes-32">
+<doc-anchor-target id="docs-changes-33">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#docs-changes-32">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#docs-changes-33">#</doc-anchor-trigger>
         <span>Docs Changes</span>
     </h3>
 </doc-anchor-target>
@@ -1241,9 +1454,9 @@
         <span>Version 16</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="code-changes-35">
+<doc-anchor-target id="code-changes-36">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-35">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-36">#</doc-anchor-trigger>
         <span>Code Changes</span>
     </h3>
 </doc-anchor-target>
@@ -1251,9 +1464,9 @@
 <li>Added <code v-pre>@Composables</code> path alias</li>
 <li>Added <code v-pre>@Plugins</code> path alias</li>
 </ul>
-<doc-anchor-target id="docs-changes-33">
+<doc-anchor-target id="docs-changes-34">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#docs-changes-33">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#docs-changes-34">#</doc-anchor-trigger>
         <span>Docs Changes</span>
     </h3>
 </doc-anchor-target>
@@ -1267,9 +1480,9 @@
         <span>Version 15</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="code-changes-36">
+<doc-anchor-target id="code-changes-37">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-36">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-37">#</doc-anchor-trigger>
         <span>Code Changes</span>
     </h3>
 </doc-anchor-target>
@@ -1282,9 +1495,9 @@
 </ul>
 </li>
 </ul>
-<doc-anchor-target id="docs-changes-34">
+<doc-anchor-target id="docs-changes-35">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#docs-changes-34">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#docs-changes-35">#</doc-anchor-trigger>
         <span>Docs Changes</span>
     </h3>
 </doc-anchor-target>
@@ -1298,9 +1511,9 @@
         <span>Version 14</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="code-changes-37">
+<doc-anchor-target id="code-changes-38">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-37">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-38">#</doc-anchor-trigger>
         <span>Code Changes</span>
     </h3>
 </doc-anchor-target>
@@ -1312,9 +1525,9 @@
 </li>
 <li>Added <code v-pre>emitClientRpc</code> to Webview to retrieve data from client-side.</li>
 </ul>
-<doc-anchor-target id="docs-changes-35">
+<doc-anchor-target id="docs-changes-36">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#docs-changes-35">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#docs-changes-36">#</doc-anchor-trigger>
         <span>Docs Changes</span>
     </h3>
 </doc-anchor-target>
@@ -1328,9 +1541,9 @@
         <span>Version 13</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="code-changes-38">
+<doc-anchor-target id="code-changes-39">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-38">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-39">#</doc-anchor-trigger>
         <span>Code Changes</span>
     </h3>
 </doc-anchor-target>
@@ -1338,9 +1551,9 @@
 <li>Updated <code v-pre>upgrade</code> script to prevent overwriting tailwind config, or vite config</li>
 <li>Added <code v-pre>useLocalStorage</code> composable for getting / storing data</li>
 </ul>
-<doc-anchor-target id="docs-changes-36">
+<doc-anchor-target id="docs-changes-37">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#docs-changes-36">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#docs-changes-37">#</doc-anchor-trigger>
         <span>Docs Changes</span>
     </h3>
 </doc-anchor-target>
@@ -1354,9 +1567,9 @@
         <span>Version 12</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="code-changes-39">
+<doc-anchor-target id="code-changes-40">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-39">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-40">#</doc-anchor-trigger>
         <span>Code Changes</span>
     </h3>
 </doc-anchor-target>
@@ -1365,9 +1578,9 @@
 <li>Improved compile times, and added docker build support to package.json scripts</li>
 <li>Fixed linux based errors</li>
 </ul>
-<doc-anchor-target id="docs-changes-37">
+<doc-anchor-target id="docs-changes-38">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#docs-changes-37">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#docs-changes-38">#</doc-anchor-trigger>
         <span>Docs Changes</span>
     </h3>
 </doc-anchor-target>
@@ -1382,9 +1595,9 @@
         <span>Version 11</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="code-changes-40">
+<doc-anchor-target id="code-changes-41">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-40">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-41">#</doc-anchor-trigger>
         <span>Code Changes</span>
     </h3>
 </doc-anchor-target>
@@ -1393,9 +1606,9 @@
 <li>Automatically create default collections on startup</li>
 <li>Added <code v-pre>rebar:upgrade</code> script to get the latest code changes for Rebar</li>
 </ul>
-<doc-anchor-target id="docs-changes-38">
+<doc-anchor-target id="docs-changes-39">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#docs-changes-38">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#docs-changes-39">#</doc-anchor-trigger>
         <span>Docs Changes</span>
     </h3>
 </doc-anchor-target>
@@ -1411,9 +1624,9 @@
         <span>Version 10</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="code-changes-41">
+<doc-anchor-target id="code-changes-42">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-41">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-42">#</doc-anchor-trigger>
         <span>Code Changes</span>
     </h3>
 </doc-anchor-target>
@@ -1426,9 +1639,9 @@
 </ul>
 </li>
 </ul>
-<doc-anchor-target id="docs-changes-39">
+<doc-anchor-target id="docs-changes-40">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#docs-changes-39">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#docs-changes-40">#</doc-anchor-trigger>
         <span>Docs Changes</span>
     </h3>
 </doc-anchor-target>
@@ -1443,9 +1656,9 @@
         <span>Version 9</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="code-changes-42">
+<doc-anchor-target id="code-changes-43">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-42">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-43">#</doc-anchor-trigger>
         <span>Code Changes</span>
     </h3>
 </doc-anchor-target>
@@ -1461,9 +1674,9 @@
         <span>Version 8</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="code-changes-43">
+<doc-anchor-target id="code-changes-44">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-43">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-44">#</doc-anchor-trigger>
         <span>Code Changes</span>
     </h3>
 </doc-anchor-target>
@@ -1477,9 +1690,9 @@
 </ul>
 </li>
 </ul>
-<doc-anchor-target id="docs-changes-40">
+<doc-anchor-target id="docs-changes-41">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#docs-changes-40">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#docs-changes-41">#</doc-anchor-trigger>
         <span>Docs Changes</span>
     </h3>
 </doc-anchor-target>
@@ -1495,9 +1708,9 @@
         <span>Version 7</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="code-changes-44">
+<doc-anchor-target id="code-changes-45">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-44">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-45">#</doc-anchor-trigger>
         <span>Code Changes</span>
     </h3>
 </doc-anchor-target>
@@ -1505,9 +1718,9 @@
 <li>Added <code v-pre>useMinimap</code> composable to get minimap positional data in the Webview</li>
 <li>Added <code v-pre>custom</code> message type when emitting messages to prevent formatting</li>
 </ul>
-<doc-anchor-target id="docs-changes-41">
+<doc-anchor-target id="docs-changes-42">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#docs-changes-41">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#docs-changes-42">#</doc-anchor-trigger>
         <span>Docs Changes</span>
     </h3>
 </doc-anchor-target>
@@ -1521,9 +1734,9 @@
         <span>Version 6</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="code-changes-45">
+<doc-anchor-target id="code-changes-46">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-45">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-46">#</doc-anchor-trigger>
         <span>Code Changes</span>
     </h3>
 </doc-anchor-target>
@@ -1557,9 +1770,9 @@
 <li>Changed all <code v-pre>update()</code> functions to <code v-pre>sync</code> and added backwards compatible <code v-pre>update</code> function</li>
 <li>Split <code v-pre>Character</code> into <code v-pre>BaseCharacter</code> and <code v-pre>Character</code>, nothing changed externally</li>
 </ul>
-<doc-anchor-target id="docs-changes-42">
+<doc-anchor-target id="docs-changes-43">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#docs-changes-42">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#docs-changes-43">#</doc-anchor-trigger>
         <span>Docs Changes</span>
     </h3>
 </doc-anchor-target>
@@ -1580,9 +1793,9 @@
         <span>Version 5</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="code-changes-46">
+<doc-anchor-target id="code-changes-47">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-46">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-47">#</doc-anchor-trigger>
         <span>Code Changes</span>
     </h3>
 </doc-anchor-target>
@@ -1600,9 +1813,9 @@
 <li>Fixed small bug with case-sensitive commands</li>
 <li>Fixed bug that allowed sending messages when a <code v-pre>character</code> was not bound</li>
 </ul>
-<doc-anchor-target id="docs-changes-43">
+<doc-anchor-target id="docs-changes-44">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#docs-changes-43">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#docs-changes-44">#</doc-anchor-trigger>
         <span>Docs Changes</span>
     </h3>
 </doc-anchor-target>
@@ -1618,9 +1831,9 @@
         <span>Version 4</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="code-changes-47">
+<doc-anchor-target id="code-changes-48">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-47">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-48">#</doc-anchor-trigger>
         <span>Code Changes</span>
     </h3>
 </doc-anchor-target>
@@ -1635,9 +1848,9 @@
         <span>Version 3</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="code-changes-48">
+<doc-anchor-target id="code-changes-49">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-48">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-49">#</doc-anchor-trigger>
         <span>Code Changes</span>
     </h3>
 </doc-anchor-target>
@@ -1651,9 +1864,9 @@
         <span>Version 2</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="code-changes-49">
+<doc-anchor-target id="code-changes-50">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-49">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-50">#</doc-anchor-trigger>
         <span>Code Changes</span>
     </h3>
 </doc-anchor-target>
@@ -1667,9 +1880,9 @@
         <span>Version 1</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="code-changes-50">
+<doc-anchor-target id="code-changes-51">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-50">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#code-changes-51">#</doc-anchor-trigger>
         <span>Code Changes</span>
     </h3>
 </doc-anchor-target>
@@ -1687,9 +1900,9 @@
 </li>
 <li>Added <code v-pre>sendMessage</code> to the <code v-pre>useNotify</code> player composable</li>
 </ul>
-<doc-anchor-target id="docs-changes-44">
+<doc-anchor-target id="docs-changes-45">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#docs-changes-44">#</doc-anchor-trigger>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#docs-changes-45">#</doc-anchor-trigger>
         <span>Docs Changes</span>
     </h3>
 </doc-anchor-target>

@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.5.0.775325132778">
+    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.6.0.780325170702">
 
     <!-- See retype.com -->
-    <meta name="generator" content="Retype 3.5.0">
+    <meta name="generator" content="Retype 3.6.0">
 
     <!-- Primary Meta Tags -->
     <title>What is Rebar?</title>
     <meta name="title" content="What is Rebar?">
-    <meta name="description" content="Rebar is a plug-and-play base framework for the alternative GTA:V multiplayer client alt:V.">
+    <meta name="description" content="Rebar is a plugin-based framework for GTA:V based on alt:V that focuses on server-side functionality to control almost all player aspects.">
 
     <!-- Canonical -->
     <link rel="canonical" href="https://rebarv.com/">
@@ -20,21 +20,22 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://rebarv.com/">
     <meta property="og:title" content="What is Rebar?">
-    <meta property="og:description" content="Rebar is a plug-and-play base framework for the alternative GTA:V multiplayer client alt:V.">
+    <meta property="og:description" content="Rebar is a plugin-based framework for GTA:V based on alt:V that focuses on server-side functionality to control almost all player aspects.">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://rebarv.com/">
     <meta property="twitter:title" content="What is Rebar?">
-    <meta property="twitter:description" content="Rebar is a plug-and-play base framework for the alternative GTA:V multiplayer client alt:V.">
+    <meta property="twitter:description" content="Rebar is a plugin-based framework for GTA:V based on alt:V that focuses on server-side functionality to control almost all player aspects.">
 
     <script data-cfasync="false">(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
-    <link href="resources/css/retype.css?v=3.5.0.775325132778" rel="stylesheet">
+    <link href="resources/css/retype.css?v=3.6.0.780325170702" rel="stylesheet">
 
-    <script data-cfasync="false" src="resources/js/config.js?v=3.5.0.775325132778" data-turbo-eval="false" defer></script>
-    <script data-cfasync="false" src="resources/js/retype.js?v=3.5.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" data-cfasync="false" src="resources/js/lunr.js?v=3.5.0.775325132778" data-turbo-eval="false" defer></script>
+    <script data-cfasync="false" src="resources/js/config.js?v=3.6.0.780325170702" data-turbo-eval="false" defer></script>
+    <script data-cfasync="false" src="resources/js/retype.js?v=3.6.0" data-turbo-eval="false" defer></script>
+    <script id="lunr-js" data-cfasync="false" src="resources/js/lunr.js?v=3.6.0.780325170702" data-turbo-eval="false" defer></script>
+    <script id="prism-js" data-cfasync="false" src="resources/js/prism.js?v=3.6.0.780325170702" defer></script>
 </head>
 <body>
     <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -191,15 +192,8 @@
         <span>What is Rebar?</span>
     </h1>
 </doc-anchor-target>
-<p>Rebar is a plug-and-play base framework for the alternative GTA:V multiplayer client alt:V. Rebar is meant to act as a light framework that provides utility, and a basic standard for building plugins that can be compatible with other plugins.</p>
-<p>It has a heavy focus on simplifying building game modes and lowering the friction of building a server.</p>
-<doc-anchor-target id="why-rebar">
-    <h2>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#why-rebar">#</doc-anchor-trigger>
-        <span>Why Rebar?</span>
-    </h2>
-</doc-anchor-target>
-<p>Rebar is the foundational piece necessary to construct large concrete structures. Think of this framework as achieving the same from a game-mode standpoint.</p>
+<p>Rebar is a plugin-based framework for GTA:V based on alt:V that focuses on server-side functionality to control almost all player aspects. Rebar provides a robust starting point for any game mode as you&#x27;ll be able to choose from a wide variety of community plugins to install. Rebar thrives with its welcoming Discord community, community contributions, and plugins.</p>
+<p>Rebar stops server developers from spending years building boilerplate code, and instead gets them straight to writing their game mode.</p>
 <doc-anchor-target id="tech-stack">
     <h2>
         <doc-anchor-trigger class="header-anchor-trigger" to="#tech-stack">#</doc-anchor-trigger>
@@ -212,13 +206,162 @@
 <li>MongoDB</li>
 <li>Vue</li>
 </ul>
-<doc-anchor-target id="how-do-i-get-started">
+<doc-anchor-target id="why-the-name-rebar">
     <h2>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#how-do-i-get-started">#</doc-anchor-trigger>
-        <span>How do I get started?</span>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#why-the-name-rebar">#</doc-anchor-trigger>
+        <span>Why the name Rebar?</span>
     </h2>
 </doc-anchor-target>
+<p>Rebar is the foundational piece necessary to construct large concrete structures. Think of this framework as achieving the same from a game mode standpoint.</p>
+<doc-anchor-target id="rebar-vs-fivem-esx-qbcore">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#rebar-vs-fivem-esx-qbcore">#</doc-anchor-trigger>
+        <span>Rebar vs Fivem (ESX, QBCore)</span>
+    </h2>
+</doc-anchor-target>
+<p>While ESX, and QBCore have been around forever, Rebar handles all the heavy lifting for you.</p>
+<doc-tabs>
+<doc-tab v-cloak id="keybind-example">
+<template #title>Keybind Example</template>
+<div class="mb-6 overflow-hidden border rounded-md docs-columns dark:border-dark-650" style="grid-template-columns: repeat(2, minmax(0, 1fr));">
+    <div class="flex items-center px-5 py-3 font-mono leading-snug text-white docs-columns-code-title border-r">
+        <span>FiveM</span>
+    </div>
+    <div class="flex items-center px-5 py-3 font-mono leading-snug text-white docs-columns-code-title">
+        <span>Rebar</span>
+    </div>
+    <div class="docs-columns-code docs-columns-content border-r border-gray-200 dark:border-dark-650">
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-lua"><code v-pre class="language-lua">Citizen.CreateThread(function()
+    while true do
+        Citizen.Wait(0)
+
+        if IsControlJustPressed(1, 51) then
+            print(&quot;E key was pressed!&quot;)
+        end
+    end
+end)</code></pre>
+</doc-codeblock></div>
+    </div>
+    <div class="docs-columns-code docs-columns-content">
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">Keybinder.on(75, (player) =&gt; {
+    console.log('Pressed k');
+});</code></pre>
+</doc-codeblock></div>
+    </div>
+</div>
+</doc-tab>
+<doc-tab v-cloak id="ped-example">
+<template #title>Ped Example</template>
+<div class="mb-6 overflow-hidden border rounded-md docs-columns dark:border-dark-650" style="grid-template-columns: repeat(2, minmax(0, 1fr));">
+    <div class="flex items-center px-5 py-3 font-mono leading-snug text-white docs-columns-code-title border-r">
+        <span>FiveM</span>
+    </div>
+    <div class="flex items-center px-5 py-3 font-mono leading-snug text-white docs-columns-code-title">
+        <span>Rebar</span>
+    </div>
+    <div class="docs-columns-code docs-columns-content border-r border-gray-200 dark:border-dark-650">
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-lua"><code v-pre class="language-lua">local pedModel = &quot;a_m_y_hipster_01&quot;
+local spawnCoords = vector3(427.13, -806.46, 29.49)
+local targetCoords = vector3(435.0, -800.0, 29.49)
+
+function loadModel(model)
+    RequestModel(model)
+    while not HasModelLoaded(model) do
+        Citizen.Wait(0)
+    end
+end
+
+Citizen.CreateThread(function()
+    loadModel(GetHashKey(pedModel))
+    local ped = CreatePed(4, GetHashKey(pedModel), spawnCoords.x, spawnCoords.y, spawnCoords.z, 0.0, true, false)
+    TaskGoStraightToCoord(ped, targetCoords.x, targetCoords.y, targetCoords.z, 1.0, -1, 0.0, 0.0)
+    SetEntityInvincible(ped, true)
+end)</code></pre>
+</doc-codeblock></div>
+    </div>
+    <div class="docs-columns-code docs-columns-content">
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">const pedModel = 'a_m_y_hipster_01'; // The pedestrian model
+const spawnCoords = { x: 427.13, y: -806.46, z: 29.49 }; // Spawn coordinates
+const targetCoords = { x: 435.0, y: -800.0, z: 29.49 }; // Target coordinates
+
+const ped = Rebar.controllers.usePed(new alt.Ped(pedModel, spawnCoords, alt.Vector3.zero));
+
+ped.setOption('makeStupid', true);
+ped.setOption('invincible', true);
+
+ped.invoke('taskGoStraightToCoord', targetCoords.x, targetCoords.y, targetCoords.z, 1.0, -1, 0, 0);</code></pre>
+</doc-codeblock></div>
+    </div>
+</div>
+</doc-tab>
+<doc-tab v-cloak id="text-example">
+<template #title>Text Example</template>
+<div class="mb-6 overflow-hidden border rounded-md docs-columns dark:border-dark-650" style="grid-template-columns: repeat(2, minmax(0, 1fr));">
+    <div class="flex items-center px-5 py-3 font-mono leading-snug text-white docs-columns-code-title border-r">
+        <span>FiveM</span>
+    </div>
+    <div class="flex items-center px-5 py-3 font-mono leading-snug text-white docs-columns-code-title">
+        <span>Rebar</span>
+    </div>
+    <div class="docs-columns-code docs-columns-content border-r border-gray-200 dark:border-dark-650">
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-lua"><code v-pre class="language-lua">Citizen.CreateThread(function()
+    while true do
+        Citizen.Wait(0)
+        local x, y, z = 427.13, -806.46, 29.49
+        local text = &quot;Hello, World!&quot;
+        local scale = 0.5
+        local color = {255, 255, 255, 255}
+
+        SetTextFont(0)
+        SetTextProportional(1)
+        SetTextScale(scale, scale)
+        SetTextColour(color[1], color[2], color[3], color[4])
+        SetTextEntry(&quot;STRING&quot;)
+        AddTextComponentString(text)
+        DrawText(x, y)
+    end
+end)
+</code></pre>
+</doc-codeblock></div>
+    </div>
+    <div class="docs-columns-code docs-columns-content">
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">const label = Rebar.controllers.useD2DTextLabel({
+    text: 'Hello World',
+    pos: new alt.Vector3(427.13, -806.46, 29.49),
+    fontColor: new alt.RGBA(255, 255, 255, 255),
+    fontSize: 0.5,
+});</code></pre>
+</doc-codeblock></div>
+    </div>
+</div>
+</doc-tab>
+</doc-tabs>
+<doc-anchor-target id="getting-started">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#getting-started">#</doc-anchor-trigger>
+        <span>Getting Started</span>
+    </h2>
+</doc-anchor-target>
+<doc-anchor-target id="experienced-developers">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#experienced-developers">#</doc-anchor-trigger>
+        <span>Experienced Developers</span>
+    </h3>
+</doc-anchor-target>
 <p>Head on over to <a href="install/">Install &amp; Upgrade</a> to learn about the installation process.</p>
+<doc-anchor-target id="new-developers">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#new-developers">#</doc-anchor-trigger>
+        <span>New Developers</span>
+    </h3>
+</doc-anchor-target>
+<p>Head on over to the <a href="tutorials/rebar/chapter-01-preface/">book on Rebar</a> and how to utilize it. There&#x27;s even a few small tutorials on programming.</p>
 
                                 
                                 <!-- Required only on API pages -->
@@ -278,6 +421,6 @@
 
     <div id="docs-overlay-target"></div>
 
-    <script data-cfasync="false">window.__DOCS__ = { "title": "What is Rebar?", isRoot: true, level: 0, icon: "file", hasPrism: false, hasMermaid: false, hasMath: false, tocDepth: 23 }</script>
+    <script data-cfasync="false">window.__DOCS__ = { "title": "What is Rebar?", isRoot: true, level: 0, icon: "file", hasPrism: true, hasMermaid: false, hasMath: false, tocDepth: 23 }</script>
 </body>
 </html>

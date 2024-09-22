@@ -3,39 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.5.0.775325132778">
+    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.6.0.780325170702">
 
     <!-- See retype.com -->
-    <meta name="generator" content="Retype 3.5.0">
+    <meta name="generator" content="Retype 3.6.0">
 
     <!-- Primary Meta Tags -->
-    <title>useServerTime</title>
-    <meta name="title" content="useServerTime">
-    <meta name="description" content="This stores server time during runtime, and allows for time to be shared to other plugins.">
+    <title>usePermissionGroup</title>
+    <meta name="title" content="usePermissionGroup">
+    <meta name="description" content="Permission groups are a way to organize permissions into groups, and then assign those groups to players.">
 
     <!-- Canonical -->
-    <link rel="canonical" href="https://rebarv.com/userebar/systems/useservertime/">
+    <link rel="canonical" href="https://rebarv.com/userebar/systems/permissions/usepermissiongroup/">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://rebarv.com/userebar/systems/useservertime/">
-    <meta property="og:title" content="useServerTime">
-    <meta property="og:description" content="This stores server time during runtime, and allows for time to be shared to other plugins.">
+    <meta property="og:url" content="https://rebarv.com/userebar/systems/permissions/usepermissiongroup/">
+    <meta property="og:title" content="usePermissionGroup">
+    <meta property="og:description" content="Permission groups are a way to organize permissions into groups, and then assign those groups to players.">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://rebarv.com/userebar/systems/useservertime/">
-    <meta property="twitter:title" content="useServerTime">
-    <meta property="twitter:description" content="This stores server time during runtime, and allows for time to be shared to other plugins.">
+    <meta property="twitter:url" content="https://rebarv.com/userebar/systems/permissions/usepermissiongroup/">
+    <meta property="twitter:title" content="usePermissionGroup">
+    <meta property="twitter:description" content="Permission groups are a way to organize permissions into groups, and then assign those groups to players.">
 
     <script data-cfasync="false">(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
-    <link href="../../../resources/css/retype.css?v=3.5.0.775325132778" rel="stylesheet">
+    <link href="../../../../resources/css/retype.css?v=3.6.0.780325170702" rel="stylesheet">
 
-    <script data-cfasync="false" src="../../../resources/js/config.js?v=3.5.0.775325132778" data-turbo-eval="false" defer></script>
-    <script data-cfasync="false" src="../../../resources/js/retype.js?v=3.5.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" data-cfasync="false" src="../../../resources/js/lunr.js?v=3.5.0.775325132778" data-turbo-eval="false" defer></script>
-    <script id="prism-js" data-cfasync="false" src="../../../resources/js/prism.js?v=3.5.0.775325132778" defer></script>
+    <script data-cfasync="false" src="../../../../resources/js/config.js?v=3.6.0.780325170702" data-turbo-eval="false" defer></script>
+    <script data-cfasync="false" src="../../../../resources/js/retype.js?v=3.6.0" data-turbo-eval="false" defer></script>
+    <script id="lunr-js" data-cfasync="false" src="../../../../resources/js/lunr.js?v=3.6.0.780325170702" data-turbo-eval="false" defer></script>
+    <script id="prism-js" data-cfasync="false" src="../../../../resources/js/prism.js?v=3.6.0.780325170702" defer></script>
 </head>
 <body>
     <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -50,10 +50,10 @@
                 <!-- Logo -->
                 <div class="flex items-center justify-between h-full py-2 md:w-75">
                     <div class="flex items-center px-2 md:px-6">
-                        <a id="docs-site-logo" href="../../../" class="flex items-center leading-snug text-xl">
+                        <a id="docs-site-logo" href="../../../../" class="flex items-center leading-snug text-xl">
                             <span class="w-10 mr-2 grow-0 shrink-0 overflow-hidden">
-                                <img class="max-h-10 dark:hidden md:inline-block" src="../../../static/logo_dark.svg">
-                                <img class="max-h-10 hidden dark:inline-block" src="../../../static/logo_light.svg">
+                                <img class="max-h-10 dark:hidden md:inline-block" src="../../../../static/logo_dark.svg">
+                                <img class="max-h-10 hidden dark:inline-block" src="../../../../static/logo_light.svg">
                             </span>
                             <span class="dark:text-white font-semibold line-clamp-1 md:line-clamp-2">Rebar for alt:V</span>
                         </a>
@@ -186,32 +186,186 @@
                                 <!-- Rendered if sidebar right is enabled -->
                                 <div id="docs-sidebar-right-toggle"></div>
                                 <!-- Page content  -->
-<doc-anchor-target id="useservertime" class="break-words">
+<doc-anchor-target id="usepermissiongroup" class="break-words">
     <h1>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#useservertime">#</doc-anchor-trigger>
-        <span>useServerTime</span>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#usepermissiongroup">#</doc-anchor-trigger>
+        <span>usePermissionGroup</span>
     </h1>
 </doc-anchor-target>
-<p>This stores server time during runtime, and allows for time to be shared to other plugins.</p>
-<p>Additionally, when these functions are used the internal RebarEvents for time changes are invoked.</p>
+<p>Permission groups are a way to organize permissions into groups, and then assign those groups to players. This way, you can easily manage permissions for multiple players at once.</p>
+<doc-anchor-target id="creating-a-permission-group">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#creating-a-permission-group">#</doc-anchor-trigger>
+        <span>Creating a permission group</span>
+    </h2>
+</doc-anchor-target>
+<p>You can create a permission group with these properties:</p>
+<ul>
+<li><code v-pre>permissions: string[]</code> - an array of permission names that this group should have.</li>
+<li><code v-pre>inherits?: string</code> - a name of a group that this group should inherit permissions from. This way, you can create a hierarchy of groups.</li>
+<li><code v-pre>version?: number</code> - a version of the group.</li>
+</ul>
+<p><code v-pre>inherits</code> is a way to create a hierarchy of groups. If a group inherits from another group, it will have all the permissions from the inherited group.</p>
+<p>Version is used to track changes in the group. On server start, the server is loading all groups from the database and comparing them with the groups in the code.</p>
+<p>Conditions when the group will be updated in the database:</p>
+<ul>
+<li>The same group in the code and group in the database have <strong>no</strong> version property.</li>
+<li>Group in the code has version that is <strong>greater than</strong> the group in the database.</li>
+</ul>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">import * as alt from 'alt-server';
-import { useRebar } from '@Server/index.js';
+<pre class="language-typescript"><code v-pre class="language-typescript">import { useRebar } from '@Server/index.js';
+const groups = Rebar.permissions.usePermissionGroup();
 
-const Rebar = useRebar();
-const ServerTime = Rebar.useServerTime();
+await groups.add('support', {
+    permissions: ['kick', 'adminChat', 'mute'],
+    version: 1,
+});
 
-function whatever() {
-    // Returns { hour, minute, second }
-    const { hour, minute, second } = ServerTime.getTime();
+await groups.add('admin', {
+    permissions: ['ban', 'unban'],
+    inherits: 'support',
+});
 
-    // Get current time
-    const currentTime = new Date(Date.now());
-    ServerTime.setHour(currentTime.getHours());
-    ServerTime.setMinute(currentTime.getMinutes());
-    ServerTime.setSecond(currentTime.getSeconds());
-}</code></pre>
+await groups.add('chief', {
+    permissions: ['grant', 'revoke'],
+    inherits: 'admin',
+});</code></pre>
 </doc-codeblock></div>
+<p>In this example, we created three groups: <code v-pre>support</code>, <code v-pre>admin</code>, and <code v-pre>chief</code>.</p>
+<ul>
+<li>The <code v-pre>support</code> group has three permissions: <code v-pre>kick</code>, <code v-pre>adminChat</code>, and <code v-pre>mute</code>.</li>
+<li>The <code v-pre>admin</code> group has two permissions: <code v-pre>ban</code> and <code v-pre>unban</code>, and inherits all permissions from the <code v-pre>support</code> group.</li>
+<li>The <code v-pre>chief</code> group has two permissions: <code v-pre>grant</code> and <code v-pre>revoke</code>, and inherits all permissions from the <code v-pre>admin</code> group, which in turn inherits all permissions from the <code v-pre>support</code> group.</li>
+</ul>
+<doc-anchor-target id="removing-a-permission-group">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#removing-a-permission-group">#</doc-anchor-trigger>
+        <span>Removing a permission group</span>
+    </h2>
+</doc-anchor-target>
+<p>You can remove a permission group by calling the <code v-pre>remove</code> method with the name of the group you want to remove.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">import { useRebar } from '@Server/index.js';
+
+const groups = Rebar.permissions.usePermissionGroup();
+
+await groups.remove('support');</code></pre>
+</doc-codeblock></div>
+<p>If groups exists, it will remove the <code v-pre>support</code> group from the database.</p>
+<div class="flex mb-6">
+    <div class="shrink-0 w-1 rounded-tl rounded-bl bg-blue-300"></div>
+    <div class="flex w-full py-4 border border-l-0 border-gray-300 rounded-tr rounded-br doc-alert bg-white dark:bg-dark-700 dark:border-dark-700" role="alert">
+        <div class="flex items-center ml-4 h-7">
+            <svg xmlns="http://www.w3.org/2000/svg" class="mb-px text-blue-300" width="22" height="22" viewBox="0 0 24 24" role="presentation">
+                <g fill="currentColor"><g>
+                    <path d="M12 1C5.93 1 1 5.93 1 12s4.93 11 11 11 11-4.93 11-11S18.07 1 12 1zm0 20c-4.96 0-9-4.04-9-9s4.04-9 9-9 9 4.04 9 9-4.04 9-9 9z"></path>
+                    <path d="M12 11c-.55 0-1 .45-1 1v4c0 .55.45 1 1 1s1-.45 1-1v-4c0-.55-.45-1-1-1zM12.01 7c-.56 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1z"></path>
+                    <path fill="none" d="M0 0h24v24H0z"></path>
+                </g></g>
+            </svg>
+        </div>
+        <div class="pr-5 ml-3 w-full">
+<p>On success, this will remove this group from all players(online/offline) that have this group attached.</p>
+        </div>
+    </div>
+</div>
+<doc-anchor-target id="add-permissions-to-a-group">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#add-permissions-to-a-group">#</doc-anchor-trigger>
+        <span>Add permissions to a group</span>
+    </h2>
+</doc-anchor-target>
+<p>You can add permissions to a group by calling the <code v-pre>addPermission</code> method with the name of the group and the permission you want to add.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">import { useRebar } from '@Server/index.js';
+
+const groups = Rebar.permissions.usePermissionGroup();
+
+await groups.addPermission('support', 'teleport');</code></pre>
+</doc-codeblock></div>
+<p>This will add the <code v-pre>teleport</code> permission to the <code v-pre>support</code> group.</p>
+<div class="flex mb-6">
+    <div class="shrink-0 w-1 rounded-tl rounded-bl bg-blue-300"></div>
+    <div class="flex w-full py-4 border border-l-0 border-gray-300 rounded-tr rounded-br doc-alert bg-white dark:bg-dark-700 dark:border-dark-700" role="alert">
+        <div class="flex items-center ml-4 h-7">
+            <svg xmlns="http://www.w3.org/2000/svg" class="mb-px text-blue-300" width="22" height="22" viewBox="0 0 24 24" role="presentation">
+                <g fill="currentColor"><g>
+                    <path d="M12 1C5.93 1 1 5.93 1 12s4.93 11 11 11 11-4.93 11-11S18.07 1 12 1zm0 20c-4.96 0-9-4.04-9-9s4.04-9 9-9 9 4.04 9 9-4.04 9-9 9z"></path>
+                    <path d="M12 11c-.55 0-1 .45-1 1v4c0 .55.45 1 1 1s1-.45 1-1v-4c0-.55-.45-1-1-1zM12.01 7c-.56 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1z"></path>
+                    <path fill="none" d="M0 0h24v24H0z"></path>
+                </g></g>
+            </svg>
+        </div>
+        <div class="pr-5 ml-3 w-full">
+<p>On success, this will increment the version of the group and update this group in the database.
+So, on next server start, if you want to make changes to the group, you need to increment the version of the group in the code.</p>
+        </div>
+    </div>
+</div>
+<doc-anchor-target id="remove-permissions-from-a-group">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#remove-permissions-from-a-group">#</doc-anchor-trigger>
+        <span>Remove permissions from a group</span>
+    </h2>
+</doc-anchor-target>
+<p>You can remove permissions from a group by calling the <code v-pre>removePermission</code> method with the name of the group and the permission you want to remove.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">import { useRebar } from '@Server/index.js';
+
+const groups = Rebar.permissions.usePermissionGroup();
+
+await groups.removePermission('support', 'teleport');</code></pre>
+</doc-codeblock></div>
+<p>This will remove the <code v-pre>teleport</code> permission from the <code v-pre>support</code> group.</p>
+<div class="flex mb-6">
+    <div class="shrink-0 w-1 rounded-tl rounded-bl bg-blue-300"></div>
+    <div class="flex w-full py-4 border border-l-0 border-gray-300 rounded-tr rounded-br doc-alert bg-white dark:bg-dark-700 dark:border-dark-700" role="alert">
+        <div class="flex items-center ml-4 h-7">
+            <svg xmlns="http://www.w3.org/2000/svg" class="mb-px text-blue-300" width="22" height="22" viewBox="0 0 24 24" role="presentation">
+                <g fill="currentColor"><g>
+                    <path d="M12 1C5.93 1 1 5.93 1 12s4.93 11 11 11 11-4.93 11-11S18.07 1 12 1zm0 20c-4.96 0-9-4.04-9-9s4.04-9 9-9 9 4.04 9 9-4.04 9-9 9z"></path>
+                    <path d="M12 11c-.55 0-1 .45-1 1v4c0 .55.45 1 1 1s1-.45 1-1v-4c0-.55-.45-1-1-1zM12.01 7c-.56 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1z"></path>
+                    <path fill="none" d="M0 0h24v24H0z"></path>
+                </g></g>
+            </svg>
+        </div>
+        <div class="pr-5 ml-3 w-full">
+<p>On success, this will increment the version of the group and update this group in the database.
+So, on next server start, if you want to make changes to the group, you need to increment the version of the group in the code.</p>
+        </div>
+    </div>
+</div>
+<doc-anchor-target id="check-permission">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#check-permission">#</doc-anchor-trigger>
+        <span>Check permission</span>
+    </h2>
+</doc-anchor-target>
+<p>You can check if group has a permission by calling the <code v-pre>groupHasPermission</code> method with the name of the group and the permission you want to check.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">import { useRebar } from '@Server/index.js';
+
+const groups = Rebar.permissions.usePermissionGroup();
+
+const hasPermission = await groups.groupHasPermission('support', 'teleport');</code></pre>
+</doc-codeblock></div>
+<p>This will return <code v-pre>true</code> if the <code v-pre>support</code> group has the <code v-pre>teleport</code> permission, otherwise <code v-pre>false</code>.</p>
+<doc-anchor-target id="list-permissions">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#list-permissions">#</doc-anchor-trigger>
+        <span>List Permissions</span>
+    </h2>
+</doc-anchor-target>
+<p>You can list all permissions recursively for a group by calling the <code v-pre>groupsToPlainPermissions</code> method with the name of the group.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-typescript"><code v-pre class="language-typescript">import { useRebar } from '@Server/index.js';
+
+const groups = Rebar.permissions.usePermissionGroup();
+
+const permissions = await groups.groupsToPlainPermissions('chief');</code></pre>
+</doc-codeblock></div>
+<p>This will return an array of all permissions for the <code v-pre>chief</code> group, including all inherited permissions.
+So, according to the <code v-pre>add</code> example, this will return <code v-pre>['kick', 'adminChat', 'mute', 'ban', 'unban', 'grant', 'revoke']</code>.</p>
 
                                 
                                 <!-- Required only on API pages -->
@@ -221,20 +375,20 @@ function whatever() {
                             
                                 <nav class="flex mt-14">
                                     <div class="w-1/2">
-                                        <a class="px-5 py-4 h-full flex items-center break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-l-lg transition-colors duration-150 relative hover:z-5" href="../../../userebar/systems/useserverconfig/">
+                                        <a class="px-5 py-4 h-full flex items-center break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-l-lg transition-colors duration-150 relative hover:z-5" href="../../../../userebar/systems/permissions/usepermissions/">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="mr-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19 11H7.41l5.29-5.29a.996.996 0 10-1.41-1.41l-7 7a1 1 0 000 1.42l7 7a1.024 1.024 0 001.42-.01.996.996 0 000-1.41L7.41 13H19c.55 0 1-.45 1-1s-.45-1-1-1z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
                                             <span>
                                                 <span class="block text-xs font-normal text-gray-400 dark:text-dark-400">Previous</span>
-                                                <span class="block mt-1">use​Server​Config</span>
+                                                <span class="block mt-1">use​Permissions</span>
                                             </span>
                                         </a>
                                     </div>
                             
                                     <div class="w-1/2">
-                                        <a class="px-5 py-4 -mx-px h-full flex items-center justify-end break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-r-lg transition-colors duration-150 relative hover:z-5" href="../../../userebar/systems/useserverweather/">
+                                        <a class="px-5 py-4 -mx-px h-full flex items-center justify-end break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-r-lg transition-colors duration-150 relative hover:z-5" href="../../../../userebar/systems/permissions/useentitypermissions/">
                                             <span>
                                                 <span class="block text-xs font-normal text-right text-gray-400 dark:text-dark-400">Next</span>
-                                                <span class="block mt-1">use​Server​Weather</span>
+                                                <span class="block mt-1">use​Entity​Permissions</span>
                                             </span>
                                             <svg xmlns="http://www.w3.org/2000/svg" class="ml-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19.92 12.38a1 1 0 00-.22-1.09l-7-7a.996.996 0 10-1.41 1.41l5.3 5.3H5c-.55 0-1 .45-1 1s.45 1 1 1h11.59l-5.29 5.29a.996.996 0 000 1.41c.19.2.44.3.7.3s.51-.1.71-.29l7-7c.09-.09.16-.21.21-.33z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
                                         </a>
@@ -278,6 +432,6 @@ function whatever() {
 
     <div id="docs-overlay-target"></div>
 
-    <script data-cfasync="false">window.__DOCS__ = { "title": "useServerTime", level: 3, icon: "file", hasPrism: true, hasMermaid: false, hasMath: false, tocDepth: 23 }</script>
+    <script data-cfasync="false">window.__DOCS__ = { "title": "usePermissionGroup", level: 4, icon: "file", hasPrism: true, hasMermaid: false, hasMath: false, tocDepth: 23 }</script>
 </body>
 </html>

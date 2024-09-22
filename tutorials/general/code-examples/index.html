@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.5.0.775325132778">
+    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.6.0.780325170702">
 
     <!-- See retype.com -->
-    <meta name="generator" content="Retype 3.5.0">
+    <meta name="generator" content="Retype 3.6.0">
 
     <!-- Primary Meta Tags -->
     <title>Code Examples</title>
@@ -30,12 +30,12 @@
 
     <script data-cfasync="false">(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
-    <link href="../../../resources/css/retype.css?v=3.5.0.775325132778" rel="stylesheet">
+    <link href="../../../resources/css/retype.css?v=3.6.0.780325170702" rel="stylesheet">
 
-    <script data-cfasync="false" src="../../../resources/js/config.js?v=3.5.0.775325132778" data-turbo-eval="false" defer></script>
-    <script data-cfasync="false" src="../../../resources/js/retype.js?v=3.5.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" data-cfasync="false" src="../../../resources/js/lunr.js?v=3.5.0.775325132778" data-turbo-eval="false" defer></script>
-    <script id="prism-js" data-cfasync="false" src="../../../resources/js/prism.js?v=3.5.0.775325132778" defer></script>
+    <script data-cfasync="false" src="../../../resources/js/config.js?v=3.6.0.780325170702" data-turbo-eval="false" defer></script>
+    <script data-cfasync="false" src="../../../resources/js/retype.js?v=3.6.0" data-turbo-eval="false" defer></script>
+    <script id="lunr-js" data-cfasync="false" src="../../../resources/js/lunr.js?v=3.6.0.780325170702" data-turbo-eval="false" defer></script>
+    <script id="prism-js" data-cfasync="false" src="../../../resources/js/prism.js?v=3.6.0.780325170702" defer></script>
 </head>
 <body>
     <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -230,34 +230,6 @@ const Rebar = useRebar();</code></pre>
 
 const Rebar = alt.getMeta('Rebar');</code></pre>
 </doc-codeblock></div>
-<doc-anchor-target id="rebar-events">
-    <h2>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#rebar-events">#</doc-anchor-trigger>
-        <span>Rebar Events</span>
-    </h2>
-</doc-anchor-target>
-<p>Rebar has a handful of events that can be used in tandem with alt:V events.</p>
-<p>These become more useful when a character select, or auth plugins are installed.</p>
-<div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">import { useRebar } from '@Server/index.js';
-
-const Rebar = useRebar();
-const RebarEvents = Rebar.events.useEvents();
-
-RebarEvents.on('character-bound', (player) =&gt; {
-    // do something when they've selected a character
-});</code></pre>
-</doc-codeblock></div>
-<div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">RebarEvents.on('account-bound', (player) =&gt; {
-    // do something when they've logged into an account
-});</code></pre>
-</doc-codeblock></div>
-<div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-typescript"><code v-pre class="language-typescript">RebarEvents.on('time-changed', (hour, minute, second) =&gt; {
-    // Do something when the time changes in-game
-});</code></pre>
-</doc-codeblock></div>
 <doc-anchor-target id="notifying-a-player">
     <h2>
         <doc-anchor-trigger class="header-anchor-trigger" to="#notifying-a-player">#</doc-anchor-trigger>
@@ -269,9 +241,8 @@ RebarEvents.on('character-bound', (player) =&gt; {
 <pre class="language-typescript"><code v-pre class="language-typescript">import { useRebar } from '@Server/index.js';
 
 const Rebar = useRebar();
-const RebarEvents = Rebar.events.useEvents();
 
-RebarEvents.on('character-bound', (player) =&gt; {
+alt.on('playerConnect', (player) =&gt; {
     const rPlayer = Rebar.usePlayer(player);
     rPlayer.notify.showNotification('Welcome to the server!');
 });</code></pre>
@@ -288,9 +259,8 @@ RebarEvents.on('character-bound', (player) =&gt; {
 import { useRebar } from '@Server/index.js';
 
 const Rebar = useRebar();
-const RebarEvents = Rebar.events.useEvents();
 
-RebarEvents.on('character-bound', (player) =&gt; {
+alt.on('playerConnect', (player) =&gt; {
     const rPlayer = Rebar.usePlayer(player);
     rPlayer.notify.showShard({
         title: 'Welcome to the Server',
@@ -310,9 +280,8 @@ RebarEvents.on('character-bound', (player) =&gt; {
 import { useRebar } from '@Server/index.js';
 
 const Rebar = useRebar();
-const RebarEvents = Rebar.events.useEvents();
 
-RebarEvents.on('character-bound', (player) =&gt; {
+alt.on('playerConnect', (player) =&gt; {
     const rPlayer = Rebar.usePlayer(player);
     rPlayer.notify.showMissionText('Visit our website at https://rebarv.com');
 });</code></pre>
