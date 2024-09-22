@@ -153,6 +153,16 @@ We're also going to blur the screen so it's a little more pleasing to look at.
 rPlayer.world.setScreenBlur(200);
 ```
 
+### Disable the player controls
+
+Since we don't want the player to accidentally opening the pausemenu if their Username or password contains the letter 'P' we're going to disable the controls. Just remember to enable them again, when releasing the player into the world.
+
+```ts
+// server/index.ts
+
+rPlayer.world.disableControls();
+```
+
 ### Initial Result
 
 You should see a `hello world` in the top-left of your screen.
@@ -363,7 +373,7 @@ We can build validation by using the `watch` function from `vue`. What this will
 watch(username, (value) => {
     usernameValid.value = false;
 
-    // If the length of the username is less than 2, return
+    // If the length of the username is less than 3, return
     if (value.length <= 2) {
         return;
     }
@@ -374,7 +384,7 @@ watch(username, (value) => {
 watch(password, (value) => {
     passwordValid.value = false;
 
-    // If the length of the password is less than 2, return
+    // If the length of the password is less than 3, return
     if (value.length <= 2) {
         return;
     }
@@ -407,7 +417,7 @@ Now we're going to sanitize the username input further, and only allow `A-Z` and
 watch(username, (value) => {
     usernameValid.value = false;
 
-    // If the length of the username is less than 2, return
+    // If the length of the username is less than 3, return
     if (value.length <= 2) {
         return;
     }
@@ -749,6 +759,7 @@ Let's take a moment to remember that we:
 -   Changed their Dimension
 -   Made them invisible
 -   Blurred the screen
+-   Disabled the controls
 
 ### Finish Loading
 
@@ -771,6 +782,7 @@ function finish(player: alt.Player) {
     const rPlayer = Rebar.usePlayer(player);
     rPlayer.world.freezeCamera(false);
     rPlayer.world.clearScreenBlur(200);
+    rPlayer.world.enableControls();
     rPlayer.webview.hide('Authentication');
 }
 ```

@@ -62,6 +62,9 @@ export const Events = {
             play: {
                 local: 'audio:player:sound:2d',
             },
+            stop: {
+                local: 'udio:player:sound:2d:stop',
+            },
         },
         controls: {
             set: 'player:controls:set',
@@ -71,6 +74,7 @@ export const Events = {
         },
         native: {
             invoke: 'player:native:invoke',
+            invokeWithResult: 'player:native:invoke:with:result',
         },
         notify: {
             notification: {
@@ -138,6 +142,7 @@ export const Events = {
             getFocusedEntity: 'systems:raycast:get:focused:entity',
             getFocusedPosition: 'systems:raycast:get:focused:position',
             getFocusedObject: 'systems:raycast:get:focused:object',
+            getFocusedCustom: 'systems:raycast:get:focused:custom',
         },
         screenshot: {
             get: 'systems:screenshot:get',

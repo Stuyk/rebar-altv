@@ -1,16 +1,17 @@
 import * as fs from 'fs';
 import glob from 'fast-glob';
+import path from 'path';
 
 const filesToCopy = {
-    'src/plugins/**/sounds/**/*.ogg': {
+    'src/plugins/**/**/sounds/**/*.ogg': {
         destination: ['resources', 'webview/public'],
         keyword: 'sounds',
     },
-    'src/plugins/**/images/**/*.+(jpg|jpeg|png|bmp|svg|webp|gif)': {
+    'src/plugins/**/**/images/**/*.+(jpg|jpeg|png|bmp|svg|webp|gif)': {
         destination: ['resources', 'webview/public'],
         keyword: 'images',
     },
-    'src/plugins/**/fonts/**/*.+(ttf|otf)': {
+    'src/plugins/**/**/fonts/**/*.+(ttf|otf)': {
         destination: ['resources', 'webview/public'],
         keyword: 'fonts',
     },
@@ -46,7 +47,7 @@ function moveRmluiFiles() {
         } catch (err) {}
     }
 
-    const rmluiFiles = glob.sync(`src/plugins/**/rmlui/**/*.+(html|ttf)`);
+    const rmluiFiles = glob.sync(`src/plugins/**/**/rmlui/**/*.+(html|ttf)`);
     for (let file of rmluiFiles) {
         const splitPath = file.split('/');
         const pluginName = getPluginName(splitPath);
@@ -73,6 +74,10 @@ function moveRmluiFiles() {
  */
 function getPluginName(splitPath) {
     let index = splitPath.findIndex((x) => x.includes('plugins'));
+    if (splitPath[index + 1].startsWith('[') && splitPath[index + 1].endsWith(']')) {
+        // This is a categorized plugin
+        return splitPath[index + 2];
+    }
     return splitPath[index + 1];
 }
 
@@ -99,11 +104,9 @@ function copyFiles() {
 
             if (Array.isArray(destination)) {
                 for (let dest of destination) {
-                    const finalPath = dest + '/' + splitPath.join('/');
-                    const splitFinalPath = finalPath.split('/');
-                    splitFinalPath.pop();
-
-                    const finalFolderPath = splitFinalPath.join('/');
+                    const finalPath = path.join(dest, ...splitPath);
+                    const finalFolderPath = path.dirname(finalPath);
+                    
                     if (!fs.existsSync(finalFolderPath)) {
                         fs.mkdirSync(finalFolderPath, { recursive: true });
                     }
@@ -111,11 +114,9 @@ function copyFiles() {
                     fs.copyFileSync(file, finalPath);
                 }
             } else {
-                const finalPath = destination + '/' + splitPath.join('/');
-                const splitFinalPath = finalPath.split('/');
-                splitFinalPath.pop();
-
-                const finalFolderPath = splitFinalPath.join('/');
+                const finalPath = path.join(destination, ...splitPath);
+                const finalFolderPath = path.dirname(finalPath);
+                
                 if (!fs.existsSync(finalFolderPath)) {
                     fs.mkdirSync(finalFolderPath, { recursive: true });
                 }

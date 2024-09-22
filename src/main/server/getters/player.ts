@@ -1,7 +1,6 @@
 import * as alt from 'alt-server';
 import * as Utility from '@Shared/utility/index.js';
 import { useAccount, useCharacter } from '@Server/document/index.js';
-import { getClosestEntity } from './shared.js';
 
 export function usePlayerGetter() {
     /**
@@ -172,19 +171,9 @@ export function usePlayerGetter() {
      * @return {(alt.Player | undefined)}
      */
     function closestToPlayer(player: alt.Player, range = 10): alt.Player | undefined {
-        return getClosestEntity<alt.Player>(player, [...alt.Player.all], range);
+        const results = alt.getClosestEntities(player.pos, range, player.dimension, -1, 1) as alt.Player[];
+        return results.length >= 1 ? results[0] : undefined;
     }
-
-    // /**
-    //  * Get the current waypoint marked on a player's map.
-    //  * Will return undefined it is not currently set.
-    //  *
-    //  * @param {alt.Player} player An alt:V Player Entity
-    //  * @return {(alt.IVector3 | undefined)}
-    //  */
-    // export function waypoint(player: alt.Player): alt.IVector3 | undefined {
-    //     return player.currentWaypoint;
-    // }
 
     /**
      * The player closest to a vehicle.
@@ -192,21 +181,9 @@ export function usePlayerGetter() {
      * @param {alt.Vehicle} vehicle An alt:V Vehicle Entity
      * @return {(alt.Player | undefined)}
      */
-    function closestToVehicle(vehicle: alt.Vehicle): alt.Player | undefined {
-        const players = [...alt.Player.all].filter((target) => {
-            if (!target || !target.valid) {
-                return false;
-            }
-
-            const document = useCharacter(target);
-            if (typeof document === 'undefined') {
-                return false;
-            }
-
-            return true;
-        });
-
-        return Utility.vector.getClosestOfType<alt.Player>(vehicle.pos, players);
+    function closestToVehicle(vehicle: alt.Vehicle, range = 25): alt.Player | undefined {
+        const results = alt.getClosestEntities(vehicle.pos, range, vehicle.dimension, -1, 1) as alt.Player[];
+        return results.length >= 1 ? results[0] : undefined;
     }
 
     /**

@@ -21,7 +21,7 @@ if (alt.debug) {
     app.route('/transmitter', Transmitter.get());
 }
 
-alt.on('on-rpc-restart', () => {
+alt.on('rebar:rpcRestart', () => {
     if (!server) {
         return;
     }
@@ -29,7 +29,6 @@ alt.on('on-rpc-restart', () => {
     alt.log('RPC - Stopping RPC Server');
     server.close();
 });
-
 
 function init() {
     if (server) return;
@@ -49,10 +48,10 @@ export function useHono() {
             if (c.env.incoming.socket.remoteAddress !== '127.0.0.1') {
                 c.status(403);
                 return c.json({ data: 'Unauthorized' });
-              }
-              return await next();
-        }
-    } 
+            }
+            return await next();
+        },
+    };
 
     return { addRouter, middlewares };
 }

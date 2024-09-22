@@ -15,6 +15,8 @@ let webview: alt.WebView;
 let cursorCount: number = 0;
 let isPageOpen = false;
 let openPages: PageNames[] = [];
+let openOverlays: PageNames[] = [];
+let openPeristentPages: PageNames[] = [];
 let escapeToClosePage: PageNames;
 
 function handleServerEvent(event: string, ...args: any[]) {
@@ -156,6 +158,27 @@ export function useWebview(path = 'http://assets/webview/index.html') {
             }
 
             alt.emitServer(Events.view.onPageOpen, vueName);
+            return;
+        }
+
+        if (type === 'overlay') {
+            const idx = openOverlays.findIndex((x) => x === vueName);
+            if (idx >= 0) {
+                return;
+            }
+
+            openOverlays.push(vueName);
+            return;
+        }
+
+        if (type === 'persistent') {
+            const idx = openPeristentPages.findIndex((x) => x === vueName);
+            if (idx >= 0) {
+                return;
+            }
+
+            openPeristentPages.push(vueName);
+            return;
         }
     }
 
@@ -230,6 +253,14 @@ export function useWebview(path = 'http://assets/webview/index.html') {
      */
     function isSpecificPageOpen(vueName: PageNames): boolean {
         return openPages.findIndex((page) => page === vueName) > -1;
+    }
+
+    function isOverlayOpen(vueName: PageNames): boolean {
+        return openOverlays.findIndex((page) => page === vueName) > -1;
+    }
+
+    function isPersistentPageOpen(vueName: PageNames) {
+        return openPeristentPages.findIndex((page) => page === vueName) > -1;
     }
 
     /**
@@ -397,6 +428,8 @@ export function useWebview(path = 'http://assets/webview/index.html') {
         showCursor,
         show,
         isSpecificPageOpen,
+        isOverlayOpen,
+        isPersistentPageOpen,
         isAnyPageOpen() {
             return isPageOpen;
         },

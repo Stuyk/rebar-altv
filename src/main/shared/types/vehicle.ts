@@ -110,32 +110,6 @@ export interface Vehicle {
      */
     windows?: { [key: string]: number };
 
-    /**
-     * Neon color for the vehicle
-     *
-     * @type {alt.RGBA}
-     * @memberof Vehicle
-     */
-    neonColor?: alt.RGBA;
-
-    /**
-     * Where the placement of the neon is
-     *
-     * @type {{
-     *         front: boolean,
-     *         back: boolean,
-     *         left: boolean,
-     *         right: boolean
-     *     }}
-     * @memberof Vehicle
-     */
-    neonPlacement?: {
-        front: boolean;
-        back: boolean;
-        left: boolean;
-        right: boolean;
-    };
-
     stateProps?: {
         /**
          * Dirt level of the vehicle
@@ -195,53 +169,91 @@ export interface Vehicle {
         daylightOn?: boolean;
     };
 
-    /**
-     * Set a primary color based on GTAV colors
-     *
-     * @type {number}
-     * @memberof Vehicle
-     */
-    primaryColor?: number;
+    neon?: {
+        /**
+         * Neon color for the vehicle
+         *
+         * @type {alt.RGBA}
+         * @memberof Vehicle
+         */
+        color: alt.RGBA;
 
-    /**
-     * Set a secondary color based on GTAV colors
-     *
-     * @type {number}
-     * @memberof Vehicle
-     */
-    secondaryColor?: number;
+        /**
+         * Where the placement of the neon is
+         *
+         * @type {{
+         *         front: boolean,
+         *         back: boolean,
+         *         left: boolean,
+         *         right: boolean
+         *     }}
+         * @memberof Vehicle
+         */
+        placement: {
+            front: boolean;
+            back: boolean;
+            left: boolean;
+            right: boolean;
+        };
+    };
 
-    /**
-     * The custom primary color to set on the vehicle
-     *
-     * @type {alt.RGBA}
-     * @memberof Vehicle
-     */
-    customPrimaryColor?: alt.RGBA;
+    color: {
+        /**
+         * Set a primary color based on GTAV colors
+         *
+         * @type {number}
+         * @memberof Vehicle
+         */
+        primary: number;
 
-    /**
-     * The custom secondary color to set on the vehicle
-     *
-     * @type {alt.RGBA}
-     * @memberof Vehicle
-     */
-    customSecondaryColor?: alt.RGBA;
+        /**
+         * The custom primary color to set on the vehicle
+         *
+         * @type {alt.RGBA}
+         * @memberof Vehicle
+         */
+        primaryCustom: alt.RGBA;
 
-    /**
-     * The wheel color to set on the vehicle (0-159)
-     *
-     * @type {alt.RGBA}
-     * @memberof Vehicle
-     */
-    wheelColor?: number;
+        /**
+         * Set a secondary color based on GTAV colors
+         *
+         * @type {number}
+         * @memberof Vehicle
+         */
+        secondary: number;
 
-    /**
-     * The pearl color to set on the vehicle (0-159)
-     *
-     * @type {number}
-     * @memberof Vehicle
-     */
-    pearlColor?: number;
+        /**
+         * The custom secondary color to set on the vehicle
+         *
+         * @type {alt.RGBA}
+         * @memberof Vehicle
+         */
+        secondaryCustom: alt.RGBA;
+
+        /**
+         * The wheel color to set on the vehicle (0-159)
+         *
+         * @type {alt.RGBA}
+         * @memberof Vehicle
+         */
+        wheel: number;
+
+        /**
+         * The pearl color to set on the vehicle (0-159)
+         *
+         * @type {number}
+         * @memberof Vehicle
+         */
+        pearl: number;
+
+        /**
+         * The xenon (headlight) color to set on the vehicle (0-13)
+         *
+         * @type {number}
+         * @memberof Vehicle
+         */
+        xenon: number;
+    };
 
     /**
      * The number plate text for the vehicle

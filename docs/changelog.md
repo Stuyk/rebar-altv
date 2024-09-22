@@ -4,6 +4,138 @@ order: 95
 
 # Changelog
 
+## Version 53
+
+### Breaking Changes
+
+-   Removed `useVehicleEvents`, `useCharacterEvents`, and `useAccountEvents`
+    -   Replaced with `alt.on('rebar:vehicleUpdated')`, `alt.on('rebar:playerCharacterUpdated')`, and `alt.on('rebar:playerAccountUpdated')`.
+-   Removed alt.getMeta for Rebar Imports
+    -   This likely doesn't effect anyone
+-   Removed `useServerTime`
+    -   Replaced with `useWorldService`
+-   Removed `useServerWeather`
+    -   Replaced with `useWorldService`
+-   Removed `useMessenger.message.on`,
+    -   Same functionality can be achieved through `alt.on` with `playerSendMessage`
+-   Removed `useRebarEvents` and moved all events to `alt.on` and `alt.emit`
+    -   Custom delcarations are still possible.
+    -   Replaced all `rebar-event-names` with `camelCased` events
+    -   Event Name Changes:
+        -   Renamed `message` event to `rebar:playerSendMessage`
+        -   Renamed `on-command` event to `rebar:playerCommand`
+        -   Renamed `on-rpc-restart` event to `rebar:rpcRestart`
+        -   Renamed `account-bound` event to `rebar:playerAccountBound`
+        -   Renamed `character-bound` event to `rebar:playerCharacterBound`
+        -   Renamed `vehicle-bound` event to `rebar:vehicleBound`
+        -   Renamed `page-opened` event to `rebar:playerPageOpened`
+        -   Renamed `page-closed` event to `rebar:playerPageClosed`
+        -   Renamed `time-changed` event to `rebar:timeChanged`
+        -   Renamed `time-hour-changed` event to `rebar:timeHourChanged`
+        -   Renamed `time-minute-changed` event to `rebar:timeMinuteChanged`
+        -   Renamed `time-second-changed` event to `rebar:timeSecondChanged`
+        -   Renamed `weather-changed` event to `rebar:weatherChanged`
+        -   Renamed `weather-forecast-changed` event to `rebar:weatherForecastChanged`
+        -   Renamed `doorLocked` event to `rebar:doorLocked`
+        -   Renamed `doorUnlocked` event to `rebar:doorUnlocked`
+-   Reworked permission system:
+    -   Removed `permission` and `groupPermissions` properties from `useAccount` and `useCharacter`.
+    -   When you check for players' permissions, it will automatically check both groups and plain permissions.
+
+### Code Changes
+
+-   Added more verbose error printing for plugin imports, should function like before again
+-   Added ability to use string union for blip sprite types
+    -   Automatically converted to numerical
+-   Added ability to use string union for blip colors
+    -   Automatically converted to numerical
+-   Made blips shortRange parameter optional, and default to true
+-   Updated `useWeapon` for `player` to properly save weapon data and ammo count
+-   **Removed** `ammo` from the database, and ammo is now stored on the individual weapon instead
+-   Fix vehicle handler so setting `{}` will actually clear the vehicle handling
+-   Fix issue where removing attachements was not working correctly
+-   Replaced in-house get closest entity function with `alt.getClosestEntities`
+-   Changed `Account` from `type` to `interface`
+-   Moved `Page Events` to `pageSystem` to keep functionality working
+-   Made it so emitting notifications from server-side defaults to a GTA:V Notification, until a library is added
+-   Added `useServiceRegister`
+    -   Provides common APIs for common features to integrate custom functionality.
+    -   Services do nothing until a library registers itself under a service.
+-   Added `useCurrencyService`
+    -   All these functions do nothing until a library is registered\
+    -   add (invoke adding currency)
+    -   sub (invoke removing currency)
+    -   has (check if has enough currency)
+    -   emits events when currency added or subtracted
+-   Added `useDeathService`
+    -   All these functions do nothing until a library is registered
+    -   respawn (invoke a respawn)
+    -   revive (invoke a revive, in place)
+    -   emits events when respawned, or revived
+-   Added `useItemService`
+    -   All these functions do nothing until a library is registered
+    -   add (invoke an item add)
+    -   sub (invoke an item subtraction)
+    -   remove (invoke an item remove)
+    -   has (invoke if player has an item)
+    -   itemCreate (create an item to add to the database)
+    -   itemRemove (remove an item from the database)
+    -   emits events when items added, subtracted, or removed
+-   Added `useNotificationService`
+    -   All these functions do nothing until a library is registered
+    -   emit (invoke a notification send)
+    -   broadcast (invoke a notification send, to all players)
+    -   emits events when notification emitted, or broadcasted
+-   Added `useTimeService`
+    -   All these functions do nothing until a library is registered
+    -   setTime (set the time for the whole server)
+    -   getTime (get the current time for the server)
+    -   emits events when time updated by hour, minute, or second
+-   Added `useWeatherService`
+    -   setWeather (set the weather for the server)
+    -   setWeatherForecast (set weather forecast for the server)
+    -   getWeather (get the current weather for the server)
+    -   getWeatherForecast (get weather forecast for the server)
+    -   emits events when weather updated, or forecast updated
+-   Added Custom alt.getMeta Keys for...
+    -   serverTime
+    -   serverWeather
+    -   serverWeatherForecast
+-   Added support for interactions to
+    -   addBlip
+    -   addMarker
+    -   addTextLabel
+    -   getBlip
+    -   getMarker
+    -   getTextLabel
+    -   getPos
+    -   Destroy all of the above when interaction is destroyed
+-   Updated Document Typings for ... to better handle module extension
+    -   Account
+    -   Character
+    -   Vehicle
+-   Added `rebar:onTick` which just emits a tick every 1 second for general usage
+-   Added `isOverlayOpen` and `isPersistentPageOpen` to client-side for checking if a page is open
+-   Made dev menu from the `webview:dev` command scrollable
+-   Groups are now created globally, and you can assign players' documents to the group.
+-   You can inherit a new group from another one; it will inherit all permissions from the parent.
+-   You can now access permissions/groups of character/account via `useVirtual`.
+-   Two new player-getters:
+    -   `withPermission(documentType: 'account' | 'character' | 'any', permission: string)`
+    -   `memberOfGroup(documentType: 'account' | 'character' | 'any', groupName: string)`
+-   Updated weapon helpers to allow for `hash` or `string` models
+-   Added `invokeWithResult` for player natives, to invoke a native and get a result
+-   Added vehicle door sync for open / shut states
+
+### Docs Changes
+
+-   Document `getWeapons` and update documentation for `useWeapon` for the player
+-   Document all services under `useService`
+-   Document all event changes, and update events page
+-   Document the new permission system.
+
+---
+
 ## Version 52
 
 ### Code Changes

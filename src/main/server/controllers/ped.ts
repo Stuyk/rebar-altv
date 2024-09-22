@@ -1,9 +1,8 @@
 import * as alt from 'alt-server';
 import * as native from 'natives';
-import { PedOptions } from '@Shared/types/pedOptions.js';
+import {PedOptions, OmitFirstArg} from '@Shared/types/index.js';
 import { Events } from '../../shared/events/index.js';
 import * as Utility from '@Shared/utility/index.js';
-import { useRebar } from '../index.js';
 
 const sessionKey = 'ped:uid';
 
@@ -48,7 +47,6 @@ type PedNatives = Pick<
     | 'taskWanderStandard'
 >;
 
-type OmitFirstArg<F> = F extends (x: any, ...args: infer P) => infer R ? (...args: P) => R : never;
 type PedDeathCallback = (uid: string, killer: alt.Entity, weaponHash: number) => void;
 
 const peds: Map<string, ReturnType<typeof usePed>> = new Map();

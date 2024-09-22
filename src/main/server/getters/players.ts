@@ -1,6 +1,9 @@
 import * as alt from 'alt-server';
 import * as Utility from '@Shared/utility/index.js';
-import { useCharacter } from '@Server/document/character.js';
+import {useCharacter} from '@Server/document/character.js';
+import {useAccount} from "@Server/document/index.js";
+
+export type PlayersGetterDocumentType = 'account' | 'character' | 'any';
 
 export function usePlayersGetter() {
     /**
@@ -73,7 +76,7 @@ export function usePlayersGetter() {
                 continue;
             }
 
-            playersInRange.push({ player, dist });
+            playersInRange.push({player, dist});
         }
 
         return playersInRange.sort((a, b) => {
@@ -172,5 +175,95 @@ export function usePlayersGetter() {
         return alt.Player.all.filter((x) => x.vehicle && x.vehicle.id === vehicle.id);
     }
 
-    return { online, onlineWithWeapons, inRangeWithDistance, inRange, withName, driving, walking, inVehicle };
+    /**
+     * Returns all players who have a specific permission.
+     *
+     * @param {PlayersGetterDocumentType} documentType The document type to check.
+     * @param {string} permission The permission to check for.
+     * @return {alt.Player[]}
+     */
+    function withPermission(documentType: PlayersGetterDocumentType, permission: string): alt.Player[] {
+
+        return alt.Player.all.filter((player) => {
+            if (!player || !player.valid) {
+                return false;
+            }
+
+            let [accountMatch, characterMatch] = [false, false];
+
+            if (documentType === 'account' || documentType === 'any') {
+                const account = useAccount(player);
+                if (account.isValid() && account.permissions.has(permission)) {
+                    accountMatch = true;
+                }
+                if (documentType === 'account') {
+                    return accountMatch;
+                }
+            }
+
+            if (documentType === 'character' || documentType === 'any') {
+                const character = useCharacter(player);
+                if (character.isValid() && character.permissions.has(permission)) {
+                    characterMatch = true;
+                }
+                if (documentType === 'character') {
+                    return characterMatch;
+                }
+            }
+
+            return accountMatch || characterMatch;
+        });
+    }
+
+    /**
+     * Returns all players who are a member of a specific group.
+     *
+     * @param {PlayersGetterDocumentType} documentType The document type to check.
+     * @param {string} groupName The group to check for.
+     * @return {alt.Player[]}
+     */
+    function memberOfGroup(documentType: PlayersGetterDocumentType, groupName: string): alt.Player[] {
+        return alt.Player.all.filter((player) => {
+            if (!player || !player.valid) {
+                return false;
+            }
+
+            let [accountMatch, characterMatch] = [false, false];
+
+            if (documentType === 'account' || documentType === 'any') {
+                const account = useAccount(player);
+                if (account.isValid() && account.groups.memberOf(groupName)) {
+                    accountMatch = true;
+                }
+                if (documentType === 'account') {
+                    return accountMatch;
+                }
+            }
+
+            if (documentType === 'character' || documentType === 'any') {
+                const character = useCharacter(player);
+                if (character.isValid() && character.groups.memberOf(groupName)) {
+                    characterMatch = true;
+                }
+                if (documentType === 'character') {
+                    return characterMatch;
+                }
+            }
+
+            return accountMatch || characterMatch;
+        });
+    }
+
+    return {
+        online,
+        onlineWithWeapons,
+        inRangeWithDistance,
+        inRange,
+        withName,
+        driving,
+        walking,
+        inVehicle,
+        withPermission,
+        memberOfGroup
+    };
 }

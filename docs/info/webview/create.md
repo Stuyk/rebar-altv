@@ -54,7 +54,7 @@ import { useWebview } from '@Server/player/webview.js';
 
 // Show the page
 function someShowFunction(somePlayer: alt.Player) {
-    useWebview(somePlayer).show('MyExampleView');
+    useWebview(somePlayer).show('MyExampleView', 'page');
 }
 
 // Hide the page

@@ -1,6 +1,6 @@
 .server-crashes-cache/
 cache/
-./data/
+data/**/*.bin
 modules/
 node_modules/
 resources/main/

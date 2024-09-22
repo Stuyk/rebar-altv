@@ -9,6 +9,8 @@ type EventCallbacks = {
     onMiddleClick: [id: string];
     onRightClick: [id: string];
     onDrag: [id: string, endId: string];
+    onDragStart: [id: string];
+    onDragStop: [id: string];
 };
 
 const emits = defineEmits<EventCallbacks>();
@@ -92,6 +94,8 @@ function handleClick(ev: MouseEvent) {
     document.addEventListener('mousemove', mouseMove);
     lastClickTime.value = Date.now();
     isDragged.value = true;
+
+    emits('onDragStart', id.value);
 }
 
 function stop(ev: MouseEvent) {
@@ -113,14 +117,17 @@ function stop(ev: MouseEvent) {
 
     const el = ev.target as HTMLElement;
     if (!el || !el.id) {
+        emits('onDragStop', id.value);
         return;
     }
 
     if (el.id === id.value) {
+        emits('onDragStop', id.value);
         return;
     }
 
     emits('onDrag', id.value, el.id);
+    emits('onDragStop', id.value);
 }
 
 function handleContextMenu(e: MouseEvent) {

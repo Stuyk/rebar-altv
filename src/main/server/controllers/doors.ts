@@ -2,9 +2,15 @@ import * as alt from 'alt-server';
 import { useGlobal } from '@Server/document/global.js';
 import { objectData } from '@Shared/utility/clone.js';
 import { Door, DoorsConfig, DoorState } from '@Shared/types/index.js';
-import { useAccount, useCharacter } from '@Server/document/index.js';
 import { distance2d } from '@Shared/utility/vector.js';
-import { useEvents } from '@Server/events/index.js';
+import {useEntityPermissions} from "@Server/systems/permissions/entityPermissions.js";
+
+declare module 'alt-server' {
+    export interface ICustomEmitEvent {
+        'rebar:doorLocked': (uid: string, initiator: alt.Player) => void;
+        'rebar:doorUnlocked': (uid: string, initiator: alt.Player | null) => void;
+    }
+}
 
 const config = await useGlobal<DoorsConfig>('doors');
 const MAX_DOORS_TO_DRAW = 10;
@@ -12,7 +18,6 @@ const streamingDistance = 15;
 const doorEntityType = 'door';
 const doorGroup = new alt.VirtualEntityGroup(MAX_DOORS_TO_DRAW);
 const doors: (Door & { entity: alt.VirtualEntity })[] = [];
-const events = useEvents();
 
 /**
  * Door configuration that allows you to get and set the lock state of a door.
@@ -82,47 +87,6 @@ export function useDoor() {
         doors.push({ ...door, entity });
     }
 
-    /**
-     * Checks if the player has the required permissions to lock/unlock the door.
-     * For internal use only.
-     *
-     * @param {alt.Player} player
-     * @param {Door} door
-     * @returns {boolean}
-     */
-    function checkPermissions(player: alt.Player, door: Door): boolean {
-        if (
-            !door?.permissions?.character &&
-            !door?.permissions?.account &&
-            !door?.groups?.account &&
-            !door?.groups?.character
-        ) {
-            return true;
-        }
-        const rCharacter = useCharacter(player);
-        const rAccount = useAccount(player);
-        if (!rAccount.isValid() || !rCharacter.isValid()) return false;
-
-        let allowed = false;
-        if (door?.permissions?.character) {
-            allowed = rCharacter.permissions.hasAnyPermission(door?.permissions?.character ?? []);
-        }
-
-        if (door?.permissions?.account) {
-            allowed = rAccount.permissions.hasAnyPermission(door?.permissions?.account ?? []);
-        }
-
-        if (door?.groups?.character) {
-            allowed = rCharacter.groupPermissions.hasAtLeastOneGroupWithSpecificPerm(door?.groups?.character ?? {});
-        }
-
-        if (door?.groups?.account) {
-            allowed = rAccount.groupPermissions.hasAtLeastOneGroupWithSpecificPerm(door?.groups?.account ?? {});
-        }
-
-        return allowed;
-    }
-
     function getNextState(state: DoorState): DoorState {
         return state === DoorState.LOCKED ? DoorState.UNLOCKED : DoorState.LOCKED;
     }
@@ -137,11 +101,11 @@ export function useDoor() {
     function toggleLockState(player: alt.Player, uid: string): boolean {
         const door = doors.find((door) => door.uid === uid);
         if (!door) return false;
-        if (!checkPermissions(player, door)) return false;
+        if (!useEntityPermissions(door).check(player)) return false;
 
         door.state = getNextState(door.state);
         doorConfig.setLockState(uid, door.state);
-        events.invoke(`door-${door.state}`, uid, player);
+        alt.emit(door.state === DoorState.LOCKED ? 'rebar:doorLocked' : 'rebar:doorUnlocked', uid, player);
         return true;
     }
 
@@ -160,7 +124,7 @@ export function useDoor() {
 
         door.state = state;
         doorConfig.setLockState(uid, door.state);
-        events.invoke(`door-${door.state}`, uid, null);
+        alt.emit(door.state === DoorState.LOCKED ? 'rebar:doorLocked' : 'rebar:doorUnlocked', uid, null);
         return true;
     }
 

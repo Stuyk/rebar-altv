@@ -1,20 +1,18 @@
 import * as alt from 'alt-server';
 import { Events } from '@Shared/events/index.js';
-import { Spinner } from '@Shared/types/spinner.js';
-import { Shard } from '@Shared/types/shard.js';
-import { Credit } from '@Shared/types/credits.js';
-import { Message } from '@Shared/types/message.js';
+import {Spinner, Shard, Credit, Message} from '@Shared/types/index.js';
 import { useMessenger } from '../systems/messenger.js';
+import { useNotificationService } from '../services/notifications.js';
 
 const messenger = useMessenger();
 
 export function useNotify(player: alt.Player) {
-    function showNotification(message: string) {
+    function showNotification(message: string, type?: string) {
         if (!player || !player.valid) {
             return;
         }
 
-        player.emit(Events.player.notify.notification.create, message);
+        useNotificationService().emit(player, message, type);
     }
 
     function showMissionText(message: string, duration?: number) {

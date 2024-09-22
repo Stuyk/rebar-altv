@@ -1,9 +1,7 @@
 import * as alt from 'alt-server';
-import { useRebar } from '../index.js';
+import { useAccount } from '../document/account.js';
 
 type RateLimitTracker = { nextCall: number; violations: 0 };
-
-const Rebar = useRebar();
 
 /**
  * Protect an event, or callback with rate limits.
@@ -40,7 +38,7 @@ export function useRateLimitCallback(callback: Function, uid: string, timeBetwee
             return;
         }
 
-        const document = Rebar.document.account.useAccount(player);
+        const document = useAccount(player);
 
         if (!document.get()) {
             alt.logWarning(`Player ID | ${player.id} called ${uid} too fast, they were kicked`);

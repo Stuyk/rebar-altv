@@ -18,6 +18,10 @@ function cleanupAttachments(id: number) {
 }
 
 async function createAttachments(player: alt.Player, attachments: Attachment[]) {
+    if (entityAttachments[player.id] && entityAttachments[player.id].length >= 1) {
+        cleanupAttachments(player.id);
+    }
+
     entityAttachments[player.id] = [];
 
     for (let attachment of attachments) {
@@ -46,6 +50,8 @@ async function createAttachments(player: alt.Player, attachments: Attachment[]) 
             false,
             true,
         );
+
+        entityAttachments[player.id].push(object);
     }
 }
 
