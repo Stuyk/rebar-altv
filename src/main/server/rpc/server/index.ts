@@ -1,15 +1,12 @@
 import * as alt from 'alt-server';
 import { Hono } from 'hono';
 import { type HttpBindings } from '@hono/node-server';
-import { useRebar } from '../../index.js';
 
 const app = new Hono<{ Bindings: HttpBindings }>();
-const Rebar = useRebar();
-const RebarEvents = Rebar.events.useEvents();
 
 declare module 'alt-server' {
     export interface ICustomEmitEvent {
-        'on-rpc-restart': () => void;
+        'rebar:rpcRestart': () => void;
     }
 }
 
@@ -25,7 +22,7 @@ app.get('/restart', (c) => {
         player.kick();
     }
 
-    alt.emit('on-rpc-restart');
+    alt.emit('rebar:rpcRestart');
 
     c.status(200);
     return c.json({ data: 'ok' });
@@ -40,7 +37,7 @@ app.get('/reload', async (c) => {
     }
 
     alt.log(`RPC - Restarting Resource '${resource}'`);
-    alt.emit('on-rpc-restart');
+    alt.emit('rebar:rpcRestart');
 
     await alt.Utils.wait(500);
 

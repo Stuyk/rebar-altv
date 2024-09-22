@@ -5,10 +5,10 @@ import { useTranslate } from '@Shared/translate.js';
 import { useConfig } from './config/index.js';
 import { useDatabase } from './database/index.js';
 import './rpc/index.js';
+import './systems/tick.js';
 import { useRebar } from './index.js';
 
 const Rebar = useRebar();
-const RebarEvents = Rebar.events.useEvents();
 const config = useConfig();
 const database = useDatabase();
 const { t } = useTranslate('en');
@@ -24,6 +24,7 @@ async function handleStart() {
         await import('./plugins.js');
         alt.log(':: Plugins Loaded');
     } catch (err) {
+        alt.logError(err);
         alt.logWarning(`Failed to load any plugins, a plugin has errors in it.`);
     }
 
@@ -47,7 +48,7 @@ async function handleStart() {
         player.frozen = false;
 
         const character = rPlayer.character.get();
-        RebarEvents.invoke('character-bound', player, character);
+        alt.emit('rebar:playerCharacterBound', player, character);
     }
 }
 

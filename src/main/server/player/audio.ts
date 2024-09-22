@@ -11,12 +11,17 @@ export function useAudio(player: alt.Player) {
         native.invoke('playSoundFrontend', -1, audioName, audioRef, true);
     }
 
-    function playSound(soundPath: string) {
-        webview.emit(Events.player.audio.play.local, soundPath);
+    function playSound(soundPath: string, volume: number = 1) {
+        webview.emit(Events.player.audio.play.local, soundPath, volume);
     }
 
+    function stopAudio() {
+        webview.emit(Events.player.audio.stop.local);
+    }
+    
     return {
         playFrontendSound,
         playSound,
+        stopAudio,
     };
 }

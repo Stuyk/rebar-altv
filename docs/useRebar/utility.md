@@ -189,7 +189,7 @@ Generates a random short string as an identifier
 const uid = Rebar.utility.uid.generate();
 ```
 
-# useProtectCallback
+## useProtectCallback
 
 When you're using events, or you need callbacks to be fully protected and permissioned this utility functions provides a simple wrapper to check for permissions before the callback is executed.
 
@@ -221,7 +221,7 @@ alt.onClient(
 );
 ```
 
-# useRateLimitCallback
+## useRateLimitCallback
 
 When you're using events, or you need callbacks to be protected by a rate limiter, this is a wrapper you can use.
 

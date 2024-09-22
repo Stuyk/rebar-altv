@@ -10,6 +10,8 @@ alt.on('streamSyncedMetaChange', (vehicle: alt.BaseObject, key: string) => {
     }
     const handlingData: Partial<alt.HandlingData> = vehicle.getStreamSyncedMeta('handling');
 
+    vehicle.handling.reset();
+
     for (const [key, value] of Object.entries(handlingData)) {
         vehicle.handling[key] = value;
     }

@@ -1,7 +1,7 @@
 import * as alt from 'alt-client';
 import * as ScreenMarker from '../screen/marker.js';
 import { Events } from '@Shared/events/index.js';
-import { Marker } from '@Shared/types/marker.js';
+import { Marker } from '@Shared/types/index.js';
 import { distance2d } from '@Shared/utility/vector.js';
 
 const MAX_DISTANCE = 50;
@@ -22,7 +22,7 @@ function draw() {
             continue;
         }
 
-        ScreenMarker.draw(marker.type, marker.pos, marker.scale, marker.color, false, false, false);
+        ScreenMarker.draw(marker.type as number, marker.pos, marker.scale, marker.color, false, false, false);
     }
 }
 

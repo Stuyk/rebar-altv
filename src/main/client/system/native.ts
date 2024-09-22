@@ -6,4 +6,9 @@ function invoke(nativeName: string, ...args: any[]) {
     native[nativeName](...args);
 }
 
+function invokeAsRpc(nativeName: string, ...args: any[]) {
+    return native[nativeName](...args);
+}
+
 alt.onServer(Events.player.native.invoke, invoke);
+alt.onRpc(Events.player.native.invokeWithResult, invokeAsRpc);

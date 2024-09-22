@@ -1,14 +1,22 @@
 import * as alt from 'alt-server';
 import * as Utility from '../utility/index.js';
-import { Account } from '@Shared/types/account.js';
-import { KnownKeys } from '@Shared/utilityTypes/index.js';
+import { Character, Account } from '@Shared/types/index.js';
 import { useDatabase } from '@Server/database/index.js';
 import { CollectionNames, KeyChangeCallback } from './shared.js';
-import { Character } from '@Shared/types/character.js';
-import { useRebar } from '../index.js';
-import { usePermissionProxy } from '@Server/systems/permissionProxy.js';
+import { usePermissionProxy } from '@Server/systems/permissions/permissionProxy.js';
+import { useIncrementalId } from './increment.js';
 
-const Rebar = useRebar();
+declare module 'alt-server' {
+    export interface ICustomEmitEvent {
+        'rebar:playerAccountBound': (player: alt.Player, document: Account) => void;
+        'rebar:playerAccountUpdated': <K extends keyof Account>(
+            player: alt.Player,
+            fieldName: K,
+            value: Account[K],
+        ) => void;
+    }
+}
+
 const sessionKey = 'document:account';
 const callbacks: { [key: string]: Array<KeyChangeCallback> } = {};
 const db = useDatabase();
@@ -32,26 +40,25 @@ export function useAccount(player: alt.Player) {
     /**
      * Return current player data and their associated account object.
      *
-     * @template T
-     * @return {(T & Account) | undefined}
+     * @return {(Account | undefined)}
      */
-    function get<T = {}>(): (T & Account) | undefined {
+    function get(): Account | undefined {
         if (!player.hasMeta(sessionKey)) {
             return undefined;
         }
 
-        return <T & Account>player.getMeta(sessionKey);
+        return <Account>player.getMeta(sessionKey);
     }
 
     /**
      * Get the current value of a specific field inside of the player data object.
      * Can be extended to obtain any value easily.
      *
-     * @template T
-     * @param {(keyof KnownKeys<Account & T>)} fieldName
-     * @return {ReturnType | undefined}
+     * @template K
+     * @param {K} fieldName
+     * @return {(Account[K] | undefined)}
      */
-    function getField<T = {}, ReturnType = any>(fieldName: keyof KnownKeys<Account & T>): ReturnType | undefined {
+    function getField<K extends keyof Account>(fieldName: K): Account[K] | undefined {
         if (!player.hasMeta(sessionKey)) {
             return undefined;
         }
@@ -63,18 +70,18 @@ export function useAccount(player: alt.Player) {
      * Sets a player document value, and saves it automatically to the selected account database.
      * Automatically calls all callbacks associated with the field name.
      *
-     * @template T
-     * @param {(keyof KnownKeys<Character & T>)} fieldName
-     * @param {*} value
-     * @return {void}
+     * @template K
+     * @param {K} fieldName
+     * @param {Account[K]} value
+     * @return
      */
-    async function set<T = {}, Keys = keyof KnownKeys<Account & T>>(fieldName: Keys, value: any) {
+    async function set<K extends keyof Account>(fieldName: K, value: Account[K]) {
         if (!player.hasMeta(sessionKey)) {
             return undefined;
         }
 
         const typeSafeFieldName = String(fieldName);
-        let data = player.getMeta(sessionKey) as T & Account;
+        let data = player.getMeta(sessionKey) as Account;
         let oldValue = undefined;
 
         if (data[typeSafeFieldName]) {
@@ -86,6 +93,8 @@ export function useAccount(player: alt.Player) {
         data = Object.assign(data, newData);
         player.setMeta(sessionKey, data);
         await db.update({ _id: data._id, [typeSafeFieldName]: value }, CollectionNames.Accounts);
+
+        alt.emit('rebar:playerAccountUpdated', player, fieldName, value);
 
         if (typeof callbacks[typeSafeFieldName] === 'undefined') {
             return;
@@ -100,16 +109,15 @@ export function useAccount(player: alt.Player) {
      * Sets player document values, and saves it automatically to the selected Account's database.
      * Automatically calls all callbacks associated with the field name.
      *
-     * @template T
-     * @param {(Partial<Account & T>)} fields
-     * @returns {void}
+     * @param {Partial<Account>} fields
+     * @return
      */
-    async function setBulk<T = {}, Keys = Partial<Account & T>>(fields: Keys) {
+    async function setBulk(fields: Partial<Account>) {
         if (!player.hasMeta(sessionKey)) {
             return undefined;
         }
 
-        let data = player.getMeta(sessionKey) as Account & T;
+        let data = player.getMeta(sessionKey) as Account;
 
         const oldValues = {};
 
@@ -127,6 +135,8 @@ export function useAccount(player: alt.Player) {
         await db.update({ _id: data._id, ...fields }, CollectionNames.Accounts);
 
         Object.keys(fields).forEach((key) => {
+            alt.emit('rebar:playerAccountUpdated', player, key as keyof Account, data[key]);
+
             if (typeof callbacks[key] === 'undefined') {
                 return;
             }
@@ -140,13 +150,12 @@ export function useAccount(player: alt.Player) {
     /**
      * Return all characters that belong to this account
      *
-     * @template T
-     * @return {(Promise<(Character & T)[]>)}
+     * @return {Promise<Character[]>}
      */
-    async function getCharacters<T = {}>(): Promise<(Character & T)[]> {
-        const data = player.getMeta(sessionKey) as Account & T;
+    async function getCharacters(): Promise<Character[]> {
+        const data = player.getMeta(sessionKey) as Character;
         const results = await db.getMany({ account_id: data._id }, CollectionNames.Characters);
-        return results as (Character & T)[];
+        return results as Character[];
     }
 
     /**
@@ -190,50 +199,17 @@ export function useAccount(player: alt.Player) {
             return getField('id');
         }
 
-        const identifier = await Rebar.database.useIncrementalId(Rebar.database.CollectionNames.Accounts);
+        const identifier = await useIncrementalId(CollectionNames.Accounts);
         const id = await identifier.getNext();
         await setBulk({ id });
         return id;
     }
-    const { permissions, groupPermissions } = usePermissionProxy(player, 'account', get, set);
 
-    /**
-     * Old permission system. Will be deprecated.
-     * @deprecated
-     */
-    const permission = {
-        /**
-         * @deprecated
-         */
-        addPermission: async (permissionName: string) => {
-            alt.logWarning('Consider using useAccount(...).permissions.addPermission instead. This will be deprecated.');
-            return permissions.addPermission(permissionName);
-        },
-        /**
-         * @deprecated
-         */
-        removePermission: async (permissionName: string) => {
-            alt.logWarning('Consider using useAccount(...).permissions.removePermission instead. This will be deprecated.');
-            return permissions.removePermission(permissionName);
-        },
-        /**
-         * @deprecated
-         */
-        hasPermission: (permissionName: string) => {
-            alt.logWarning('Consider using useAccount(...).permissions.hasPermission instead. This will be deprecated.');
-            return permissions.hasPermission(permissionName);
-        },
-        /**
-         * @deprecated
-         */
-        setBanned: async (reason: string) => {
-            alt.logWarning('Consider using useAccount(...).setBanned instead. This will be deprecated.');
-            return setBanned(reason);
-        },
-    }
+    const { permissions, groups } = usePermissionProxy<Account>(get, setBulk, player, 'account');
 
     return {
-        permission,
+        permissions,
+        groups,
         addIdentifier,
         get,
         getCharacters,
@@ -244,8 +220,6 @@ export function useAccount(player: alt.Player) {
         setPassword,
         checkPassword,
         setBanned,
-        permissions,
-        groupPermissions,
     };
 }
 
@@ -263,7 +237,7 @@ export function useAccountBinder(player: alt.Player) {
         }
 
         player.setMeta(sessionKey, document);
-        Rebar.events.useEvents().invoke('account-bound', player, document);
+        alt.emit('rebar:playerAccountBound', player, document);
 
         const accountUse = useAccount(player);
         try {
@@ -287,28 +261,5 @@ export function useAccountBinder(player: alt.Player) {
     return {
         bind,
         unbind,
-    };
-}
-
-export function useAccountEvents() {
-    /**
-     * Listen for individual player document changes.
-     *
-     * @param {string} fieldName
-     * @param {KeyChangeCallback} callback
-     * @return {void}
-     */
-    function on<T = {}>(fieldName: keyof KnownKeys<Account & T>, callback: KeyChangeCallback) {
-        const actualFieldName = String(fieldName);
-
-        if (typeof callbacks[actualFieldName] === 'undefined') {
-            callbacks[actualFieldName] = [callback];
-        } else {
-            callbacks[actualFieldName].push(callback);
-        }
-    }
-
-    return {
-        on,
     };
 }

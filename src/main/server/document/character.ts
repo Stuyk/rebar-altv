@@ -1,14 +1,25 @@
 import * as alt from 'alt-server';
-import { Character } from '@Shared/types/character.js';
-import { KnownKeys } from '@Shared/utilityTypes/index.js';
+import { Character, Vehicle } from '@Shared/types/index.js';
 import { useDatabase } from '@Server/database/index.js';
 import { CollectionNames, KeyChangeCallback } from './shared.js';
-import { Vehicle } from 'main/shared/types/vehicle.js';
-import { useRebar } from '../index.js';
-import { usePermissionProxy } from '@Server/systems/permissionProxy.js';
-import { removeGroup } from 'natives';
+import { usePermissionProxy } from '@Server/systems/permissions/permissionProxy.js';
+import { useIncrementalId } from './increment.js';
+import { usePlayerAppearance } from '../player/appearance.js';
+import { useClothing } from '../player/clothing.js';
+import { useWeapon } from '../player/weapon.js';
+import { useState } from '../player/state.js';
 
-const Rebar = useRebar();
+declare module 'alt-server' {
+    export interface ICustomEmitEvent {
+        'rebar:playerCharacterBound': (player: alt.Player, document: Character) => void;
+        'rebar:playerCharacterUpdated': <K extends keyof Character>(
+            player: alt.Player,
+            fieldName: K,
+            value: Character[K],
+        ) => void;
+    }
+}
+
 const sessionKey = 'document:character';
 const callbacks: { [key: string]: Array<KeyChangeCallback> } = {};
 const db = useDatabase();
@@ -32,28 +43,25 @@ export function useCharacter(player: alt.Player) {
     /**
      * Return current player data and their associated character object.
      *
-     * @template T
-     * @return {(T & Character) | undefined}
+     * @return {(Character | undefined)}
      */
-    function get<T = {}>(): (T & Character) | undefined {
+    function get(): Character | undefined {
         if (!player.hasMeta(sessionKey)) {
             return undefined;
         }
 
-        return <T & Character>player.getMeta(sessionKey);
+        return <Character>player.getMeta(sessionKey);
     }
 
     /**
      * Get the current value of a specific field inside of the player data object.
      * Can be extended to obtain any value easily.
      *
-     * @template T
-     * @param {(keyof KnownKeys<Character & T>)} fieldName
-     * @return {ReturnType | undefined}
+     * @template K
+     * @param {K} fieldName
+     * @return {(Character[K] | undefined)}
      */
-    function getField<T = {}, K extends keyof KnownKeys<Character & T> = keyof KnownKeys<Character & T>>(
-        fieldName: K,
-    ): (Character & T)[K] | undefined {
+    function getField<K extends keyof Character>(fieldName: K): Character[K] | undefined {
         if (!player.hasMeta(sessionKey)) {
             return undefined;
         }
@@ -65,18 +73,18 @@ export function useCharacter(player: alt.Player) {
      * Sets a player document value, and saves it automatically to the selected Character database.
      * Automatically calls all callbacks associated with the field name.
      *
-     * @template T
-     * @param {(keyof KnownKeys<Character & T>)} fieldName
-     * @param {*} value
-     * @return {void}
+     * @template K
+     * @param {K} fieldName
+     * @param {Character[K]} value
+     * @return
      */
-    async function set<T = {}, Keys = keyof KnownKeys<Character & T>>(fieldName: Keys, value: any) {
+    async function set<K extends keyof Character>(fieldName: K, value: Character[K]) {
         if (!player.hasMeta(sessionKey)) {
             return undefined;
         }
 
         const typeSafeFieldName = String(fieldName);
-        let data = player.getMeta(sessionKey) as T & Character;
+        let data = player.getMeta(sessionKey) as Character;
         let oldValue = undefined;
 
         if (data[typeSafeFieldName]) {
@@ -88,6 +96,8 @@ export function useCharacter(player: alt.Player) {
         data = Object.assign(data, newData);
         player.setMeta(sessionKey, data);
         await db.update({ _id: data._id, [typeSafeFieldName]: value }, CollectionNames.Characters);
+
+        alt.emit('rebar:playerCharacterUpdated', player, fieldName, value);
 
         if (typeof callbacks[typeSafeFieldName] === 'undefined') {
             return;
@@ -102,16 +112,15 @@ export function useCharacter(player: alt.Player) {
      * Sets player document values, and saves it automatically to the selected Character's database.
      * Automatically calls all callbacks associated with the field name.
      *
-     * @template T
-     * @param {(Partial<Character & T>)} fields
-     * @returns {void}
+     * @param {Partial<Character>} fields
+     * @return
      */
-    async function setBulk<T = {}, Keys = Partial<Character & T>>(fields: Keys) {
+    async function setBulk(fields: Partial<Character>) {
         if (!player.hasMeta(sessionKey)) {
             return undefined;
         }
 
-        let data = player.getMeta(sessionKey) as Character & T;
+        let data = player.getMeta(sessionKey) as Character;
 
         const oldValues = {};
 
@@ -129,6 +138,8 @@ export function useCharacter(player: alt.Player) {
         await db.update({ _id: data._id, ...fields }, CollectionNames.Characters);
 
         Object.keys(fields).forEach((key) => {
+            alt.emit('rebar:playerCharacterUpdated', player, key as keyof Character, data[key]);
+
             if (typeof callbacks[key] === 'undefined') {
                 return;
             }
@@ -142,13 +153,12 @@ export function useCharacter(player: alt.Player) {
     /**
      * Return all vehicles that belong to this account
      *
-     * @template T
-     * @return {(Promise<(Vehicle & T)[]>)}
+     * @return {Promise<Vehicle[]>}
      */
-    async function getVehicles<T = {}>(): Promise<(Vehicle & T)[]> {
-        const data = player.getMeta(sessionKey) as Vehicle & T;
+    async function getVehicles(): Promise<Vehicle[]> {
+        const data = player.getMeta(sessionKey) as Vehicle;
         const results = await db.getMany({ owner: data._id }, CollectionNames.Vehicles);
-        return results as (Vehicle & T)[];
+        return results as Vehicle[];
     }
 
     async function addIdentifier() {
@@ -156,72 +166,25 @@ export function useCharacter(player: alt.Player) {
             return getField('id');
         }
 
-        const identifier = Rebar.database.useIncrementalId(Rebar.database.CollectionNames.Characters);
+        const identifier = useIncrementalId(CollectionNames.Characters);
         const id = await identifier.getNext();
         await setBulk({ id });
         return id;
     }
 
-    const { permissions, groupPermissions } = usePermissionProxy(player, 'character', get, set);
+    const { permissions, groups } = usePermissionProxy<Character>(get, setBulk, player, 'character');
 
-    /**
-     * Old permission system. Will be deprecated in the future.
-     * Use the new permission system instead.
-     * @deprecated
-     */
-    const permission = {
-        /**
-         * @deprecated
-         */
-        addPermission: async (permissionName: string) => {
-            alt.logWarning('Consider using useCharacter(...).permissions.addPermission. This will be deprecated.');
-            return await permissions.addPermission(permissionName);
-        },
-        /**
-         * @deprecated
-         */
-        removePermission: async (permissionName: string) => {
-            alt.logWarning('Consider using useCharacter(...).permissions.removePermission. This will be deprecated.');
-            return await permissions.removePermission(permissionName);
-        },
-        /**
-         * @deprecated
-         */
-        hasPermission: (permissionName: string) => {
-            alt.logWarning('Consider using useCharacter(...).permissions.hasPermission. This will be deprecated.');
-            return permissions.hasPermission(permissionName);
-        },
-        /**
-         * @deprecated
-         */
-        hasGroupPermission: (groupName: string, permissionName: string) => {
-            alt.logWarning('Consider using useCharacter(...).permissions.hasGroupPermission. This will be deprecated.');
-            return groupPermissions.hasGroupPerm(groupName, permissionName);
-        },
-        /**
-         * @deprecated
-         */
-        hasAnyGroupPermission: (groupName: string, permissionNames: string[]) => {
-            alt.logWarning('Consider using useCharacter(...).permissions.hasAnyGroupPermission. This will be deprecated.');
-            return groupPermissions.hasAtLeastOneGroupPerm(groupName, permissionNames);
-        },
-        /**
-         * @deprecated
-         */
-        addGroupPerm: async (groupName: string, permissionName: string) => {
-            alt.logWarning('Consider using useCharacter(...).permissions.addGroupPerm. This will be deprecated.');
-            return await groupPermissions.addPermissions(groupName, [permissionName]);
-        },
-        /**
-         * @deprecated
-         */
-        removeGroupPerm: async (groupName: string, permissionName: string) => {
-            alt.logWarning('Consider using useCharacter(...).permissions.removeGroupPerm. This will be deprecated.');
-            return await groupPermissions.removePermissions(groupName, [permissionName]);
-        }
-    }
-
-    return { addIdentifier, get, getField, isValid, getVehicles, permission, permissions, groupPermissions, set, setBulk };
+    return {
+        permissions,
+        groups,
+        addIdentifier,
+        get,
+        getField,
+        isValid,
+        getVehicles,
+        set,
+        setBulk,
+    };
 }
 
 export function useCharacterBinder(player: alt.Player, syncPlayer = true) {
@@ -241,13 +204,13 @@ export function useCharacterBinder(player: alt.Player, syncPlayer = true) {
         }
 
         player.setMeta(sessionKey, document);
-        Rebar.events.useEvents().invoke('character-bound', player, document);
+        alt.emit('rebar:playerCharacterBound', player, document);
 
         if (syncPlayer) {
-            Rebar.player.usePlayerAppearance(player).sync();
-            Rebar.player.useClothing(player).sync();
-            Rebar.player.useWeapon(player).sync();
-            Rebar.player.useState(player).sync();
+            usePlayerAppearance(player).sync();
+            useClothing(player).sync();
+            useWeapon(player).sync();
+            useState(player).sync();
         }
 
         const characterUse = useCharacter(player);
@@ -272,28 +235,5 @@ export function useCharacterBinder(player: alt.Player, syncPlayer = true) {
     return {
         bind,
         unbind,
-    };
-}
-
-export function useCharacterEvents() {
-    /**
-     * Listen for individual player document changes.
-     *
-     * @param {string} fieldName
-     * @param {KeyChangeCallback} callback
-     * @return {void}
-     */
-    function on<T = {}>(fieldName: keyof KnownKeys<Character & T>, callback: KeyChangeCallback) {
-        const actualFieldName = String(fieldName);
-
-        if (typeof callbacks[actualFieldName] === 'undefined') {
-            callbacks[actualFieldName] = [callback];
-        } else {
-            callbacks[actualFieldName].push(callback);
-        }
-    }
-
-    return {
-        on,
     };
 }

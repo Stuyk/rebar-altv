@@ -2,7 +2,6 @@ import * as alt from 'alt-server';
 import * as players from './players.js';
 import * as Utility from '@Shared/utility/index.js';
 import { useVehicle } from '@Server/document/vehicle.js';
-import { getClosestEntity } from './shared.js';
 
 export function useVehicleGetter() {
     /**
@@ -125,7 +124,8 @@ export function useVehicleGetter() {
      * @return {(alt.Vehicle | undefined)}
      */
     function closestVehicle(player: alt.Player, range = 25): alt.Vehicle | undefined {
-        return getClosestEntity<alt.Vehicle>(player, [...alt.Vehicle.all], range);
+        const results = alt.getClosestEntities(player.pos, range, player.dimension, -1, 2) as alt.Vehicle[];
+        return results.length >= 1 ? results[0] : undefined;
     }
 
     return {
