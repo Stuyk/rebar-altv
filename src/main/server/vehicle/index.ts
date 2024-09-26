@@ -65,39 +65,15 @@ export function useVehicle(vehicle: alt.Vehicle) {
             vehicle.neonColor = document.neon.color;
         }
 
-        // Synchronize primary custom paint job
-        if (typeof document.color.primaryCustom !== 'undefined') {
-            vehicle.customPrimaryColor = document.color.primaryCustom;
-        }
-
-        // Synchronize secondary custom paint job
-        if (typeof document.color.secondaryCustom !== 'undefined') {
-            vehicle.customSecondaryColor = document.color.secondaryCustom;
-        }
-
-        // Synchronize primary paint job
-        if (typeof document.color.primary !== 'undefined') {
-            vehicle.primaryColor = document.color.primary;
-        }
-
-        // Synchronize secondary paint job
-        if (typeof document.color.secondary !== 'undefined') {
-            vehicle.secondaryColor = document.color.secondary;
-        }
-
-        // Synchronize wheelColor
-        if (typeof document.color.wheel !== 'undefined') {
-            vehicle.wheelColor = document.color.wheel;
-        }
-
-        // Synchronize pearlColor
-        if (typeof document.color.pearl !== 'undefined') {
-            vehicle.pearlColor = document.color.pearl;
-        }
-
-        // Synchronize xenonColor
-        if (typeof document.color.xenon !== 'undefined') {
-            vehicle.headlightColor = document.color.xenon;
+        // Synchronize Colors
+        if (document.color) {
+            vehicle.customPrimaryColor = document.color.primaryCustom ?? new alt.RGBA(255, 255, 255, 255);
+            vehicle.customSecondaryColor = document.color.secondaryCustom ?? new alt.RGBA(255, 255, 255, 255);
+            vehicle.primaryColor = document.color.primary ?? 0;
+            vehicle.secondaryColor = document.color.secondary ?? 0;
+            vehicle.wheelColor = document.color.wheel ?? 0;
+            vehicle.pearlColor = document.color.pearl ?? 0;
+            vehicle.headlightColor = document.color.xenon ?? 0;
         }
 
         // Synchronize vehicle extras
