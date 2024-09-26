@@ -488,6 +488,15 @@ export function useVehicle(vehicle: alt.Vehicle) {
     }
 
     /**
+     * Get the model info of the vehicle
+     *
+     * @returns {alt.IVehicleModel}
+     */
+    function getVehicleModelInfo(): alt.IVehicleModel {
+        return alt.getVehicleModelInfoByHash(vehicle.model);
+    }
+
+    /**
      * Set the RPM for the vehicle
      *
      * @param {number} value
@@ -506,6 +515,7 @@ export function useVehicle(vehicle: alt.Vehicle) {
         bind,
         create,
         getVehicleModelName,
+        getVehicleModelInfo,
         handling: useVehicleHandling(vehicle),
         hasOwner,
         isBound,
