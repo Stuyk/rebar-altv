@@ -65,6 +65,7 @@ export function useVehicle(vehicle: alt.Vehicle) {
             vehicle.neonColor = document.neon.color;
         }
 
+
         // Synchronize Colors
         if (document.color) {
             vehicle.customPrimaryColor = document.color.primaryCustom ?? new alt.RGBA(255, 255, 255, 255);
