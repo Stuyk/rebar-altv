@@ -65,13 +65,22 @@ export function useVehicle(vehicle: alt.Vehicle) {
             vehicle.neonColor = document.neon.color;
         }
 
-
         // Synchronize Colors
         if (document.color) {
-            vehicle.customPrimaryColor = document.color.primaryCustom ?? new alt.RGBA(255, 255, 255, 255);
-            vehicle.customSecondaryColor = document.color.secondaryCustom ?? new alt.RGBA(255, 255, 255, 255);
-            vehicle.primaryColor = document.color.primary ?? 0;
-            vehicle.secondaryColor = document.color.secondary ?? 0;
+            // Set custom colors if they exist, otherwise set a default value
+            if (document.color.primaryCustom) {
+                vehicle.customPrimaryColor = document.color.primaryCustom;
+            } else {
+                vehicle.primaryColor = document.color.primary ?? 0; // Only set base color if no custom color exists
+            }
+
+            if (document.color.secondaryCustom) {
+                vehicle.customSecondaryColor = document.color.secondaryCustom;
+            } else {
+                vehicle.secondaryColor = document.color.secondary ?? 0; // Only set base color if no custom color exists
+            }
+
+            // Set other colors normally
             vehicle.wheelColor = document.color.wheel ?? 0;
             vehicle.pearlColor = document.color.pearl ?? 0;
             vehicle.headlightColor = document.color.xenon ?? 0;
