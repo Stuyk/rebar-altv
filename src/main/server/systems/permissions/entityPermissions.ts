@@ -7,11 +7,11 @@ function evaluatePermission(permission: Permission, hasPermission: (perm: string
     if (typeof permission === 'string') {
         return hasPermission(permission);
     } else if (Array.isArray(permission)) {
-        return permission.every((perm) => hasPermission(perm));
+        return permission.some((perm) => hasPermission(perm));
     } else if ('and' in permission) {
         return permission.and.every((perm) => evaluatePermission(perm, hasPermission));
     } else if ('or' in permission) {
-        return permission.or.some((perm) => evaluatePermission(perm, hasPermission));
+        return permission.or.every((perm) => evaluatePermission(perm, hasPermission));
     }
     return false;
 }
