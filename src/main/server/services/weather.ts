@@ -55,7 +55,7 @@ export function useWeatherService() {
             const service = useServiceRegister().get('weatherService');
 
             alt.setMeta('serverWeather', weatherType);
-            alt.emit('rebarweatherChanged', weatherType);
+            alt.emit('rebar:weatherChanged', weatherType);
 
             if (service && service.setWeather) {
                 service.setWeather(weatherType);
