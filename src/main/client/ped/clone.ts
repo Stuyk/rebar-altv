@@ -4,7 +4,13 @@ import { Appearance } from '../../shared/types/appearance.js';
 import { PedBones } from '../../shared/data/pedBones.js';
 import { ClothingComponent } from '../../shared/types/clothingComponent.js';
 
-type CameraOptions = { fov: number; zOffset: number; bone: keyof typeof PedBones };
+type CameraOptions = {
+    fov: number;
+    xOffset: number;
+    yOffset: number;
+    zOffset: number;
+    bone: keyof typeof PedBones
+};
 
 let interval: number;
 
@@ -174,9 +180,11 @@ export function useClonedPed() {
     async function createCamera(
         options: CameraOptions = {
             fov: 30,
+            xOffset: 0,
+            yOffset: 0,
             zOffset: 0.8,
-            bone: 'IK_Head',
-        },
+            bone: 'IK_Head'
+        }
     ) {
         if (camera) {
             return;
@@ -188,7 +196,11 @@ export function useClonedPed() {
 
         const fwd = native.getEntityForwardVector(ped);
         const targetPosition = native.getEntityCoords(ped, true);
-        const pos = targetPosition.add(fwd.x * 2, fwd.y * 2, options.zOffset);
+        const pos = targetPosition.add(
+            (fwd.x + options.xOffset) * 2,
+            (fwd.y + options.yOffset) * 2,
+            options.zOffset
+        );
 
         camera = native.createCamWithParams('DEFAULT_SCRIPTED_CAMERA', pos.x, pos.y, pos.z, 0, 0, 0, 55, false, 1);
 
