@@ -125,6 +125,9 @@ export function useClonedPed() {
 
         native.setHeadBlendEyeColor(ped, appearance.eyes);
 
+        // Clearing all props
+        native.clearAllPedProps(ped, 0);
+
         // Default Clothes for Even Customization
         for (let component of clothing) {
             if (component.isProp) {
