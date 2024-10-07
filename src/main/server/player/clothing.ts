@@ -1,31 +1,10 @@
 import * as alt from 'alt-server';
 import { useCharacter } from '@Server/document/character.js';
 import {Character, ClothingComponent} from '@Shared/types/index.js';
+import { ClothingKey, PropKey } from '@Shared/data/clothingKeys.js';
 
 const fModel = alt.hash('mp_f_freemode_01');
 const mModel = alt.hash(`mp_m_freemode_01`);
-
-const ClothingKey = {
-    head: 0,
-    mask: 1,
-    torso: 3,
-    legs: 4,
-    bag: 5,
-    shoes: 6,
-    accessories: 7,
-    undershirts: 8,
-    bodyarmor: 9,
-    decals: 10,
-    tops: 11,
-};
-
-const PropKey = {
-    hat: 0,
-    glasses: 1,
-    ears: 2,
-    watch: 6,
-    bracelet: 7,
-};
 
 let femaleClothes = {
     0: 1, // mask
