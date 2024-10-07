@@ -60,21 +60,57 @@ export function useVehicle(vehicle: alt.Vehicle) {
         }
 
         // Synchronize neon
-        if (document.neon && document.neon.color) {
-            vehicle.neon = document.neon.placement;
-            vehicle.neonColor = document.neon.color;
+        if (document.neon) {
+            if (document.neon.placement) {
+                vehicle.neon = document.neon.placement;
+            }
+            if (document.neon.color) {
+                vehicle.neonColor = new alt.RGBA(
+                    document.neon.color.r,
+                    document.neon.color.g,
+                    document.neon.color.b,
+                    document.neon.color.a
+                );
+            }
         }
-
-
+    
         // Synchronize Colors
         if (document.color) {
-            vehicle.customPrimaryColor = document.color.primaryCustom ?? new alt.RGBA(255, 255, 255, 255);
-            vehicle.customSecondaryColor = document.color.secondaryCustom ?? new alt.RGBA(255, 255, 255, 255);
-            vehicle.primaryColor = document.color.primary ?? 0;
-            vehicle.secondaryColor = document.color.secondary ?? 0;
-            vehicle.wheelColor = document.color.wheel ?? 0;
-            vehicle.pearlColor = document.color.pearl ?? 0;
-            vehicle.headlightColor = document.color.xenon ?? 0;
+            // Primary Color
+            if (document.color.primary !== undefined) {
+                vehicle.primaryColor = document.color.primary;
+            }
+            if (document.color.primaryCustom) {
+                vehicle.customPrimaryColor = new alt.RGBA(
+                    document.color.primaryCustom.r,
+                    document.color.primaryCustom.g,
+                    document.color.primaryCustom.b,
+                    document.color.primaryCustom.a
+                );
+            }
+    
+            // Secondary Color
+            if (document.color.secondary !== undefined) {
+                vehicle.secondaryColor = document.color.secondary;
+            }
+            if (document.color.secondaryCustom) {
+                vehicle.customSecondaryColor = new alt.RGBA(
+                    document.color.secondaryCustom.r,
+                    document.color.secondaryCustom.g,
+                    document.color.secondaryCustom.b,
+                    document.color.secondaryCustom.a
+                );
+            }
+    
+            if (document.color.wheel !== undefined) {
+                vehicle.wheelColor = document.color.wheel;
+            }
+            if (document.color.pearl !== undefined) {
+                vehicle.pearlColor = document.color.pearl;
+            }
+            if (document.color.xenon !== undefined) {
+                vehicle.headlightColor = document.color.xenon;
+            }
         }
 
         // Synchronize vehicle extras
