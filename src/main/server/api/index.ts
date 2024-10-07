@@ -25,18 +25,21 @@ export function useApi() {
         return registeredApis[apiName] as ServerPlugin[K];
     }
 
-    async function getAsync<K extends keyof ServerPlugin>(apiName: K, timeout = 30000): Promise<ServerPlugin[K]> {
-        await alt.Utils.waitFor(() => isReady(apiName), timeout).catch((err) => {
-            console.warn(`Failed to load API for ${apiName}`);
-        });
+    function getAsync<K extends keyof ServerPlugin>(apiName: K, timeout = 30000): Promise<ServerPlugin[K]> {
+        return alt.Utils.waitFor(() => isReady(apiName), timeout)
+            .then(() => get(apiName))
+            .catch((err) => {
+                console.warn(`Failed to load API for ${apiName}`);
+                throw err;
+            });
+    }
 
-        return get(apiName);
+    function list(): Promise<{ [key: string]: Object }> {
+        return new Promise((resolve) => {
+            resolve(registeredApis);
+        });
     }
-    
-    async function list() {
-        return registeredApis;
-    }
-    
+
     return {
         get,
         getAsync,
