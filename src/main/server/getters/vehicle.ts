@@ -124,8 +124,8 @@ export function useVehicleGetter() {
      * @return {(alt.Vehicle | undefined)}
      */
     function closestVehicle(player: alt.Player, range = 25): alt.Vehicle | undefined {
-        const results = alt.getClosestEntities(player.pos, range, player.dimension, -1, 2) as alt.Vehicle[];
-        return results.length >= 1 ? results[0] : undefined;
+        const results = alt.Utils.getClosestVehicle({ pos: player.pos, range }) as alt.Vehicle;
+        return results ? results : undefined;
     }
 
     return {
