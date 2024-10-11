@@ -70,9 +70,6 @@ export function useAnimation(player: alt.Player) {
                 console.error('Error in playFinite:', error);
             }
         }
-
-        await alt.Utils.wait(durationInMs);
-        clear();
     }
 
     return {
