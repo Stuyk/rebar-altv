@@ -63,12 +63,8 @@ export function useAnimation(player: alt.Player) {
         );
 
         if (!doNotClear) {
-            try {
-                await alt.Utils.wait(durationInMs);
-                clear();
-            } catch (error) {
-                console.error('Error in playFinite:', error);
-            }
+            await alt.Utils.wait(durationInMs);
+            clear();
         }
     }
 
