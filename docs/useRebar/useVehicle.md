@@ -238,3 +238,36 @@ Toggle the lock as a player and check permission for vehicle.
 ```ts
 rVehicle.toggleLockAsPlayer(player);
 ```
+
+### getVehicleModelInfo
+
+Get the model info of the vehicle
+
+```ts
+const modelInfo: alt.IVehicleModel = rVehicle.getVehicleModelInfo();
+```
+
+It will return the model info of the vehicle with the following interface:
+
+```ts
+export interface IVehicleModel {
+    readonly modelHash: number;
+    readonly title: string;
+    readonly type: shared.ModelType;
+    readonly wheelsCount: number;
+    readonly hasArmoredWindows: boolean;
+    readonly primaryColor: number;
+    readonly secondaryColor: number;
+    readonly pearlColor: number;
+    readonly wheelsColor: number;
+    readonly interiorColor: number;
+    readonly dashboardColor: number;
+    readonly hasAutoAttachTrailer: boolean;
+    readonly availableModkits: readonly boolean[];
+    hasExtra(extraId: number): boolean;
+    hasDefaultExtra(extraId: number): boolean;
+    readonly bones: readonly IBoneInfo[];
+    readonly canAttachCars: boolean;
+    readonly handlingNameHash: number;
+}
+```
