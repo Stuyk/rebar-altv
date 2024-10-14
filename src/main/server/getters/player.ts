@@ -9,7 +9,7 @@ export function usePlayerGetter() {
      *
      * #### Example
      * ```ts
-     * const player = Athena.getters.player.byAccount('123456789');
+     * const player = Rebar.get.usePlayerGetter().byAccount('123456789');
      * if (player) {
      *     console.log(`Found player ${player.id} with account ID ${player.account._id}`);
      * } else {
@@ -171,8 +171,8 @@ export function usePlayerGetter() {
      * @return {(alt.Player | undefined)}
      */
     function closestToPlayer(player: alt.Player, range = 10): alt.Player | undefined {
-        const results = alt.getClosestEntities(player.pos, range, player.dimension, -1, 1) as alt.Player[];
-        return results.length >= 1 ? results[0] : undefined;
+        const results = alt.Utils.getClosestPlayer({ pos: player.pos, range }) as alt.Player;
+        return results ? results : undefined;
     }
 
     /**
@@ -182,8 +182,8 @@ export function usePlayerGetter() {
      * @return {(alt.Player | undefined)}
      */
     function closestToVehicle(vehicle: alt.Vehicle, range = 25): alt.Player | undefined {
-        const results = alt.getClosestEntities(vehicle.pos, range, vehicle.dimension, -1, 1) as alt.Player[];
-        return results.length >= 1 ? results[0] : undefined;
+        const results = alt.Utils.getClosestPlayer({ pos: vehicle.pos, range }) as alt.Player;
+        return results ? results : undefined;
     }
 
     /**
