@@ -1,6 +1,6 @@
 import * as alt from 'alt-server';
 import * as native from 'natives';
-import {PedOptions, OmitFirstArg} from '@Shared/types/index.js';
+import { PedOptions, OmitFirstArg } from '@Shared/types/index.js';
 import { Events } from '../../shared/events/index.js';
 import * as Utility from '@Shared/utility/index.js';
 
@@ -271,6 +271,19 @@ export function usePed(ped: alt.Ped, uid?: string) {
         }, 5000);
     }
 
+    /**
+     * set ped dimension
+     * @param ped
+     * @param dimension
+     * @returns
+     */
+    function setPedDimension(ped: alt.Ped, dimension: number) {
+        if (!ped.valid) {
+            return;
+        }
+        ped.dimension = dimension;
+    }
+
     peds.set(uid, {
         fadeOutAndDestroy,
         getClosestPlayer,
@@ -283,6 +296,7 @@ export function usePed(ped: alt.Ped, uid?: string) {
         setFrozen,
         setNoCollision,
         setOption,
+        setPedDimension,
     });
 
     return {
@@ -297,6 +311,7 @@ export function usePed(ped: alt.Ped, uid?: string) {
         setFrozen,
         setNoCollision,
         setOption,
+        setPedDimension,
     };
 }
 
