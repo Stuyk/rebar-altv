@@ -290,12 +290,12 @@ export function usePed(ped: alt.Ped, uid?: string) {
      * @param appearance
      * @returns
      */
-    function setPedAppearance(clothing: ClothingComponent[], appearance: Appearance) {
-        if (!ped.valid) {
+    function setPedAppearance(targetPed:alt.Ped,clothing: ClothingComponent[], appearance: Appearance) {
+        if (!targetPed.valid) {
             return;
         }
 
-        ped.netOwner.emit(Events.controllers.ped.setAppearance, ped, clothing, appearance);
+        targetPed.netOwner.emit(Events.controllers.ped.setAppearance, targetPed, clothing, appearance);
     }
 
     peds.set(uid, {
