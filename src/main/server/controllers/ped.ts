@@ -1,6 +1,6 @@
 import * as alt from 'alt-server';
 import * as native from 'natives';
-import { PedOptions, OmitFirstArg } from '@Shared/types/index.js';
+import { PedOptions, OmitFirstArg, ClothingComponent, Appearance } from '@Shared/types/index.js';
 import { Events } from '../../shared/events/index.js';
 import * as Utility from '@Shared/utility/index.js';
 
@@ -284,6 +284,20 @@ export function usePed(ped: alt.Ped, uid?: string) {
         ped.dimension = dimension;
     }
 
+    /**
+     * set target ped appearance and clothing
+     * @param clothing
+     * @param appearance
+     * @returns
+     */
+    function setPedAppearance(clothing: ClothingComponent[], appearance: Appearance) {
+        if (!ped.valid) {
+            return;
+        }
+
+        ped.netOwner.emit(Events.controllers.ped.setAppearance, ped, clothing, appearance);
+    }
+
     peds.set(uid, {
         fadeOutAndDestroy,
         getClosestPlayer,
@@ -297,6 +311,7 @@ export function usePed(ped: alt.Ped, uid?: string) {
         setNoCollision,
         setOption,
         setPedDimension,
+        setPedAppearance,
     });
 
     return {
@@ -312,6 +327,7 @@ export function usePed(ped: alt.Ped, uid?: string) {
         setNoCollision,
         setOption,
         setPedDimension,
+        setPedAppearance,
     };
 }
 
