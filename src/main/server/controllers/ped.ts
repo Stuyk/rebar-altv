@@ -290,7 +290,7 @@ export function usePed(ped: alt.Ped, uid?: string) {
      * @param appearance
      * @returns
      */
-    function setPedAppearance(targetPed:alt.Ped,clothing: ClothingComponent[], appearance: Appearance) {
+    function setPedAppearance(targetPed:alt.Ped, clothing: ClothingComponent[], appearance: Appearance) {
         if (!targetPed.valid) {
             return;
         }
