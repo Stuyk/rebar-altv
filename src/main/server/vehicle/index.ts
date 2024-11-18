@@ -267,6 +267,7 @@ export function useVehicle(vehicle: alt.Vehicle) {
             console.warn('Error destroying the old vehicle:', err);
         }
 
+        vehicle = newVehicle;
         return newVehicle;
     }
 
