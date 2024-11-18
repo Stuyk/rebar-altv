@@ -78,8 +78,18 @@ export function usePlayerAppearance(player: alt.Player) {
                 const overlay = data.headOverlays[i];
                 const color2 = overlay.color2 ? overlay.color2 : overlay.color1;
 
+                // Determine ColorType
+                let colorType = 0; // Default
+                if ([1, 2, 10].includes(overlay.id)) {
+                    // IDs for eyebrows, beards, chest hair
+                    colorType = 1;
+                } else if ([4, 5, 8].includes(overlay.id)) {
+                    // IDs for blush, lipstick and makeup
+                    colorType = 2;
+                }
+
                 player.setHeadOverlay(overlay.id, overlay.value, parseFloat(overlay.opacity.toString()));
-                player.setHeadOverlayColor(overlay.id, 1, overlay.color1, color2);
+                player.setHeadOverlayColor(overlay.id, colorType, overlay.color1, color2);
             }
         }
 
