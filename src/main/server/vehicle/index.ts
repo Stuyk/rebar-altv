@@ -211,32 +211,64 @@ export function useVehicle(vehicle: alt.Vehicle) {
     }
 
     /**
-     * Despawns current vehicle, grabs existing document on the vehicle.
-     * Recreates the vehicle, saves health, and then re-applies the document.
+     * Repairs the current vehicle by recreating it with saved attributes,
+     * applying the existing document, and restoring its health.
      *
-     * @return
+     * @return {Promise<alt.Vehicle>} The repaired vehicle instance.
      */
     async function repair(): Promise<alt.Vehicle> {
         const document = useVehicleDocument(vehicle);
-        const model = vehicle.model;
-        const pos = vehicle.pos;
-        const rot = vehicle.rot;
 
-        try {
-            vehicle.destroy();
-        } catch (err) {}
-
-        vehicle = new alt.Vehicle(model, pos, rot);
-
+        // If no document is available, return the original vehicle
         if (!document.get()) {
             return vehicle;
         }
 
-        useVehicleBinder(vehicle).bind(document.get(), false);
-        await save();
-        sync();
+        const { model, pos, rot } = vehicle;
 
-        return vehicle;
+        // Create a new vehicle instance
+        const newVehicle = new alt.Vehicle(model, pos, rot);
+        if (!newVehicle) {
+            throw new Error('Failed to create a new vehicle instance.');
+        }
+
+        // Bind the document to the new vehicle
+        useVehicleBinder(newVehicle).bind(document.get(), true);
+
+        // Set vehicle health to maximum
+        const MAX_HEALTH = 1000;
+        Object.assign(newVehicle, {
+            bodyHealth: MAX_HEALTH,
+            engineHealth: MAX_HEALTH,
+            petrolTankHealth: MAX_HEALTH,
+        });
+
+        // Repair windows and reset damage
+        for (let i = 0; i < 7; i++) {
+            if (newVehicle.hasArmoredWindows) {
+                newVehicle.setArmoredWindowHealth(i, MAX_HEALTH);
+            } else {
+                newVehicle.setWindowDamaged(i, false);
+            }
+        }
+
+        // Repair all wheels
+        Array.from({ length: newVehicle.wheelsCount }).forEach((_, i) =>
+            newVehicle.setWheelFixed(i)
+        );
+
+        // Save the updated vehicle state
+        await save();
+
+        // Destroy the old vehicle safely
+        try {
+            vehicle.destroy();
+        } catch (err) {
+            console.warn('Error destroying the old vehicle:', err);
+        }
+
+        vehicle = newVehicle;
+        return newVehicle;
     }
 
     /**
