@@ -72,11 +72,11 @@ export function useClonedPed() {
         native.setPedHeadBlendData(ped, 0, 0, 0, 0, 0, 0, 0, 0, 0, false);
         native.setPedHeadBlendData(
             ped,
-            appearance.faceFather,
             appearance.faceMother,
+            appearance.faceFather,
             0,
-            appearance.skinFather,
             appearance.skinMother,
+            appearance.skinFather,
             0,
             appearance.faceMix,
             appearance.skinMix,
