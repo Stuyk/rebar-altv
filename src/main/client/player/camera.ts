@@ -11,15 +11,19 @@ function tick() {
 
 function destroy() {
     try {
-        alt.clearInterval(interval);
+        if (typeof interval !== 'undefined') {
+            alt.clearInterval(interval);
+        }
     } catch (err) {}
 
     try {
-        native.setCamActive(camera, false);
+        if (typeof camera !== 'undefined') {
+            native.setCamActive(camera, false);
+            native.destroyAllCams(true);
+            native.renderScriptCams(false, false, 0, false, false, 0);
+        }
     } catch (err) {}
 
-    native.destroyAllCams(true);
-    native.renderScriptCams(false, false, 0, false, false, 0);
     interval = undefined;
     camera = undefined;
 }
@@ -34,13 +38,14 @@ export function useCamera() {
             bone: 'IK_Head',
         },
     ) {
-        if (camera) {
+        if (typeof camera !== 'undefined') {
             return;
         }
-
+        
+        destroy();
+        
         const fwd = native.getEntityForwardVector(alt.Player.local);
         camPos = alt.Player.local.pos.add(fwd.x * 2, fwd.y * 2, options.zOffset);
-
         camera = native.createCamWithParams(
             'DEFAULT_SCRIPTED_CAMERA',
             camPos.x,
