@@ -61,9 +61,35 @@ export async function useGlobal<T extends Object = Object>(identifier: string) {
         return await db.update({ _id: data[identifier]._id, ...newData }, CollectionNames.Global);
     }
 
+    /**
+     * Unset a field from your global document
+     *
+     * @param {string} fieldName
+     * @returns {Promise<boolean>}
+     */
     async function unset(fieldName: string): Promise<boolean> {
         delete data[identifier][fieldName];
         return await db.unset(identifier, [fieldName], CollectionNames.Global);
+    }
+
+    /**
+     * Increment a field in your global document
+     *
+     * @param {string} fieldName Field to increment
+     * @param {number} value Value to increment by, defaults to 1
+     * @returns {number} The new value of the field
+     */
+    async function increment(fieldName: string, value: number = 1): Promise<number> {
+        const client = await db.getClient();
+        const updatedValue = await client
+            .collection(CollectionNames.Global)
+            .findOneAndUpdate(
+                { _id: data[identifier]._id },
+                { $inc: { [fieldName]: value } },
+                { upsert: true, returnDocument: 'after' },
+            );
+        data[identifier][fieldName] = updatedValue.value[fieldName];
+        return data[identifier][fieldName];
     }
 
     return {
@@ -72,5 +98,6 @@ export async function useGlobal<T extends Object = Object>(identifier: string) {
         set,
         setBulk,
         unset,
+        increment,
     };
 }

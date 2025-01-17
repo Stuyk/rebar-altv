@@ -10,9 +10,7 @@ async function init() {
 
 export function useIncrementalId(key: string) {
     async function getNext() {
-        const value: number = incremental.getField(key) ?? 0;
-        await incremental.set(key, value + 1);
-        return value + 1;
+        return await incremental.increment(key);
     }
 
     return {

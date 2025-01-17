@@ -67,3 +67,27 @@ async function doSomething() {
     document.setBulk({ totalMoneyCreated: 200, totalMoneyDestroyed: 200 });
 }
 ```
+
+
+### unset
+
+Delete a specific field from the document.
+
+```ts
+async function doSomething() {
+    const document = await Rebar.document.global.useGlobal<MyDataType>('my-identifier-goes-here-for-my-document');
+    document.unset('totalMoneyCreated');
+}
+```
+
+### increment
+
+Increment a specific field by a specific amount. It uses 1 as default amount.
+
+```ts
+async function doSomething() {
+    const document = await Rebar.document.global.useGlobal<MyDataType>('my-identifier-goes-here-for-my-document');
+    document.increment('totalMoneyCreated'); // Increment by 1
+    document.increment('totalMoneyCreated', 200); // Increment by 200
+}
+```
