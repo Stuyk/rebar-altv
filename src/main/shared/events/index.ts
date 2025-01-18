@@ -28,6 +28,7 @@ export const Events = {
             invoke: 'ped:invoke',
             invokeRpc: 'ped:invoke:rpc',
             fadeOut: 'ped:fade:out',
+            setAppearance: 'ped:set:appearance',
         },
         progressbar: {
             create: 'progressbar:create',

@@ -393,6 +393,14 @@ ped.kill();
 
 // Fades out the ped over 5 seconds, and then destroys the ped
 ped.fadeOutAndDestroy();
+
+// Set target ped dimension
+let targetPed = new alt.Ped('mp_m_freemode_01', new alt.Vector3(0, 0, 0), alt.Vector3.zero, 100);
+let dimension = 100;
+ped.setPedDimension(targetPed.dimension, dimension);
+
+// Set target ped appearance and clothing
+ped.setPedAppearance(targetPed, clothing, appearance);
 ```
 
 #### Native List
