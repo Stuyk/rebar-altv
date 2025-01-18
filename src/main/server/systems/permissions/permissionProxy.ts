@@ -48,7 +48,7 @@ export function usePermissionProxy<T extends Document>(
             if (!_permissions) return false;
             await bulkSetter(_permissions as Partial<T>);
             if (entity) {
-                alt.emit('permissions:grant', entity, permission, target);
+                alt.emit('rebar:permissions:grant', entity, permission, target);
             }
             return true;
         },
@@ -58,7 +58,7 @@ export function usePermissionProxy<T extends Document>(
             if (!_permissions) return false;
             await bulkSetter(_permissions as Partial<T>);
             if (entity) {
-                alt.emit('permissions:revoke', entity, permission, target);
+                alt.emit('rebar:permissions:revoke', entity, permission, target);
             }
             return true;
         },
@@ -66,7 +66,7 @@ export function usePermissionProxy<T extends Document>(
             const document = getter();
             const permissions = [...(document.permissions || [])];
             await bulkSetter({ permissions: [] } as Partial<T>);
-            alt.emit('permissions:clear', entity, permissions, target);
+            alt.emit('rebar:permissions:clear', entity, permissions, target);
         },
         list: permissionsList,
         has: (permission: string): boolean => {
@@ -98,7 +98,7 @@ export function usePermissionProxy<T extends Document>(
             else if (document.groups.includes(groupName)) return false;
             document.groups.push(groupName);
             await bulkSetter({ groups: document.groups } as Partial<T>);
-            alt.emit('permissions:group:add', entity, groupName, target);
+            alt.emit('rebar:permissions:group:add', entity, groupName, target);
             return true;
         },
         remove: async (groupName: string): Promise<boolean> => {
@@ -106,14 +106,14 @@ export function usePermissionProxy<T extends Document>(
             if (!document.groups || !document.groups.includes(groupName)) return false;
             document.groups = document.groups.filter((group) => group !== groupName);
             await bulkSetter({ groups: document.groups } as Partial<T>);
-            alt.emit('permissions:group:remove', entity, groupName, target);
+            alt.emit('rebar:permissions:group:remove', entity, groupName, target);
             return true;
         },
         clear: async (): Promise<void> => {
             const document = getter();
             const groups = document.groups || [];
             await bulkSetter({ groups: [] } as Partial<T>);
-            alt.emit('permissions:group:clear', entity, groups, target);
+            alt.emit('rebar:permissions:group:clear', entity, groups, target);
         },
         list: (): string[] => {
             const document = getter();
